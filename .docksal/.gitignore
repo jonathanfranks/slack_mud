@@ -1,0 +1,5 @@
+# Exclude local configuration overrides
+docksal.env~
+docksal-local.env
+docksal-local.env~
+docksal-local.yml

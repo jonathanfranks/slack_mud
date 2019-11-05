@@ -1,0 +1,10 @@
+version: "2.1"
+
+services:
+  cli:
+    image: ${COMPOSE_PROJECT_NAME_SAFE}_cli
+    build: services/cli
+  blackfire:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: blackfire
