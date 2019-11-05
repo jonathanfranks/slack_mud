@@ -22,3 +22,8 @@
 
 # Ignore .env files as they are personal
 /.env
+
+# Test related files
+/web/core/phpunit.xml
+/tests/behat.yml
+/tests/failures/
