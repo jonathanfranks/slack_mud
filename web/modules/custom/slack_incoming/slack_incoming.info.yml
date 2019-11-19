@@ -1,0 +1,5 @@
+name: 'Slack Incoming'
+type: module
+description: 'Integration with Slack.com incoming events.'
+core: 8.x
+package: Slack

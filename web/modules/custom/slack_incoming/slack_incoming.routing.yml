@@ -1,0 +1,8 @@
+slack_incoming.event_endpoint:
+  path: '/slack/action-endpoint'
+  defaults:
+    _controller: '\Drupal\slack_incoming\Controller\SlackActionEndpointController::action'
+    _title: 'Slack action endpoint'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
