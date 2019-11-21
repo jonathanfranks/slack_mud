@@ -1,0 +1,10 @@
+services:
+  slack_incoming.slack_service:
+    class: Drupal\slack_incoming\Service\Slack
+    arguments: ['@config.factory', '@http_client', '@logger.factory']
+
+  slack_incoming.slack_service_subscriber:
+    class: Drupal\slack_incoming\EventSubscriber\SlackEventSubscriber
+    arguments: []
+    tags:
+      - { name: event_subscriber }
