@@ -1,0 +1,22 @@
+uuid: 71a1f8d8-aed6-4374-959a-d080546a213e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.game
+  module:
+    - text
+id: node.game.body
+field_name: body
+entity_type: node
+bundle: game
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

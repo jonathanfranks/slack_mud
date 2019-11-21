@@ -1,0 +1,28 @@
+uuid: dc2617a2-bb0d-4d10-b4d5-4ff9d35e6d85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_game
+    - node.type.game
+    - node.type.location
+id: node.location.field_game
+field_name: field_game
+entity_type: node
+bundle: location
+label: Game
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      game: game
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
