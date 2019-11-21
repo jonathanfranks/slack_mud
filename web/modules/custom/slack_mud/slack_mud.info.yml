@@ -1,0 +1,7 @@
+name: 'Slack Mud'
+type: module
+description: 'Text games played via Slack.'
+core: 8.x
+package: Slack
+dependencies:
+  - slack_incoming

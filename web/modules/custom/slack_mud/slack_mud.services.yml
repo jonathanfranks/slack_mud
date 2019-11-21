@@ -1,0 +1,6 @@
+services:
+  slack_mud.slack_service_subscriber:
+    class: Drupal\slack_mud\EventSubscriber\SlackEventSubscriber
+    arguments: ['@slack_incoming.slack_service']
+    tags:
+      - { name: event_subscriber }

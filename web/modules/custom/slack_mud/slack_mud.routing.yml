@@ -1,0 +1,16 @@
+slack_mud.games:
+  path: '/commands/games'
+  defaults:
+    _controller: '\Drupal\slack_mud\Controller\SlackMudCommandController::games'
+    _title: 'List current games'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
+slack_mud.join_game:
+  path: '/commands/join_game'
+  defaults:
+    _controller: '\Drupal\slack_mud\Controller\SlackMudCommandController::joinGame'
+    _title: 'Join a game'
+  methods: [POST]
+  requirements:
+    _access: 'TRUE'
