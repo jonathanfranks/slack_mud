@@ -1,0 +1,5 @@
+name: 'Entity Reference with Label'
+type: module
+description: 'Entity reference field with a custom label for the reference.'
+core: 8.x
+package: Field

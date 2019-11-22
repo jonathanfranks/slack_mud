@@ -70,33 +70,6 @@ class SlackActionEndpointController extends ControllerBase {
     if ($response = $slackEvent->getResponse()) {
       return $response;
     }
-//    if (array_key_exists('type', $package)) {
-//      switch ($package['type']) {
-//        case 'url_verification':
-//          return new JsonResponse(['challenge' => $package['challenge']]);
-//
-//        case 'event_callback':
-//          $event = $package['event'];
-//          if ($event['type'] == 'message') {
-//            $authedUsers = $package['authed_users'];
-//            $userSender = $event['user'];
-//            if (!in_array($userSender, $authedUsers)) {
-//              // Sender of the message isn't the bot user.
-//              // If we don't make this check it'll infinitely loop because when
-//              // the bot sends a DM, it triggers the event_callback.
-//              $channel = $event['user'];
-//              $message = 'Got your message: ' . $event['text'];
-//              $this->slack->slackApi('chat.postMessage', 'POST', [
-//                'channel' => $channel,
-//                'text' => $message,
-//                'as_user' => TRUE,
-//              ]);
-//            }
-//            return new Response('', 200);
-//          }
-//          break;
-//      }
-//    }
   }
 
 }
