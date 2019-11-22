@@ -78,13 +78,17 @@ class SlackMudCommandController extends ControllerBase {
         // Now set the new game to active.
         $query = \Drupal::entityQuery('node')
           ->condition('type', 'player')
+          ->condition('field_slack_user_name', $command['user_id'])
           ->condition('field_game.target_id', $gameNid);
         $playerNids = $query->execute();
         if (!$playerNids) {
           $userName = $command['user_name'];
+          // @TODO Add ability for user to enter a display name.
           $player = Node::create([
             'type' => 'player',
             'title' => $game . '_' . $userName,
+            'field_slack_user_name' => $command['user_id'],
+            'field_display_name' => $userName,
             'field_game' => $gameNid,
             'field_active' => TRUE,
           ]);
