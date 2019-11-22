@@ -83,7 +83,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 $this->inventory($eventCallback, $player);
               }
               elseif ($messageText == 'look') {
-                $this->look($eventCallback, $player);
+                $this->lookLocation($eventCallback, $player);
               }
               elseif (strpos($messageText, 'look ') !== FALSE) {
                 // Player is looking AT something.
@@ -93,6 +93,9 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 // at.
                 $target = str_replace('look', '', $target);
                 $target = trim($target);
+
+                $foundSomething = FALSE;
+
                 $loc = $player->field_location->entity;
                 $slackUsername = $player->field_slack_user_name->value;
                 $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
@@ -108,9 +111,72 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                       'text' => $desc,
                       'as_user' => TRUE,
                     ]);
+                    $foundSomething = TRUE;
                     break;
                   }
                 }
+
+                if (!$foundSomething) {
+                  // Didn't find a player. Let's look for items.
+                  // First visible items.
+                  foreach ($loc->field_visible_items as $item) {
+                    $itemName = strtolower(trim($item->entity->getTitle()));
+                    if (strpos($itemName, $target) === 0) {
+                      // Other item's name starts with the string the user
+                      // typed.
+                      $desc = $item->entity->body->value;
+                      $channel = $eventCallback['user'];
+                      $this->slack->slackApi('chat.postMessage', 'POST', [
+                        'channel' => $channel,
+                        'text' => $desc,
+                        'as_user' => TRUE,
+                      ]);
+                      $foundSomething = TRUE;
+                      break;
+                    }
+                  }
+                }
+
+                if (!$foundSomething) {
+                  // Now description items.
+                  foreach ($loc->field_description_items as $item) {
+                    $itemName = strtolower(trim($item->entity->getTitle()));
+                    if (strpos($itemName, $target) === 0) {
+                      // Other item's name starts with the string the user
+                      // typed.
+                      $desc = $item->entity->body->value;
+                      $channel = $eventCallback['user'];
+                      $this->slack->slackApi('chat.postMessage', 'POST', [
+                        'channel' => $channel,
+                        'text' => $desc,
+                        'as_user' => TRUE,
+                      ]);
+                      $foundSomething = TRUE;
+                      break;
+                    }
+                  }
+                }
+
+                if (!$foundSomething) {
+                  // Finally, the items in the player's inventory.
+                  foreach ($player->field_inventory as $item) {
+                    $itemName = strtolower(trim($item->entity->getTitle()));
+                    if (strpos($itemName, $target) === 0) {
+                      // Other item's name starts with the string the user
+                      // typed.
+                      $desc = $item->entity->body->value;
+                      $channel = $eventCallback['user'];
+                      $this->slack->slackApi('chat.postMessage', 'POST', [
+                        'channel' => $channel,
+                        'text' => $desc,
+                        'as_user' => TRUE,
+                      ]);
+                      $foundSomething = TRUE;
+                      break;
+                    }
+                  }
+                }
+
               }
               else {
                 // Check if the text entered is a direction from the location's
@@ -123,7 +189,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                     $nextLoc = $exit->entity;
                     $player->field_location = $nextLoc;
                     $player->save();
-                    $this->look($eventCallback, $player);
+                    $this->lookLocation($eventCallback, $player);
                     break;
                   }
                 }
@@ -220,7 +286,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  protected function look(array $eventCallback, NodeInterface $player) {
+  protected function lookLocation(array $eventCallback, NodeInterface $player) {
     $inv = [];
     $loc = $player->field_location->entity;
     $slackUsername = $player->field_slack_user_name->value;
@@ -242,6 +308,25 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       $otherPlayersMessage = implode(' and ', $playerNames) . $here;
       $message .= "\n" . $otherPlayersMessage;
     }
+
+    $visible_items = [];
+    foreach ($loc->field_visible_items as $visible_item) {
+      $visible_items[] = $visible_item->entity->getTitle();
+    }
+    switch (count($visible_items)) {
+      case 1:
+        $here = ' is on the ground here.';
+        break;
+
+      case 0:
+        $here = 'There is nothing on the ground here.';
+        break;
+
+      default:
+        $here = ' are on the ground here.';
+    }
+    $visible_items_message = implode(' and ', $visible_items) . $here;
+    $message .= "\n" . $visible_items_message;
 
     $channel = $eventCallback['user'];
     $this->slack->slackApi('chat.postMessage', 'POST', [
