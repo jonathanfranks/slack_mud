@@ -70,7 +70,7 @@ class SlackMudCommandController extends ControllerBase {
       else {
         // Game exists. Join it.
         $gameNid = reset($gameNids);
-
+        $gameNode = Node::load($gameNid);
         // First set the player's active game to not active if it isn't this one
         // already.
         // @TODO Do this.
@@ -89,6 +89,7 @@ class SlackMudCommandController extends ControllerBase {
             'title' => $game . '_' . $userName,
             'field_slack_user_name' => $command['user_id'],
             'field_display_name' => $userName,
+            'field_location' => $gameNode->field_starting_location->entity->id(),
             'field_game' => $gameNid,
             'field_active' => TRUE,
           ]);

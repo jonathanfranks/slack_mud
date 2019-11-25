@@ -72,6 +72,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 'w' => 'west',
                 'e' => 'east',
                 'inv' => 'inventory',
+                'take' => 'get',
               ];
               if (array_key_exists($messageText, $messageAliases)) {
                 $messageText = $messageAliases[$messageText];
@@ -86,112 +87,57 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 $this->lookLocation($eventCallback, $player);
               }
               elseif (strpos($messageText, 'look ') !== FALSE) {
-                // Player is looking AT something.
-                // Remove the AT if there is one.
-                $target = str_replace(' at ', '', $messageText);
-                // Now remove the LOOK and we'll see who or what they're looking
-                // at.
-                $target = str_replace('look', '', $target);
-                $target = trim($target);
-
-                $foundSomething = FALSE;
-
-                $loc = $player->field_location->entity;
-                $slackUsername = $player->field_slack_user_name->value;
-                $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
-                foreach ($otherPlayers as $otherPlayer) {
-                  $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
-                  if (strpos($otherPlayerDisplayName, $target) === 0) {
-                    // Other player's name starts with the string the user
-                    // typed.
-                    $desc = $otherPlayer->body->value;
-                    $channel = $eventCallback['user'];
-                    $this->slack->slackApi('chat.postMessage', 'POST', [
-                      'channel' => $channel,
-                      'text' => $desc,
-                      'as_user' => TRUE,
-                    ]);
-                    $foundSomething = TRUE;
-                    break;
-                  }
-                }
-
-                if (!$foundSomething) {
-                  // Didn't find a player. Let's look for items.
-                  // First visible items.
-                  foreach ($loc->field_visible_items as $item) {
-                    $itemName = strtolower(trim($item->entity->getTitle()));
-                    if (strpos($itemName, $target) === 0) {
-                      // Other item's name starts with the string the user
-                      // typed.
-                      $desc = $item->entity->body->value;
-                      $channel = $eventCallback['user'];
-                      $this->slack->slackApi('chat.postMessage', 'POST', [
-                        'channel' => $channel,
-                        'text' => $desc,
-                        'as_user' => TRUE,
-                      ]);
-                      $foundSomething = TRUE;
-                      break;
-                    }
-                  }
-                }
-
-                if (!$foundSomething) {
-                  // Now description items.
-                  foreach ($loc->field_description_items as $item) {
-                    $itemName = strtolower(trim($item->entity->getTitle()));
-                    if (strpos($itemName, $target) === 0) {
-                      // Other item's name starts with the string the user
-                      // typed.
-                      $desc = $item->entity->body->value;
-                      $channel = $eventCallback['user'];
-                      $this->slack->slackApi('chat.postMessage', 'POST', [
-                        'channel' => $channel,
-                        'text' => $desc,
-                        'as_user' => TRUE,
-                      ]);
-                      $foundSomething = TRUE;
-                      break;
-                    }
-                  }
-                }
-
-                if (!$foundSomething) {
-                  // Finally, the items in the player's inventory.
-                  foreach ($player->field_inventory as $item) {
-                    $itemName = strtolower(trim($item->entity->getTitle()));
-                    if (strpos($itemName, $target) === 0) {
-                      // Other item's name starts with the string the user
-                      // typed.
-                      $desc = $item->entity->body->value;
-                      $channel = $eventCallback['user'];
-                      $this->slack->slackApi('chat.postMessage', 'POST', [
-                        'channel' => $channel,
-                        'text' => $desc,
-                        'as_user' => TRUE,
-                      ]);
-                      $foundSomething = TRUE;
-                      break;
-                    }
-                  }
-                }
-
+                $this->lookHandler($messageText, $player, $eventCallback);
+              }
+              elseif (strpos($messageText, 'get ') !== FALSE) {
+                $this->getHandler($messageText, $player, $eventCallback);
+              }
+              elseif (strpos($messageText, 'drop ') !== FALSE) {
+                $this->dropHandler($messageText, $player, $eventCallback);
               }
               else {
                 // Check if the text entered is a direction from the location's
                 // exists.
                 // Alias north/n, west/w, south/s, east/e.
                 $loc = $player->field_location->entity;
-
+                $foundExit = FALSE;
                 foreach ($loc->field_exits as $exit) {
                   if ($messageText == $exit->label) {
                     $nextLoc = $exit->entity;
                     $player->field_location = $nextLoc;
                     $player->save();
                     $this->lookLocation($eventCallback, $player);
+                    $foundExit = TRUE;
                     break;
                   }
+                }
+                if (!$foundExit) {
+                  // If the command was a direction, you can't go that way.
+                  $directions = [
+                    'up',
+                    'down',
+                    'north',
+                    'south',
+                    'east',
+                    'west',
+                    'northwest',
+                    'southwest',
+                    'northeast',
+                    'southeast',
+                  ];
+                  if (in_array($messageText, $directions)) {
+                    $message = "You can't go that way.";
+                  }
+                  else {
+                    // If the command was a command, you can't do that here.
+                    $message = "You can't do that here.";
+                  }
+                  $channel = $eventCallback['user'];
+                  $this->slack->slackApi('chat.postMessage', 'POST', [
+                    'channel' => $channel,
+                    'text' => strip_tags($message),
+                    'as_user' => TRUE,
+                  ]);
                 }
               }
 
@@ -271,7 +217,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     $channel = $eventCallback['user'];
     $this->slack->slackApi('chat.postMessage', 'POST', [
       'channel' => $channel,
-      'text' => $message,
+      'text' => strip_tags($message),
       'as_user' => TRUE,
     ]);
   }
@@ -331,9 +277,208 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     $channel = $eventCallback['user'];
     $this->slack->slackApi('chat.postMessage', 'POST', [
       'channel' => $channel,
-      'text' => $message,
+      'text' => strip_tags($message),
       'as_user' => TRUE,
     ]);
+  }
+
+  /**
+   * Handler for looking at a target.
+   *
+   * @param string $messageText
+   *   The message from Slack.
+   * @param \Drupal\node\NodeInterface $player
+   *   The current player.
+   * @param array $eventCallback
+   *   The Slack event.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  protected function lookHandler(string $messageText, NodeInterface $player, array $eventCallback): void {
+    // Player is looking AT something.
+    // Remove the AT if there is one.
+    $target = str_replace(' at ', '', $messageText);
+    // Now remove the LOOK and we'll see who or what they're looking
+    // at.
+    $target = str_replace('look', '', $target);
+    $target = trim($target);
+
+    $foundSomething = FALSE;
+
+    $loc = $player->field_location->entity;
+    $slackUsername = $player->field_slack_user_name->value;
+    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
+    foreach ($otherPlayers as $otherPlayer) {
+      $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
+      if (strpos($otherPlayerDisplayName, $target) === 0) {
+        // Other player's name starts with the string the user
+        // typed.
+        $desc = $otherPlayer->body->value;
+        $channel = $eventCallback['user'];
+        $this->slack->slackApi('chat.postMessage', 'POST', [
+          'channel' => $channel,
+          'text' => strip_tags($desc),
+          'as_user' => TRUE,
+        ]);
+        $foundSomething = TRUE;
+        break;
+      }
+    }
+
+    if (!$foundSomething) {
+      // Didn't find a player. Let's look for items.
+      // First visible items.
+      foreach ($loc->field_visible_items as $item) {
+        $itemName = strtolower(trim($item->entity->getTitle()));
+        if (strpos($itemName, $target) === 0) {
+          // Other item's name starts with the string the user
+          // typed.
+          $desc = $item->entity->body->value;
+          $channel = $eventCallback['user'];
+          $this->slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            'text' => strip_tags($desc),
+            'as_user' => TRUE,
+          ]);
+          $foundSomething = TRUE;
+          break;
+        }
+      }
+    }
+
+    if (!$foundSomething) {
+      // Now description items.
+      foreach ($loc->field_description_items as $item) {
+        $itemName = strtolower(trim($item->entity->getTitle()));
+        if (strpos($itemName, $target) === 0) {
+          // Other item's name starts with the string the user
+          // typed.
+          $desc = $item->entity->body->value;
+          $channel = $eventCallback['user'];
+          $this->slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            'text' => strip_tags($desc),
+            'as_user' => TRUE,
+          ]);
+          $foundSomething = TRUE;
+          break;
+        }
+      }
+    }
+
+    if (!$foundSomething) {
+      // Finally, the items in the player's inventory.
+      foreach ($player->field_inventory as $item) {
+        $itemName = strtolower(trim($item->entity->getTitle()));
+        if (strpos($itemName, $target) === 0) {
+          // Other item's name starts with the string the user
+          // typed.
+          $desc = $item->entity->body->value;
+          $channel = $eventCallback['user'];
+          $this->slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            'text' => strip_tags($desc),
+            'as_user' => TRUE,
+          ]);
+          $foundSomething = TRUE;
+          break;
+        }
+      }
+    }
+  }
+
+  /**
+   * Handler for getting.
+   *
+   * @param string $messageText
+   *   The message from Slack.
+   * @param \Drupal\node\NodeInterface $player
+   *   The current player.
+   * @param array $eventCallback
+   *   The Slack event.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  protected function getHandler(string $messageText, NodeInterface $player, array $eventCallback): void {
+    // Now remove the GET and we'll see who or what they're taking.
+    $target = str_replace('get', '', $messageText);
+    $target = trim($target);
+
+    $foundSomething = FALSE;
+    $loc = $player->field_location->entity;
+    $slackUsername = $player->field_slack_user_name->value;
+    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
+
+    foreach ($loc->field_visible_items as $delta => $item) {
+      $itemName = strtolower(trim($item->entity->getTitle()));
+      if (strpos($itemName, $target) === 0) {
+        // Item's name starts with the string the user typed.
+        // Add item to player's inventory.
+        $player->field_inventory[] = ['target_id' => $item->entity->id()];
+        $player->save();
+
+        // Remove item from location.
+        unset($loc->field_visible_items[$delta]);
+        $loc->save();
+
+        $channel = $eventCallback['user'];
+        $message = 'You picked up the ' . $itemName;
+        $this->slack->slackApi('chat.postMessage', 'POST', [
+          'channel' => $channel,
+          'text' => strip_tags($message),
+          'as_user' => TRUE,
+        ]);
+        $foundSomething = TRUE;
+        break;
+      }
+    }
+  }
+
+  /**
+   * Handler for dropping.
+   *
+   * @param string $messageText
+   *   The message from Slack.
+   * @param \Drupal\node\NodeInterface $player
+   *   The current player.
+   * @param array $eventCallback
+   *   The Slack event.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  protected function dropHandler(string $messageText, NodeInterface $player, array $eventCallback): void {
+    // Now remove the DROP and we'll see who or what they're taking.
+    $target = str_replace('drop', '', $messageText);
+    $target = trim($target);
+
+    $foundSomething = FALSE;
+    $loc = $player->field_location->entity;
+    $slackUsername = $player->field_slack_user_name->value;
+    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
+
+    foreach ($player->field_inventory as $delta => $item) {
+      $itemName = strtolower(trim($item->entity->getTitle()));
+      if (strpos($itemName, $target) === 0) {
+        // Item's name starts with the string the user typed.
+        // Add item to location.
+        $loc->field_visible_items[] = ['target_id' => $item->entity->id()];
+        $loc->save();
+
+        // Remove item from inventory.
+        unset($player->field_inventory[$delta]);
+        $player->save();
+
+        $channel = $eventCallback['user'];
+        $message = 'You dropped the ' . $itemName;
+        $this->slack->slackApi('chat.postMessage', 'POST', [
+          'channel' => $channel,
+          'text' => strip_tags($message),
+          'as_user' => TRUE,
+        ]);
+        $foundSomething = TRUE;
+        break;
+      }
+    }
   }
 
 }
