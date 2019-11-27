@@ -87,7 +87,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 $this->lookLocation($eventCallback, $player);
               }
               elseif (strpos($messageText, 'look ') !== FALSE) {
-                $this->lookHandler($messageText, $player, $eventCallback);
+                $this->lookTarget($messageText, $player, $eventCallback);
               }
               elseif (strpos($messageText, 'get ') !== FALSE) {
                 $this->getHandler($messageText, $player, $eventCallback);
@@ -96,49 +96,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 $this->dropHandler($messageText, $player, $eventCallback);
               }
               else {
-                // Check if the text entered is a direction from the location's
-                // exists.
-                // Alias north/n, west/w, south/s, east/e.
-                $loc = $player->field_location->entity;
-                $foundExit = FALSE;
-                foreach ($loc->field_exits as $exit) {
-                  if ($messageText == $exit->label) {
-                    $nextLoc = $exit->entity;
-                    $player->field_location = $nextLoc;
-                    $player->save();
-                    $this->lookLocation($eventCallback, $player);
-                    $foundExit = TRUE;
-                    break;
-                  }
-                }
-                if (!$foundExit) {
-                  // If the command was a direction, you can't go that way.
-                  $directions = [
-                    'up',
-                    'down',
-                    'north',
-                    'south',
-                    'east',
-                    'west',
-                    'northwest',
-                    'southwest',
-                    'northeast',
-                    'southeast',
-                  ];
-                  if (in_array($messageText, $directions)) {
-                    $message = "You can't go that way.";
-                  }
-                  else {
-                    // If the command was a command, you can't do that here.
-                    $message = "You can't do that here.";
-                  }
-                  $channel = $eventCallback['user'];
-                  $this->slack->slackApi('chat.postMessage', 'POST', [
-                    'channel' => $channel,
-                    'text' => strip_tags($message),
-                    'as_user' => TRUE,
-                  ]);
-                }
+                $this->moveHandler($messageText, $player, $eventCallback);
               }
 
             }
@@ -297,7 +255,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  protected function lookHandler(string $messageText, NodeInterface $player, array $eventCallback): void {
+  protected function lookTarget(string $messageText, NodeInterface $player, array $eventCallback): void {
     // Player is looking AT something.
     // Remove the AT if there is one.
     $target = str_replace(' at ', '', $messageText);
@@ -402,7 +360,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
    *
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  protected function getHandler(string $messageText, NodeInterface $player, array $eventCallback): void {
+  protected function getHandler(string $messageText, NodeInterface $player, array $eventCallback) {
     // Now remove the GET and we'll see who or what they're taking.
     $target = str_replace('get', '', $messageText);
     $target = trim($target);
@@ -511,6 +469,59 @@ class SlackEventSubscriber implements EventSubscriberInterface {
         $foundSomething = TRUE;
         break;
       }
+    }
+  }
+
+  /**
+   * @param string $messageText
+   * @param $player
+   * @param $eventCallback
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  protected function moveHandler(string $messageText, $player, $eventCallback): void {
+    // Check if the text entered is a direction from the location's
+    // exists.
+    // Alias north/n, west/w, south/s, east/e.
+    $loc = $player->field_location->entity;
+    $foundExit = FALSE;
+    foreach ($loc->field_exits as $exit) {
+      if ($messageText == $exit->label) {
+        $nextLoc = $exit->entity;
+        $player->field_location = $nextLoc;
+        $player->save();
+        $this->lookLocation($eventCallback, $player);
+        $foundExit = TRUE;
+        break;
+      }
+    }
+    if (!$foundExit) {
+      // If the command was a direction, you can't go that way.
+      $directions = [
+        'up',
+        'down',
+        'north',
+        'south',
+        'east',
+        'west',
+        'northwest',
+        'southwest',
+        'northeast',
+        'southeast',
+      ];
+      if (in_array($messageText, $directions)) {
+        $message = "You can't go that way.";
+      }
+      else {
+        // If the command was a command, you can't do that here.
+        $message = "You can't do that here.";
+      }
+      $channel = $eventCallback['user'];
+      $this->slack->slackApi('chat.postMessage', 'POST', [
+        'channel' => $channel,
+        'text' => strip_tags($message),
+        'as_user' => TRUE,
+      ]);
     }
   }
 
