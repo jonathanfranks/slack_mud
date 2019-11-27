@@ -1,12 +1,10 @@
-uuid: 223c1483-a0a3-4957-ba29-212e78d2b550
+uuid: 65e52ad0-3e8e-46cb-81cb-e051c80f9374
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - kyrandia_migrate
-_core:
-  default_config_hash: YvlAqwrMQxVVuaKtbIAwyo_0DNM0mNEhD2KVosRbYec
 id: kyrandia_locs
 class: null
 field_plugin_method: null
@@ -39,7 +37,7 @@ process:
     message_file_path: ./modules/custom/kyrandia_migrate/data/GALKYRL.MSG
     source: 'Location#'
   field_object_location: 'Obj Locat'
-  field_game:
+  field_game/target_id:
     -
       plugin: default_value
       default_value: Kyrandia
@@ -70,6 +68,18 @@ process:
         plugin: migration_lookup
         migration: kyrandia_locs
         source: location
+  default_objects:
+    plugin: default_objects
+    source: 'Objs'' Idx'
+    number: '# of Objs'
+  field_default_items:
+    plugin: iterator
+    source: '@default_objects'
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: kyrandia_items
+        source: item
   uid:
     plugin: default_value
     default_value: 1

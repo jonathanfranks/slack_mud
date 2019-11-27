@@ -1,17 +1,17 @@
-uuid: 7f77dda8-a1de-4d12-af7e-1698aad1ed49
+uuid: ca2bd9a1-4b45-4e6b-a062-ecfacf5a0a2c
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_description_items
+    - field.storage.node.field_default_items
     - node.type.item
     - node.type.location
-id: node.location.field_description_items
-field_name: field_description_items
+id: node.location.field_default_items
+field_name: field_default_items
 entity_type: node
 bundle: location
-label: 'Description items'
-description: 'Items that aren''t on the ground or visible in the items line of the description. This is used for items that are buried in the location''s description.'
+label: 'Default items'
+description: 'Items that appear in this location when started or respawned.'
 required: false
 translatable: false
 default_value: {  }

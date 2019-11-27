@@ -1,0 +1,13 @@
+uuid: d0726e6d-510c-4927-ba67-b86b4713551e
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+id: kyrandia_items
+label: 'Kyrandia Items'
+description: 'Imports Kyrandia items  into the site.'
+source_type: 'CSV File'
+module: null
+shared_configuration: null

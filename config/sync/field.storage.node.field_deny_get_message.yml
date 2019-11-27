@@ -1,0 +1,19 @@
+uuid: d6bd7a40-7c81-47fe-87bd-4e7d008cb4c1
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_deny_get_message
+field_name: field_deny_get_message
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

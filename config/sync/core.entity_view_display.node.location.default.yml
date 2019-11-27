@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.node.location.body
     - field.field.node.location.field_brief_description
-    - field.field.node.location.field_description_items
+    - field.field.node.location.field_default_items
     - field.field.node.location.field_exits
     - field.field.node.location.field_game
     - field.field.node.location.field_object_location
@@ -34,8 +34,8 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
-  field_description_items:
-    weight: 105
+  field_default_items:
+    weight: 108
     label: above
     settings:
       link: true

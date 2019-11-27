@@ -1,0 +1,23 @@
+uuid: 8a5bcd19-6e9a-4dea-b2ec-a5311134cca7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_visible
+    - node.type.item
+id: node.item.field_visible
+field_name: field_visible
+entity_type: node
+bundle: item
+label: Visible
+description: 'Is item visible to players?'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

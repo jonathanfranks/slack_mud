@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.node.location.body
     - field.field.node.location.field_brief_description
-    - field.field.node.location.field_description_items
+    - field.field.node.location.field_default_items
     - field.field.node.location.field_exits
     - field.field.node.location.field_game
     - field.field.node.location.field_object_location
@@ -43,8 +43,8 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_description_items:
-    weight: 125
+  field_default_items:
+    weight: 128
     settings:
       match_operator: CONTAINS
       size: 60

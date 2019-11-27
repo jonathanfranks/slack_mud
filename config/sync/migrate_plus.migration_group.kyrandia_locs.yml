@@ -1,12 +1,10 @@
-uuid: 1917e842-6bf3-4838-8d53-55628e5a5541
+uuid: 691b66c0-b6b5-4148-a37a-2f9ab5f0de1b
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - kyrandia_migrate
-_core:
-  default_config_hash: 3KvRNX0keZl7ZgkIT3pYfuDRVmKERlmBMGqqZQArzd0
 id: kyrandia_locs
 label: 'Kyrandia Locations'
 description: 'Imports Kyrandia locations into the site.'

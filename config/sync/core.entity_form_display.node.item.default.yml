@@ -5,7 +5,9 @@ dependencies:
   config:
     - field.field.node.item.body
     - field.field.node.item.field_can_pick_up
+    - field.field.node.item.field_deny_get_message
     - field.field.node.item.field_game
+    - field.field.node.item.field_visible
     - node.type.item
   module:
     - path
@@ -37,6 +39,14 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_deny_get_message:
+    weight: 124
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_game:
     weight: 122
     settings:
@@ -45,6 +55,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_visible:
+    weight: 125
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   path:
     type: path
