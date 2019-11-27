@@ -29,7 +29,6 @@ class LocationGetDescription extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $text = '';
 
-    $id_value = 'KRD' . str_pad($value, 3, '0', STR_PAD_LEFT);
 
     $ids = [];
     $id_contents = file_get_contents($this->configuration['index_file_path']);
@@ -46,6 +45,7 @@ class LocationGetDescription extends ProcessPluginBase {
       }
     }
 
+    $id_value = $ids[$value];
 
     $contents = file_get_contents($this->configuration['message_file_path']);
     $contents = str_replace("\r\n\r\n\r\n", "\n\n\n", $contents);

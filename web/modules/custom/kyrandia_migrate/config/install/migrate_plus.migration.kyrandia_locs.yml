@@ -50,7 +50,15 @@ process:
     plugin: iterator
     source: exits
     process:
-      label: direction
+      label:
+        plugin: static_map
+        source: direction
+        map:
+          N: north
+          S: south
+          E: east
+          W: west
+        bypass: TRUE
       target_id:
         plugin: migration_lookup
         migration: kyrandia_locs
