@@ -17,6 +17,24 @@ use Symfony\Component\HttpFoundation\Response;
 class SlackEventSubscriber implements EventSubscriberInterface {
 
   /**
+   * Array of valid direction commands.
+   *
+   * @var array
+   */
+  protected $directions = [
+    'up',
+    'down',
+    'north',
+    'south',
+    'east',
+    'west',
+    'northwest',
+    'southwest',
+    'northeast',
+    'southeast',
+  ];
+
+  /**
    * The Slack service.
    *
    * @var \Drupal\slack_incoming\Service\SlackInterface
@@ -83,6 +101,10 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 's' => 'south',
                 'w' => 'west',
                 'e' => 'east',
+                'ne' => 'northeast',
+                'se' => 'southeast',
+                'nw' => 'northwest',
+                'sw' => 'southwest',
                 'inv' => 'inventory',
                 'take' => 'get',
               ];
@@ -107,8 +129,19 @@ class SlackEventSubscriber implements EventSubscriberInterface {
               elseif (strpos($messageText, 'drop ') !== FALSE) {
                 $this->dropHandler($messageText, $player, $eventCallback);
               }
-              else {
+              elseif (in_array($messageText, $this->directions)) {
                 $this->moveHandler($messageText, $player, $eventCallback);
+              }
+              else {
+                // Command handler.
+                // If the command was a command, you can't do that here.
+                $message = "You can't do that here.";
+                $channel = $eventCallback['user'];
+                $this->slack->slackApi('chat.postMessage', 'POST', [
+                  'channel' => $channel,
+                  'text' => strip_tags($message),
+                  'as_user' => TRUE,
+                ]);
               }
 
             }
@@ -134,7 +167,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     $players = [];
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'player')
-      //      ->condition('field_slack_user_name', $slackUserName, '<>')
+      ->condition('field_slack_user_name', $slackUserName, '<>')
       ->condition('field_location.target_id', $location->id())
       ->condition('field_active', TRUE);
     $playerNids = $query->execute();
@@ -286,8 +319,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       if (strpos($otherPlayerDisplayName, $target) === 0) {
         // Other player's name starts with the string the user
         // typed.
-        //        $desc = $otherPlayer->body->value;
-
         $mudEvent = new LookAtPlayerEvent($player, $otherPlayer);
         $mudEvent = $this->eventDispatcher->dispatch(LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT, $mudEvent);
         if ($response = $mudEvent->getResponse()) {
@@ -514,24 +545,8 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     }
     if (!$foundExit) {
       // If the command was a direction, you can't go that way.
-      $directions = [
-        'up',
-        'down',
-        'north',
-        'south',
-        'east',
-        'west',
-        'northwest',
-        'southwest',
-        'northeast',
-        'southeast',
-      ];
-      if (in_array($messageText, $directions)) {
+      if (in_array($messageText, $this->directions)) {
         $message = "You can't go that way.";
-      }
-      else {
-        // If the command was a command, you can't do that here.
-        $message = "You can't do that here.";
       }
       $channel = $eventCallback['user'];
       $this->slack->slackApi('chat.postMessage', 'POST', [
