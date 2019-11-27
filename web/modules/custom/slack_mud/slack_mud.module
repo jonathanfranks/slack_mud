@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
 
 function respawn() {
@@ -17,6 +18,31 @@ function respawn() {
         foreach ($loc_nodes as $loc_node) {
           $loc_node->field_visible_items = $loc_node->field_default_items;
           $loc_node->save();
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function slack_mud_node_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player') {
+    if ($entity->field_active->value) {
+      // Get other active player nodes for the same Slack user.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'player')
+        ->condition('field_active', TRUE)
+        ->condition('field_slack_user_name', $entity->field_slack_user_name->value)
+        ->condition('nid', $entity->id(), '<>');
+      $current_player_ids = $query->execute();
+      if ($current_player_ids) {
+        // And mark them all inactive.
+        $current_player_nodes = Node::loadMultiple($current_player_ids);
+        foreach ($current_player_nodes as $current_player_node) {
+          $current_player_node->field_active->value = FALSE;
+          $current_player_node->save();
         }
       }
     }

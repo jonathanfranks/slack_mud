@@ -71,17 +71,14 @@ class SlackMudCommandController extends ControllerBase {
         // Game exists. Join it.
         $gameNid = reset($gameNids);
         $gameNode = Node::load($gameNid);
-        // First set the player's active game to not active if it isn't this one
-        // already.
-        // @TODO Do this.
-
-        // Now set the new game to active.
         $query = \Drupal::entityQuery('node')
           ->condition('type', 'player')
           ->condition('field_slack_user_name', $command['user_id'])
           ->condition('field_game.target_id', $gameNid);
         $playerNids = $query->execute();
         if (!$playerNids) {
+          // User doesn't have a player profile for this game.
+          // Create one and make it active.
           $userName = $command['user_name'];
           // @TODO Add ability for user to enter a display name.
           $player = Node::create([
@@ -95,6 +92,15 @@ class SlackMudCommandController extends ControllerBase {
           ]);
           $player->save();
         }
+        else {
+          // User already has a player profile for this game.
+          // Mark it active.
+          $playerNid = reset($playerNids);
+          $playerNode = Node::load($playerNid);
+          $playerNode->field_active = TRUE;
+          $playerNode->save();
+        }
+
         $return = [
           'blocks' => [
             [
