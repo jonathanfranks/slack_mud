@@ -1,0 +1,22 @@
+uuid: e68d14f5-71d0-4acf-806e-82f0724755b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.promote
+field_name: promote
+entity_type: node
+bundle: kyrandia_profile
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

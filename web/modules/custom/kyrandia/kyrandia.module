@@ -1,0 +1,31 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function kyrandia_node_insert(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player') {
+    if ($entity->field_game->entity->getTitle() == 'Kyrandia') {
+      // The user is playing Kyrandia, so set up a Kyrandia profile.
+
+      // Get the Level 1 term.
+      $query = \Drupal::entityQuery('taxonomy_term')
+        ->condition('vid', 'kyrandia_level')
+        ->condition('name', '1');
+      $level_ids = $query->execute();
+      $level_id = $level_ids ? reset($level_ids) : NULL;
+
+      $kyrandia_profile = Node::create([
+        'type' => 'kyrandia_profile',
+        'title' => 'kyrandia_profile' . '_' . $entity->field_slack_user_name->value,
+        'field_player' => $entity,
+        'field_kyrandia_level' => ['target_id' => $level_id],
+      ]);
+      $kyrandia_profile->save();
+    }
+  }
+
+}

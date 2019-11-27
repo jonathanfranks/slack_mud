@@ -1,0 +1,13 @@
+uuid: 2c985889-b556-4907-b0d6-f6d7e7f5aa31
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+id: kyrandia_levels
+label: 'Kyrandia Levels'
+description: 'Imports Kyrandia levels into the site.'
+source_type: 'CSV File'
+module: null
+shared_configuration: null

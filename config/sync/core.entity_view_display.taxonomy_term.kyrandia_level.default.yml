@@ -1,0 +1,37 @@
+uuid: 06e57363-4953-4beb-862c-b4c3dc18fd59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.kyrandia_level.field_female_description
+    - field.field.taxonomy_term.kyrandia_level.field_male_description
+    - taxonomy.vocabulary.kyrandia_level
+  module:
+    - text
+id: taxonomy_term.kyrandia_level.default
+targetEntityType: taxonomy_term
+bundle: kyrandia_level
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_female_description:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_male_description:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

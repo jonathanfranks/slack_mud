@@ -1,0 +1,42 @@
+langcode: en
+status: true
+id: kyrandia_levels
+migration_tags:
+  - kyrandia
+  - levels
+migration_group: kyrandia_levels
+label: 'Kyrandia Levels'
+source:
+  plugin: csv
+  path: ./modules/custom/kyrandia_migrate/data/levels.csv
+  ids:
+    - "id"
+process:
+  name: level
+  field_male_description/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  field_male_description/value:
+    plugin: kyrandia_get_description
+    message_file_path: './modules/custom/kyrandia_migrate/data/GALKYRM.MSG'
+    source: 'male description'
+    trailing_text: '} T Kyrandia description'
+  field_female_description/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  field_female_description/value:
+    plugin: kyrandia_get_description
+    message_file_path: './modules/custom/kyrandia_migrate/data/GALKYRM.MSG'
+    source: 'female description'
+    trailing_text: '} T Kyrandia description'
+
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: kyrandia_level
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

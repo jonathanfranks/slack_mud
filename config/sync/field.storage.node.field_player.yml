@@ -1,0 +1,19 @@
+uuid: 1661cf3f-e0cd-4380-b484-25712fe13394
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_player
+field_name: field_player
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

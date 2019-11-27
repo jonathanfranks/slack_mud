@@ -1,0 +1,21 @@
+uuid: 988f7956-a0db-457d-9d84-ec725b80988a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_female_description
+    - taxonomy.vocabulary.kyrandia_level
+  module:
+    - text
+id: taxonomy_term.kyrandia_level.field_female_description
+field_name: field_female_description
+entity_type: taxonomy_term
+bundle: kyrandia_level
+label: 'Female description'
+description: 'Description of a female player of this level.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

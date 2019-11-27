@@ -1,0 +1,8 @@
+id: kyrandia_levels
+label: 'Kyrandia Levels'
+description: 'Imports Kyrandia levels into the site.'
+source_type: 'CSV File'
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

@@ -1,0 +1,29 @@
+uuid: 7fbeae40-f6fa-4bfa-998a-0eaac2e43fe0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_level
+    - node.type.kyrandia_profile
+    - taxonomy.vocabulary.kyrandia_level
+id: node.kyrandia_profile.field_kyrandia_level
+field_name: field_kyrandia_level
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia level'
+description: 'Player''s level in Kyrandia game.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      kyrandia_level: kyrandia_level
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

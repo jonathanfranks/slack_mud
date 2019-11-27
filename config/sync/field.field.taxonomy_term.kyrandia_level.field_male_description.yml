@@ -1,0 +1,21 @@
+uuid: 2bc24fbe-f6c2-4228-8f58-1f0cd68a8801
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_male_description
+    - taxonomy.vocabulary.kyrandia_level
+  module:
+    - text
+id: taxonomy_term.kyrandia_level.field_male_description
+field_name: field_male_description
+entity_type: taxonomy_term
+bundle: kyrandia_level
+label: 'Male description'
+description: 'Description of a male player of this level.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

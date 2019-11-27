@@ -1,0 +1,37 @@
+uuid: 5cb09578-4b12-4afd-8f84-98a0158f47d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.kyrandia_profile.field_kyrandia_level
+    - field.field.node.kyrandia_profile.field_player
+    - node.type.kyrandia_profile
+  module:
+    - user
+id: node.kyrandia_profile.default
+targetEntityType: node
+bundle: kyrandia_profile
+mode: default
+content:
+  field_kyrandia_level:
+    weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_player:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }
