@@ -25,6 +25,7 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  flag: 0
   help: 0
   history: 0
   image: 0
@@ -45,7 +46,6 @@ module:
   rdf: 0
   search: 0
   shortcut: 0
-  slack: 0
   slack_incoming: 0
   slack_mud: 0
   system: 0
