@@ -261,17 +261,18 @@ class SlackEventSubscriber implements EventSubscriberInterface {
         $visible_items[] = $visible_item->entity->getTitle();
       }
     }
+    $where = $loc->field_object_location->value;
     switch (count($visible_items)) {
       case 1:
-        $here = ' is on the ground here.';
+        $here = t(' is :where.', [':where' => $where]);
         break;
 
       case 0:
-        $here = 'There is nothing on the ground here.';
+        $here = t('There is nothing :where.', [':where' => $where]);
         break;
 
       default:
-        $here = ' are on the ground here.';
+        $here = t(' are :where.', [':where' => $where]);
     }
     $visible_items_message = implode(' and ', $visible_items) . $here;
     $message .= "\n" . $visible_items_message;
@@ -447,6 +448,23 @@ class SlackEventSubscriber implements EventSubscriberInterface {
         break;
       }
     }
+
+    if (!$foundSomething) {
+      $channel = $eventCallback['user'];
+      $where = $loc->field_object_location->value;
+      $message = t("Sorry, there is no :target :where.",
+        [
+          ':target' => $target,
+          ':where' => $where,
+        ]
+      );
+      $this->slack->slackApi('chat.postMessage', 'POST', [
+        'channel' => $channel,
+        'text' => strip_tags($message),
+        'as_user' => TRUE,
+      ]);
+    }
+
   }
 
   /**
