@@ -6,11 +6,13 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_incoming\Event\SlackEvent;
 use Drupal\slack_incoming\Service\SlackInterface;
+use Drupal\slack_mud\Event\LookAtPlayerEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class TestStateAlter.
+ * Class SlackEventSubscriber.
  */
 class SlackEventSubscriber implements EventSubscriberInterface {
 
@@ -22,13 +24,23 @@ class SlackEventSubscriber implements EventSubscriberInterface {
   protected $slack;
 
   /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
    * SlackEventSubscriber constructor.
    *
    * @param \Drupal\slack_incoming\Service\SlackInterface $slack
    *   The Slack service.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
    */
-  public function __construct(SlackInterface $slack) {
+  public function __construct(SlackInterface $slack, EventDispatcherInterface $event_dispatcher) {
     $this->slack = $slack;
+    $this->eventDispatcher = $event_dispatcher;
   }
 
   /**
@@ -122,7 +134,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     $players = [];
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'player')
-      ->condition('field_slack_user_name', $slackUserName, '<>')
+      //      ->condition('field_slack_user_name', $slackUserName, '<>')
       ->condition('field_location.target_id', $location->id())
       ->condition('field_active', TRUE);
     $playerNids = $query->execute();
@@ -274,13 +286,18 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       if (strpos($otherPlayerDisplayName, $target) === 0) {
         // Other player's name starts with the string the user
         // typed.
-        $desc = $otherPlayer->body->value;
-        $channel = $eventCallback['user'];
-        $this->slack->slackApi('chat.postMessage', 'POST', [
-          'channel' => $channel,
-          'text' => strip_tags($desc),
-          'as_user' => TRUE,
-        ]);
+        //        $desc = $otherPlayer->body->value;
+
+        $mudEvent = new LookAtPlayerEvent($player, $otherPlayer);
+        $mudEvent = $this->eventDispatcher->dispatch(LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT, $mudEvent);
+        if ($response = $mudEvent->getResponse()) {
+          $channel = $eventCallback['user'];
+          $this->slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            'text' => $response,
+            'as_user' => TRUE,
+          ]);
+        }
         $foundSomething = TRUE;
         break;
       }

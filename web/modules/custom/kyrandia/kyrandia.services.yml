@@ -1,0 +1,6 @@
+services:
+  kyrandia.mud_service_subscriber:
+    class: Drupal\kyrandia\EventSubscriber\MudEventSubscriber
+    arguments: []
+    tags:
+      - { name: event_subscriber }

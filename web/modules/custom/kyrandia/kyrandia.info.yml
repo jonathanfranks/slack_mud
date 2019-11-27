@@ -3,3 +3,5 @@ type: module
 description: 'Kyrandia game.'
 core: 8.x
 package: MUD
+dependencies:
+  - slack_mud
