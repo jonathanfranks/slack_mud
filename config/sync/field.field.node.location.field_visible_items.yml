@@ -1,0 +1,28 @@
+uuid: d0528011-48b8-4c00-89a5-b3544619518c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_visible_items
+    - node.type.item
+    - node.type.location
+id: node.location.field_visible_items
+field_name: field_visible_items
+entity_type: node
+bundle: location
+label: 'Visible items'
+description: 'Items on the ground or visible to players in the description.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      item: item
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

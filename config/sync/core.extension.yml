@@ -20,6 +20,7 @@ module:
   devel_php: 0
   dynamic_page_cache: 0
   editor: 0
+  entity_reference_with_label: 0
   field: 0
   field_ui: 0
   file: 0
@@ -28,8 +29,13 @@ module:
   history: 0
   image: 0
   kint: 0
+  kyrandia_migrate: 0
   link: 0
   menu_ui: 0
+  migrate: 0
+  migrate_helpers: 0
+  migrate_plus: 0
+  migrate_tools: 0
   node: 0
   options: 0
   page_cache: 0

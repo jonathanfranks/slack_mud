@@ -1,0 +1,19 @@
+uuid: 55cd417f-14eb-4c26-8e75-e3a88c07008b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_slack_user_name
+    - node.type.player
+id: node.player.field_slack_user_name
+field_name: field_slack_user_name
+entity_type: node
+bundle: player
+label: 'Slack user name'
+description: 'The user''s Slack user name, used to identify all of a user''s player profiles.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

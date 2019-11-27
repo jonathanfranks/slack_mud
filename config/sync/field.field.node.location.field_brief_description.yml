@@ -1,0 +1,21 @@
+uuid: 7ee76e3f-7ec5-4870-bc67-17e91384d575
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_brief_description
+    - node.type.location
+  module:
+    - text
+id: node.location.field_brief_description
+field_name: field_brief_description
+entity_type: node
+bundle: location
+label: 'Brief description'
+description: 'Short description used for verbose mode.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

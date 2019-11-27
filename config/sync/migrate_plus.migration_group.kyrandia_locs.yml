@@ -1,0 +1,15 @@
+uuid: 1917e842-6bf3-4838-8d53-55628e5a5541
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+_core:
+  default_config_hash: 3KvRNX0keZl7ZgkIT3pYfuDRVmKERlmBMGqqZQArzd0
+id: kyrandia_locs
+label: 'Kyrandia Locations'
+description: 'Imports Kyrandia locations into the site.'
+source_type: 'LCS File'
+module: null
+shared_configuration: null

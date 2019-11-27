@@ -1,0 +1,28 @@
+uuid: 7f77dda8-a1de-4d12-af7e-1698aad1ed49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_description_items
+    - node.type.item
+    - node.type.location
+id: node.location.field_description_items
+field_name: field_description_items
+entity_type: node
+bundle: location
+label: 'Description items'
+description: 'Items that aren''t on the ground or visible in the items line of the description. This is used for items that are buried in the location''s description.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      item: item
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

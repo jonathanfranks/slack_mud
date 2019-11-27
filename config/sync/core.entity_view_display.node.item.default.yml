@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.item.body
+    - field.field.node.item.field_can_pick_up
     - field.field.node.item.field_game
     - node.type.item
   module:
@@ -20,6 +21,16 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_can_pick_up:
+    weight: 103
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_game:
     weight: 102

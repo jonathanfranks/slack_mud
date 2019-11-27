@@ -1,0 +1,28 @@
+uuid: 86c03221-e510-4dbd-bfaf-4d418da2fea0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_starting_location
+    - node.type.game
+    - node.type.location
+id: node.game.field_starting_location
+field_name: field_starting_location
+entity_type: node
+bundle: game
+label: 'Starting location'
+description: 'The location where the player starts the game.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
