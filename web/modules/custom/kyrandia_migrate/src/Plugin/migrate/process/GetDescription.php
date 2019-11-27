@@ -11,16 +11,16 @@ use Smalot\PdfParser\Parser;
  * Extracts location descriptions from MSG file.
  *
  * @MigrateProcessPlugin(
- *   id = "kyrandia_location_get_description"
+ *   id = "kyrandia_get_description"
  * )
  *
  * @code
  *   pdf_text:
- *     plugin: kyrandia_location_get_description
- *     source: filename
+ *     plugin: kyrandia_get_description
+ *     source: description id
  * @endcode
  */
-class LocationGetDescription extends ProcessPluginBase {
+class GetDescription extends ProcessPluginBase {
 
   /**
    * {@inheritdoc}
@@ -28,34 +28,16 @@ class LocationGetDescription extends ProcessPluginBase {
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
     $text = '';
 
-
-    $ids = [];
-    $id_contents = file_get_contents($this->configuration['index_file_path']);
-    $raw_ids = explode("\n", $id_contents);
-    foreach ($raw_ids as $raw_id) {
-      $raw_id = trim($raw_id);
-      if ($raw_id) {
-        $pos_begin = strpos($raw_id, '{');
-        $pos_end = strpos($raw_id, '}');
-        $id_string = substr($raw_id, $pos_begin + 1, $pos_end - $pos_begin);
-        $pos_comma = strpos($id_string, ',');
-        $id = substr($id_string, 0, $pos_comma);
-        $ids[] = $id;
-      }
-    }
-
-    $id_value = $ids[$value];
-
     $contents = file_get_contents($this->configuration['message_file_path']);
     $contents = str_replace("\r\n\r\n\r\n", "\n\n\n", $contents);
     $raw_rows = explode("\n\n\n", $contents);
     $rows = [];
     foreach ($raw_rows as $raw_row) {
       $row = [];
-      if (strpos($raw_row, '} T Kyrandia locations text') !== FALSE) {
+      if (strpos($raw_row, $this->configuration['trailing_text']) !== FALSE) {
         // Needs to end with that in order to be a valid location text.
         // There's at least one row with a {.. so check for which to do.
-        $separator = "";
+        $separator = "{";
         if (strpos($raw_row, " {...") !== FALSE) {
           $separator = " {...";
         }
@@ -73,12 +55,12 @@ class LocationGetDescription extends ProcessPluginBase {
         $text = str_replace("  ", ' ', $text);
         $text = str_replace("  ", ' ', $text);
         // Remove trailing token.
-        $text = str_replace('} T Kyrandia locations text', '', $text);
+        $text = str_replace($this->configuration['trailing_text'], '', $text);
         $text = trim($text);
         $rows[$id] = $text;
       }
     }
-    $text = array_key_exists($id_value, $rows) ? $rows[$id_value] : '';
+    $text = array_key_exists($value, $rows) ? $rows[$value] : '';
     return $text;
   }
 

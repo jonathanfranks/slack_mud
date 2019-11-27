@@ -31,7 +31,7 @@ process:
     source: 'Location#'
 
   field_object_location: "Obj Locat"
-  field_game:
+  field_game/target_id:
     -
       plugin: default_value
       default_value: Kyrandia

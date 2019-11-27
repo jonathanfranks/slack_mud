@@ -1,0 +1,64 @@
+langcode: en
+status: true
+id: kyrandia_items
+migration_tags:
+  - kyrandia
+  - items
+migration_group: kyrandia_items
+label: 'Kyrandia Items'
+source:
+  plugin: csv
+  path: ./modules/custom/kyrandia_migrate/data/items.csv
+  ids:
+    - "id"
+process:
+  title: name
+  field_can_pick_up: "can pickup"
+  field_visible: "visible"
+  body/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  body/value:
+    plugin: kyrandia_get_description
+    message_file_path: './modules/custom/kyrandia_migrate/data/GALKYRM.MSG'
+    source: 'description'
+    trailing_text: '} T Kyrandia description'
+
+  deny_description:
+    plugin: kyrandia_get_description
+    message_file_path: './modules/custom/kyrandia_migrate/data/GALKYRM.MSG'
+    source: 'deny description'
+    trailing_text: '} T Kyrandia description'
+
+
+  field_deny_get_message/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  field_deny_get_message/value:
+     plugin: if_different
+     source: '@deny_description'
+     compare:
+       - description
+       - deny description
+
+  field_game/target_id:
+    -
+      plugin: default_value
+      default_value: Kyrandia
+    -
+      plugin: entity_lookup
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: Game
+
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:node'
+  default_bundle: item
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

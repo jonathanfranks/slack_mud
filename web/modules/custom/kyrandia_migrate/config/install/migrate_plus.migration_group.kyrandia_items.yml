@@ -1,0 +1,8 @@
+id: kyrandia_items
+label: 'Kyrandia Items'
+description: 'Imports Kyrandia items  into the site.'
+source_type: 'CSV File'
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

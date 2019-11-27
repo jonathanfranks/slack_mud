@@ -1,0 +1,4816 @@
+CREDITS {
+    Welcome back, %-4s %s!
+
+            Kyrandia,V%-4s
+      (Fantasy World of Legends)
+
+     Designed and Programmed by -
+  Scott Brinker & Richard Skurnick
+
+  (C) 1988-94 by Galacticomm, Inc.
+        All rights reserved.
+
+} T Kyrandia description (non-ANSI)
+
+
+ACREDITS {
+�����������������������������������ͻ
+�                                 �
+�    Welcome back, %-4s %-9s   �
+�                                   �
+�          Kyrandia,V%-5s        �
+�     (Fantasy World of Legends)    �
+�                                   �
+�    Designed and Programmed by -   �
+� Scott Brinker & Richard Skurnick  �
+�                                   �
+� (C) 1988-94 by Galacticomm, Inc.  �
+�        All rights reserved.     �
+�����������������������������������ͼ
+
+} T Kyrandia description (ANSI)
+
+
+KLOGO {
+If you don't believe in legends, you haven't seen Kyrandia...
+} T Kyrandia description
+
+
+FOULID {
+Hey you!  None of that stuff here.
+
+Please enter your Player-ID: } T Enter a Player-ID prompt
+
+
+GETALS {
+Since this is your first time entering Kyrandia (Fantasy World), you
+must pick a 3-9 character Player-ID for yourself.  This is what you will
+be known as throughout the game.
+
+Please enter your Player-ID: } T Player-ID prompt
+
+
+BADPID {
+Sorry, the Player-ID you have chosen is invalid.  Player-IDs must be between
+three and nine characters (letters only).
+} T Player-ID incorrect length message
+
+
+NTGOOD {
+Sorry, someone else has already taken that Player-ID.
+} T Player-ID exists message
+
+
+B4PLA2 {
+Please choose another Player-ID: } T Choose another Player-ID prompt
+
+
+GOODPD {
+Good!  You will now be known as "%s" throughout Kyrandia (Fantasy World).
+
+Press RETURN to begin} T Player-ID confirmation message
+
+
+INTROA {
+Welcome, brave and adventurous one, to the wondrous and magical game of
+Kyrandia, Fantasy World of Legends!!  You are about to journey to a fantasy
+land far, far away... a land of swords and sorcery where the only limit is
+your own imagination.
+
+You will travel to the world of Kyrandia, a fairy tale land of magic and
+mystery, realm of the beautiful and powerful goddess of Kyrandia, Tashanna,
+the "Lady of Legends."  Here, you begin as a young apprentice from a small
+village who seeks to grow in knowledge, wisdom, and power, with high hopes
+of being granted the title of "Arch-Mage of Legends" -- the mightiest wizard
+of Kyrandia!  To achieve your goal, you must cross the lands of Kyrandia,
+face unknown perils, solve mystical enigmas, battle rivalrous mages, and
+conqueror your own mind, body, and soul.
+
+Time has stood still for too long on Kyrandia -- now is the time for one
+mage to rise above and master the powers of sorcery and magic.
+
+Press RETURN to continue} T Kyrandia description
+
+
+INTROB {
+However, before you begin your adventure, here's a brief explanation of how
+to play:
+
+Kyrandia is a multi-player interactive game, where many people at once can
+adventure with each other in the same simulated adventure world.  Players
+can help one another, engage in battle, trade information, or just "shoot the
+breeze."
+
+To move about in Kyrandia, type the direction you want your character to go
+(north, south, east or west).  You can speak with other players using action
+verbs.  For example, if you were to type "say hello there", other players at
+the same location would see "hello there."  You may pick up objects and do
+things with them.  You can look at your current surroundings or other players.
+Almost any mundane action you can think of can be performed.
+
+However, the world of Kyrandia is much, much more.  The underlying theme of
+the entire game is the use of magic.  Similar in concept to the popular
+role-playing game "Dungeons & Dragons," players are "magic-users" who start
+at level 1 (Apprentice) and advance to higher levels and more powerful magic.
+
+Press RETURN to continue} T Kyrandia description
+
+
+INTROC {
+Although you must be the one to discover all the details (and many there are)
+of the magic of Kyrandia, we'll give you a little help to start off with.
+
+Spells are magic cast by players, sometimes at objects or other players.  To
+cast a spell a player must first have it memorized.  He must also have
+enough spell points to cast it, and must be of high enough level for certain
+spells.  Also, some spells require the player to have certain components
+(objects) to cast them.  To actually cast the spell, a player must type
+"cast" and then the secret incantation of the spell to be cast; sometimes,
+a direct object must be included as well, such as "at the elf".
+
+The physical strength and endurance of a player is determined by his "hit
+points."  A player's hit points increase as he gains levels or by magical
+means.  It is through hit points that most players battle each other; when a
+player's hit points reach 0, he is killed, and must start from scratch at the
+beginning again.
+
+To see what spells you have memorized and how many spell points you have,
+type "spells".  To see how many hit points you have, type "hits".  To see
+what objects you are holding, type "inv".  And if you need it, type "help".
+
+Press RETURN to continue} T Kyrandia description
+
+
+INTROD {
+You may ask what great treasure lies in this adventure?  You will run
+across many exciting characters and travel through breathtaking scenery.
+Beyond that, explore this great world to find what is hidden for you.  The
+first player to reach the end will be granted the title of "Arch-Mage of
+Legends."
+
+Kyrandia is based upon a complete Fantasy World created by Scott Brinker; it
+was programmed by Scott Brinker and Richard Skurnick in March-June of 1988,
+and is based on multi-player interactive game concepts originated by Tim
+Stryker.  Also, thanks are due to those who gave the support and inspiration
+to make this fantasy a reality.  Kyrandia is dedicated to the lonely souls
+of the world; type "help fantasy" in the game for more.
+
+Enjoy the magic, mystery, and mirth of Kyrandia, Fantasy World of Legends!
+
+           Kyrandia,V%-4s
+     (Fantasy World of Legends)
+
+    Designed and Programmed by -
+  Scott Brinker & Richard Skurnick
+  (C) 1988-94 by Galacticomm, Inc.
+         All rights reserved.
+
+Press RETURN to begin} T Kyrandia description
+
+
+HLPMSG {
+
+Help is available for the following subjects:
+
+  commands ... what you can do
+  fantasy .... a note from the author
+  gold ....... "money" of Kyrandia
+  hits ....... your strength/combat
+  levels ..... advancing in Kyrandia
+  spells ..... the magic of Kyrandia
+  winning .... solving the game
+
+Type "help <subject>" (example: "help fantasy") at the prompt.
+
+To exit type "X".  You will be placed in the same spot when you return.
+
+} T Kyrandia description
+
+
+HLPCOM {...Suddenly, a small elf runs out from nowhere!  He gives you a nod and a
+smile and whispers in your ear...
+
+ Kyrandia is a multi-player fantasy adventure.  You can speak with other
+ players using action verbs.  For example, if you were to type "say hello
+ there", other players at the same location would see "hello there."
+
+ You can move around the large world of Kyrandia by telling the computer
+ which direction you wish to go (example: west).  You can abbreviate these
+ commands for your convenience: n(orth), s(outh), e(ast), and w(est).  In
+ some instances, you can also use special commands too (example: climb the
+ tree).  Also, it is rumored travel can be done magically as well!
+
+ You can pick up objects and use them in assorted ways (you can experiment
+ for yourself).  Also, for added novelty, you can do numerous "mundane"
+ actions, such as: smile, laugh, kick <Player-ID>, wink, hug <Player-ID>,
+ and many more!
+
+ The rest you have to figure out on your own!  Good luck!
+
+***
+The elf then bows swiftly to you and disappears in a puff of smoke!
+} T Kyrandia description
+
+
+HLPFAN {
+
+ It has taken over two years to fully visualize this Fantasy World of
+ Kyrandia, a mirror-image of a dreamworld inspired by love and fashioned
+ by imagination.  Created with smiles and tears, hopes and fears, and a
+ passion of the soul immeasurable by mortal definitions, Kyrandia holds
+ a magic beyond sorcery; a magic that will bloom like the lavender roses
+ of Kyrandia across time and space forever... love.  This entire work is
+ dedicated to my Lady of Legends, the one who dances eternally in my
+ dreams; forever alive in my heart and soul, beyond reality, but never
+ beyond imagination and hope, over the rainbow, in the fantasy forest where
+ wishes come true and the emeralds sparkle in the waterfall forever more.
+
+ Although Kyrandia is an adventure game, filled with action, excitement,
+ and interaction, I ask you to also take some time amongst the casting of
+ fireballs and battling of monsters to examine the scenery of Kyrandia
+ and delve into the deeper meanings of this visionary Fantasy World.
+
+ Thank you so much for partaking in this humble world of mine.  I wish
+ you the best of luck, in Kyrandia, and in everything in life.  Farewell.
+
+        Scott James Brinker
+    (fantasy author/programmer)
+
+} T Kyrandia description
+
+
+HLPGOL {...As you ask for a help, a genie suddenly pops out in a cloud of smoke,
+smiles, and says to you...
+
+ Welcome to Kyrandia!  I'm so pleased and honored to have you in my humble
+ world.  Thank you so, so much for joining this wonderful fantasy land!
+
+ However, you wish to know about gold, huh?  Well, as you've probably
+ already concluded, gold is the currency of Kyrandia, similar to the
+ "dollar" of your original world.  You can use gold to buy things from
+ the many different people you will meet in Kyrandia, or for other,
+ more arcane purposes.
+
+ To get gold, well, you have to get it the hard way -- find it.  Or, if
+ you're a good alchemist, you might be able to make it?  Ah, well that's
+ up to you to discover.  If you're having trouble finding gold out in the
+ vast wilderness of Kyrandia, you could always try and get a job.  Rumor
+ has it many village store keepers are always looking for good adventurers.
+
+ Anyway, hope I've been of some assistance, but I have to run for now.  Have
+ a great time, and I bid you well on all your adventures in Kyrandia!
+
+***
+The genie disappears in a flash of forked, blue lightning!
+} T Kyrandia description
+
+
+HLPHIT {...As you make your request for some aid, an old, wise man suddenly appears
+before you, gives you a small grin, and says...
+
+ "Hit points" are the representation of your character's strength, health,
+ and endurance.  When your hit points reaches zero, your character dies.
+ As you grow in power (gain levels) your number of hit points increase.
+
+ You combat with people through the use of magic, ultimately to bring their
+ hit points to zero.  You can use spells or magical items, but the result is
+ usually the same.  However, if you wish to be really slick, you can also
+ attack people in other ways besides lowering their hit points -- I'll leave
+ it up to you to discover how...
+
+ You can also combat with the many different creatures of Kyrandia, but you
+ best beware: their power is often way beyond your magic!
+
+ When a character dies, he (or she) is automatically restarted at the very
+ beginning of the game, near the willow tree, at level 1.
+
+***
+The old man then gives you a respectful bow and vanishes in a puff of smoke,
+but not before grinning to himself.
+} T Kyrandia description
+
+
+HLPLEV {...As you call out for help, a flash of incredibly bright light blinds you!
+***
+Before you stands the Goddess Tashanna, shining in sheer beauty.  She kisses
+your check and says...
+
+ Your power is measured in "levels" in Kyrandia, which determine how many
+ "hit points" you have, how many "spell points" you have, and how powerful
+ of spells you may cast.  You gain 2 spell points per level, and you gain
+ 4 hit points per level.  (see "help spells" and "help hits").  Each level
+ also has a "title", or name, associated with it.  For example, when you
+ start at level 1, you are titled "Apprentice"; to win the game, you must
+ become an "Arch-Mage of Legends".  (see "help winning").
+
+ It is up to you to discover exactly how many levels there are, and their
+ respective titles.  However, everyone wears a "Patch of Sorcery" which
+ declares their title (type "look <so-and-so>").  You may also look at
+ yourself to admire your own title too.
+
+ Above all else, remember... some things are more powerful than magic!
+
+***
+The Goddess Tashanna then smiles at you, and vanishes in a purple flash!
+} T Kyrandia description
+
+
+HLPSPE {...A tall, ominous wizard dressed in deep blue robes suddenly appears before
+you in a column of orange flame!  He bows to you and begins to speak...
+
+ Kyrandia is a world of magic.  To become powerful in Kyrandia, you therefore
+ must master the art of spellweaving.
+
+ The spell system of Kyrandia works like this: every player has a "spellbook"
+ in which he keeps the spells he can memorize; no one can steal this
+ book, and the player cannot lose it.  Once a spell is in the spellbook, a
+ player may memorize that spell (type: memorize <spell name>).  You can have
+ up to ten spells "memorized" at the same time.  A player then may cast any
+ spell he has memorized (type: cast <spell name>).  Some spells also
+ require a direct object (a target), such as a person, place, or thing; the
+ direct object should be placed right after the spell name when being cast.
+ Also note that some spells require certain components (objects) or other
+ special circumstances to be successfully cast.
+
+ You must also be of a certain level to cast different spells; the most
+ powerful spells can only be cast by those of high enough level.
+
+***
+The wizard then bows and vanishes into thin air!
+} T Kyrandia description
+
+
+HLPWIN {...An image of the author, Scott Brinker, appears in a shimmering circle of
+rainbows!  He smiles and says...
+
+ To "win" Kyrandia, you must master the magic of this world and gain the title
+ of "Arch-Mage of Legends".  Upon reaching this high level, you are eligible
+ to collect any prize the System Operator of this realm may be offering.  The
+ game will notify you of how to collect your prize and glory.  Let it be
+ known that only the FIRST player to solve Kyrandia (on this system) may be
+ the one to receive the prize.
+
+ However, everyone who takes part in the experience of Kyrandia can win; if
+ not a materialistic award of credits, then many hours of enjoyable gaming,
+ the thrill of magical Dungeons & Dragons combat, and special insight into a
+ dreamworld created from true love -- an enchanting, parallel fantasy of the
+ world of reality in which we all live.
+
+ I'm sorry, but I can't give you any "hints" or "solutions", because after
+ all, that would take away all the excitement and adventure I've created for
+ you!  However, I do suggest you see with your heart as well as your eyes...
+
+***
+He then shakes your hand, smiles again, and vanishes in his iridescent circle
+of rainbows.
+} T Kyrandia description
+
+
+NOHELP {...Sorry, there is no help available for %s.
+} T Kyrandia description
+
+
+PLCHLD {} T Kyrandia placeholder
+
+
+MDES00 {...%s is a ragged looking young man without any really distinguishing
+qualities.  He is dressed in a simple, grey loincloth stained with dirt and
+other grime and you notice he doesn't have any Patch of Sorcery.  He appears
+to be holding } T Kyrandia description
+
+
+MDES01 {...%s is a rather stocky individual who looks like he's been through
+some tough times lately.  He's wearing a plain-stitched robe with a Patch
+of Sorcery.  The Patch of Sorcery has "Magic-User" woven in bright red
+thread.  He seems to have } T Kyrandia description
+
+
+MDES02 {...An air of egotism surrounds %s, who holds his head high and walks
+tall and proud.  You seem to find something ironically humorous in his
+behavior, and something extremely hilarious about his wardrobe.  Although
+he is wearing a fine light green robe, it has a very large hole in the
+rear.  His Patch of Sorcery has "Evoker" woven in brown threads.  He seems
+to hold } T Kyrandia description
+
+
+MDES03 {...%s is distinguished by the bright yellow, cone-shaped hat with a silver
+tassel hanging down.  The expression on his face is one of kindness and peace.
+A Patch of Sorcery labeled "Conjurer" is sewn by silver threads to his yellow
+tunic.  He seems to be holding } T Kyrandia description
+
+
+MDES04 {...%s is richly robed in dark blue with hundreds of silver stars and
+bright constellations sewn all over his garments.  His silver cap glows with
+a strange, magical radiance which draws your attention to its mystical aura.
+Sewn by black threads into the fine blue material of his robe on his left
+arm is a Patch of Sorcery inscribed with the word "Magician".  He seems to
+be holding } T Kyrandia description
+
+
+MDES05 {...Dressed in drab grey rags, %s seems indifferent to his apparent lack
+of fine apparel.  Instead, he appears to be lost within his own thoughts,
+as though pondering the entire meaning of life.  Attached by red threads to
+his right arm a Patch of Sorcery titled "Mystic" stands out against its grey
+surroundings.  He seems to be holding } T Kyrandia description
+
+
+MDES06 {...Truly a regal individual, %s is clothed in white robes tied by a
+bright blue rope belt.  He has a certain grim smile permanently embedded on
+his face, like the cat that swallowed the canary.  However, despite his
+mysterious background, he proudly wears a Patch of Sorcery labeled "Enchanter"
+sewn by light blue threads into the chest of his white robe.  He seems to
+be holding } T Kyrandia description
+
+
+MDES07 {...%s gives you the impression of being a walking advertisement for a
+barbarian clothing store.  He's wearing leather armor with several gold
+metal bands and spikes sticking out from assorted places -- an ancient birth
+control garment.  On the back of his leather outfit a Patch of Sorcery sewn
+by yellow threads reads "Warlock".  He appears to be holding } T Kyrandia description
+
+
+MDES08 {...Elegantly dressed in black and silver robes, %s stands tall and
+proud, radiating an aura of magnificence and power.  His dark eyes are deep
+with mystical secrets un-interpretable by a mere glance.  A Patch of Sorcery,
+titled "Sorcerer", is sewn by white threads into the black left arm of his
+robes.  He seems to have } T Kyrandia description
+
+
+MDES09 {...Clothed in solid green robes with a green hat and green saddles to boot,
+%s is a stout, middle-aged man who has a look of determination imbedded
+within his grim countenance.  A Patch of Sorcery, sewn by bright green
+threads, has been inscribed with the words "Green Wizard".  He seems to be
+holding } T Kyrandia description
+
+
+MDES10 {...Dressed in solid blue apparel, %s is a tall, proud wizard with a
+large, silver hat, styled in the traditional magic-user cone shape.  A twinkle
+in his eye and a slight smile on his face, which almost makes you wonder
+what he has running through his mind.  He wears a dark blue patch which reads
+"Blue Wizard".  He seems to be holding } T Kyrandia description
+
+
+MDES11 {...%s is draped in fine, red silk robes which cover him in complete,
+royal attire.  An almost ageless mysticism surrounds him, charming you with
+it's magical touch of mystery.  A bright red patch reads "Red Wizard" on his
+right shoulder.  He appears to hold } T Kyrandia description
+
+
+MDES12 {...Tall and quite lean, %s is an incredible wizard, with a determined
+look in his young, yet wise countenance.  Although he looks somewhat
+inexperienced you notice on his right sleeve a silvery grey patch reads
+"Grey Wizard".  This is indeed an experienced soul.  He appears to be holding } T Kyrandia description
+
+
+MDES13 {...Broad-shouldered and very well built, %s appears to be the walking
+definition of a hulk.  Deep in his eyes you see a total lack of mercy or
+pity, just a cold hard stare.  This wizard must have encountered many hard
+and dangerous situations.  Sewn onto his left sleeve in off white threads is
+a Patch of Sorcery which reads "White Wizard".  He appears to be holding } T Kyrandia description
+
+
+MDES14 {...Ragged from his many trials and tribulations, %s has a look of extreme
+wisdom in his dark eyes, and you can feel a powerful aura radiating from him.
+He appears to be tired and weary, but you feel wary of his magical powers.
+Magically attached to his left arm in magenta threads is a Patch of Sorcery
+which reads "Mage".  He appears to be holding } T Kyrandia description
+
+
+MDES15 {...%s is clothed in dark robes, and a black hood with silver runes
+inscribed around the edges hides most of his features.  However, you see
+the shine of what appear to be golden eyes staring out from the hood at you,
+eating into your soul.  Sewn onto the robe in bright pink threads is a
+Patch of Sorcery which reads "Mage of Ice".  He appears to be holding } T Kyrandia description
+
+
+MDES16 {...A strange grin is the most noticeable feature of %s, and his eyes seem
+to be lit with deep curiosity and interest in his surroundings.  He is dressed
+in red robes which make him look quite dashing and his dark brown eyes put you
+to ease.  A matching Patch of Sorcery sewn in brown reads "Mage of Wind".  He
+appears to be holding } T Kyrandia description
+
+
+MDES17 {...%s is a handsome young mage who has endured many hardships.  A superb
+example of determination and will power, he stands tall and proud, fearing
+nothing.  You wonder if this is wise, considering the current conditions
+of constant danger.  A Patch of Sorcery sewn in golden threads reads
+"Mage of Fire".  He appears to be holding } T Kyrandia description
+
+
+MDES18 {...Radiating an aura of sheer power and wisdom, %s is dressed in traditional
+wizard dress, even up to the cone-shaped hat!  Sparks fly from his fingers,
+and occasionally from his long, black hair.  You shake as you feel some
+supernatural force is being emitted from his body.  Sewn onto his left sleeve
+in orange threads is a Patch of Sorcery which reads "Mage of Light".
+He appears to be holding } T Kyrandia description
+
+
+MDES19 {...A bright white light emanates from %s, almost totally blinding you.
+After a second it fades and an elderly gentlemen appears.  This wizard
+radiates a great deal of mystical energy, both magical and charismatic.
+Within his eyes you see the stars of wisdom.  Delicately attached to his right
+sleeve in amber threads is a Patch of Sorcery which reads "Arch-Mage".  He
+appears to be holding } T Kyrandia description
+
+
+MDES20 {...You gaze around and notice a fellow standing as though he were in a
+trance.  You look into the eyes of %s, but the look is not returned.
+This hits you as being rather strange, for it leaves you a bit shaken.  You
+try to gain his attention but are unsuccessful.  Sewn in black treads to his
+chest is Patch of Sorcery which reads "Arch-Mage of Wands".  He appears to be
+holding } T Kyrandia description
+
+
+MDES21 {...Standing before you is a middle aged gentleman who is starting to show his
+age.  %s has small wrinkles appear on his forehead and his hands shake a
+bit.  Dressed in a dull green clock, you can detect that he may be hiding
+something.  Sewn onto the left shoulder of the clock in yellow threads is a
+Patch of Sorcery which reads "Arch-Mage of Staves".  He appears to be holding } T Kyrandia description
+
+
+MDES22 {...%s is a wise old gentlemen, but a incredible strong magical aura emanates
+from him.  His hair is silvery grey in color and his eyes dull from the years
+he has spent in the world.   Sewn in a unique shade of blue is a Patch of
+Sorcery which reads "Arch-Mage of Swords".  He appears to be holding } T Kyrandia description
+
+
+MDES23 {...As you gaze into his eyes, you feel as though %s were beckoning you
+to some greater cause or to perhaps warn you of some kind of impending doom.
+You are left with an unsure feeling of your meaning or the meaning of life as
+it exists.  Neatly sewn in white threads upon his right shoulder is a Patch of
+Sorcery which reads "Arch-Mage of Jewels".  He appears to be holding } T Kyrandia description
+
+
+MDES24 {...As you look upon %s, an incredible feeling of weakness overcomes you.  You
+feel as though you have no value compared to anything else in the world.  You
+can detect tremendous energy radiating from within the area.  Sewn ever so
+neatly and carefully onto his right shoulder in multicolor threads is a unique
+Patch of Sorcery which reads "Arch-Mage of Legends".  He appears to be
+holding } T Kyrandia description
+
+
+FDES00 {...%s is a simple, although rather beautiful, young woman.  Something
+in her eyes fills your soul with peace and comfort.  Her smile is perhaps the
+most powerful magic she possesses, especially since she doesn't even bear a
+Patch of Sorcery -- a lowly apprentice.  She seems to be holding } T Kyrandia description
+
+
+FDES01 {...%s is a charming lady, wearing well-kept light green robes which flow
+elegantly around her figure.  You notice a mysterious twinkle in her eye.
+She wears a Patch of Sorcery woven in light brown threads, which reads
+"Magic-user".  She seems to be holding } T Kyrandia description
+
+
+FDES02 {...An air of egotism surrounds %s, who holds her head high and walks
+tall and proud.  You seem to find something ironically humorous in her
+behavior, and something extremely hilarious about her wardrobe.  Although
+she is wearing a fine light green robe, it has a very large hole in the
+rear.  Her Patch of Sorcery has "Evoker" woven in brown threads.  She seems
+to hold } T Kyrandia description
+
+
+FDES03 {...%s is dressed in a long white gown.  Gently inserted between the light
+threads of her hair is a lavender rose.  A pleasant smile and a sparkle in her
+eyes are her most notable traits.  A Patch of Sorcery labeled "Conjurer is sewn
+in silver threads to her gown.  She seems to be holding } T Kyrandia description
+
+
+FDES04 {...Dressed in a heavy dark cape, %s sticks out in the crowd.  Lightly
+sprinkled upon the cape is a substance of silvery dust.  You detect a strong
+aura of magical power which makes you very weary of this person.  Sewn by black
+threads on the side of the black cape is a Patch of Sorcery inscribed with the
+word "Magician".  She seems to be holding } T Kyrandia description
+
+
+FDES05 {...Dressed as though she just cleaned the hut, %s looks as though she
+has had better days.  A terrible look of despair can be seen in her eyes.
+Bearly attached to her rags by red threads is a Patch of Sorcery titled
+"Mystic".  She seems to be holding } T Kyrandia description
+
+
+FDES06 {...Dressed in fine white satin, %s is truly a proud person.  An air of
+true elegancy can be detected, although there is something solemn about her.
+Sewn onto her right sleeve by light blue threads is a Patch of Sorcery labeled
+"Enchanter".  She seems to be holding } T Kyrandia description
+
+
+FDES07 {...%s gives you the impression of being a walking advertisement for a
+barbarian clothing store.  She's wearing leather armor with several gold
+metal bands and spikes sticking out from assorted places -- an ancient birth
+control garment.  On the back of her leather outfit a Patch of Sorcery sewn
+by yellow threads reads "Warlock".  She appears to have } T Kyrandia description
+
+
+FDES08 {...Elegantly dressed in black and silver robes, %s stands tall and
+proud, radiating an aura of magnificence and power.  Her dark eyes are deep
+with mystical secrets un-interpretable by a mere glance.  A Patch of Sorcery,
+titled "Sorcerer", is sewn by white threads into the black left arm of her
+robes.  She seems to have } T Kyrandia description
+
+
+FDES09 {...Clothed in solid green robes with a green hat and green saddles to boot,
+%s is a stout, middle-aged woman who has a look of determination imbedded
+within her grim countenance.  A Patch of Sorcery, sewn by bright green
+threads, has been inscribed with the words "Green Wizard".  She seems to be
+holding } T Kyrandia description
+
+
+FDES10 {...Dressed in solid blue apparel, %s is a tall, proud wizard with a
+large, silver hat, styled in the traditional magic-user cone shape.  A twinkle
+in her eye and a slight smile on her face, which almost makes you wonder
+what she has running through her mind.  She wears a dark blue patch which
+reads "Blue Wizard".  She seems to be holding } T Kyrandia description
+
+
+FDES11 {...%s is draped in fine, red silk robes which cover her in complete,
+royal attire.  An almost ageless mysticism surrounds her, charming you with
+it's magical touch of mystery.  A bright red patch reads "Red Wizard" on her
+right shoulder.  She appears to hold } T Kyrandia description
+
+
+FDES12 {...Tall and quite lean, %s is an incredible wizard, with a determined
+look in her young, yet wise countenance.  Although she looks somewhat
+inexperienced you notice on her right sleeve a silvery grey patch reads
+"Grey Wizard".  This is indeed an experienced soul.  She appears to be holding } T Kyrandia description
+
+
+FDES13 {...Broad-shouldered and rather strangely built for a women, %s looks like
+she was been battling often with some of the more difficult creatures in this
+region.  Sewn onto her left sleeve in off white threads is a Patch of Sorcery
+which reads "White Wizard".  She appears to be holding } T Kyrandia description
+
+
+FDES14 {...Worn out from her many difficult battles, %s has a look of exhaustion
+on her beautiful, but dirty, face.  As you look closer, you are able to detect
+a strong magical aura.  This beauty is indeed very powerful.  Magically
+attached to her left arm in magenta threads is a Patch of Sorcery which reads
+"Mage".  She appears to be holding } T Kyrandia description
+
+
+FDES15 {...%s is draped in a dark blue robe which is decorated with many
+runic symbols and mystical letters.  Her smile has a somewhat evil appearance,
+and her red eyes do startle you.  Long, black hair falls down across her
+shoulders, giving her a wild look.  Sewn onto the robe in bright pink threads
+is a Patch of Sorcery which reads "Mage of Ice".  She appears to be
+holding } T Kyrandia description
+
+
+FDES16 {...%s looks like a very nice lady, and beauty is most definitely one of
+her better traits.  You sense a warm, loving appreciation of life flowing
+from her magical aura. A matching Patch of Sorcery sewn in brown reads
+"Mage of Wind".  She appears to be holding } T Kyrandia description
+
+
+FDES17 {...%s is a beautiful young mage who has endured many hardships.  A superb
+example of determination and will power, she stands tall and proud, fearing
+nothing.  You wonder if this is wise, considering the current conditions
+of constant danger.  A Patch of Sorcery sewn in golden threads reads
+"Mage of Fire".  She appears to be holding } T Kyrandia description
+
+
+FDES18 {...Catching your eye immediately is the bright shinny smile of %s.  Her
+golden blonde hair blows gently in the light breeze.  You can feel the
+presence of this lady in your every thought.  Sewn onto her left sleeve
+in orange threads is a Patch of Sorcery which reads "Mage of Light".  She
+appears to be holding } T Kyrandia description
+
+
+FDES19 {...%s looks back at you with gentle eyes.  This is indeed a lady.  She
+is dressed in a cream colored floor length dress.  A pretty pink ribbon
+rises out of her golden brown hair.  On her face is a glowing smile.  You can
+tell that this lady has a warm heart.  You feel as though you are in the
+presence of the Goddess Tashanna.  Delicately attached to her right sleeve
+in amber threads is a Patch of Sorcery which reads "Arch-Mage".  She seems to
+be gently holding } T Kyrandia description
+
+
+FDES20 {...Looking very distracted, %s is a very nervous person.  Looking at
+you very suspiciously she does not seem to trust you.  In fact she doesn't seem
+to trust any movements and is quite jumpy.   Sewn in black treads to her
+chest is Patch of Sorcery which reads "Arch-Mage of Wands".  She appears to be
+holding } T Kyrandia description
+
+
+FDES21 {...Standing before you is a middle aged lady who is starting to show her
+age.  %s has small wrinkles appear on her forehead and her hands shake a
+bit.  Dressed in a dull green clock, you can detect that she may be hiding
+something.  Sewn onto the left shoulder of the clock in yellow threads is a
+Patch of Sorcery which reads "Arch-Mage of Staves".  She appears to be
+holding } T Kyrandia description
+
+
+FDES22 {...%s is a wise old gentlewomen, but a incredible strong magical aura emits
+from her.  Her hair is silvery grey in color and her eyes dull from the years
+she has spent in the world.   Sewn in a unique shade of blue is a Patch of
+Sorcery which reads "Arch-Mage of Swords".  She appears to be holding } T Kyrandia description
+
+
+FDES23 {...As you gaze into her eyes, you feel as though %s were beckoning you
+to some greater cause or to perhaps warn you of some kind of impending doom.
+You are left with an unsure feeling of your meaning or the meaning of life as
+it exists.  Neatly sewn in white threads upon her right shoulder is a Patch of
+Sorcery which reads "Arch-Mage of Jewels".  She appears to be holding } T Kyrandia description
+
+
+FDES24 {...As you look upon %s, an incredible feeling of weakness overcomes you.  You
+feel as though you have no value compared to anything else in the world.  You
+can detect tremendous energy radiating from within the area.  Sewn ever so
+neatly and carefully onto her right shoulder in multicolor threads is a unique
+Patch of Sorcery which reads "Arch-Mage of Legends".  She appears to be
+holding } T Kyrandia description
+
+
+KID000 {...The ruby is a deep shade of red, and it many facets sparkle brilliantly as
+you examine it, enchanting you with its crimson glimmer.  It isn't much bigger
+than half your palm, but seems quite heavy for its size.
+} T Kyrandia description
+
+
+KID001 {...The emerald is a bright hue of green, and it seems to shine with its own
+beautiful, inner light.  It has been naturally shaped into a three dimensional
+hexagon, with, strangely enough, perfectly smooth edges.
+} T Kyrandia description
+
+
+KID002 {...Small and round, this dark red garnet is one of the more common gemstones
+of the land, yet nonetheless, has a certain charm of its own.  Like all of the
+garnets which are normally found, there is a tiny black splotch in its center.
+} T Kyrandia description
+
+
+KID003 {...The pearl is a lovely little stone, pure white in color, with a shiny
+surface that reflects all surrounding light, causing it to sparkle with a
+special brilliance of its own.
+} T Kyrandia description
+
+
+KID004 {...The aquamarine is a beautiful, light blue gem.  It is shaped like a small
+triangle, with darker shades of blue in the center.  Because of its unique
+shape, it also acts like a prism, refracting any light that enters it into
+vivid, tiny rainbows.
+} T Kyrandia description
+
+
+KID005 {...The moonstone is a fascinating, milky-white precious stone no bigger than
+your thumb and forefinger.  As you examine it, a strange tingle runs down your
+spine and you feel the presence of magic.
+} T Kyrandia description
+
+
+KID006 {...The sapphire is a medium-sized gemstone, dark blue in color, except for a
+small white spot in its center which shines blazingly -- a star sapphire.  One
+of the rarer and more beautiful jewels, you feel power in this royal treasure.
+} T Kyrandia description
+
+
+KID007 {...The diamond, the legendary jewel which represents eternal love, is truly
+a spectacular wonder to behold.  Its thousands of facets glitter dazzlingly as
+you examine it, almost mesmerizing you with their dancing radiance.
+} T Kyrandia description
+
+
+KID008 {...The amethyst is a crystalline, purple stone.  Its jagged facets refract
+any light into myriad, reddish-blue images which dance almost magically before
+your eyes.
+} T Kyrandia description
+
+
+KID009 {...The onyx is a smooth, jet black rock about the size of your palm.  Looking
+at it closely, it reminds you of a pool of inky water, reflecting surrounding
+images with almost mystical clarity.
+} T Kyrandia description
+
+
+KID010 {...The opal, strangely enough, doesn't appear to have any color.  In fact,
+this gem seems to be almost invisible, barely distinguishable in your hands.
+It has a certain, mysterious vibration to its substance.
+} T Kyrandia description
+
+
+KID011 {...Dark crimson, streaked with varying shades of red, the bloodstone is a very
+mystifying jewel.  Staring at it, you get the feeling that you are somehow
+gazing into another dimension.
+} T Kyrandia description
+
+
+KID012 {...The elixir is a mysterious, blue-green liquid which radiates a very magical
+energy.  A strange, sulfuric odor rises from its watery substance, making you
+quite nauseous.
+} T Kyrandia description
+
+
+KID013 {...The staff is made from solid oak wood, topped with a silver cone.  It has
+a certain regal bearing to its nature, as though it was the scepter of a king.
+Mystical symbols have been carved into it, and although they are unreadable,
+you feel a mysterious tingle run down your spine as you examine them.
+} T Kyrandia description
+
+
+KID014 {...The key is made of solid gold, and it sparkles almost magically as you
+examine it.  It is about the size of your fist, although it is quite heavy
+due to its substance.  You feel a surge of emotion in your heart for a brief
+moment.
+} T Kyrandia description
+
+
+KID015 {...The locket is made from shiny gold, polished to perfection and decorated
+with many intricate designs.  You particularly notice a beautiful replication
+of a magnificent waterfall carved lovingly into its center.
+} T Kyrandia description
+
+
+KID016 {...The amulet is a light-blue gemstone set in a silver pendant with a thin
+silver chain attached.  The amulet has a mysterious glow to its stone, almost
+enchanting you with its soft radiance.  You also notice that the gemstone has
+been cut in the shape of a large teardrop, as though symbolic of its origin.
+} T Kyrandia description
+
+
+KID017 {...The pendant is made of dull silver with little ornamentation, except
+for a rough inscription which reads: "Nothing is impossible, if only you
+believe...".
+} T Kyrandia description
+
+
+KID018 {...The charm is a small, bright blue jewel which radiates a magical light
+from within, creating the image of a bright blue orb of light in your mind.
+You feel occasional surges of electric energy erupt from it, delivering mild
+shocks to you.
+} T Kyrandia description
+
+
+KID019 {...The bracelet has been wrought from pure white gold, a very rare element
+indeed.  It sparkles as you examine it closely, almost as though trying to
+enchant you with its dancing brilliance.
+} T Kyrandia description
+
+
+KID020 {...The coronet is truly a magnificent work of incredible craftsmanship,
+apparently once designed to honor the greatest kings and queens of the
+many realms of fantasy.  It has a slightly magical aurora to it.
+} T Kyrandia description
+
+
+KID021 {...The tiara is a magnificent work of craftsmanship.  It seems to sparkle with
+an almost unearthly brilliance as you examine it closely.  You sense something
+very special and magical about this beautiful treasure.
+} T Kyrandia description
+
+
+KID022 {...The necklace is a wonderfully crafted piece of jewelry, made from the
+finest silver and adorned with numerous precious stones, from rubies, to
+diamonds, to emeralds.  You feel a certain sense of peace in your soul as
+you examine it.
+} T Kyrandia description
+
+
+KID023 {...The broach sparkles with dark blue gemstones, radiating an aura of sheer
+magical beauty.  It is something to be treasured for the rest of your mortal
+life.
+} T Kyrandia description
+
+
+KID024 {...This royal artifact, one of the many creations from the great Age of
+Alexis, represents the holy symbol of the royal family of Tenderkin to the
+south.  You can almost sense the prestige that was once carried with this
+beautiful sceptre.
+} T Kyrandia description
+
+
+KID025 {...The rod is a long slender metallic object, primarily made from a rare
+metal find in Kyrandia.  It is black in color and weighs quite a bit.
+} T Kyrandia description
+
+
+KID026 {...The wand is about two feet in length and about half an inch in diameter.
+It appears to be constructed from pure silver, although it is much lighter
+than you would expect.  A silver tulip entwined within two hearts has been
+intricately carved across its length.
+} T Kyrandia description
+
+
+KID027 {...This small, silver trinket is hung from a thin, silver chain.  At
+first glance, it appears to be worthless, yet you sense a mysterious
+force locked within its simplicity.
+} T Kyrandia description
+
+
+KID028 {...The soulstone is a large jewel, slightly bigger than your palm.  It has
+been carved into the shape of a perfectly symmetrical ellipse.  When glanced
+at from a distance, it appears to be only a dull grey in color, but when you
+gaze closely, it jumps to life, sparkling brilliant, multi-colored rainbows.
+} T Kyrandia description
+
+
+KID029 {...The kyragem is one of the loveliest gems of the entire world, scintillating
+with a bright, prismatic splendor.  Although this beautiful jewel is rather
+small in size, it radiates an aura of incredible power, filling your soul with
+eternal peace and love.  Mystically etched into the center of the stone, you
+see the words, "Across time and space forever...", shining blazingly.
+} T Kyrandia description
+
+
+KID030 {...The dragonstaff is a great rod, at least six feet in length and about two
+inches in diameter.  It appears to have been constructed from solid cedar,
+with an exact replica of a small dragon's head placed on its top, its mouth
+gaping open.  Strange, unintelligible symbols have been carved in the wood
+from top to bottom, and the entire staff radiates powerful magic.
+} T Kyrandia description
+
+
+KID031 {...Bubbling and frothing constantly, this pinkish-red potion is most certainly
+one of the strangest concoctions in all of Kyrandia.  A distinctive odor of
+many potent and mysterious spices emanates from the center of this magical
+liquid, tempting you to drink its enchanting substance.
+} T Kyrandia description
+
+
+KID032 {...About the size of your palm, this appears to be just an ordinary pinecone.
+However, something about it -- you can't figure out what -- leads you to
+believe there is a hidden magic to its simple nature.
+} T Kyrandia description
+
+
+KID033 {...The dagger is made from pure silver, and it shines with a bright glimmer
+as you examine it.  Its hilt is decorated with several small jewels, which add
+to the sparkle of this small blade.  An inscription, written in gold, on the
+blade reads: "Love Conquers All".
+} T Kyrandia description
+
+
+KID034 {...The sword is a beautiful blade forged from the finest metals of the land,
+sharpened to a perfect edge, and decorated with many precious jewels of
+incredible beauty.
+} T Kyrandia description
+
+
+KID035 {...The scroll has been made from fine papyrus paper, although it seems quite
+worn and ancient.  A certain magical force surrounds it, and you feel yourself
+being magically drawn to reading its mystical symbols.
+} T Kyrandia description
+
+
+KID036 {...The codex appears to be a very ancient and magical work, dating back
+before the ages of the elders.  Your eyes seem to be drawn to reading its
+mysterious symbols.
+} T Kyrandia description
+
+
+KID037 {...This powerful book of knowledge radiates an awesome aura of pure
+energy, beckoning you to read its mystical language.  An ominous feeling
+enters your soul.
+} T Kyrandia description
+
+
+KID038 {...The parchment is made from a leathery material which has been rolled up.
+After further examination you unroll it and feel some of its magic escape.  You
+are compelled to want to read it.
+} T Kyrandia description
+
+
+KID039 {...The ring is made of pure gold and flawless in its design.  You can notice
+that twelve tiny specks surround it denoting some kind of significance.  This
+is the holy symbol of wholeness... oneness... eternal unity.
+} T Kyrandia description
+
+
+KID040 {...The rose is a beautiful flower, solid lavender in color, and eternally in
+full bloom.  It has lovely fragrance, the most wonderful, natural perfume you
+have ever smelled.  This star of natural beauty is also the holy symbol of the
+Goddess Tashanna.
+} T Kyrandia description
+
+
+KID041 {...The lilac is a small, white flower.
+} T Kyrandia description
+
+
+KID042 {...The orchid, strangely enough, seems to be of solid gold.  It sparkles
+with a magical brilliance as you examine it, almost enchanting you with its
+simple glitter.
+} T Kyrandia description
+
+
+KID043 {...The shard is a crystalline, elongated-hexagonal piece of clear quartz.  It
+has been magically shaped into the form of a teardrop, representing its
+sorrowful origin.  Something about the shard touches the deepest part of your
+heart.
+} T Kyrandia description
+
+
+KID044 {...The tulip is a delicate flower made of the purest silver.  Something about
+the gentle nature of the beautiful work of nature touches your heart.  You can
+also detect a sweet odor magically rising from it's shiny petals.
+} T Kyrandia description
+
+
+KID045 {...The dryad is a female tree nymph, about four feet tall with long blonde
+hair and large, deep blue eyes.  She smiles at you warmly, and bows to you
+respectfully.  You also notice a lavender rose placed perfectly in the middle
+of her beautiful hair.
+} T Kyrandia description
+
+
+AID045 {...The dryad smiles at you, as though understanding your desire, but she
+nonetheless dances away from your grasp.
+} T Kyrandia description
+
+
+KID046 {...The willow is a large, magical tree, which radiates a mystical power beyond
+anything of this world.  Many strange and exotic symbols have been carved
+elaborately into the trunk, which read: "-n--l, oh servant of Tashanna, and
+pay homage to thy source of life energy, for thy power to be recognized by
+the forces of nature and magic."  You notice that the first word has been
+partially worn away by time... or something else.
+} T Kyrandia description
+
+
+AID046 {...The willow tree doesn't seem to want to move.
+} T Kyrandia description
+
+
+KID047 {...The altar has been constructed from the finest marble of Kyrandia, pure
+white with a holy radiance to its smooth, shiny surface.  Enscribed in
+gold, are the words: "To thou whom seeketh thy power, praise thy power with
+all thy heart and soul.  Offer thy wealth generously, for thy physically body
+is nothing to thy soul, and glory be to the great goddess alone."
+} T Kyrandia description
+
+
+AID047 {...Stealing altars isn't allowed in the realm of Tashanna, foolish mortal!
+} T Kyrandia description
+
+
+KID048 {...The sign reads as follows:
+   --------------------------
+    | Ye Olde Spell Shoppe |
+   --------------------------
+ ------------------------------
+burnup .... 80gp  cantcmeha  100gp
+clutzopho . 50gp  cuseme .... 40gp
+fpandl .... 60gp  hocus .... 400gp
+howru ..... 25gp  koolit .... 60gp
+noouch .... 30gp  pocus ..... 45gp
+sunglass .. 35gp  thedoc .... 75gp
+tiltowait 1000gp  weewillo   120gp
+whereami   100gp  zapher .... 50gp
+
+} T Kyrandia description
+
+
+AID048 {...The sign is magically bound to the ground.
+} T Kyrandia description
+
+
+KID049 {...The statue is a beautiful work of art depicting a young man and a royal
+lady of incredible charm, holding each other close, facing the any obstacles
+of the world together.  There is something so life-like about this statue,
+it enchants you with a certain magic, filling your heart and soul with an
+unending feeling of eternal peace and love.
+} T Kyrandia description
+
+
+AID049 {...The statue doesn't budge.
+} T Kyrandia description
+
+
+KID050 {...The shrine is almost completely hidden within the heavy, dark green
+underbrush of the forest.  It seems to be constructed from pure silver and
+gold, adorned with several sparkling jewels.  Enscribed on the base of
+the shrine you see the phrase: "Offer thy treasures here".
+} T Kyrandia description
+
+
+AID050 {...Oh, for crying out loud, stop being such a scrounge!
+} T Kyrandia description
+
+
+KID051 {...This machine seems to be some sort of gambling system.  There is a slot
+in the center of it, with a writing above saying: "Enter Garnet Here".  You
+feel a sudden urge to act foolishly.
+} T Kyrandia description
+
+
+AID051 {...The slot machine growls at you.
+} T Kyrandia description
+
+
+KID052 {...The dragon is a magnificent, yet horrifying magical creature of darkness.
+Its huge body is covered with protective, green scales which seem to almost
+shine with a royal beauty.  From its long, ominous spiked tail to its grinning
+maw, it strikes both fear and awe into your mortal soul.
+} T Kyrandia description
+
+
+AID052 {...Suddenly, the goddess Tashanna appears before you and says: "Now why
+would you want to do a STUPID thing like that?"
+} T Kyrandia description
+
+
+KID053 {...The altar, constructed from pure marble, stands about four feet high
+and at first glance appears completely unadorned.  However, as you examine
+it more closely, you are able to see a faded inscription which seems to
+read: "Tlho hoe wmkg lhevy mw oeagh azd ymkp, vlzd azd umdi, imk age feadi hm
+wafe hoe foappezce hoah pley aoead, desmhe hoiyepw hm hoe hayj ah oazd."
+} T Kyrandia description
+
+
+AID053 {...The altar really doesn't seem to want to move.
+} T Kyrandia description
+
+
+TIRED {...You are exhausting yourself!  You need to rest for a few seconds before
+continuing...
+} T Kyrandia description
+
+
+LVLM00 {...Ah, you've already accomplished that task though!
+} T Kyrandia description
+
+
+LVLM01 {***
+%s is attempting a magical instant replay!
+} T Kyrandia description
+
+
+LVLM02 {...A voice in your mind says, "Ah, it is not yet time, my friend...".
+} T Kyrandia description
+
+
+LVLM03 {***
+%s seems to be hearing voices!
+} T Kyrandia description
+
+
+LVL200 {...As you kneel, a vision of the Goddess Tashanna materializes before you.
+She lays her hand gently upon your shoulder and says to you, "Rise, rise,
+Magic-user!  Your first advancement has begun."  She then vanishes, and
+you feel yourself grow in power!
+***
+You are now at level 2!
+***
+A spell has been added to your spellbook!
+} T Kyrandia description
+
+
+GETLVL {***
+%s seems to suddenly grow in strength and knowledge!
+} T Kyrandia description
+
+
+LVL300 {...As you praise the Goddess Tashanna, you feel yourself grow in power!
+***
+You are now at level 3!
+} T Kyrandia description
+
+
+MARRY0 {...What bigamy is this?  You've already sworn your life to %s!  Surely
+you have more dedication than that!
+} T Kyrandia description
+
+
+MARRY1 {***
+%s is looking like a nasty polygamist!
+} T Kyrandia description
+
+
+MARRY2 {...Trying to marry yourself, huh?  Sorry, we don't allow that sort of self
+pleasure in Kyrandia...
+} T Kyrandia description
+
+
+MARRY3 {***
+%s is looking somewhat skeptical about a new way of life.
+} T Kyrandia description
+
+
+MARRY4 {...You devote the rest of your mortal life in Kyrandia to %s.
+} T Kyrandia description
+
+
+MARRY5 {***
+%s has decided to devote the rest of %s mortal life in Kyrandia to you!
+} T Kyrandia description
+
+
+MARRY6 {***
+%s has decided to devote the rest of %s mortal life in Kyrandia to
+%s!
+} T Kyrandia description
+
+
+MARRY7 {...Feeling somewhat lonely, huh?  Sorry, that person isn't around...
+} T Kyrandia description
+
+
+MARRY8 {***
+%s is feeling somewhat romantically amorous.
+} T Kyrandia description
+
+
+OFFER0 {...The Goddess Tashanna accepts your humble offer and gives you her eternal
+blessings!
+} T Kyrandia description
+
+
+OFFER1 {***
+%s is having holy communion with the Goddess Tashanna.
+} T Kyrandia description
+
+
+PINEC0 {...You successfully grab one of the pinecones!
+} T Kyrandia description
+
+
+PINEC1 {***
+%s has successfully grabbed one of the pinecones from the tree!
+} T Kyrandia description
+
+
+PINEC2 {...You miss!
+} T Kyrandia description
+
+
+PINEC3 {***
+%s is trying to grab a pinecone without much success.
+} T Kyrandia description
+
+
+BGEM00 {...As you drop the gem into the stump, a powerful surge of magical energy
+rushes through your entire body!
+***
+You are now at level 6!
+***
+A spell has been added to your spellbook!
+} T Kyrandia description
+
+
+BGEM01 {***
+%s has just gained in power and knowledge!
+} T Kyrandia description
+
+
+BGEM02 {...The gem drops smoothly into the endless depths of the stump.  You
+feel a mysterious tingle down your spine, as though you have begun to
+unleash a powerful source of magic.
+} T Kyrandia description
+
+
+BGEM03 {***
+%s is dropping things in the stump.
+} T Kyrandia description
+
+
+BGEM04 {...It drops into the endless depths of the stump, but nothing seems to
+happen.
+} T Kyrandia description
+
+
+BGEM05 {...But you don't have one, you hallucinating fool!
+} T Kyrandia description
+
+
+BGEM06 {***
+%s, who has apparently been smoking too many magic weeds, is having
+hallucinations with the stump!
+} T Kyrandia description
+
+
+SILVM0 {...As you offer your fourth birthstone to the Goddess Tashanna, you feel
+a powerful surge of magical energy course through your body!
+***
+You are now at level 4!
+***
+A spell has been added to your spellbook!
+} T Kyrandia description
+
+
+SILVM1 {***
+%s seems to grow in strength and power!
+} T Kyrandia description
+
+
+SILVM2 {...The Goddess Tashanna accepts the offer of your birthstone!  You feel the
+urge to complete the offering with the rest of your birthstones.
+} T Kyrandia description
+
+
+SILVM3 {***
+%s is making offerings to the Goddess Tashanna!
+} T Kyrandia description
+
+
+SILVM4 {...The Goddess accepts your offer, but in your soul you realize that your
+offering was not one of your birthstones, or was out of sequence.
+} T Kyrandia description
+
+
+SILVM5 {***
+You hear the roll of thunder in the distance!  %s is making false
+offerings to the Goddess Tashanna!
+} T Kyrandia description
+
+
+SAPRAY {...As you pray, a vision of the Goddess Tashanna appears before you, shining
+in her eternal, radiant beauty.  She smiles at you and says: "Oh, brave and
+courageous one, there is so much you must learn.  What you have seen is only
+a small fraction of the world of Kyrandia... don't let your pride outmatch
+your knowledge.  Search for the truth of the four elements of all life, and
+know your corresponding birthstones, and their relation to the forces of
+nature and magic.  I bid thee the best of luck."  The goddess then vanishes
+as mysteriously as she had appeared.
+} T Kyrandia description
+
+
+RUBY00 {...You successfully grab one of the rubies!
+} T Kyrandia description
+
+
+RUBY01 {***
+%s has successfully grabbed a ruby from the tree!
+} T Kyrandia description
+
+
+RUBY02 {...You fail to grab a ruby.
+***
+A snake lunges out from the tree and bites for you for 8 points of damage!
+} T Kyrandia description
+
+
+RUBY03 {***
+%s tries to grab a ruby, but instead is bitten by a large snake!
+} T Kyrandia description
+
+
+DRUID0 {...As you touch the scepter to the orb of light, it vanishes in a flash!
+***
+A spell has been added to your spellbook!
+} T Kyrandia description
+
+
+DRUID1 {***
+%s is doing something mysterious with the orb of light!
+} T Kyrandia description
+
+
+DRUID2 {...Unfortunately, you don't have a scepter!
+} T Kyrandia description
+
+
+FEAR01 {...As you boldly defy the evil, the Goddess Tashanna rewards you for your
+courage with more knowledge and power.  You are now level 5!
+} T Kyrandia description
+
+
+FEAR02 {***
+%s has just gained in wisdom and courage.
+} T Kyrandia description
+
+
+ASHM00 {...As you cry your tears for the sorrow of the ash trees, they fall to the
+ground and magically transform into a beautiful crystal shard!
+} T Kyrandia description
+
+
+ASHM01 {***
+A shard suddenly appears on the ground near the ash trees!
+} T Kyrandia description
+
+
+ASHM02 {***
+Unfortunately, the shard vanishes a moment later!
+} T Kyrandia description
+
+
+GROSE1 {...You pick one of the beautiful, lavender roses and add it to your possessions!
+} T Kyrandia description
+
+
+GROSE2 {***
+%s has just picked one of the lavender roses.
+} T Kyrandia description
+
+
+GROSE3 {...You have too many possessions to grab one.
+} T Kyrandia description
+
+
+GROSE4 {***
+%s is attempting to pick one of the lavender roses.
+} T Kyrandia description
+
+
+MAGF00 {...As you toss the pinecone into the fountain, a genie suddenly appears
+above the fountain and states: "Thanks for you donation; a scroll has been
+delivered somewhere within the forest of Kyrandia as a sign of our thanks."
+***
+The genie then vanishes!
+} T Kyrandia description
+
+
+MAGF01 {***
+As %s tosses a pinecone into the fountain, a genie suddenly appears
+above the fountain and states: "Thanks for you donation; a scroll has been
+delivered somewhere within the forest of Kyrandia as a sign of our thanks."
+***
+The genie then vanishes!
+} T Kyrandia description
+
+
+MAGF02 {...The fountain sparkles magically in acceptance of your gift!
+} T Kyrandia description
+
+
+MAGF03 {***
+%s is has just tossed something into the fountain, which sparkles
+magically in acceptance of the gift!
+} T Kyrandia description
+
+
+MAGF04 {...As you toss the pinecone into the fountain, a voice echoes all around,
+whispering in the wind: "The fountain needs more to work its magic!"
+} T Kyrandia description
+
+
+MAGF05 {...As you toss the shard into the fountain, a genie magically appears
+for a moment, hands you an amulet, and then vanishes!
+} T Kyrandia description
+
+
+MAGF06 {...As you toss the shard into the fountain, a voice echoes all around,
+whispering in the wind: "The fountain needs more to work its magic!"
+} T Kyrandia description
+
+
+MAGF07 {***
+As %s tosses the pinecone into the fountain, a voice echoes all around,
+whispering in the wind: "The fountain needs more to work its magic!"
+} T Kyrandia description
+
+
+DRINK0 {...The fresh water is very delicious and refreshing!
+} T Kyrandia description
+
+
+DRINK1 {***
+%s is drinking the water with a refreshed smile.
+} T Kyrandia description
+
+
+TMPRAY {...As you pray, a vision of the Goddess Tashanna appears in your mind,
+standing before you in a holy brilliance of light.  She smiles and speaks
+softly to you: "One of your many quests must be the realization of your
+astral origins; seek thy birthstones and prove thy knowledge."
+} T Kyrandia description
+
+
+URSCRL {...As you read the %s, it vanishes in a puff of purple smoke.
+***
+The "%s" spell is added to your spellbook!
+} T Kyrandia description
+
+
+SCRLM0 {...As you read the %s, it vanishes in a puff of purple smoke.
+***
+Any spells you had memorized are mysteriously forgotten!
+} T Kyrandia description
+
+
+SCRLM1 {...As you read the %s, it vanishes in a puff of purple smoke.
+***
+Any possessions you may have been holding, except for your spellbook, vanish
+into thin air!
+} T Kyrandia description
+
+
+SCRLM2 {...As you read the %s, it vanishes in a puff of purple smoke.
+***
+Any gold you may have been holding, vanishes in a purple flash of light!
+} T Kyrandia description
+
+
+SCRLM3 {...As you read the %s, it vanishes in a puff of purple smoke.
+***
+All your spell points of energy have been magically drained!
+} T Kyrandia description
+
+
+SCRLM4 {...As you read the %s, it vanishes in a puff of orange smoke.
+***
+Suddenly, you feel yourself thrown into a spinning, magical vortex...
+
+} T Kyrandia description
+
+
+SCRLM42 {***
+Your stomach feels slightly upset.
+} T Kyrandia description
+
+
+SCRLM5 {...As you read the %s, it suddenly vanishes in a wisp of blue smoke!
+***
+Suddenly, there is a deafening crash of thunder and a dragonstaff appears
+in your hands!
+} T Kyrandia description
+
+
+SCRLM6 {...As you read the %s, it suddenly vanishes in a flash of yellow light!
+***
+Suddenly, a %s mysteriously appears in your hands!
+} T Kyrandia description
+
+
+SCRLM7 {...As you read the %s, it vanishes in a puff of purple smoke.
+***
+You suffer %d hit points of damage!
+} T Kyrandia description
+
+
+UKISSD {...The dryad nimbly escapes you, giggles, smiles, and gives you a %s!
+} T Kyrandia description
+
+
+OKISSD {***
+%s attempts to %s the dryad, which nimbly escapes, giggles, smiles,
+and gives %s a %s!
+} T Kyrandia description
+
+
+DIEMSG {***
+Suddenly, everything goes black, and you feel yourself falling through a deep
+chasm.  Strange colors flash in your mind and your ears are deafened with the
+sound of rolling thunder.  After what seems like an eternity, you finally feel
+yourself floating gently to the ground, and your vision returns...
+
+} T Kyrandia description
+
+
+KILLED {***
+%s just ceased to exist, having been sucked into a vanishing void.
+} T Kyrandia description
+
+
+NOTMEM {...You concentrate upon your words of magic, yet nothing happens!  You cannot
+seem to find that spell memorized in your mind.
+} T Kyrandia description
+
+
+SPFAIL {***
+%s is trying to cast a spell, without success.
+} T Kyrandia description
+
+
+S001M1 {...As you mutter the incantation, you feel your legs grow weak and your
+heart beat fast.  Suddenly, there is a flash of silvery light, and
+} T Kyrandia description
+
+
+BASMSG {***
+Suddenly, your eyes flash bright blue, blinding you for a moment.  When you
+open them again, you feel as if your power of seeing has been diminished.
+} T Kyrandia description
+
+
+BASMSG1 {***
+Suddenly, your skin burns with an invisible fire, wracking your body with
+almost unbearable agony.  A moment later, the pain diminishes and fades away,
+but leaves you feeling slightly feeble.
+} T Kyrandia description
+
+
+BASMSG2 {***
+Suddenly, a chilling, supernatural wind flies from the very air around you,
+painfully freezing your entire body.  As it dissipates, you feel somewhat
+weakened.
+} T Kyrandia description
+
+
+BASMSG3 {***
+Suddenly, a bolt of lightning flashes from out of nowhere, striking you in
+the chest, full force!  Although you seem to suffer no physical damage, you
+do feel a little mentally tired.
+} T Kyrandia description
+
+
+BASMSG4 {***
+Suddenly a large, ugly demon, dripping with gore, bursts out from the ground
+in front of you.  With its terrifying roar, it lunges for your throat, and
+then vanishes in a puff of smoke.
+***
+You feel slightly drained.
+} T Kyrandia description
+
+
+BASMSG5 {***
+Suddenly, you feel your body changing under the influence of strange and
+powerful forces.
+***
+You have transformed back to your visible human form.
+} T Kyrandia description
+
+
+RET2NM {***
+Suddenly, %s is engulfed in a swirl of multi-colored mists!
+***
+%s appears from within the sparkling mists, which then vanish.
+} T Kyrandia description
+
+
+SBOOK1 {...The spellbook is made from fine papyrus paper and bound in a leather
+book cover with iron bindings.  As you look inside, you see...
+*---------------------------------*
+|  Spell Book of %-4s %-9s   |
+|                                 |} T Kyrandia description
+
+
+SBOOK2 {
+| %-9s  %-9s  %-9s | } T Kyrandia description
+
+
+SBOOK3 {
+|  There doesn't appear to be     |
+|  any spells in your spellbook!  |} T Kyrandia description
+
+
+SBOOK4 {
+*---------------------------------*
+The spellbook radiates an aura of powerful magic.
+} T Kyrandia description
+
+
+ASBOOK1 {...The spellbook is made from fine papyrus paper and bound in a leather
+book cover with iron bindings.  As you look inside, you see...
+���������������������������������ͻ
+�   Spell Book of %-4s %-9s  �
+���������������������������������͹} T Kyrandia description
+
+
+ASBOOK2 {
+� %-9s  %-9s  %-9s �} T Kyrandia description
+
+
+ASBOOK3 {
+�  There doesn't appear to be     �
+�  any spells in your spellbook!  �} T Kyrandia description
+
+
+ASBOOK4 {
+���������������������������������ͼ
+The spellbook radiates an aura of powerful magic.
+} T Kyrandia description
+
+
+LOSSPL {...You master the %s spell, however the %s spell slips from your memory!
+} T Kyrandia description
+
+
+GAISPL {...You master the %s spell!
+} T Kyrandia description
+
+
+MEMSPL {***
+%s has just memorized a spell from %s spellbook!
+} T Kyrandia description
+
+
+MISS00 {...You concentrate on the spell and start to cast it.  The power of the spell
+builds but suddenly fizzles out as though something were still missing.
+} T Kyrandia description
+
+
+MISS01 {***
+%s is concentrating on casting a spell that suddenly fizzles out as though
+something were still missing.
+} T Kyrandia description
+
+
+SPM000 {...As you cast the spell, a flash of bright blue light encircles you for a
+brief moment!  You suddenly feel mystically protected.
+} T Kyrandia description
+
+
+SPM001 {***
+%s casts a spells, and is suddenly encircled in a flash of bright blue
+light for a brief moment!
+} T Kyrandia description
+
+
+SPM002 {...Uttering the magical incantation, you are suddenly engulfed in a mystical
+cloud of purple mists.  You feel the touch of the Goddess Tashanna, and then
+you're blinded by a bright white flash of light!  Afterwards, you feel quite
+strengthened.
+} T Kyrandia description
+
+
+SPM003 {***
+%s is momentarily engulfed in a mystical cloud of purple mists.
+} T Kyrandia description
+
+
+SPM004 {...You cast the spell, and a mystical beam of orange light flies from your
+fingers, disintegrating %s's %s!
+} T Kyrandia description
+
+
+SPM005 {***
+A mystical beam of orange light flies from %s's fingers, disintegrating
+you %s!
+} T Kyrandia description
+
+
+SPM006 {***
+A mystical beam of orange light flies from %s's fingers at %s,
+disintegrating %s %s!
+} T Kyrandia description
+
+
+SPM007 {...As you murmur the incantation, a globe of dark red light flies from your
+palms at %s, destroying %s possessions!
+} T Kyrandia description
+
+
+SPM008 {***
+A globe of dark red light flies from %s's palms at you, destroying all
+your possessions!
+} T Kyrandia description
+
+
+SPM009 {***
+A globe of dark red light flies from %s's palms at %s, destroying
+all %s possessions!
+} T Kyrandia description
+
+
+S05M00 {...A bolt of bright blue lightening flies from your fingers but is magically
+dispelled.
+} T Kyrandia description
+
+
+S05M01 {***
+A bolt of bright blue lightening flies from %s's fingers but is magically
+dispelled from affecting you.
+} T Kyrandia description
+
+
+S05M02 {***
+A bolt of bright blue lightening flies from %s's fingers at %s but is
+magically dispelled.
+} T Kyrandia description
+
+
+S05M03 {...Your moonstone suddenly starts to glow brightly.
+***
+A bolt of blue lightening flies from the moonstone striking %s's spellbook
+in a brilliant flash.
+***
+%s's spellbook has been totally wiped clean.
+***
+Your moonstone then suddenly vanishes.
+} T Kyrandia description
+
+
+S05M04 {***
+%s's moonstone starts to glow strangely.
+***
+A bolt of blue lightening flashes from %s striking your spellbook.
+} T Kyrandia description
+
+
+S05M05 {***
+%s's moonstone starts to glow strangely.
+***
+A bolt of blue lightening flashes from %s striking %s's spellbook.
+} T Kyrandia description
+
+
+S06M00 {...A ball of fire erupts from your hands and culminates in a fiery
+explosion!
+} T Kyrandia description
+
+
+S06M01 {***
+A ball of fire erupts from %s's hands and culminates in a fiery explosion!
+} T Kyrandia description
+
+
+S06M02 {***
+You have been hit by the fire!
+} T Kyrandia description
+
+
+S06M03 {***
+%s has been hit by the fire.
+} T Kyrandia description
+
+
+S06M04 {***
+The explosion seems to have no effect on you.
+} T Kyrandia description
+
+
+S07M00 {...As you cast the spell, you feel a surge of magical energy flow through
+your body.
+***
+Your eyes glow a bright red for a moment!
+} T Kyrandia description
+
+
+S07M01 {***
+%s eyes suddenly glow a bright red for a moment!
+} T Kyrandia description
+
+
+S08M00 {...You see yourself fading away, and soon you are completely invisible!
+} T Kyrandia description
+
+
+S08M01 {***
+%s fades away and becomes invisible!
+} T Kyrandia description
+
+
+S09M00 {...You cast the spell and turn white as a ghost and feel as though you are
+about to drop dead.
+***
+Suddenly, the feeling subsides as though nothing were wrong.
+} T Kyrandia description
+
+
+S09M01 {***
+%s casts a spell and turns white as a ghost as though they were about to
+drop dead.
+} T Kyrandia description
+
+
+S10M00 {...As the last word of this spell leaves your lips, the room starts to darken
+as a terrible storm approaches.
+} T Kyrandia description
+
+
+S10M01 {***
+As the final words of a spell leave the lips of %s, the room starts to darken
+as a terrible storm approaches.
+} T Kyrandia description
+
+
+S10M02 {***
+Large chunks of ice fly at you from the storm, striking you in several vital
+areas causing you 30 points of damage.
+} T Kyrandia description
+
+
+S10M03 {***
+Large chunks of ice flying from the storm strike %s in several vital areas
+causing a great deal of damage.
+} T Kyrandia description
+
+
+S10M04 {***
+Large chunks of ice flying from the storm at you are magically destroyed
+without causing you any harm.
+} T Kyrandia description
+
+
+S11M00 {...You cast the spell accurately, unfortunately, for some mysterious reason
+the spell does not work.
+} T Kyrandia description
+
+
+S11M02 {...You successfully cast the spell and a yellow ball of light flies from your
+fingers.
+} T Kyrandia description
+
+
+S11M03 {***
+%s successfully casts a spell and a yellow ball of light flies at you.
+} T Kyrandia description
+
+
+S11M04 {***
+%s successfully casts a spell and a yellow ball of light flies at %s.
+} T Kyrandia description
+
+
+S11M05 {***
+You just dropped your %s.
+} T Kyrandia description
+
+
+S11M06 {***
+%s has just dropped %s %s.
+} T Kyrandia description
+
+
+S12M00 {...As you finish the spell a white mist appears around %s and the number %d
+appears in your mind.
+} T Kyrandia description
+
+
+S12M01 {***
+%s casts a spell and a white mist appears around you for a brief moment.
+} T Kyrandia description
+
+
+S12M02 {***
+%s has just cast a spell and a white mist appears around %s for a brief
+moment.
+} T Kyrandia description
+
+
+S13M00 {...You cast the spell but it doesn't seem to have any effects.
+} T Kyrandia description
+
+
+S13M01 {***
+%s casts a spell at you but it doesn't seem to have any effects.
+} T Kyrandia description
+
+
+S13M02 {***
+%s casts a spell at %s but it doesn't seem to have any effects.
+} T Kyrandia description
+
+
+S13M03 {...You cast the spell and your opponent suddenly forgets all the spells
+that they had memorized.
+} T Kyrandia description
+
+
+S13M04 {***
+%s casts a spell at you and suddenly you have forgotten all the spells that
+you had memorized.
+} T Kyrandia description
+
+
+S13M05 {***
+%s casts a spell which leaves %s scratching around for something that they
+have forgotten.
+} T Kyrandia description
+
+
+S14M00 {...Upon completing the required incantation, you are suddenly are blinded by
+a brilliant flash of light.
+***
+When the light dies out you notice...
+} T Kyrandia description
+
+
+S14M01 {***
+%s completes a spell incantation and is suddenly enclosed in a blinding flash
+of light.
+} T Kyrandia description
+
+
+S15M00 {...A dense yellow mist surrounds you for a second and when it is gone you
+feel almost like new.
+} T Kyrandia description
+
+
+S15M01 {***
+%s casts a spell and a dense yellow mist surrounds the caster for several
+seconds.
+} T Kyrandia description
+
+
+S17M00 {...A red bolt flies from your fingers but fails to make contact with %s.
+} T Kyrandia description
+
+
+S17M01 {***
+A red bolt flies from %s's fingers but fails to make contact with you.
+} T Kyrandia description
+
+
+S17M02 {***
+A red bolt flies from %s's fingers at %s but fails to make contact.
+} T Kyrandia description
+
+
+S17M03 {...A red bolt flies from your fingers and strikes %s in a small, bright
+flash.
+} T Kyrandia description
+
+
+S17M04 {***
+A red bolt flies from %s's fingers at you and strikes you in a small flash
+causing %d points of damage.
+} T Kyrandia description
+
+
+S17M05 {***
+A red bolt flies from %s's fingers at %s and strikes in a small flash
+and %s loses some strength.
+} T Kyrandia description
+
+
+S18M00 {...Instantly as you finish this difficult spell large chunks of ice fly
+across the room at the others.
+} T Kyrandia description
+
+
+S18M01 {***
+%s's fingers are turning a strange color of blue, as though something terrible
+is about to happen.
+} T Kyrandia description
+
+
+S18M02 {***
+A large white chunk of ice comes flying at you, striking you in the chest,
+causing you 26 points of damage.
+} T Kyrandia description
+
+
+S18M03 {***
+A large white chunk of ice flies at %s, causing them a great deal of damage.
+} T Kyrandia description
+
+
+S18M04 {***
+A large white chunk of ice comes flying at you, but a strange blue aura
+protects you from any damage.
+} T Kyrandia description
+
+
+S19M00 {...A dense blue mist leaves your palms at %s but does not seem to
+have any effects.
+} T Kyrandia description
+
+
+S19M01 {***
+A dense blue mist leaves %s's palms towards you but does not seem to
+have any effects.
+} T Kyrandia description
+
+
+S19M02 {***
+A dense blue mist leaves %s's palms towards %s but does not
+seem to have any effects.
+} T Kyrandia description
+
+
+S19M03 {...A dense blue mist leaves your palms and surrounds %s in a
+cone of cold air.
+} T Kyrandia description
+
+
+S19M04 {***
+A dense blue mist leaves %s's palms and surrounds you in a cone
+of cold air causing you %d points of damage.
+} T Kyrandia description
+
+
+S19M05 {***
+A dense blue mist leaves %s's palms and surrounds %s in a cone
+of cold air and %s sustains some damage.
+} T Kyrandia description
+
+
+S20M00 {...As you finish this spell small junks of ice fly from your fingers across
+the entire room.
+} T Kyrandia description
+
+
+S20M01 {***
+%s's fingers are turn a strange color of blue, as ice begins to form.
+} T Kyrandia description
+
+
+S20M02 {***
+Small white chunks of ice come flying at you, and hit you directly!
+} T Kyrandia description
+
+
+S20M03 {***
+Small white chunks of ice come flying at %s, and hit directly!
+} T Kyrandia description
+
+
+S20M04 {***
+Small white chunks of ice come flying at you, but a strange blue aura
+protects you from any damage.
+} T Kyrandia description
+
+
+S21M00 {...An enormous red bolt flies from your fingers but fails to make contact
+with %s.
+} T Kyrandia description
+
+
+S21M01 {***
+An enormous red bolt flies from %s's fingers but fails to make contact
+with you.
+} T Kyrandia description
+
+
+S21M02 {***
+An enormous red bolt flies from %s's fingers at %s but fails to
+make contact.
+} T Kyrandia description
+
+
+S21M03 {...An enormous red bolt flies from your fingers and strikes %s in
+blinding flash.
+} T Kyrandia description
+
+
+S21M04 {***
+An enormous red bolt flies from %s's fingers and you and strikes you in
+a blinding flash causing %d points of damage.
+} T Kyrandia description
+
+
+S21M05 {***
+An enormous red bolt flies from %s's fingers at %s and striker in a
+blinding flash and %s loses a great deal strength.
+} T Kyrandia description
+
+
+S22M00 {...A powerful bolt of lightning flies from your fingers but is deflected
+from %s.
+} T Kyrandia description
+
+
+S22M01 {***
+A power bolt of lightning flies from %s's finger but is deflected from you.
+} T Kyrandia description
+
+
+S22M02 {***
+A powerful bolt of lightning flies from %s's finger at %s but is deflected.
+} T Kyrandia description
+
+
+S22M03 {...A powerful bolt of lightning flies from your finger striking %s.
+} T Kyrandia description
+
+
+S22M04 {***
+A powerful bolt of lightning flies from %s's finger striking you for %d
+damage.
+} T Kyrandia description
+
+
+S22M05 {***
+A powerful bolt of lightning flies from %s's finger striking %s
+and %s takes some damage.
+} T Kyrandia description
+
+
+S23M00 {...You cast the spell successfully but the magical forces of the Goddess
+Tashanna do not permit you to travel to that place!
+} T Kyrandia description
+
+
+S23M01 {***
+%s casts a spell and looks as though %s might be taking a trip but
+the Goddess Tashanna does not permit it.
+} T Kyrandia description
+
+
+S23M02 {...You cast the spell successfully and a sudden dust cloud sucks you up!
+***
+You feel as though you are traveling through time and space when suddenly
+the cloud disappears...
+} T Kyrandia description
+
+
+S23M03 {***
+%s casts a spell successfully and is suddenly engulfed in a dust cloud.
+} T Kyrandia description
+
+
+S24M00 {...Suddenly, you are transformed into a ugly, puesdo dragon!
+} T Kyrandia description
+
+
+S24M01 {***
+%s suddenly transforms into a ugly puesdo dragon!
+} T Kyrandia description
+
+
+S25M00 {...As you finish chanting the spell a brilliant green light surrounds you for
+a brief moment and then vanishes.
+} T Kyrandia description
+
+
+S25M01 {***
+As %s finishes chanting a spell, a brilliant green light appears for a brief
+moment and then vanishes.
+} T Kyrandia description
+
+
+S26M00 {...As you cast the spell you are instantly encased in a tomb of ice.
+***
+Suddenly the ice shatters and you are free.
+} T Kyrandia description
+
+
+S26M01 {***
+%s casts a spell and is instantly encased in a tomb of ice.
+***
+Suddenly the ice shatters and the caster is free again.
+} T Kyrandia description
+
+
+S27M00 {...As the last word of this powerful spell leaves you mouth, the room suddenly
+grows darker as the terror of your spell is about to manifest itself.
+} T Kyrandia description
+
+
+S27M01 {***
+As the last word of a spell comes from %s's mouth, the room suddenly grows
+darker as the terror of the spell is about to manifest itself.
+} T Kyrandia description
+
+
+S27M02 {***
+Several large bolts of lightning descend from out of nowhere but are deflected
+from hitting you.
+} T Kyrandia description
+
+
+S27M03 {***
+Several large bolts of lightning descend from out of nowhere and strike you
+in an ear shattering crackle, knocking you off your feet causing you a great
+deal of damage.
+} T Kyrandia description
+
+
+S27M04 {***
+Several large bolts of lightning descend from out of nowhere and strike
+%s in an ear shattering crackle, knocking the person to the ground.
+} T Kyrandia description
+
+
+S28M00 {...Suddenly your bloodstone starts to vibrate wildly.
+***
+The bloodstone then mysteriously vanishes.
+***
+%s starts to shake violently in a fit of delusion.
+***
+%s's fit subsides and %s looks quite defenseless.
+} T Kyrandia description
+
+
+S28M01 {***
+Suddenly the bloodstone %s is holding starts to vibrate wildly.
+***
+The bloodstone then mysteriously vanishes.
+***
+You suddenly start to feel very ill as though something has invaded your body.
+***
+The feeling suddenly vanishes, leaving you feel completely defenseless.
+} T Kyrandia description
+
+
+S28M02 {***
+%s suddenly looks like %s is having problems, controlling things.
+***
+In the midst of the confusion, %s suddenly looks very ill.
+***
+Just as mysteriously as things started, things are now quite, but %s looks
+completely defenseless.
+} T Kyrandia description
+
+
+S29M00 {...A blinding blue bolt of lightning flies from your fingers but is
+deflected from %s.
+} T Kyrandia description
+
+
+S29M01 {***
+A blinding blue bolt of lightning flies from %s's finger but is
+deflected from you.
+} T Kyrandia description
+
+
+S29M02 {***
+A blinding blue bolt of lightning flies from %s's finger at %s but
+is deflected.
+} T Kyrandia description
+
+
+S29M03 {...A blinding blue bolt of lightning flies from your fingers striking
+%s.
+} T Kyrandia description
+
+
+S29M04 {***
+A blinding blue bolt of lightning flies from %s's finger striking you
+for %d damage.
+} T Kyrandia description
+
+
+S29M05 {***
+A blinding blue bolt of lightning flies from %s's finger striking %s
+and %s sustains a great deal of damage.
+} T Kyrandia description
+
+
+S30M00 {...Upon uttering the words of this spell, a large blue ball begins to form.
+} T Kyrandia description
+
+
+S30M01 {***
+Upon uttering the final words of a spell, a large blue ball forms by
+%s's fingers.
+} T Kyrandia description
+
+
+S30M02 {***
+A large blue ball flies at you, culminating in a bright blue explosion
+causing you 16 points of damage.
+} T Kyrandia description
+
+
+S30M03 {***
+A large blue ball flies at %s, culminating in a bright blue explosion
+causing damage.
+} T Kyrandia description
+
+
+S30M04 {***
+A large blue ball flies at you, but strangely enough is deflected by some
+magical resistance.
+} T Kyrandia description
+
+
+S31M00 {...A large ball of fire erupts from your hands and culminates in a brilliant
+explosion!
+} T Kyrandia description
+
+
+S31M01 {***
+A large ball of fire erupts from %s's hands and culminates in a
+brilliant explosion!
+} T Kyrandia description
+
+
+S31M02 {***
+The explosion seems to have no effect on you.
+} T Kyrandia description
+
+
+S31M03 {***
+The explosion causes your flesh to burn for a moment.
+%s has been hit by the fire!
+} T Kyrandia description
+
+
+S31M04 {***
+The explosion causes %s's flesh to burn for a moment.
+} T Kyrandia description
+
+
+S32M00 {...A large red bolt flies from your fingers but %s is protected from
+its affects.
+} T Kyrandia description
+
+
+S32M01 {***
+A large red bolt flies from %s's fingers at you but you are protected
+from its affects.
+} T Kyrandia description
+
+
+S32M02 {***
+A large red bolt flies from %s's fingers at %s but %s is protected
+from its affects.
+} T Kyrandia description
+
+
+S32M03 {...A large red bolt flies from your fingers at %s causing a great deal of
+damage.
+} T Kyrandia description
+
+
+S32M04 {***
+A large red bolt flies from %s's fingers at you causing %d points of
+damage.
+} T Kyrandia description
+
+
+S32M05 {***
+A large red bolt flies from %s's fingers at %s and %s is hit causing a
+great deal of damage.
+} T Kyrandia description
+
+
+S33M00 {...A large red bolt flies from your fingers but %s is protected from
+its affects.
+} T Kyrandia description
+
+
+S33M01 {***
+A large red bolt flies from %s's fingers at you but you are protected
+from its affects.
+} T Kyrandia description
+
+
+S34M00 {...As the spell is cast a silver ball appears by your target.
+***
+The ball disappears and the number %d appears in your mind.
+} T Kyrandia description
+
+
+S34M01 {***
+As %s casts a spell, a small silver ball appears by your head and then
+disappears.
+} T Kyrandia description
+
+
+S34M02 {***
+As %s casts a spell, a small silver ball appears by %s's head
+and then disappears.
+} T Kyrandia description
+
+
+S35M00 {...As you cast the spell a large wall of fire rises around you for a moment
+and then fades away.
+} T Kyrandia description
+
+
+S35M01 {***
+%s casts a spell and a large wall of fire rises for a brief second and
+then fades out.
+} T Kyrandia description
+
+
+S36M00 {...Upon completing the incantation of this spell, your sapphire starts to
+glow in a dark shade of blue and starts to burn your hand with intolerable
+pain.
+***
+The gem suddenly vanishes and as you look at your hand you notice that it looks
+perfectly ok.
+***
+You have the feeling of being completely impenetrable.
+} T Kyrandia description
+
+
+S36M01 {***
+One of %s's possessions starts to glow in a dark shade of blue.
+***
+%s seems to be experiencing some sort of discomfort with one of %s hands.
+***
+%s is looking like nothing can every hurt %s again.
+} T Kyrandia description
+
+
+S37M00 {...As you finish casting the spell, a terrible chill fills the room.
+} T Kyrandia description
+
+
+S37M01 {***
+%s casts a spell, which fills the room with a terrible chill.
+} T Kyrandia description
+
+
+S37M02 {***
+Hundreds of pieces of ice start to rain down from the heavens, several hitting
+you for 20 points of damage.
+} T Kyrandia description
+
+
+S37M03 {***
+Hundreds of pieces of ice start to rain down from the heavens, several hitting
+%s causing damage.
+} T Kyrandia description
+
+
+S37M04 {***
+Hundreds of pieces of ice start to rain down from the heavens, but some magic
+force prevents you from being hit.
+} T Kyrandia description
+
+
+S38M00 {...You successfully complete the spell and your eyes burn for a moment and
+start to tear.
+} T Kyrandia description
+
+
+S38M01 {***
+%s successfully completes the spell and you notice that the caster appears to
+be crying.
+} T Kyrandia description
+
+
+S39M00 {...As you complete the incantation your eyes turn bright red.
+} T Kyrandia description
+
+
+S39M01 {***
+As %s finishes an incantation, you notice the casters eyes have turn bright red
+for a second.
+} T Kyrandia description
+
+
+S40M00 {...A blue mist leaves your palms at %s but does not seem to have any effects.
+} T Kyrandia description
+
+
+S40M01 {***
+A blue mist leaves %s's palms towards you but does not seem to have any
+effects.
+} T Kyrandia description
+
+
+S40M02 {***
+A blue mist leaves %s's palms towards %s but does not seem to have any
+effects.
+} T Kyrandia description
+
+
+S40M03 {...A blue mist leaves your palms and surrounds %s in a cone of cold air.
+} T Kyrandia description
+
+
+S40M04 {***
+A blue mist leaves %s's palms and surrounds you in a cone of cold air
+causing you %d points of damage.
+} T Kyrandia description
+
+
+S40M05 {***
+A blue mist leaves %s's palms and surrounds %s in a cone of cold air and
+%s sustains some damage.
+} T Kyrandia description
+
+
+S41M00 {...As you finish chanting the spell a dull green light surrounds you for
+a brief moment and then vanishes.
+} T Kyrandia description
+
+
+S41M01 {***
+As %s finishes chanting a spell, a dull green light appears for a brief
+moment and then vanishes.
+} T Kyrandia description
+
+
+S43M00 {...A small yellow mist surrounds you for a second and when it is gone you
+are feeling slightly better.
+} T Kyrandia description
+
+
+S43M01 {***
+%s casts a spell and a small yellow mist surrounds the caster for a second.
+} T Kyrandia description
+
+
+S44M00 {...As you cast the spell you feel a strange sensation and realize that
+%s has } T Kyrandia description
+
+
+S44M01 {***
+%s has just entered your mind and been able to read all your spells.
+} T Kyrandia description
+
+
+S44M02 {***
+%s has just a spell that is playing mind games with %s's head.
+} T Kyrandia description
+
+
+S45M00 {...In the blink of an eye, you suddenly have become invisible!
+} T Kyrandia description
+
+
+S45M01 {***
+In the blink of an eye, %s has become invisible!
+} T Kyrandia description
+
+
+S47M00 {...You cast the spell but some magical resistance prevents it from succeeding.
+} T Kyrandia description
+
+
+S47M01 {***
+%s casts a spell and you feel something tugging at you without success.
+} T Kyrandia description
+
+
+S47M02 {***
+%s casts a spell at %s but some magical resistance prevents it from working.
+} T Kyrandia description
+
+
+S47M03 {...The powers of the spell are released in lightning force.
+***
+The %s that %s is holding just vanished!
+***
+The %s just magically appeared in your hands.
+} T Kyrandia description
+
+
+S47M04 {***
+%s just cast a spell.
+***
+The %s that you are holding just vanished into thin air.
+***
+The %s you just lost, magically appeared in %s's hand.
+} T Kyrandia description
+
+
+S47M05 {***
+%s just cast a spell.
+***
+The %s that %s is holding just vanished into thin air.
+***
+The %s just reappeared, magically in %s's hand.
+} T Kyrandia description
+
+
+S48M00 {...A small red flash flies from your fingers at %s but is neutralized.
+} T Kyrandia description
+
+
+S48M01 {***
+A small red flash flies from %s's fingers at you but is neutralized.
+} T Kyrandia description
+
+
+S48M02 {***
+A small red flash flies from %s's fingers at %s but is neutralized.
+} T Kyrandia description
+
+
+S48M03 {...A small red flash flies from your fingers and hits %s.
+} T Kyrandia description
+
+
+S48M04 {***
+A small red flash flies from %s's fingers and hits you doing %d
+points of damage.
+} T Kyrandia description
+
+
+S48M05 {***
+A small red flash flies from %s's fingers and hits %s as %s
+takes a small amount of damage.
+} T Kyrandia description
+
+
+S49M00 {...Upon casting the spell a cold freeze fills the room and you become
+frozen in a sheet of ice.
+***
+After several moments the room returns to normal and you are unharmed.
+} T Kyrandia description
+
+
+S49M01 {***
+As %s finishes a spell, the entire room is filed with a cold freeze and
+the caster is frozen in a sheet of ice.
+***
+After several moments the room returns to normal and the caster is unharmed.
+} T Kyrandia description
+
+
+S50M00 {...You cast the spell but an invisible force prevents it from working.
+} T Kyrandia description
+
+
+S50M01 {***
+%s casts a spell on you but an invisible force prevents it from working.
+} T Kyrandia description
+
+
+S50M02 {***
+%s casts a spell on %s but an invisible force prevents it from working.
+} T Kyrandia description
+
+
+S50M03 {...You cast your destructive spell, causing your target to lose a great deal
+of power.
+} T Kyrandia description
+
+
+S50M04 {***
+%s casts a spell on you, draining you of a great deal of your magical power.
+} T Kyrandia description
+
+
+S50M05 {***
+%s casts a spell on %s, draining a great deal of magical power.
+} T Kyrandia description
+
+
+S51M00 {...You cast the spell but it doesn't seem to have any effects.
+} T Kyrandia description
+
+
+S51M01 {***
+%s casts a spell at you but it doesn't seem to have any effects.
+} T Kyrandia description
+
+
+S51M02 {***
+%s casts a spell at %s but it doesn't seem to have any effects.
+} T Kyrandia description
+
+
+S51M03 {...You cast the spell and your opponent forgets a spell.
+} T Kyrandia description
+
+
+S51M04 {***
+%s casts a spell at you and suddenly you have forgotten something.
+} T Kyrandia description
+
+
+S51M05 {***
+%s casts a spell at %s and there are no visual effects.
+} T Kyrandia description
+
+
+S52M00 {...You cast this spell quite wearily and a fear rises in your soul as you feel
+the earth begin to rumble.
+} T Kyrandia description
+
+
+S52M01 {***
+As %s casts the, spell a fear rises in your soul as you feel the earth
+beginning to rumble.
+} T Kyrandia description
+
+
+S52M02 {***
+Large flames shoot out at you but a magical force prevents you from being
+harmed.
+} T Kyrandia description
+
+
+S52M03 {***
+Large flames shoot out and engulf you, burning your entire body.  The
+pain is more than you have ever felt before and when flames die you feel
+extremely weakened.
+} T Kyrandia description
+
+
+S52M04 {***
+Large flames shoot out and engulf %s, burning its victims entire body.
+***
+When the flames die down the target looks extremely weakened.
+} T Kyrandia description
+
+
+S53M00 {...You cast the spell and a wall of fire rises around you for a brief second
+and then fades out.
+} T Kyrandia description
+
+
+S53M01 {***
+%s casts a spell and a wall of fire rises for a brief second and then
+fades out.
+} T Kyrandia description
+
+
+S54M00 {...A large blue vapor cloud appears around %s but doesn't seem to have
+effects.
+} T Kyrandia description
+
+
+S54M01 {***
+A large blue vapor cloud comes from %s towards you but doesn't seem to
+have and effects.
+} T Kyrandia description
+
+
+S54M02 {***
+A large blue vapor cloud heads from %s at %s but doesn't seem to have
+any effects.
+} T Kyrandia description
+
+
+S54M03 {...A large blue vapor cloud surrounds %s in a massive cone of cold air.
+} T Kyrandia description
+
+
+S54M04 {***
+A large blue vapor cloud from %s surrounds you in a massive cone of cold
+air causing you %d points of damage.
+} T Kyrandia description
+
+
+S54M05 {***
+A large blue vapor cloud from %s, surrounds %s in a massive cone of cold
+air as %s sustains a great deal of damage.
+} T Kyrandia description
+
+
+S55M00 {...As you finish the spell a lighting bolt strikes you with no effect.
+} T Kyrandia description
+
+
+S55M01 {***
+A lightning bolt strikes %s with no effects.
+} T Kyrandia description
+
+
+S56M00 {...A large lightning bolt descends upon you, striking you with no effect.
+} T Kyrandia description
+
+
+S56M01 {***
+A large lightning bolt descends upon %s, striking with no effect.
+} T Kyrandia description
+
+
+S57M00 {...You cast the spell but a strange force prevents it from working.
+} T Kyrandia description
+
+
+S57M01 {***
+%s casts a spell on you but a strange force prevents it from working.
+} T Kyrandia description
+
+
+S57M02 {***
+%s casts a spell on %s but a strange force prevents it from working.
+} T Kyrandia description
+
+
+S57M03 {...You cast the spell successfully, causing your target to lose some power.
+} T Kyrandia description
+
+
+S57M04 {***
+%s casts a spell on you, draining you of some of your magical power.
+} T Kyrandia description
+
+
+S57M05 {***
+%s casts a spell on %s, draining some magical power.
+} T Kyrandia description
+
+
+S58M00 {...A small yellow mist surrounds you for a second and when it is gone you
+are feeling much better.
+} T Kyrandia description
+
+
+S58M01 {***
+%s casts a spell and a small yellow mist surrounds the caster for several
+seconds.
+} T Kyrandia description
+
+
+S59M00 {...You start to concentrate upon the words required to cast this powerful
+spell.  Upon completing its words a silence falls upon everybody.
+***
+A vision appears within your mind of the Goddess Tashanna, standing almighty
+in her domain, snaring at you for what you have just unleased.
+***
+You notice that the rose you were holding has just vanished.
+} T Kyrandia description
+
+
+S59M01 {***
+%s is in deep concentration while attempting to cast a spell.
+} T Kyrandia description
+
+
+S59M02 {***
+Suddenly, the ground begins to shake violently and a loud crackling noise is
+heard in the distance.
+} T Kyrandia description
+
+
+S59M03 {***
+A gaping hole opens in the ground swallowing up any objects that may have been
+there!
+} T Kyrandia description
+
+
+S59M04 {***
+The intensity of the earthquake bangs you around for what seems like an
+eternity causing you 50 points of damage.
+} T Kyrandia description
+
+
+S59M05 {***
+The intensity of the earthquake bangs %s around for what seems to be an
+eternity causing %s massive damage.
+} T Kyrandia description
+
+
+S60M00 {...A bright blue lightning bolt descends upon you, striking you with no effect.
+} T Kyrandia description
+
+
+S60M01 {***
+A bright blue lightning bolt descends upon %s, striking with no effect.
+} T Kyrandia description
+
+
+S61M00 {...A massive fireball erupts from your hands and culminates in a blinding
+explosion!
+} T Kyrandia description
+
+
+S61M01 {***
+A massive fire ball erupts from %s's hands and culminates in a blinding
+explosion!
+} T Kyrandia description
+
+
+S61M02 {***
+The blinding explosion generates an enormous amount of heat and damages you
+for 32 points.
+} T Kyrandia description
+
+
+S61M03 {***
+The blinding explosion generates an enormous amount of heat and causes
+%s damage.
+} T Kyrandia description
+
+
+S61M04 {***
+The blinding explosion generates an enormous amount of heat but seems to have
+no affect on you.
+} T Kyrandia description
+
+
+S62M00 {...As you cast the spell, you are suddenly transformed into a willowisp with
+wings!
+} T Kyrandia description
+
+
+S62M01 {***
+%s suddenly transforms into a willowisp with wings!
+} T Kyrandia description
+
+
+S63M00 {...You cast this tedious spell and realize your located at coordinate %d.
+} T Kyrandia description
+
+
+S63M01 {***
+%s is casting a spell to help get %s bearings straight.
+} T Kyrandia description
+
+
+S64M00 {...As you cast the spell you are engulfed in a large explosion which fades
+almost instantly.
+} T Kyrandia description
+
+
+S64M01 {***
+%s casts a spell and is engulfed in a large explosion which fades almost
+instantly.
+} T Kyrandia description
+
+
+S65M00 {...A bright light surrounds the target for a second and a little voice
+whispers to you that your friend is really %s.
+} T Kyrandia description
+
+
+S65M01 {***
+%s casts a spell which surrounds you in bright lights revealing your true
+identity.
+} T Kyrandia description
+
+
+S65M02 {***
+%s casts a spell which surrounds %s in a bright light for a brief moment.
+} T Kyrandia description
+
+
+S66M00 {...A bolt of lightning flies from you finger but is deflected from %s.
+} T Kyrandia description
+
+
+S66M01 {***
+A bolt of lightning flies from %s's finger but is deflected from you.
+} T Kyrandia description
+
+
+S66M02 {***
+A bolt of lightning flies from %s's finger at %s, but %s deflects it with
+a flick of the wrist.
+} T Kyrandia description
+
+
+S66M03 {...A bolt of lightning flies from your finger, striking %s.
+} T Kyrandia description
+
+
+S66M04 {***
+A bolt of lightning flies from %s's finger striking you for %d
+damage.
+} T Kyrandia description
+
+
+S66M05 {***
+A bolt of lightning flies from %s's finger striking %s
+and %s takes some damage.
+} T Kyrandia description
+
+
+S67M00 {...You put all your concentration into cast this highly deadly spell.
+***
+Suddenly from out of thin air appears a deadly Aerial Servant.
+***
+Unable to complete its mission, it turns on you, viciously slashing at you
+for what seems to be an eternity.
+***
+It suddenly emits an ear piercing screech and vanishes, leaving you to your
+misery.
+} T Kyrandia description
+
+
+S67M01 {***
+%s is putting all %s concentration into casting a spell.
+***
+Suddenly from out of thin air a Deadly Aerial Servant appears.
+***
+The servant viciously starts to slash at %s for what seems to be an eternity.
+***
+The servant then suddenly emits an ear piercing screech and vanishes, leaving
+%s in a bloody mess.
+} T Kyrandia description
+
+
+S67M02 {...You put all your concentration into cast this highly deadly spell.
+***
+Suddenly from out of thin air appears a Deadly Aerial Servant.  The servant
+flies up to you bows and flies off to its target.
+***
+A shiver runs down your spine as the servant vanishes from your sight.
+} T Kyrandia description
+
+
+S67M03 {***
+%s is putting all %s concentration into casting a spell.
+***
+Suddenly from out of thin air a Deadly Aerial Servant appears.  The servant
+bows to the caster and then flies off to find its target.
+} T Kyrandia description
+
+
+S67M04 {***
+Suddenly a large Aerial Servant appears from out of thin air.
+} T Kyrandia description
+
+
+S67M05 {***
+The Aerial Servant shrieks at you in hatred and starts shredding you into
+a bloody mess.
+***
+The servant then vanishes as quickly as it came.
+} T Kyrandia description
+
+
+S67M06 {***
+The Aerial Servant shrieks at %s and starts tearing %s into a bloody mess.
+***
+The servant then vanishes as quickly as it came.
+} T Kyrandia description
+
+
+S67M08 {***
+Suddenly a large Aerial Servant appears from out of thin air.
+***
+The servant shrieks at you but is instantly dispelled by a strange magical aura.
+} T Kyrandia description
+
+
+S67M09 {***
+Suddenly a large Aerial Servant appears from out of thin air.
+***
+The servant shrieks at %s but is instantly dispelled by a strange magical aura.
+} T Kyrandia description
+
+
+NOSUCC {***
+%s casts a spell, to no avail!
+} T Kyrandia description
+
+
+SNW000 {...You cast the spell with accuracy, but for some mysterious reason, the
+spell is deflected from hitting your target!
+} T Kyrandia description
+
+
+SNW001 {***
+%s attempts to cast a spell at you, but it is mystically dispelled by
+your protection!
+} T Kyrandia description
+
+
+SNW002 {***
+%s casts a spell at %s, but it is mysteriously deflected!
+} T Kyrandia description
+
+
+MERCYA {...%s is protected by the Goddess Tashanna!  The spell fails!
+} T Kyrandia description
+
+
+MERCYB {***
+%s tries to cast a spell on you, but you are protected by the Goddess
+Tashanna!
+} T Kyrandia description
+
+
+MERCYC {***
+%s tries to cast a spell on %s, but %s is protected by the Goddess
+Tashanna!
+} T Kyrandia description
+
+
+MERCYU {***
+You are mystically protected by the mercy of the Goddess Tashanna!
+} T Kyrandia description
+
+
+MERCYO {***
+%s is mystically protected by the mercy of the Goddess Tashanna!
+} T Kyrandia description
+
+
+SKISSR {...Your heart racing with excitement, and your soul filled with true love,
+you lean near and gives %s a warm, passionate kiss, expressing your
+eternal devotion to %s!
+} T Kyrandia description
+
+
+SKISSU {***
+%s, who has sworn to love you until the end of time, leans near and
+gives you a long, warm, passionate kiss, expressing %s eternal devotion
+to you!
+} T Kyrandia description
+
+
+SKISSO {***
+%s leans near and gives %s a long, warm, passionate kiss,
+expressing %s eternal devotion to %s!
+} T Kyrandia description
+
+
+S16M00 {...Suddenly, you are transformed into a beautiful, white pegasus!
+} T Kyrandia description
+
+
+S16M01 {***
+%s suddenly transforms into a beautiful, white pegasus!
+} T Kyrandia description
+
+
+WILFLY {...As you lift above the ground, you feel yourself gracefully fly across the
+endless depths of the chasm to the other side...
+} T Kyrandia description
+
+
+PEGFLY {...As you majestically soar into the air, you feel yourself magically
+propelled across the beautiful, sparkling sea...
+} T Kyrandia description
+
+
+UNOFLY {...For some mysterious reason, you don't really feel like flying here.
+} T Kyrandia description
+
+
+HUNFLY {...Unfortunately, Tashanna did not grant humans with the power of flight.
+} T Kyrandia description
+
+
+ATFLY1 {***
+%s is attempting to fly, without much success.
+} T Kyrandia description
+
+
+BUYM00 {...The shop keeper smirks at you and says, "Sorry, but you're going to need
+more gold for THAT spell."
+} T Kyrandia description
+
+
+BUYM01 {***
+The shop keeper and %s seem to be haggling for a few minutes, but the
+shop keeper finally turns his back on %s.
+} T Kyrandia description
+
+
+BUYM02 {...The shop keeper smiles, takes your gold, and says, "Thank you!".
+***
+He then waves his hands and a bright purplish globe of light envelops your
+spellbook for a moment!
+} T Kyrandia description
+
+
+BUYM03 {***
+The shop keeper and %s haggle for a few minutes, then the shop keeper
+takes %s gold and casts an incantation upon %s's spellbook.
+} T Kyrandia description
+
+
+BUYM04 {...The shop keeper sadly says to you, "Sorry, but we don't have that spell
+in stock... I'll try and order it for you by, oh, say sometime in the next
+six hundred years!  Have a good day."
+} T Kyrandia description
+
+
+TRDM00 {...The gem cutter considers for a moment, takes your gem, and then gives
+you %d pieces of gold.
+} T Kyrandia description
+
+
+TRDM01 {***
+%s trades the gem cutter %s for %d pieces of gold.
+} T Kyrandia description
+
+
+TRDM02 {...The gem cutter looks sharply at you, and then suddenly smiles.  He leans
+closer and says, "I bid you good luck, brave seeker of legends".  He takes the
+kyragem and hands you a soulstone.
+} T Kyrandia description
+
+
+TRDM03 {***
+%s and the gem cutter move off by themselves for a few minutes.
+} T Kyrandia description
+
+
+TRDM04 {...The gem cutter says to you, "Thanks, but no thanks."
+} T Kyrandia description
+
+
+TRDM05 {...Unfortunately, you don't have that at the moment.
+} T Kyrandia description
+
+
+CHEAPO {...Unfortunately, you do not have that in gold.  Best beware of making false
+offers to the gods!
+} T Kyrandia description
+
+
+UGETCR {...As you make you offering, a flash of lightning streaks from the sky and
+strikes your offered gold, disintegrating it!
+***
+%d credits have been added to your account, compliments of the Goddess
+Tashanna!
+} T Kyrandia description
+
+
+OGETCR {***
+A flash of lightning streaks from the sky and strikes an offering of gold
+from %s!
+} T Kyrandia description
+
+
+NOGTCR {...As you make you offering, a flash of lightning streaks from the sky and
+strikes your offered gold, disintegrating it!
+***
+The Goddess Tashanna appears to you and graciously thanks you for your
+wonderful sacrifice.
+} T Kyrandia description
+
+
+TAKROS {...The healer smiles at you and humbly accepts you beautiful offer.  She
+then touches her palm to your forehead and utters a strange incantation.
+} T Kyrandia description
+
+
+NOHAVE {...Unfortunately, you don't have a rose.  The healer smiles at you, but
+does nothing.
+} T Kyrandia description
+
+
+NOROSE {***
+%s is trying to offer something to the healer, unsuccessfully.
+} T Kyrandia description
+
+
+NOGOOD {...The healer denies your offer and tells you to be less materialistic; to
+appreciate and respect more of the beauty of nature.
+} T Kyrandia description
+
+
+FNDGOL {...You find %d pieces of gold in the brook!
+} T Kyrandia description
+
+
+NOFNDG {...You search the brook, but don't find anything this time.
+} T Kyrandia description
+
+
+PRAYER {...As you pray, a vision of the Goddess Tashanna appears in your mind,
+she smiles at you, and offers her blessings.
+} T Kyrandia description
+
+
+HNSYOU {...As you offer your heart and soul, the most precious jewels of your life,
+you feel the hand of the Goddess Tashanna bless you with power.
+***
+You are now at level 7!
+***
+A spell has been added to your spellbook!
+} T Kyrandia description
+
+
+HNSOTH {***
+%s has suddenly grown in strength and knowledge!
+} T Kyrandia description
+
+
+PANM00 {...As you speak the words of eternal strength and acceptance of the supreme
+powers of good in the universe, a golden key suddenly materializes in your
+hands.
+} T Kyrandia description
+
+
+PANM01 {***
+%s is suddenly engulfed within a shimmering globe of golden light, which
+radiates brilliantly for a few moments and then vanishes!
+} T Kyrandia description
+
+
+PANM02 {...Something is preventing the powers of magic to perform their wonders!
+} T Kyrandia description
+
+
+PANM03 {...As you examine the ancient runes embedded into the marble pillars, you are
+only able to recognize a few of the symbols, although you cannot instantly
+translate their true meaning.  You read: "ha-tc en-esa-eop ore-ef gusi- xx-he
+xxx-e-".
+} T Kyrandia description
+
+
+PANM04 {***
+%s is examining the symbols on the pillars.
+} T Kyrandia description
+
+
+WALM00 {...As you drop the key into the crevice, a flash of golden light engulfs you,
+and you feel yourself being magically transported through space...
+} T Kyrandia description
+
+
+WALM01 {...For some reason, nothing happens at all!
+} T Kyrandia description
+
+
+WALM02 {***
+Oddly enough, %s is playing around with the wall.
+} T Kyrandia description
+
+
+WALM03 {...As you chant the words, the wall suddenly begins to glow with a
+shimmering, golden hue!
+} T Kyrandia description
+
+
+WALM04 {***
+Suddenly, the wall begins to glow with a shimmering, golden hue!
+} T Kyrandia description
+
+
+WALM05 {***
+The golden glow of the wall suddenly fades away!
+} T Kyrandia description
+
+
+DAGM00 {...As you concentrate upon your wish, the Goddess Tashanna intervenes with
+her magic, and a dagger appears in your hands!
+} T Kyrandia description
+
+
+DAGM01 {***
+%s is concentrating with sincere determination.
+} T Kyrandia description
+
+
+DAGM02 {...What a creative imagination you have!
+} T Kyrandia description
+
+
+DAGM03 {...The statue is quite a spectacular work of art, especially for its large
+proportions.  Despite the wonderful artwork, your attention is grasped by an
+inscription near the base which reads: "id- upi- ozs-omsy-pm -p p-ysom y-r
+fs--rt".
+} T Kyrandia description
+
+
+DAGM04 {***
+%s is examining the statue carefully.
+} T Kyrandia description
+
+
+REFM00 {...As you toss the dagger into the pool, it vanishes in circles of ripples.
+***
+Suddenly, a beautiful sword rises from the water and levitates into your
+hands!
+} T Kyrandia description
+
+
+REFM01 {***
+%s is playing around in the pool.
+} T Kyrandia description
+
+
+REFM02 {...Oh, surely thou jest!
+} T Kyrandia description
+
+
+REFM03 {...As you look into the pool, you see a mirror image of yourself.
+***
+Suddenly, the words "feoamut wotaquop jagarooni pistobba" appear in the pool,
+and then mysteriously vanish!
+} T Kyrandia description
+
+
+REFM04 {***
+%s is looking into the pool.
+} T Kyrandia description
+
+
+MISM00 {...As you touch the orb, you are suddenly pulled through a magical portal...
+} T Kyrandia description
+
+
+MISM01 {...As you concentrate upon the orb, it glows even brighter for a moment, and
+suddenly a charm appears in your hands!
+} T Kyrandia description
+
+
+MISM02 {***
+%s is concentrating with great fervor.
+} T Kyrandia description
+
+
+MISM03 {...You can't seem to concentrate.
+} T Kyrandia description
+
+
+MISM04 {...The orb accepts your offer, and glows brightly for a moment!
+***
+You are now at level 8!
+} T Kyrandia description
+
+
+MISM05 {***
+%s is attempting to touch the orb!
+} T Kyrandia description
+
+
+LVL9M0 {...Tashanna accepts your offer!
+***
+You are now at level 9!
+} T Kyrandia description
+
+
+LVL9M1 {***
+%s suddenly grows in strength and knowledge!
+} T Kyrandia description
+
+
+SLOT00 {...You drop the garnet in the slot, and the machine starts to hum and spin...
+***
+Suddenly a voice booms: "WE HAVE A WIIIIIIINNNNNNERRRR!"
+} T Kyrandia description
+
+
+SLOT01 {***
+%s is playing around with the slot machine.
+***
+Suddenly a voice booms: "We have a winner!"
+} T Kyrandia description
+
+
+SLOT02 {***
+Suddenly, %s appears in your hands!
+} T Kyrandia description
+
+
+SLOT03 {...You drop the garnet in the slot, and the machine starts to hum and spin...
+***
+Suddenly a voice booms:  "WE HAVE A LOOOOOSSSSEEEEERRRRR!"
+} T Kyrandia description
+
+
+SLOT04 {***
+%s is playing around with the slot machine.
+***
+Suddenly a voice booms:  "WE HAVE A LOOOOOSSSSEEEEERRRRR!"
+} T Kyrandia description
+
+
+ROCK00 {...The rock glows a bright purple in acceptance of your offering, and the
+sword vanishes!
+***
+A tiara suddenly appears in your hands!
+} T Kyrandia description
+
+
+ROCK01 {***
+%s is messing around with the rock.
+} T Kyrandia description
+
+
+ROCK02 {...Hmmmmm, that's an interesting concept, but unfortunately, not an acceptable
+one.
+} T Kyrandia description
+
+
+LV10M0 {...Tashanna graciously accepts your gift.
+***
+You are now at level 10!
+} T Kyrandia description
+
+
+OEPORT {***
+%s enters the portal in a blinding flash of light!
+***
+Suddenly, %s is thrown from the portal back into this chamber!
+} T Kyrandia description
+
+
+ENDPOR {***
+Suddenly you are thrown back into the chamber as the vision vanishes before
+your eyes!
+} T Kyrandia description
+
+
+PORTAL {...As you walk into the portal, you are suddenly blinded by spectacular and
+colorful images beyond anything you have ever seen before!  As your eyes
+start to adjust to the brilliance, a magical scene appears before you...
+***
+} T Kyrandia description
+
+
+PORTAL1 {You're standing near a beautiful waterfall in the center of an underground
+forest.  Memories of young loves appear before you, so realistic you feel as
+if you could reach out and touch them.  Your heart begins to race faster and
+faster...
+} T Kyrandia description
+
+
+PORTAL2 {You're lying in a small, wooden chapel.  Next to you, you feel the warm touch
+of your life's eternal love, holding you close.  All you can remember is the
+dark wood of the rafters above as you journey to paradise...
+} T Kyrandia description
+
+
+PORTAL3 {You're crying on the floor, begging for the return of the love you lost long
+ago.  Tears fall like raindrops from your red, swollen eyes as your heart
+breaks from the sorrow of losing the meaning and inspiration of your life...
+} T Kyrandia description
+
+
+PORTAL4 {You're standing alone in solitude on a dark, windy beach.  You look across the
+black horizon remembering times of happiness and peace long ago, as the world
+moves on emotionlessly...
+} T Kyrandia description
+
+
+PORTAL5 {You're standing by a statue which you dimly recognize in your subconscious, but
+your mind is filled with thoughts of determination, inspiration, and above all
+else, hope.  You feel a power growing within your soul, as a smile returns to
+your face, and a sparkle lights in your eyes...
+} T Kyrandia description
+
+
+PORTAL6 {You're flying through the air on the wings of a pegasus, soaring high above
+the forest below.  It is the most exhilarating feeling of freedom you could
+have ever imagined...
+} T Kyrandia description
+
+
+PORTAL7 {You're riding a magical carnival ride, holding the hand of your dearest love.
+As you soar through the evening sky, you experience the joy of heaven...
+} T Kyrandia description
+
+
+PORTAL8 {A single name echos through your mind: Kyra.
+} T Kyrandia description
+
+
+PORTAL9 {Voices vibrate through your head, whispering the words: "Across time and
+space, I love you forever..."
+} T Kyrandia description
+
+
+INVDES {...The force is unseen!
+} T Kyrandia description
+
+
+WILDES {...The willowisp quickly flies from your direct vision.
+} T Kyrandia description
+
+
+PEGDES {...The pegasus is a wonderful creature, but it moves quickly away from your
+direct vision.
+} T Kyrandia description
+
+
+PDRDES {...The pseudo dragon is so ugly, that you turn your head immediately.
+} T Kyrandia description
+
+
+RABOM0 {...The wand breaks in two.
+} T Kyrandia description
+
+
+RABOM1 {***
+%s is looking rather disappointed.
+} T Kyrandia description
+
+
+RABOM2 {...The wand breaks in two.
+***
+Suddenly, a the goddess Tashanna appears in holy beauty before you.  She smiles
+kindly at you and places a legendary kyragem in your hands.  "Take care, fair
+one," she whispers to you before vanishing!
+} T Kyrandia description
+
+
+RABOM3 {***
+%s is momentarily surrounded by a circle of shimmering rainbows!
+} T Kyrandia description
+
+
+SANM00 {...You dig through the sand and happen to find a piece of gold!
+} T Kyrandia description
+
+
+SANM01 {***
+%s is digging through the sand.
+} T Kyrandia description
+
+
+SANM02 {...You dig through the sand, but you find nothing of interest!
+} T Kyrandia description
+
+
+SUNM00 {...As you cast the zapher spell, the tulip vanishes and a silver wand appears
+in your hands!
+} T Kyrandia description
+
+
+SUNM01 {***
+%s is attempting to cast a spell.
+} T Kyrandia description
+
+
+SUNM02 {...As you cast the spell, a vision appears in your mind of a bright flash of
+light with a silverish explosion!
+} T Kyrandia description
+
+
+SUNM03 {...As you offer the kyragem, you feel a warmth surround you.
+***
+You are now at level 12!
+} T Kyrandia description
+
+
+SUNM04 {***
+%s is smiling with joy.
+} T Kyrandia description
+
+
+CTREM0 {...As you aim the wand at the crystal tree, there's a flash of silver light!
+***
+You are now at level 11!
+} T Kyrandia description
+
+
+CTREM1 {***
+%s is staring at the crystal tree with "oohs" and "ahhs".
+} T Kyrandia description
+
+
+TULM00 {...You pick a beautiful silver tulip!
+} T Kyrandia description
+
+
+TULM01 {***
+%s is messing around in the tulips!
+} T Kyrandia description
+
+
+TULM02 {...You can't seem to grab one.
+} T Kyrandia description
+
+
+NPAY00 {...Sorry, but that is beyond your capabilities at this time!
+} T Kyrandia description
+
+
+NPAY01 {***
+%s is doing something way beyond the limits of the law.
+} T Kyrandia description
+
+
+NPAY02 {...You offer the gold graciously and it is accepted.
+***
+A vision in your mind appears and says "Now why not donate some real money to
+this system so you can really enjoy this game".
+***
+The vision vanishes as quickly as it came.
+} T Kyrandia description
+
+
+NPAY03 {***
+%s makes an offer, but then starts to complain about being ripped off!
+} T Kyrandia description
+
+
+SOUKEY {...As you place the soulstone into the niche, suddenly the demon gate
+comes to life with a thousand vibrant, glowing colors!  You feel yourself
+pulled into the gate, there is a flash of bright light, and suddenly...
+} T Kyrandia description
+
+
+BODM01 {...You leap with all your might and cross the chasm!
+***
+A broach appears among your possesions!
+***
+You are now at level 13!
+} T Kyrandia description
+
+
+BODM02 {***
+%s has just successfully leaped across the chasm!
+} T Kyrandia description
+
+
+BODM03 {***
+However, one of your other items was lost in the jump...
+} T Kyrandia description
+
+
+BODM04 {...You leap with all your might, and you almost make the other side, but at
+the last inch, you slip and fall backwards, into the endless depths of the
+chasm...
+} T Kyrandia description
+
+
+BODM05 {***
+%s attempts to jump the chasm, but unfortunately falls to certain death...
+} T Kyrandia description
+
+
+MINM01 {...An emotionless voice responds: "Correct."
+***
+A pendant appears in your hands!
+***
+You are now at level 14!
+} T Kyrandia description
+
+
+MINM02 {***
+%s has suddenly grown in strength and knowledge.
+} T Kyrandia description
+
+
+MINM03 {***
+However, one of your other possessions seems to have vanished.
+} T Kyrandia description
+
+
+HEAR01 {...Your commitment to your heart's love proves you worthy of greater
+knowledge.
+***
+A locket suddenly appears in your hands!
+***
+You are now at level 15!
+} T Kyrandia description
+
+
+HEAR02 {***
+%s is momentarily surrounded by a dark red glow.
+} T Kyrandia description
+
+
+HEAR03 {***
+However, you also notice one of your other possessions is now missing.
+} T Kyrandia description
+
+
+SOUL01 {...Your realization that time has no effect upon the immortal soul
+proves you worthy of greater enlightnment.
+***
+You are now at level 16!
+***
+You also receive a ring, the symbol of universal unity, as a mark of
+your achievement.
+} T Kyrandia description
+
+
+SOUL02 {***
+%s has suddenly grown in strength and wisdom.
+} T Kyrandia description
+
+
+SOUL03 {***
+Unfortunately, one of your other possessions has been lost somewhere in
+time.
+} T Kyrandia description
+
+
+DEVM01 {...You devote yourself...
+***
+Your broach vanishes in a red flash!
+***
+Your pendant vanishes in a blue flash!
+***
+Your locket vanishes in a golden flash!
+***
+Your ring vanishes in a purple flash!
+***
+You are now at level 17!
+} T Kyrandia description
+
+
+DEVM02 {***
+%s is suddenly surrounded by a rainbow variety of flashes of light!
+} T Kyrandia description
+
+
+DEVM03 {...Your devotion is not complete.
+} T Kyrandia description
+
+
+DEVM04 {***
+%s is looking rather disappointed.
+} T Kyrandia description
+
+
+TRUM01 {...As you seek the truth, the Goddess Tashanna, in all her glory and beauty
+appears before you and says: "This is your test to become a Mage of Fire.
+I wish you the best of luck."
+***
+The Goddess then vanishes.
+***
+Suddenly, you feel yourself in a game of tug-o-war.  You fight with all
+your effort against your invisible opponent, trying to win.  You feel
+yourself starting to pull your opponent to your victory, when suddenly
+you slip and fall...
+} T Kyrandia description
+
+
+TRUM02 {...As you seek the truth, the Goddess Tashanna, in all her glory and beauty
+appears before you and says: "This is your test to become a Mage of Fire.
+I wish you the best of luck."
+***
+The Goddess then vanishes.
+***
+Suddenly, you feel yourself in a game of tug-o-war.  You fight with all
+your effort against your invisible opponent, trying to win.  You feel
+yourself slipping, and losing the battle, when suddenly an inner strength
+pulls you to victory!
+***
+You are now at level 18!
+} T Kyrandia description
+
+
+TRUM03 {***
+%s is looking a little peaked.
+} T Kyrandia description
+
+
+LEVL19 {...You're now level 19!  Congratulations!
+} T Kyrandia description
+
+
+LEVL20 {...You're now level 20!  Congratulations!
+} T Kyrandia description
+
+
+LEVL21 {...You're now level 21!  Congratulations!
+} T Kyrandia description
+
+
+LEVL22 {...You're now level 22!  Congratulations!
+} T Kyrandia description
+
+
+LEVL23 {...You're now level 23!  Congratulations!
+} T Kyrandia description
+
+
+LEVL24 {...You're now level 24!  Congratulations!
+} T Kyrandia description
+
+             These are all the animation related messages.
+          ---------------------------------------------------
+
+GEMAPP {***
+A leaf from one of the nearby trees falls gently to the ground, where it
+suddenly transforms into a beautiful %s!
+} T Kyrandia description
+
+
+BMSG00 {***
+A nasty, little brownie suddenly runs in from nowhere!
+} T Kyrandia description
+
+
+BMSG01 {***
+The brownie grabs all your gold, snickers evilly, and kicks you in the shin!
+} T Kyrandia description
+
+
+BMSG02 {***
+The brownie has just stolen all of %s's gold and kicked %s in the shin!
+} T Kyrandia description
+
+
+BMSG03 {***
+The brownie steals all your possesions except for your spellbook!
+} T Kyrandia description
+
+
+BMSG04 {***
+The brownie has just stolen all of %s's possessions!
+} T Kyrandia description
+
+
+BMSG05 {***
+The brownie runs up to you, grins, jumps in the air, and slaps you in the
+face!
+} T Kyrandia description
+
+
+BMSG06 {***
+The brownie has just slapped %s in the face with an evil snicker!
+} T Kyrandia description
+
+
+BMSG07 {***
+The brownie then makes a few obscene gestures and disappears in a blink of
+the eye!
+} T Kyrandia description
+
+
+DMSG00 {***
+The dryad smiles at you, bows respectfully, and vanishes in a purplish flash
+of light!
+} T Kyrandia description
+
+
+DMSG01 {***
+The %s that was lying %s vanishes in a puff of purplish mists!
+} T Kyrandia description
+
+
+DMSG02 {***
+Suddenly, a dryad appears in a purplish flash of light!
+} T Kyrandia description
+
+
+EMSG00 {***
+Suddenly, a small, green elf jumps from out of nowhere!
+} T Kyrandia description
+
+
+EMSG01 {***
+The elf smiles at you and hands you %d gold pieces!
+} T Kyrandia description
+
+
+EMSG02 {***
+The elf has just given %s %d gold pieces!
+} T Kyrandia description
+
+
+EMSG03 {***
+The elf is whispers something to %s secretly!
+} T Kyrandia description
+
+
+EMSG04 {***
+The elf then tips his hat to you and vanishes as quickly as he had appeared!
+} T Kyrandia description
+
+
+EHINT0 {***
+The elf whispers to you: "Travel fast and travel far, thou shall never escape
+the wrath of Zar..."
+} T Kyrandia description
+
+
+EHINT1 {***
+The elf whispers to you: "Understand thy heart, soul, mind, and body..."
+} T Kyrandia description
+
+
+EHINT2 {***
+The elf whispers to you: "Walk through danger without fear..."
+} T Kyrandia description
+
+
+EHINT3 {***
+The elf whispers to you: "Cry for those who cannot cry; do not be ashamed of
+your tears for those who have been hurt..."
+} T Kyrandia description
+
+
+EHINT4 {***
+The elf whispers to you: "Seek your power 'cross the great sea on the island
+of fantasy..."
+} T Kyrandia description
+
+
+EHINT5 {***
+The elf whispers to you: "Kyrandia (Fantasy World of Legends) is Copyrighted
+(C) 1988-94 by Galacticomm, Inc..."
+} T Kyrandia description
+
+
+EHINT6 {***
+The elf whispers to you: "Powerful is the spell that is not a spell, that can
+be cast, but not memorized, and appears in no spellbook... seek this spell..."
+} T Kyrandia description
+
+
+EHINT7 {***
+The elf whispers to you: "The magic of the forest itself is not something to
+be overlooked... the elements of nature hold much power..."
+} T Kyrandia description
+
+
+EHINT8 {***
+The elf whispers to you: "Answering riddles can open doors, like a key..."
+} T Kyrandia description
+
+
+EHINT9 {***
+The elf whispers to you: "The soul is the key..."
+} T Kyrandia description
+
+
+ZARABO {***
+Suddenly, the sky darkens above you as a shadow of a huge dragon covers you!
+You hear ear-shattering screech echo all around you, and you feel a powerful
+blast of hot wind which almost knocks you senseless!
+} T Kyrandia description
+
+
+ZMSG00 {***
+Suddenly, the dragon casts a spell and vanishes in a cloud of black,
+acrid smoke!
+} T Kyrandia description
+
+
+ZMSG01 {***
+Suddenly you hear a ear-piercing screech of rage!
+***
+A dragon suddenly appears in a cloud of black, acrid smoke!
+***
+You have the sudden urge to flee in panic!
+} T Kyrandia description
+
+
+ZMSG02 {***
+Suddenly, the dragon roars out its battle cry!
+} T Kyrandia description
+
+
+ZMSG03 {***
+Before you can react, the dragon swings its neck and rips at you with
+its razor sharp teeth, tearing your chest apart!
+} T Kyrandia description
+
+
+ZMSG04 {***
+In a blink of an eye, the dragon inhales deeply, and then breathes an
+explosion of fire directly at you, boiling your flesh in its searing heat!
+} T Kyrandia description
+
+
+ZMSG05 {***
+The dragon turns at you in disgust and sheer hatred, and slashes at you
+with one of its claws, shredding several of your limbs!
+} T Kyrandia description
+
+
+ZMSG06 {***
+The dragon pauses for a moment in deep concentration, and then turns to
+stare directly at you.
+***
+Suddenly, a bolt of lightning flies from the creature's claws, smashing
+into your chest with a force great enough to pulverize a small village!
+} T Kyrandia description
+
+
+ZMSG07 {***
+%s has just been brutally attacked by the dragon!
+} T Kyrandia description
+
+
+ZMSG08 {...You successfully cast the spell!
+***
+The dragon roars, turns on you, and lashes at you with its huge, spiked,
+powerful tail, crushing you to the ground!
+} T Kyrandia description
+
+
+ZMSG09 {***
+%s, in a fit of idiocy, magically attacked the dragon, who in turn
+crushed %s violently with its tail!
+} T Kyrandia description
+
+
+ZMSG10 {***
+Suddenly, the dragon vanishes in an explosion of bright orange flames!
+} T Kyrandia description
+
+
+ZMSG11 {***
+Suddenly, a dragon appears in an explosion of bright orange flames, bellowing
+out a roar of anger!
+} T Kyrandia description
+
+
+ZMSG12 {...As you rub the staff, the dragon suddenly bellows out a deafening roar
+of rage!
+} T Kyrandia description
+
+
+ZMSG13 {...As you rub the staff, a deafening crash of thunder erupts and you
+feel the ground under you feet begin to tremble!
+} T Kyrandia description
+
+
+ZMSG14 {***
+The dragon gives you a look of sheer hatred, lunges for you, and rips the
+dragonstaff from your hands!
+} T Kyrandia description
+
+
+YOUWIN {
+
+...the dragon looks at you with contempt... yet respect.
+***
+You are now at level 25... Arch-mage of Legends!
+***
+You fear the dragon no longer...
+
+Congratulations to you, Arch-mage of Legends, you have mastered the magic of
+Kyrandia!  Of course, you are now eligible to accept any prize the System
+Operator is offering; call the Sysop, at (XXX) XXX-XXXX to collect your
+prize (you must be the first caller to be the winner).  However, you have won
+more than materialistic treasures, for to have reached this point, you have
+experienced a magical journey through the very heart and soul of the author...
+and witnessed a visionary fantasy of true love, across time and space forever.
+Follow your dreams, for the story of Kyrandia, is one we all live, in one way
+or another... and the story will never end.
+
+} T Kyrandia description
+
+
+SHEWON {***
+Suddenly, the dragon bows respectfully to %s who has now attained
+the title of Arch-mage of Legends!
+} T Kyrandia description
+
+
+HUH {...Huh?
+} T Kyrandia description
+
+
+NOWNOW {...Now, now!
+} T Kyrandia description
+
+
+SAIDIT {...You said it!
+} T Kyrandia description
+
+
+SPEAK1 {***
+%s %ss: } T Kyrandia description
+
+
+SPEAK2 {%s
+} T Kyrandia description
+
+
+SPEAK3 {***
+You hear a voice nearby.
+} T Kyrandia description
+
+
+WHAT {...What??
+} T Kyrandia description
+
+
+WATCHIT {...Hey, watch it!
+} T Kyrandia description
+
+
+WHISPR1 {***
+%s whispers to you: %s
+} T Kyrandia description
+
+
+WHISPR2 {...%s hears you!
+} T Kyrandia description
+
+
+WHISPR3 {***
+%s is whispering to %s!
+} T Kyrandia description
+
+
+NOSUCHP {...You see no such person here!
+} T Kyrandia description
+
+
+VOICE {...What a load voice!
+} T Kyrandia description
+
+
+YELLER1 {***
+%s is %sing at the top of %s voice!
+} T Kyrandia description
+
+
+YELLER2 {***
+You hear someone %sing nearby!
+} T Kyrandia description
+
+
+YELLER3 {...You're very loud about it
+} T Kyrandia description
+
+
+YELLER4 {***
+%s %ss: } T Kyrandia description
+
+
+YELLER5 {%s!!
+} T Kyrandia description
+
+
+YELLER6 {***
+From somewhere nearby you hear someone screaming: %s!
+} T Kyrandia description
+
+
+MOVUTL {...You cannot move in that direction.
+} T Kyrandia description
+
+
+PONDER1 {...%s?
+} T Kyrandia description
+
+
+KISUTL1 {...%s who or what?
+} T Kyrandia description
+
+
+KISUTL2 {...Why bother to %s %s?
+} T Kyrandia description
+
+
+KISUTL3 {***
+%s } T Kyrandia description
+
+
+KISUTL4 {has just given %s %s a %s!
+} T Kyrandia description
+
+
+KISUTL5 {is trying to %s %s %s!
+} T Kyrandia description
+
+
+KISUTL6 {...Why bother to %s %s?
+} T Kyrandia description
+
+
+KISUTL7 {***
+%s } T Kyrandia description
+
+
+KISUTL8 {has just given the %s %s a %s!
+} T Kyrandia description
+
+
+KISUTL9 {is trying to %s the %s %s!
+} T Kyrandia description
+
+
+DONE {...Consider it done!
+} T Kyrandia description
+
+
+KISUTL10 {***
+%s has just given you a %s!
+} T Kyrandia description
+
+
+KISUTL11 {***
+%s hs just given %s a %s!
+} T Kyrandia description
+
+
+BEST {...You do your best!
+} T Kyrandia description
+
+
+KISUTL12 {***
+%s is doing %s best to %s you!
+} T Kyrandia description
+
+
+KISUTL13 {***
+%s is doing %s best to %s %s!
+} T Kyrandia description
+
+
+KISUTL14 {...Sorry, there's not one around!
+} T Kyrandia description
+
+
+COUNTR1 {...But what?
+} T Kyrandia description
+
+
+COUNTR2 {...Naah, YOU do it!
+} T Kyrandia description
+
+
+GLDCNT {...You have %d gold piece%s!
+} T Kyrandia description
+
+
+GIVIT1 {...Tell, you what, I will, if you give me a break!
+} T Kyrandia description
+
+
+GIVCRD1 {...Invalid amount!
+} T Kyrandia description
+
+
+GIVCRD2 {...You don't have enough!
+} T Kyrandia description
+
+
+GIVCRD3 {...That person isn't here!
+} T Kyrandia description
+
+
+GIVCRD4 {...Ok, done.
+} T Kyrandia description
+
+
+GIVCRD5 {***
+%s has just given you %d gold piece%s!
+} T Kyrandia description
+
+
+GIVCRD6 {***
+%s has just given %s %d gold piece%s!
+} T Kyrandia description
+
+
+GIVERU1 {...You can't, %s does not appear to be here.
+} T Kyrandia description
+
+
+GIVERU2 {...You Indian giver, you!
+} T Kyrandia description
+
+
+GIVERU3 {...But you don't have one!
+} T Kyrandia description
+
+
+GIVERU4 {...Nice thought and all, but no can do.
+} T Kyrandia description
+
+
+GIVERU5 {...Ooops, it slipped out of your hands!
+} T Kyrandia description
+
+
+GIVERU6 {***
+%s just dropped %s %s by mistake!
+} T Kyrandia description
+
+
+GIVERU7 {...Good job, you made %s drop %s %s!
+} T Kyrandia description
+
+
+GIVERU8 {you %s, which made you drop your %s!
+} T Kyrandia description
+
+
+GIVERU9 {%s %s, which made %s drop %s %s!
+} T Kyrandia description
+
+
+GIVERU10 {you %s!
+} T Kyrandia description
+
+
+GIVERU11 {%s %s!
+} T Kyrandia description
+
+
+GMSGUTL1 {***
+%s has just } T Kyrandia description
+
+
+GMSGUTL2 {given } T Kyrandia description
+
+
+GMSGUTL3 {%sed } T Kyrandia description
+
+
+GETTER {...Interesting concept!
+} T Kyrandia description
+
+
+GETGP1 {...But no such person is here!
+} T Kyrandia description
+
+
+GETGP2 {...You Indian giver, you!
+} T Kyrandia description
+
+
+GETGP3 {...%s is not holding any %s!
+} T Kyrandia description
+
+
+GETGP4 {...Your hands are already full!
+} T Kyrandia description
+
+
+GETGP5 {...You do not succeed!
+} T Kyrandia description
+
+
+GETGP6 {***
+%s is trying to %s your %s!
+} T Kyrandia description
+
+
+GETGP7 {***
+%s is trying to %s %s's %s!
+} T Kyrandia description
+
+
+GETGP8 {...You stole it!
+} T Kyrandia description
+
+
+GETGP9 {***
+%s just stole your %s!
+} T Kyrandia description
+
+
+GETGP10 {***
+%s just stole %s's %s!
+} T Kyrandia description
+
+
+GETLOC1 {...%s wiggles loose from you!
+} T Kyrandia description
+
+
+GETLOC2 {***
+%s is trying to %s you!
+} T Kyrandia description
+
+
+GETLOC3 {***
+%s is trying to %s %s!
+} T Kyrandia description
+
+
+GETLOC4 {...Sorry, there is no %s lying %s.
+} T Kyrandia description
+
+
+GETLOC5 {***
+%s is trying to %s the %s, without success.
+} T Kyrandia description
+
+
+GETLOC6 {...You're hands are too full already!
+} T Kyrandia description
+
+
+GETLOC7 {***
+%s has just taken the %s that was %s.
+} T Kyrandia description
+
+
+LOOKER1 {***
+%s is examining the %s %s.
+} T Kyrandia description
+
+
+LOOKER2 {***
+%s is examining %s %s.
+} T Kyrandia description
+
+
+LOOKER3 {***
+%s is looking at you carefully.
+} T Kyrandia description
+
+
+LOOKER4 {***
+%s is closely examining %s.
+} T Kyrandia description
+
+
+LOOKER5 {...You're %s.
+} T Kyrandia description
+
+
+SHOVER1 {...There is no exit to the "%s"!
+} T Kyrandia description
+
+
+SHOVER2 {...Sorry, "%s" is not here!
+} T Kyrandia description
+
+
+SHOVER3 {...You'd better see a doctor about that!
+} T Kyrandia description
+
+
+SHVUTL1 {...You caught "%s" off guard!
+} T Kyrandia description
+
+
+SHVUTL2 {***
+%s has just shoved you %s!
+} T Kyrandia description
+
+
+DROPIT1 {...A supernatural force is preventing this!
+} T Kyrandia description
+
+
+DROPIT2 {...Okay, done.
+} T Kyrandia description
+
+
+DROPIT3 {***
+%s dropped %s %s!
+} T Kyrandia description
+
+
+DROPIT4 {...Nice idea, but you dont have one...
+} T Kyrandia description
+
+
+DROPIT5 {...Oh, really? I never knew that!
+} T Kyrandia description
+
+
+WINKER1 {...Wink!
+} T Kyrandia description
+
+
+WINKER2 {...You wink slyly.
+} T Kyrandia description
+
+
+WINKER3 {***
+%s has just winked slyly at you!
+} T Kyrandia description
+
+
+WINKER4 {***
+%s has just winked slyly at %s!
+} T Kyrandia description
+
+
+WINKER5 {...No can do.
+} T Kyrandia description
+
+
+BRIEFR1 {...Ok, "brief" descriptions from now on.
+} T Kyrandia description
+
+
+BRIEFR2 {...Type "brief on" or "brief off".
+} T Kyrandia description
+
+
+UNBRIEF {...Ok, "full" descriptions from now on.
+} T Kyrandia description
+
+
+READER1 {...Why read %s?
+} T Kyrandia description
+
+
+READER2 {...Ah, but you don't have one!
+} T Kyrandia description
+
+
+SCROLL1 {***
+%s is reading %s magical %s!
+} T Kyrandia description
+
+
+HITCTR {...You have %d out of %d hit points remaining.
+} T Kyrandia description
+
+
+KYRA1 {...Type "?" for help.
+} T Kyrandia description
+
+
+KYRA2 {...Nah, I dont believe it!
+} T Kyrandia description
+
+
+KYRA3 {...Oh, that's a lousy reason!
+} T Kyrandia description
+
+
+KYRA4 {...Now, now, don't get nasty!
+} T Kyrandia description
+
+
+KYRA5 {...%s what?
+} T Kyrandia description
+
+
+KYRA6 {...Why would you want to %s?
+} T Kyrandia description
+
+
+KYRA7 {...How do you plan to %s?
+} T Kyrandia description
+
+
+KYRA8 {...What's the point in wanting to %s?
+} T Kyrandia description
+
+
+KYRA9 {...Surely you jest!
+} T Kyrandia description
+
+
+CMPCMD1 {...Sorry, only "live" users may do that!
+} T Kyrandia description
+
+
+SMPUTL1 {...%s
+} T Kyrandia description
+
+
+SMPUTL2 {***
+%s is %s
+} T Kyrandia description
+
+
+EXIKYR {...Exiting Kyrandia...
+} T Kyrandia description
+
+
+KUTM00 {There is nothing lying %s.
+} T Kyrandia description
+
+
+KUTM01 {There is %s lying %s.
+} T Kyrandia description
+
+
+KUTM02 {There is %s and %s lying %s.
+} T Kyrandia description
+
+
+KUTM03 {There is } T Kyrandia description
+
+
+KUTM04 {and %s lying %s.
+} T Kyrandia description
+
+
+KUTM05 {There is a dryad standing here.
+} T Kyrandia description
+
+
+KUTM06 {By the way, there is a very large and angry dragon here too!
+} T Kyrandia description
+
+
+KUTM07 {your spellbook and %d piece%s of gold.
+} T Kyrandia description
+
+
+KUTM08 {and } T Kyrandia description
+
+
+KUTM09 {%s spellbook.
+} T Kyrandia description
+
+
+KUTM10 { (your eyes glow for a moment)} T Kyrandia description
+
+
+KUTM11 { is here.
+} T Kyrandia description
+
+
+KUTM12 { are here.
+} T Kyrandia description
+
+
+OBJM00 {...Rub-a-dub-dub!
+} T Kyrandia description
+
+
+OBJM01 {...Ooooookay!
+} T Kyrandia description
+
+
+OBJM02 {...Your amulet glows for a moment!
+} T Kyrandia description
+
+
+OBJM03 {...Okay, if you say so!
+} T Kyrandia description
+
+
+OBJM04 {...How thoughtful of you!
+} T Kyrandia description
+
+
+OBJM05 {...At who?!??!
+} T Kyrandia description
+
+
+OBJM06 {...At WHO?!??!  Huh?
+} T Kyrandia description
+
+
+OBJM07 {...WHAT?!
+} T Kyrandia description
+
+
+OBJM08 {...Tastes great... less filling.
+} T Kyrandia description
+
+
+OBJM09 {...But you don't have one!!
+} T Kyrandia description
+
+
+KSPM00 {...The %s seems to be magically resistant!
+} T Kyrandia description
+
+
+KSPM01 {***
+%s is attempting to cast a spell on %s!
+} T Kyrandia description
+
+
+KSPM02 {...But there isn't one in sight!
+} T Kyrandia description
+
+
+KSPM03 {...Mysteriously, it fails...
+} T Kyrandia description
+
+
+KSPM04 {...A vision enters your mind...
+
+} T Kyrandia description
+
+
+KSPM05 {...The vision ends suddenly...
+} T Kyrandia description
+
+
+KSPM06 {***
+You suddenly get the feeling that you are being watched!
+} T Kyrandia description
+
+
+KSPM07 {***
+%s is concentrating in a mystical trance!
+} T Kyrandia description
+
+
+KSPM08 {...Suddenly your diamond turns red and disappears!
+***
+} T Kyrandia description
+
+
+KSPM09 {...But you don't have that spell in your spellbook!
+} T Kyrandia description
+
+
+KSPM10 {...You don't have the power.
+} T Kyrandia description
+
+
+KINM00 {***
+Suddenly, you get the feeling that an old friend has returned... again.
+} T Kyrandia description
+
