@@ -257,7 +257,9 @@ class SlackEventSubscriber implements EventSubscriberInterface {
 
     $visible_items = [];
     foreach ($loc->field_visible_items as $visible_item) {
-      $visible_items[] = $visible_item->entity->getTitle();
+      if ($visible_item->entity->field_visible->value) {
+        $visible_items[] = $visible_item->entity->getTitle();
+      }
     }
     switch (count($visible_items)) {
       case 1:
@@ -413,21 +415,34 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       $itemName = strtolower(trim($item->entity->getTitle()));
       if (strpos($itemName, $target) === 0) {
         // Item's name starts with the string the user typed.
-        // Add item to player's inventory.
-        $player->field_inventory[] = ['target_id' => $item->entity->id()];
-        $player->save();
 
-        // Remove item from location.
-        unset($loc->field_visible_items[$delta]);
-        $loc->save();
+        // If the item is gettable, add item to player's inventory.
+        if ($item->entity->field_can_pick_up->value) {
+          $player->field_inventory[] = ['target_id' => $item->entity->id()];
+          $player->save();
 
-        $channel = $eventCallback['user'];
-        $message = 'You picked up the ' . $itemName;
-        $this->slack->slackApi('chat.postMessage', 'POST', [
-          'channel' => $channel,
-          'text' => strip_tags($message),
-          'as_user' => TRUE,
-        ]);
+          // Remove item from location.
+          unset($loc->field_visible_items[$delta]);
+          $loc->save();
+
+          $channel = $eventCallback['user'];
+          $message = 'You picked up the ' . $itemName;
+          $this->slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            'text' => strip_tags($message),
+            'as_user' => TRUE,
+          ]);
+        }
+        else {
+          // Can't pick up - show its deny get message.
+          $channel = $eventCallback['user'];
+          $message = $item->entity->field_deny_get_message->value;
+          $this->slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            'text' => strip_tags($message),
+            'as_user' => TRUE,
+          ]);
+        }
         $foundSomething = TRUE;
         break;
       }
