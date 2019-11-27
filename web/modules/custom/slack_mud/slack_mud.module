@@ -1,1 +1,24 @@
 <?php
+
+use Drupal\node\Entity\Node;
+
+function respawn() {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'game');
+  $game_nids = $query->execute();
+  if ($game_nids) {
+    foreach ($game_nids as $game_nid) {
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'location')
+        ->condition('field_game.target_id', $game_nid);
+      $loc_nids = $query->execute();
+      if ($loc_nids) {
+        $loc_nodes = Node::loadMultiple($loc_nids);
+        foreach ($loc_nodes as $loc_node) {
+          $loc_node->field_visible_items = $loc_node->field_default_items;
+          $loc_node->save();
+        }
+      }
+    }
+  }
+}
