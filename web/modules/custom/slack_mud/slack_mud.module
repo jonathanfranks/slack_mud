@@ -1,15 +1,1 @@
 <?php
-
-use Drupal\node\Entity\Node;
-
-function xx() {
-  $query = \Drupal::entityQuery('node')
-    ->condition('type', 'player')
-    ->condition('field_active', TRUE);
-  $playerNids = $query->execute();
-  if ($playerNids) {
-    $playerNid = reset($playerNids);
-    $player = Node::load($playerNid);
-  }
-
-}

@@ -1,0 +1,2134 @@
+Location#: 0
+Brief Des: near a mystical willow tree
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 46,45,2,0,0,0
+N:1 S:88 E:94 W:71
+
+Location#: 1
+Brief Des: on a north/south path
+Obj Locat: on the path
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:2 S:0 E:95 W:72
+
+Location#: 2
+Brief Des: at a "T" intersection on a path
+Obj Locat: in the dirt
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:3 S:1 E:4 W:73
+
+Location#: 3
+Brief Des: on an overgrown path
+Obj Locat: in the underbrush
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:87 S:2 E:96 W:74
+
+Location#: 4
+Brief Des: on an east/west road
+Obj Locat: on the road
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:96 S:95 E:5 W:2
+
+Location#: 5
+Brief Des: on the outskirts of a village
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:109 S:110 E:6 W:4
+
+Location#: 6
+Brief Des: in the village square
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:8 S:9 E:7 W:5
+
+Location#: 7
+Brief Des: at the village temple
+Obj Locat: near the altar
+# of Objs: 1
+Objs' Idx: 47,0,0,0,0,0
+N:10 S:11 E:-1 W:6
+
+Location#: 8
+Brief Des: at the gem cutters hut
+Obj Locat: near the hut
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:6 E:-1 W:-1
+
+Location#: 9
+Brief Des: at the spell shop
+Obj Locat: near the hutch
+# of Objs: 1
+Objs' Idx: 48,0,0,0,0,0
+N:6 S:-1 E:-1 W:-1
+
+Location#: 10
+Brief Des: at the healer's abode
+Obj Locat: in the mists
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:7 E:-1 W:-1
+
+Location#: 11
+Brief Des: at the wise man's shanty
+Obj Locat: in the dirt
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:7 S:-1 E:-1 W:-1
+
+Location#: 12
+Brief Des: at a bubbling brook
+Obj Locat: near the water
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:75 S:74 E:82 W:60
+
+Location#: 13
+Brief Des: in the Vale of the Butterflies
+Obj Locat: in the flowers
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:149 S:150 E:161 W:140
+
+Location#: 14
+Brief Des: in a glade of pines
+Obj Locat: among the fallen pine needles
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:154 S:155 E:157 W:134
+
+Location#: 15
+Brief Des: in a small, lush valley
+Obj Locat: in the undergrowth
+# of Objs: 2
+Objs' Idx: 3,10,0,0,0,0
+N:57 S:58 E:77 W:57
+
+Location#: 16
+Brief Des: in a dead wooded glade
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:113 S:93 E:114 W:91
+
+Location#: 17
+Brief Des: at an ancient grave
+Obj Locat: near the tombstone
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:128 S:129 E:141 W:119
+
+Location#: 18
+Brief Des: near a hollow stump
+Obj Locat: near the stump
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:147 S:148 E:164 W:142
+
+Location#: 19
+Brief Des: at a flaming thicket
+Obj Locat: by the thicket
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:160 S:159 E:139 W:151
+
+Location#: 20
+Brief Des: at the Tree of Rubies
+Obj Locat: near the tree
+# of Objs: 1
+Objs' Idx: 3,0,0,0,0,0
+N:131 S:132 E:134 W:115
+
+Location#: 21
+Brief Des: at the tree of the mockingbird
+Obj Locat: near the tree
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:98 S:97 E:106 W:85
+
+Location#: 22
+Brief Des: on the banks of a lush lagoon
+Obj Locat: in the sand
+# of Objs: 1
+Objs' Idx: 8,0,0,0,0,0
+N:-1 S:144 E:-1 W:-1
+
+Location#: 23
+Brief Des: in a natural chapel
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:49 S:48 E:62 W:24
+
+Location#: 24
+Brief Des: at a silver altar
+Obj Locat: by the altar
+# of Objs: 2
+Objs' Idx: 0,4,0,0,0,0
+N:-1 S:-1 E:23 W:-1
+
+Location#: 25
+Brief Des: in the Grove of Oaks
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 3,0,0,0,0,0
+N:120 S:119 E:128 W:106
+
+Location#: 26
+Brief Des: in a cluster of ash trees
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 2,2,2,0,0,0
+N:146 S:147 E:166 W:143
+
+Location#: 27
+Brief Des: near a strange, large rock
+Obj Locat: near the rock
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:82 S:83 E:99 W:78
+
+Location#: 28
+Brief Des: at an abandoned campsite
+Obj Locat: by the ashes
+# of Objs: 1
+Objs' Idx: 7,0,0,0,0,0
+N:97 S:96 E:108 W:82
+
+Location#: 29
+Brief Des: on a plateau
+Obj Locat: on the rocks
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:-1 S:-1 E:30 W:-1
+
+Location#: 30
+Brief Des: on a densely wooded hill
+Obj Locat: in the undergrowth
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:-1 S:-1 E:31 W:29
+
+Location#: 31
+Brief Des: at the base of a densely wooded hill
+Obj Locat: on the fallen pine needles
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:121 S:120 E:126 W:30
+
+Location#: 32
+Brief Des: at a bubbling spring of water
+Obj Locat: near the water
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:67 S:64 E:134 W:93
+
+Location#: 33
+Brief Des: in a shady, natural shelter
+Obj Locat: on the dirt floor
+# of Objs: 2
+Objs' Idx: 3,2,0,0,0,0
+N:152 S:103 E:70 W:159
+
+Location#: 34
+Brief Des: in the Druid's Circle
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:51 S:50 E:59 W:58
+
+Location#: 35
+Brief Des: at a terraced waterfall
+Obj Locat: near the water
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:43 S:54 E:55 W:77
+
+Location#: 36
+Brief Des: at a large, sparkling waterfall
+Obj Locat: near the water
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:41 S:55 E:80 W:43
+
+Location#: 37
+Brief Des: in a small clearing
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 10,0,0,0,0,0
+N:122 S:121 E:124 W:103
+
+Location#: 38
+Brief Des: near the Fountain of Eternal Magic
+Obj Locat: by the fountain
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:159 S:158 E:115 W:153
+
+Location#: 39
+Brief Des: near a platinum tree
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 6,0,0,0,0,0
+N:76 S:75 E:85 W:58
+
+Location#: 40
+Brief Des: in a small field of lilacs
+Obj Locat: on the soil
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:143 S:142 E:147 W:126
+
+Location#: 41
+Brief Des: at the Secret Shrine of Tashanna
+Obj Locat: by the shrine
+# of Objs: 1
+Objs' Idx: 3,0,0,0,0,0
+N:-1 S:36 E:-1 W:-1
+
+Location#: 42
+Brief Des: near a large statue
+Obj Locat: near the statue
+# of Objs: 1
+Objs' Idx: 49,0,0,0,0,0
+N:142 S:141 E:148 W:128
+
+Location#: 43
+Brief Des: at the entrance to a dark cave
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:170 S:35 E:36 W:-1
+
+Location#: 44
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 3
+Objs' Idx: 3,2,3,0,0,0
+N:45 S:89 E:67 W:112
+
+Location#: 45
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:46 S:44 E:66 W:90
+
+Location#: 46
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 42,0,0,0,0,0
+N:47 S:45 E:65 W:134
+
+Location#: 47
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:48 S:46 E:64 W:60
+
+Location#: 48
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:23 S:47 E:63 W:70
+
+Location#: 49
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 9,0,0,0,0,0
+N:50 S:23 E:61 W:86
+
+Location#: 50
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:34 S:49 E:60 W:153
+
+Location#: 51
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:52 S:34 E:58 W:56
+
+Location#: 52
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:53 S:51 E:15 W:148
+
+Location#: 53
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 3,2,0,0,0,0
+N:54 S:52 E:57 W:64
+
+Location#: 54
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 8,0,0,0,0,0
+N:35 S:53 E:56 W:100
+
+Location#: 55
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:36 S:56 E:79 W:35
+
+Location#: 56
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:55 S:57 E:78 W:54
+
+Location#: 57
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:56 S:15 E:77 W:53
+
+Location#: 58
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:15 S:59 E:39 W:51
+
+Location#: 59
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 5
+Objs' Idx: 2,0,2,0,3,0
+N:58 S:60 E:75 W:34
+
+Location#: 60
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 3
+Objs' Idx: 2,3,4,0,0,0
+N:59 S:61 E:12 W:50
+
+Location#: 61
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:60 S:62 E:74 W:49
+
+Location#: 62
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:61 S:63 E:73 W:23
+
+Location#: 63
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:62 S:64 E:72 W:48
+
+Location#: 64
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:63 S:65 E:71 W:47
+
+Location#: 65
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 6,0,0,0,0,0
+N:64 S:66 E:70 W:46
+
+Location#: 66
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:65 S:67 E:69 W:45
+
+Location#: 67
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 4,0,0,0,0,0
+N:66 S:32 E:68 W:44
+
+Location#: 68
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:69 S:154 E:90 W:67
+
+Location#: 69
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:70 S:68 E:89 W:66
+
+Location#: 70
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:71 S:69 E:88 W:65
+
+Location#: 71
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:72 S:70 E:0 W:64
+
+Location#: 72
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:73 S:71 E:1 W:63
+
+Location#: 73
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:74 S:72 E:2 W:62
+
+Location#: 74
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:12 S:73 E:3 W:61
+
+Location#: 75
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 0,0,0,0,0,0
+N:39 S:12 E:86 W:59
+
+Location#: 76
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 4,3,0,0,0,0
+N:77 S:39 E:84 W:15
+
+Location#: 77
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:78 S:76 E:83 W:57
+
+Location#: 78
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 1,0,0,0,0,0
+N:79 S:77 E:27 W:56
+
+Location#: 79
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:80 S:78 E:82 W:55
+
+Location#: 80
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:80 S:79 E:81 W:36
+
+Location#: 81
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:81 S:82 E:101 W:80
+
+Location#: 82
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:81 S:27 E:100 W:79
+
+Location#: 83
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 3
+Objs' Idx: 10,2,2,0,0,0
+N:27 S:84 E:83 W:77
+
+Location#: 84
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,0,0,0,0,0
+N:83 S:85 E:98 W:76
+
+Location#: 85
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:84 S:86 E:21 W:39
+
+Location#: 86
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:85 S:87 E:97 W:75
+
+Location#: 87
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 3
+Objs' Idx: 3,3,2,0,0,0
+N:86 S:3 E:28 W:12
+
+Location#: 88
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:0 S:89 E:93 W:70
+
+Location#: 89
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:88 S:90 E:92 W:69
+
+Location#: 90
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:89 S:65 E:91 W:68
+
+Location#: 91
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:92 S:148 E:16 W:90
+
+Location#: 92
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:93 S:91 E:113 W:89
+
+Location#: 93
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:94 S:92 E:112 W:88
+
+Location#: 94
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:95 S:93 E:111 W:0
+
+Location#: 95
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:4 S:94 E:110 W:1
+
+Location#: 96
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 3,10,0,0,0,0
+N:28 S:4 E:109 W:3
+
+Location#: 97
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:21 S:28 E:107 W:86
+
+Location#: 98
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:98 S:21 E:105 W:84
+
+Location#: 99
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 8,0,0,0,0,0
+N:100 S:99 E:104 W:27
+
+Location#: 100
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 3
+Objs' Idx: 3,2,2,0,0,0
+N:101 S:99 E:103 W:82
+
+Location#: 101
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 50,0,0,0,0,0
+N:101 S:100 E:102 W:81
+
+Location#: 102
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 6,0,0,0,0,0
+N:102 S:103 E:122 W:101
+
+Location#: 103
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:102 S:104 E:37 W:100
+
+Location#: 104
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:103 S:104 E:121 W:99
+
+Location#: 105
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:105 S:106 E:120 W:98
+
+Location#: 106
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:105 S:107 E:25 W:21
+
+Location#: 107
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 4,0,0,0,0,0
+N:106 S:108 E:119 W:97
+
+Location#: 108
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:107 S:109 E:118 W:28
+
+Location#: 109
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:108 S:5 E:-1 W:96
+
+Location#: 110
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:5 S:111 E:-1 W:95
+
+Location#: 111
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:110 S:112 E:117 W:94
+
+Location#: 112
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:111 S:113 E:116 W:93
+
+Location#: 113
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 3,3,0,0,0,0
+N:112 S:16 E:115 W:92
+
+Location#: 114
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:115 S:59 E:132 W:16
+
+Location#: 115
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:116 S:114 E:20 W:113
+
+Location#: 116
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:115 S:115 E:131 W:112
+
+Location#: 117
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 1,0,0,0,0,0
+N:-1 S:116 E:130 W:111
+
+Location#: 118
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:119 S:-1 E:129 W:108
+
+Location#: 119
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:25 S:118 E:17 W:107
+
+Location#: 120
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:31 S:25 E:127 W:105
+
+Location#: 121
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 3,2,0,0,0,0
+N:37 S:31 E:125 W:104
+
+Location#: 122
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:122 S:37 E:123 W:102
+
+Location#: 123
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:123 S:124 E:-1 W:122
+
+Location#: 124
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 0,0,0,0,0,0
+N:123 S:125 E:144 W:37
+
+Location#: 125
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:124 S:126 E:143 W:121
+
+Location#: 126
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:125 S:127 E:40 W:31
+
+Location#: 127
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 4,3,0,0,0,0
+N:126 S:128 E:142 W:120
+
+Location#: 128
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:127 S:17 E:42 W:25
+
+Location#: 129
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,1,0,0,0,0
+N:17 S:-1 E:140 W:118
+
+Location#: 130
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:131 E:136 W:117
+
+Location#: 131
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:130 S:20 E:135 W:116
+
+Location#: 132
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:20 S:149 E:133 W:114
+
+Location#: 133
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:134 S:66 E:155 W:132
+
+Location#: 134
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:135 S:133 E:14 W:20
+
+Location#: 135
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:136 S:134 E:154 W:131
+
+Location#: 136
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:137 S:135 E:153 W:130
+
+Location#: 137
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:138 S:136 E:152 W:-1
+
+Location#: 138
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:139 S:137 E:151 W:-1
+
+Location#: 139
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 4
+Objs' Idx: 4,2,3,2,0,0
+N:140 S:138 E:150 W:-1
+
+Location#: 140
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:141 S:139 E:13 W:129
+
+Location#: 141
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 22,0,0,0,0,0
+N:142 S:140 E:149 W:17
+
+Location#: 142
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:40 S:42 E:18 W:127
+
+Location#: 143
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:144 S:40 E:26 W:125
+
+Location#: 144
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 4,0,0,0,0,0
+N:22 S:143 E:146 W:124
+
+Location#: 145
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:145 S:146 E:168 W:-1
+
+Location#: 146
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:145 S:147 E:167 W:144
+
+Location#: 147
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:26 S:18 E:165 W:40
+
+Location#: 148
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 4,2,0,0,0,0
+N:18 S:149 E:163 W:42
+
+Location#: 149
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:148 S:13 E:162 W:141
+
+Location#: 150
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:13 S:151 E:160 W:139
+
+Location#: 151
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:150 S:152 E:19 W:138
+
+Location#: 152
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 41,0,0,0,0,0
+N:151 S:153 E:159 W:137
+
+Location#: 153
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 4,0,0,0,0,0
+N:152 S:154 E:38 W:136
+
+Location#: 154
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:153 S:14 E:158 W:135
+
+Location#: 155
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 6,0,0,0,0,0
+N:14 S:115 E:156 W:133
+
+Location#: 156
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:157 S:156 E:134 W:155
+
+Location#: 157
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:158 S:156 E:55 W:14
+
+Location#: 158
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 3,3,0,0,0,0
+N:38 S:157 E:154 W:147
+
+Location#: 159
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:19 S:38 E:33 W:152
+
+Location#: 160
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:161 S:19 E:134 W:150
+
+Location#: 161
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:162 S:160 E:161 W:13
+
+Location#: 162
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:163 S:161 E:162 W:149
+
+Location#: 163
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:164 S:162 E:163 W:148
+
+Location#: 164
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:165 S:163 E:164 W:18
+
+Location#: 165
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:166 S:164 E:165 W:147
+
+Location#: 166
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:167 S:165 E:166 W:26
+
+Location#: 167
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:168 S:166 E:167 W:146
+
+Location#: 168
+Brief Des: in a dark forest
+Obj Locat: on the forest floor
+# of Objs: 1
+Objs' Idx: 19,0,0,0,0,0
+N:168 S:167 E:168 W:145
+
+Location#: 169
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 2
+Objs' Idx: 4,3,0,0,0,0
+N:174 S:173 E:170 W:170
+
+Location#: 170
+Brief Des: in a dark cave
+Obj Locat: in the dark
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:173 S:43 E:171 W:169
+
+Location#: 171
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:172 S:175 E:169 W:170
+
+Location#: 172
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:175 S:171 E:170 W:173
+
+Location#: 173
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 2
+Objs' Idx: 3,3,0,0,0,0
+N:176 S:170 E:172 W:174
+
+Location#: 174
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:177 S:169 E:173 W:176
+
+Location#: 175
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:174 S:172 E:174 W:176
+
+Location#: 176
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 2
+Objs' Idx: 4,2,0,0,0,0
+N:170 S:173 E:175 W:177
+
+Location#: 177
+Brief Des: in a dark, twisty cavern
+Obj Locat: in the dark
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:178 S:174 E:176 W:172
+
+Location#: 178
+Brief Des: in a natural hall
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:179 S:177 E:-1 W:-1
+
+Location#: 179
+Brief Des: at an endless chasm
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:178 E:-1 W:-1
+
+Location#: 180
+Brief Des: in a jade cavern
+Obj Locat: on the cavern floor
+# of Objs: 2
+Objs' Idx: 2,0,0,0,0,0
+N:181 S:-1 E:-1 W:-1
+
+Location#: 181
+Brief Des: at a Statue of Tashanna
+Obj Locat: by the statue
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:185 S:180 E:182 W:-1
+
+Location#: 182
+Brief Des: near a reflecting pool
+Obj Locat: by the water
+# of Objs: 3
+Objs' Idx: 2,3,2,0,0,0
+N:-1 S:-1 E:183 W:181
+
+Location#: 183
+Brief Des: at the forgotten Pantheon of Tashanna.
+Obj Locat: on the floor
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:184 W:182
+
+Location#: 184
+Brief Des: at the Portal of the Past
+Obj Locat: near the portal
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:-1 S:-1 E:-1 W:183
+
+Location#: 185
+Brief Des: in a smooth-walled alcove
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,7,0,0,0,0
+N:-1 S:181 E:-1 W:-1
+
+Location#: 186
+Brief Des: in a dark cave
+Obj Locat: in the darkness
+# of Objs: 1
+Objs' Idx: 51,0,0,0,0,0
+N:187 S:-1 E:-1 W:-1
+
+Location#: 187
+Brief Des: in a bright passageway
+Obj Locat: in the brilliance
+# of Objs: 1
+Objs' Idx: 10,0,0,0,0,0
+N:188 S:186 E:187 W:187
+
+Location#: 188
+Brief Des: at some misty ruins
+Obj Locat: in the mists
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:187 E:-1 W:-1
+
+Location#: 189
+Brief Des: on a sandy beach near the sea
+Obj Locat: near the sea
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:190 S:-1 E:-1 W:-1
+
+Location#: 190
+Brief Des: on a grassy beach
+Obj Locat: in the grass
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:197 S:189 E:193 W:192
+
+Location#: 191
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:199 S:191 E:192 W:191
+
+Location#: 192
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:198 S:192 E:190 W:191
+
+Location#: 193
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 6,3,0,0,0,0
+N:196 S:193 E:194 W:190
+
+Location#: 194
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:195 S:194 E:194 W:193
+
+Location#: 195
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 3,0,0,0,0,0
+N:204 S:194 E:195 W:196
+
+Location#: 196
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:203 S:193 E:195 W:197
+
+Location#: 197
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 4,0,0,0,0,0
+N:202 S:190 E:196 W:198
+
+Location#: 198
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 3,2,0,0,0,0
+N:201 S:192 E:197 W:199
+
+Location#: 199
+Brief Des: at a large clump of silver tulips
+Obj Locat: near the tulips
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:200 S:191 E:198 W:199
+
+Location#: 200
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:209 S:199 E:201 W:200
+
+Location#: 201
+Brief Des: at a crystal tree
+Obj Locat: near the tree
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:208 S:198 E:202 W:200
+
+Location#: 202
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:207 S:197 E:203 W:201
+
+Location#: 203
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:206 S:196 E:204 W:202
+
+Location#: 204
+Brief Des: at the Gateway of the Rainbows
+Obj Locat: near the rainbows
+# of Objs: 2
+Objs' Idx: 1,0,0,0,0,0
+N:205 S:195 E:-1 W:203
+
+Location#: 205
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 8,0,0,0,0,0
+N:214 S:204 E:205 W:206
+
+Location#: 206
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:213 S:203 E:205 W:207
+
+Location#: 207
+Brief Des: in the Centre of the Elms
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 3,0,0,0,0,0
+N:212 S:202 E:206 W:208
+
+Location#: 208
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 4,2,0,0,0,0
+N:211 S:201 E:207 W:209
+
+Location#: 209
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:210 S:200 E:208 W:209
+
+Location#: 210
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 20,0,0,0,0,0
+N:215 S:209 E:211 W:210
+
+Location#: 211
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:211 S:208 E:212 W:210
+
+Location#: 212
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 27,0,0,0,0,0
+N:212 S:207 E:213 W:211
+
+Location#: 213
+Brief Des: at the Altar of Eternal Sunshine
+Obj Locat: near the altar
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:202 S:206 E:214 W:212
+
+Location#: 214
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,0,0,0,0,0
+N:214 S:205 E:214 W:213
+
+Location#: 215
+Brief Des: in a golden forest
+Obj Locat: on the ground
+# of Objs: 4
+Objs' Idx: 2,2,4,3,0,0
+N:216 S:210 E:-1 W:-1
+
+Location#: 216
+Brief Des: on a grassy plain
+Obj Locat: in the grass
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:217 S:215 E:-1 W:-1
+
+Location#: 217
+Brief Des: in a wasteland of decay
+Obj Locat: in the dust
+# of Objs: 2
+Objs' Idx: 4,0,0,0,0,0
+N:218 S:216 E:-1 W:-1
+
+Location#: 218
+Brief Des: at the Demon Gate
+Obj Locat: near the gate
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:217 E:-1 W:-1
+
+Location#: 219
+Brief Des: in a resplendent cul-de-sac
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 12,3,4,0,0,0
+N:220 S:-1 E:-1 W:-1
+
+Location#: 220
+Brief Des: in a long, decorated hallway
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 2,4,0,0,0,0
+N:221 S:219 E:-1 W:-1
+
+Location#: 221
+Brief Des: in the Royal Welcome Hall
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 31,2,0,0,0,0
+N:224 S:220 E:223 W:222
+
+Location#: 222
+Brief Des: on a flight of marble stairs
+Obj Locat: on the stairs
+# of Objs: 3
+Objs' Idx: 3,2,1,0,0,0
+N:240 S:-1 E:221 W:-1
+
+Location#: 223
+Brief Des: on a flight of marble stairs
+Obj Locat: on the stairs
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:241 S:-1 E:-1 W:221
+
+Location#: 224
+Brief Des: in a smooth hallway
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 12,31,0,0,0,0
+N:225 S:221 E:-1 W:-1
+
+Location#: 225
+Brief Des: in a crumbling passageway
+Obj Locat: in the dirt
+# of Objs: 2
+Objs' Idx: 9,7,0,0,0,0
+N:228 S:224 E:227 W:226
+
+Location#: 226
+Brief Des: in an eroded storage closet
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 2,9,0,0,0,0
+N:-1 S:-1 E:225 W:-1
+
+Location#: 227
+Brief Des: in a small, stuffy alcove
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 28,0,0,0,0,0
+N:-1 S:-1 E:-1 W:225
+
+Location#: 228
+Brief Des: on a flight of stone stairs
+Obj Locat: on the stairs
+# of Objs: 1
+Objs' Idx: 12,0,0,0,0,0
+N:229 S:225 E:-1 W:-1
+
+Location#: 229
+Brief Des: at the base of a stone stairway
+Obj Locat: on the stairway
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:233 S:228 E:232 W:230
+
+Location#: 230
+Brief Des: in a stinking, damp passageway
+Obj Locat: in the dirt
+# of Objs: 3
+Objs' Idx: 2,2,6,0,0,0
+N:-1 S:231 E:229 W:-1
+
+Location#: 231
+Brief Des: in an crumbling dungeon cell
+Obj Locat: in the dirt
+# of Objs: 2
+Objs' Idx: 9,35,0,0,0,0
+N:230 S:-1 E:-1 W:-1
+
+Location#: 232
+Brief Des: in the underground animal pen
+Obj Locat: in the muck
+# of Objs: 1
+Objs' Idx: 38,0,0,0,0,0
+N:-1 S:-1 E:-1 W:229
+
+Location#: 233
+Brief Des: in a decaying, stone hallway
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 2,11,0,0,0,0
+N:234 S:229 E:-1 W:-1
+
+Location#: 234
+Brief Des: at a small, abandoned water well
+Obj Locat: by the well
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:233 E:235 W:-1
+
+Location#: 235
+Brief Des: in a dark, damp cavern
+Obj Locat: in the dirt
+# of Objs: 3
+Objs' Idx: 7,1,38,0,0,0
+N:237 S:-1 E:236 W:234
+
+Location#: 236
+Brief Des: in an odd-shaped cave
+Obj Locat: in the dirt
+# of Objs: 2
+Objs' Idx: 40,28,0,0,0,0
+N:-1 S:-1 E:-1 W:235
+
+Location#: 237
+Brief Des: in a tiny, curved cave
+Obj Locat: in the dirt
+# of Objs: 2
+Objs' Idx: 10,2,0,0,0,0
+N:-1 S:235 E:238 W:-1
+
+Location#: 238
+Brief Des: in a cavern of diamonds
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 7,7,0,0,0,0
+N:-1 S:-1 E:-1 W:237
+
+Location#: 239
+Brief Des: at an intricate, marble balcony
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 12,35,0,0,0,0
+N:266 S:-1 E:241 W:240
+
+Location#: 240
+Brief Des: at the top of a marble stairway
+Obj Locat: by the stairs
+# of Objs: 1
+Objs' Idx: 38,0,0,0,0,0
+N:-1 S:222 E:239 W:253
+
+Location#: 241
+Brief Des: at the top of a marble stairway
+Obj Locat: by the stairs
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:223 E:242 W:239
+
+Location#: 242
+Brief Des: in a gold-decorated hallway
+Obj Locat: on the floor
+# of Objs: 2
+Objs' Idx: 2,6,0,0,0,0
+N:-1 S:-1 E:243 W:241
+
+Location#: 243
+Brief Des: in the southeast corner
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 2,8,1,0,0,0
+N:244 S:-1 E:-1 W:242
+
+Location#: 244
+Brief Des: in a southeast hall
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 35,11,0,0,0,0
+N:247 S:243 E:245 W:246
+
+Location#: 245
+Brief Des: in the Chamber of the Alchemist
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:244
+
+Location#: 246
+Brief Des: in the Chamber of the Lavender Rose
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 40,40,40,0,0,0
+N:-1 S:-1 E:244 W:-1
+
+Location#: 247
+Brief Des: in a northeast hall
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,40,0,0,0,0
+N:250 S:244 E:248 W:249
+
+Location#: 248
+Brief Des: in the Chamber of the Gateway
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 2,8,4,0,0,0
+N:-1 S:-1 E:-1 W:247
+
+Location#: 249
+Brief Des: in the Chamber of Sir Alexis
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 5,0,0,0,0,0
+N:-1 S:-1 E:247 W:-1
+
+Location#: 250
+Brief Des: in the northeast corner
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:-1 S:247 E:-1 W:251
+
+Location#: 251
+Brief Des: in a silver hall
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 38,2,4,0,0,0
+N:-1 S:-1 E:250 W:252
+
+Location#: 252
+Brief Des: in the Hall of Music
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,12,0,0,0,0
+N:-1 S:-1 E:251 W:264
+
+Location#: 253
+Brief Des: in the Hall of Memories
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 12,3,9,0,0,0
+N:-1 S:-1 E:240 W:254
+
+Location#: 254
+Brief Des: in the Hall of LadyHawk
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,2,0,0,0,0
+N:255 S:-1 E:253 W:-1
+
+Location#: 255
+Brief Des: in the Hall of Hearts
+Obj Locat: on the ground
+# of Objs: 3
+Objs' Idx: 2,38,40,0,0,0
+N:258 S:254 E:256 W:257
+
+Location#: 256
+Brief Des: in the Chamber of the Champion
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 5,0,0,0,0,0
+N:-1 S:-1 E:-1 W:255
+
+Location#: 257
+Brief Des: in the Chamber of the Lady
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 5,0,0,0,0,0
+N:-1 S:-1 E:255 W:-1
+
+Location#: 258
+Brief Des: in the Hall of Winter
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:265 S:255 E:259 W:260
+
+Location#: 259
+Brief Des: in the Chamber of the Bard
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:258
+
+Location#: 260
+Brief Des: in the Chamber of the Magician
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,12,0,0,0,0
+N:-1 S:-1 E:258 W:-1
+
+Location#: 261
+Brief Des: in the Chamber of Poetry
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:258 E:262 W:-1
+
+Location#: 262
+Brief Des: in an empty garden
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 2,3,0,0,0,0
+N:-1 S:-1 E:263 W:261
+
+Location#: 263
+Brief Des: in the Hall of the Sea
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 3,8,0,0,0,0
+N:-1 S:-1 E:264 W:262
+
+Location#: 264
+Brief Des: in the Hall of Marble Pillars
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 1,0,0,0,0,0
+N:267 S:265 E:252 W:263
+
+Location#: 265
+Brief Des: in the Northern Hall of Tashanna
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:264 S:266 E:-1 W:-1
+
+Location#: 266
+Brief Des: in the Southern Hall of Tashanna
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 7,4,0,0,0,0
+N:265 S:239 E:-1 W:-1
+
+Location#: 267
+Brief Des: in a grey-black hall
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 12,5,0,0,0,0
+N:268 S:264 E:-1 W:-1
+
+Location#: 268
+Brief Des: on a red-carpeted stairway
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 2,0,0,0,0,0
+N:269 S:267 E:-1 W:-1
+
+Location#: 269
+Brief Des: in a red-carpeted hall
+Obj Locat: on the ground
+# of Objs: 4
+Objs' Idx: 2,4,3,5,0,0
+N:270 S:268 E:-1 W:-1
+
+Location#: 270
+Brief Des: nowhere really
+Obj Locat: on the ground
+# of Objs: 2
+Objs' Idx: 7,4,0,0,0,0
+N:279 S:269 E:272 W:271
+
+Location#: 271
+Brief Des: on a marble stairway
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:273 S:-1 E:270 W:-1
+
+Location#: 272
+Brief Des: on a marble stairway
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:275 S:-1 E:-1 W:270
+
+Location#: 273
+Brief Des: at the top of a marble stairway
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:271 E:274 W:-1
+
+Location#: 274
+Brief Des: on a marble balcony
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:276 S:-1 E:275 W:273
+
+Location#: 275
+Brief Des: at the top of a marble stairway
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:272 E:-1 W:274
+
+Location#: 276
+Brief Des: on a spiral stairway
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:277 S:274 E:-1 W:-1
+
+Location#: 277
+Brief Des: on a spiral stairway
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:278 S:276 E:-1 W:-1
+
+Location#: 278
+Brief Des: on the mountain's peak
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:277 E:-1 W:-1
+
+Location#: 279
+Brief Des: in a blue-carpeted hall
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:280 S:270 E:-1 W:-1
+
+Location#: 280
+Brief Des: in the Chamber of Truth
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:295 S:279 E:281 W:287
+
+Location#: 281
+Brief Des: in the lonely hall
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 24,0,0,0,0,0
+N:-1 S:-1 E:282 W:280
+
+Location#: 282
+Brief Des: in the Chamber of the Body
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:283 S:-1 E:-1 W:281
+
+Location#: 283
+Brief Des: in a blackened quadrangle
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:285 S:282 E:296 W:284
+
+Location#: 284
+Brief Des: at the Waterfall of Fantasy
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:283 W:-1
+
+Location#: 285
+Brief Des: in the Chamber of the Mind
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:283 E:-1 W:286
+
+Location#: 286
+Brief Des: in the Hall of Feasting
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:285 W:298
+
+Location#: 287
+Brief Des: in a hall
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:280 W:288
+
+Location#: 288
+Brief Des: in the Chamber of the Heart
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:289 S:-1 E:287 W:-1
+
+Location#: 289
+Brief Des: in a crumbling centre
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:291 S:288 E:-1 W:293
+
+Location#: 290
+Brief Des: in the Chamber of Eternal Magic
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:290
+
+Location#: 291
+Brief Des: in the Chamber of the Soul
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:289 E:292 W:-1
+
+Location#: 292
+Brief Des: in a barren hall
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:298 W:291
+
+Location#: 293
+Brief Des: in the chamber of the magic orb
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:289 W:-1
+
+Location#: 294
+Brief Des: in a hidden room
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:-1
+
+Location#: 295
+Brief Des: in the Chamber of Life
+Obj Locat: on the ground
+# of Objs: 1
+Objs' Idx: 53,0,0,0,0,0
+N:298 S:280 E:-1 W:-1
+
+Location#: 296
+Brief Des: in a small, beautiful castle
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:283
+
+Location#: 297
+Brief Des: in a hidden room
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:-1
+
+Location#: 298
+Brief Des: in the Hall of the Royal Knights
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:299 S:295 E:286 W:292
+
+Location#: 299
+Brief Des: in the Hall of the Throne
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:301 S:298 E:300 W:-1
+
+Location#: 300
+Brief Des: in the royal kitchen
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:299
+
+Location#: 301
+Brief Des: in the throne chamber
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:302 S:299 E:-1 W:-1
+
+Location#: 302
+Brief Des: in the lair of the dragon
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:301 E:-1 W:-1
+
+Location#: 303
+Brief Des: none yet
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:303 W:-1
+
+Location#: 304
+Brief Des: none yet
+Obj Locat: on the ground
+# of Objs: 0
+Objs' Idx: 0,0,0,0,0,0
+N:-1 S:-1 E:-1 W:304

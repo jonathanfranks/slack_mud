@@ -1,0 +1,33 @@
+langcode: en
+status: true
+id: kyrandia_locs
+migration_tags:
+  - kyrandia
+  - locations
+migration_group: kyrandia_locs
+label: 'Kyrandia Locations'
+source:
+  plugin: kyrandia_lcs
+  keys:
+    - "Location#"
+process:
+  title:
+    plugin: default_value
+    default_value: 'Location'
+  field_object_location: "Obj Locat"
+  field_brief_description/value: "Brief Des"
+  field_brief_description/format:
+    plugin: default_value
+    default_value: "basic_html"
+#  Objs' Idx: 46,45,2,0,0,0
+#  N:1 S:88 E:94 W:71
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:node'
+  default_bundle: location
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

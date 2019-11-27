@@ -1,0 +1,9 @@
+name: 'Kyrandia Migrate'
+type: module
+description: 'Migration for Kyrandia game artifacts'
+core: 8.x
+package: Kyrandia
+dependencies:
+  - migrate
+  - migrate_tools
+  - migrate_plus
