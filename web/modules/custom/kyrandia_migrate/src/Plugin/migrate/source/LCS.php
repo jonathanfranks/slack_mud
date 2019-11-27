@@ -12,7 +12,7 @@ use League\Csv\Reader;
  * Source for LCS files in the Kyrandia source code.
  *
  * Available configuration options:
- * - path: Path to the  LCS file. File streams are supported.
+ * - path: Path to the LCS file. File streams are supported.
  *
  * @codingStandardsIgnoreStart
  *
@@ -20,7 +20,7 @@ use League\Csv\Reader;
  * @code
  * source:
  *   plugin: kyrandia_lcs
- *   path: /tmp/countries.csv
+ *   path: /tmp/GALKYRAN.LCS
  *   ids: [id]
  * @endcode
  *
@@ -88,7 +88,6 @@ class LCS extends SourcePluginBase implements ConfigurableInterface {
    * {@inheritdoc}
    *
    * @throws \Drupal\migrate\MigrateException
-   * @throws \League\Csv\Exception
    */
   public function initializeIterator() {
     $contents = file_get_contents($this->configuration['path']);

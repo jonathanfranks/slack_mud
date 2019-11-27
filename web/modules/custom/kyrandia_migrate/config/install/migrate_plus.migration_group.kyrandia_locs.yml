@@ -2,9 +2,6 @@ id: kyrandia_locs
 label: 'Kyrandia Locations'
 description: 'Imports Kyrandia locations into the site.'
 source_type: 'LCS File'
-shared_configuration:
-  source:
-    path: ./modules/custom/kyrandia_migrate/data/GALKYRAN.LCS
 dependencies:
   enforced:
     module:

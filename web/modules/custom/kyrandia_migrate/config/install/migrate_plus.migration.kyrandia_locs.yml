@@ -8,6 +8,7 @@ migration_group: kyrandia_locs
 label: 'Kyrandia Locations'
 source:
   plugin: kyrandia_lcs
+  path: ./modules/custom/kyrandia_migrate/data/GALKYRAN.LCS
   keys:
     - "Location#"
   constants:
@@ -19,6 +20,16 @@ process:
     source:
       - constants/location_title
       - 'Location#'
+
+  body/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  body/value:
+    plugin: kyrandia_location_get_description
+    index_file_path: './modules/custom/kyrandia_migrate/data/KYRLOCS.C'
+    message_file_path: './modules/custom/kyrandia_migrate/data/GALKYRL.MSG'
+    source: 'Location#'
+
   field_object_location: "Obj Locat"
   field_game:
     -

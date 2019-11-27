@@ -1,0 +1,1427 @@
+
+LEVEL6 {}
+
+
+FOREST {...You're in a dark forest.  Tall, ominous pine trees surround you, their
+thick, bristly branches hanging down and making it difficult to proceed in
+any direction.  Almost all of the sunlight is blocked out by the densely
+packed trees, and the few rays which do filter down create dark, menacing
+shadows which seem to dance along the leafy forest floor.  As you glance
+around, this location appears to be very similar to the rest of the forest,
+making it confusing to determine your exact location.
+} T Kyrandia locations text
+
+
+DTPASS {...You're in a dark, twisting cavern.  Everything around you is complete and
+total darkness, making it impossible to determine any of the features of this
+twisting passageway.  From somewhere above, tiny drops of water fall upon your
+head, and the air is particularly humid.  The ground feels solid underneath
+your feet, although extremely broken and rocky, and due to the solid darkness,
+you cannot see in which directions you can go.
+} T Kyrandia locations text
+
+
+GOLDEN {...You're in a golden forest.  You are surrounded by tall, shimmering golden
+elm trees, their breathtaking golden branches and leaves scintillating in the
+sunlight.  Although formed of solid gold, the trees still appear to be living
+in full bloom, swaying enchantingly in the gentle breezes of this wonderful
+paradise.  A feeling of eternal love swells within your soul, as though this
+is the heaven you've always wished to spend your life in forever.  The trees
+blocks most of your view with their sparkling beauty, but you can move off in
+any direction.
+} T Kyrandia locations text
+
+
+KRD000 {...You're near a mystical willow tree.  Before you rises the mysterious,
+eerie silhouette of a willow tree, the most strange and fascinating of all
+of the natural magic of Kyrandia.  Although willows are normally associated
+with death and sorrow, this particular tree is unusual, as it radiates an
+extremely powerful aura of good -- a miracle of the hailed Goddess Tashanna.
+A small, dirt path winds off to the north, and dark forest surrounds you in
+all other directions.
+} T Kyrandia locations text
+
+
+KRD001 {...You're on a north/south path.  Surrounded by tall, ominous pine trees,
+you're located on a narrow dirt path which twists off to the north and south.
+Dark forest leads off to the east and west sides of this little road, which
+extends beyond your vision into dark undergrowth.  Somewhere nearby you hear
+the chirping of a songbird singing a faintly familiar romantic melody.  The
+unmistakable aroma of blooming roses also hangs in the air, although you
+cannot see its origin.
+} T Kyrandia locations text
+
+
+KRD002 {...You're at a "T" intersection on a path.  In a small clearing of the dark
+forest here a narrow north/south path intersects with a smooth road that leads
+off to the east.  Although it seems the road may have at one time extended
+further to the west, it has long since been overgrown by dark forest.  The
+sunlight seems particularly bright here, especially in contrast to the dark
+forest which surrounds you.  For some unknown reason, as you look around,
+memories run through your mind of long lost love.
+} T Kyrandia locations text
+
+
+KRD003 {...You're on an overgrown path.  Thick, ugly-looking bushes have crowded
+over whatever road used to continue from here.  Particularly nasty thorn
+bushes and twisting, spiny vines discourage you from digging through this
+wild overgrowth.  Several annoying gnats swarm about you as you examine this
+chaos of nature, biting painfully at your face and neck.  The heat and
+humidity of this particular location brings a sweat to your forehead, almost
+as though magically induced.  An intersection of several paths is just off
+to the south, and dark forest surrounds you in all other directions.
+} T Kyrandia locations text
+
+
+KRD004 {...You're on an east/west road.  Cleared through the thick forest, apparently
+ages ago, this smooth dirt road shows signs of frequent and recent use.  To
+the east, the road leads to a village in the distance, as well as winding off
+through the dark forest to the west.  Tall, majestic oak trees line the road
+to the north and south, guarding the border of the extensive dark forest.  As
+you glance around, you notice the word "zennyra" written in the middle of the
+road.
+} T Kyrandia locations text
+
+
+KRD005 {...You're on the outskirts of a village.  Before you lies a high wall of
+large oak logs, carved to deadly, pointed pinnacles at the top.  A thin
+column of smoke rises from beyond the wall, along with the odor of cooking
+food and other strange smells.  This is apparently one of the few dwellings
+of human inhabitants within the Great Forest of Kyrandia.  An entrance into
+the villages is to the east, a path winds off to the west, and dark forest
+lies in all other directions.
+} T Kyrandia locations text
+
+
+KRD006 {...You're in the village square.  Located directly within the village gates,
+this well-kept plaza has been landscaped with tall, beautiful oak trees, lush,
+green hedges, and splendid assortments of flowers.  Various paths, all in good
+condition, lead off in all directions.  To the north is a small hut with smoke
+rising from it, to the south lies a intriguing, little shop, to the east is
+the village temple, and a path leading out into the forest is to the west.
+} T Kyrandia locations text
+
+
+KRD007 {...You're at the village temple.  Columns constructed from flawless marble
+and arranged in a closely-knit, circular pattern establish this place as the
+center of the village's religious rites.  Several small elm trees border the
+circumference of this temple, and the interior is laden with numerous
+lavender roses bushes, in brilliant, full bloom.  In the center of this holy
+outdoors dagoba rests a sunken, marble altar.  A small shanty lies to the
+south and paths lead off to the north and west.
+} T Kyrandia locations text
+
+
+KRD008 {...You're at the gem cutter's hut.  This quaint, little hut has been built
+from assorted branches of the forest bound together by dried vines, and all
+twisted and weaved together into a miraculously stable bungalow.  A column
+of smoke rises smoothly from a miniature chimney, and strange, spicy odors
+float from within its walls.  Sitting outside, directly in front of you, is
+a haggard, old man.  A path winding off to the south leads to the village
+square.
+} T Kyrandia locations text
+
+
+KRD009 {...You're at the spell shop.  Well-built from attractive redwood, truly a
+rare wood in these parts, this mystical hutch is labeled by a charming, purple
+sign.  Standing before you is a strangely dressed man who smiles and nods at
+you kindly.  A tingle runs down the back of your neck and you suddenly feel
+the urge to spend large amounts of gold.  A small path winds off to the north
+to the village square.  Your eyes seem to drift towards the sign.
+} T Kyrandia locations text
+
+
+KRD010 {...You're at the healer's abode.  Covered in a layer of purple mists, this
+marble shrine is the abode of a kind and gentle healer.  Not only amiable,
+the healer who stands before you is also beautiful.  She smiles at you
+sympathetically, and mouths the words "For a donation, I'll gladly tend to
+all your needs...".  Suddenly, you do feel a little feverish and the need
+for some medical attention.  The temple lies to the south.
+} T Kyrandia locations text
+
+
+KRD011 {...You're at the wise man's shanty.  This dirty, run-down, and odorous piece
+of shelter is home to a lonely, eccentric miser who happens to be the wisest
+wise man in the land, although not the friendliest.  He is standing just a
+little off to your right with his hand stretched out, perhaps in greetings,
+perhaps for gold.  He grins at you impishly and spits a large glob of some
+disgusting substance which you neither recognize nor care to recognize.  The
+only escape seems to be the temple to the north.
+} T Kyrandia locations text
+
+
+KRD012 {...You're at a bubbling brook.  Twisting its way through the terrain of
+the forest, this sparkling stream of fresh water has surfaced from the depths
+of the forest undergrowth to the east to flow visibly along a rocky bed for
+a short distance.  However, it once again winds through the heavy vegetation
+to become hidden as it flows off to the west.  From the sunlight which filters
+through the dense forest around you, you occasionally see brief, golden
+glitters within the brook.  Dark forest continues in all directions.
+} T Kyrandia locations text
+
+
+KRD013 {...You're in the Vale of the Butterflies.  Truly a paradise in reality,
+this magnificent natural beauty is a wonder to behold.  Flowers of all
+varieties, colors, and scents bloom majestically, creating a regal hall
+of nature.  Yet even more resplendent and marvelous are the hundreds of
+thousands of florid and exotic butterflies which sail all around you, carried
+by the gentle breezes of the forest.  Dark forest lies in all directions.
+} T Kyrandia locations text
+
+
+KRD014 {...You're in a glade of pines.  Swaying back and forth in the gentle breezes
+of the forest, several clumps of pine trees thrive in this darkened glade.
+The ground is littered with millions of fallen pine needles, creating a spongy
+bed on the forest floor.  You also notice several pinecones dangling from
+the trees, some within your reach, although the wind keeps the tree branches
+in motion.  The eerie whistling of the wind through the boughs above you sends
+a shiver down your spine.  Dark forest lies in all directions.
+} T Kyrandia locations text
+
+
+KRD015 {...You're in a small, lush valley.  This fertile dish of the forest is a
+little below sea level, and as a result the air is sultry and the ground is
+wet with the remnants of previous rainfalls.  Several tiny, pink flowers have
+sprouted amongst the heavy, green undergrowth, adding a touch of color and
+light to this mass of thriving vegetation.  Dark forest continues off in all
+directions, endlessly.
+} T Kyrandia locations text
+
+
+KRD016 {...You're in a dead wooded glade.  Merely a clump of old, leafless, and
+rotting fir trees.  Whatever pestilence caused their death, its evil seems
+to linger in the air and the ghostly fingers of the barren branches almost
+seem to reach out for you, beckoning you to your death.  An icy wind blows
+across your face and whistles harrowingly through the dead limbs.  Something
+about this location fills your soul with fear, and your heart beats faster
+as you glance around in terror of this unknown evil.  Dark forest lies off
+in all directions.
+} T Kyrandia locations text
+
+
+KRD017 {...You're at an ancient grave.  Eerie white mists float hauntingly around
+a slab of marble with strange etchings carved into its polished surface.
+You hear the spine-tingling shriek of an owl somewhere high above in the midst
+of the dark branches of the surrounding ash trees.  A cold, biting wind nips
+at your face and you feel as though someone, or something, is watching your
+every move intensely.  Dark forest lies off in all directions.
+} T Kyrandia locations text
+
+
+KRD018 {...You're near a hollow stump.  Protruding from the dense undergrowth of the
+forest, this decrepit and decaying stump has been hollowed out by time and
+nature.  Although you cannot see through the darkness of the stump, you can
+smell a putrid odor of unimaginable origin.  You hear the faint rush of
+running water off to the north and dark forest surrounds you in all
+directions.
+} T Kyrandia locations text
+
+
+KRD019 {...You're at a flaming thicket.  Radiating intense energy, this blazing
+natural inferno glows a deep red as its orange tongues of fire lash out
+at you aggressively.  Although you can feel the destructive power of this
+conflagration, it doesn't seem to spread beyond the thicket and, even more
+surprisingly, the thicket appears perfectly intact and unharmed.  The sporadic
+crackles of the fire make you jump.  Dark forest lies off in all directions.
+} T Kyrandia locations text
+
+
+KRD020 {...You're at the Tree of Rubies.  This glittering tree of magic is covered
+with big, beautiful, and shining rubies which seem to be begging to be plucked
+from their branches.  However, you also hear several strange hissing sounds
+coming from within the dark recesses this tree's lush, green leaves.  For some
+strange reason, as you glance around, a vision appears in your mind of a
+beautiful woman who is concealing a dagger for which to slay her lover.  The
+vision vanishes as quickly as it had appeared, leaving you wondering about the
+duality of the universe for a moment.  Dark forest lies off in all directions.
+} T Kyrandia locations text
+
+
+KRD021 {...You're at the tree of the mockingbird.  This oddly shaped tree has been
+naturally shaped into the likeness of a large bird, wings spread out, mouth
+agape in a cry of the wild.  At the very top of the tree you can hear the
+flutter of wings, an occasional glimpse of feathers, and the unmistakable
+cry of the mockingbird.  The ground is splattered with excess bird remains.
+Dark forest extends in all directions.
+} T Kyrandia locations text
+
+
+KRD022 {...You're on the banks of a lush lagoon.  To the north a sparkling, deep blue
+sea flows out across the horizon.  You're on a beautiful, sandy shore which is
+shaded by the boughs of overhanging cypress trees, which extend past the
+shoreline and finally touch the water, their leaves floating gently on its
+smooth surface.  As you gaze into the sparkling sea, a beautiful image of the
+Goddess Tashanna appears in human form for a fleeting moment and then suddenly
+transforms into a spectacular pegasus and flies away in the chimerical images
+of the waves.  Dark forest lies off to the south.
+} T Kyrandia locations text
+
+
+KRD023 {...You're in a natural chapel.  Truly a work of natural magic, this small
+space in the forest has been shaped by the powers of the universe into a
+breathtaking chapel dedicated to the Goddess Tashanna.  The most beautiful
+assortment of tall trees, blooming flowers, and luscious bushes you have ever
+seen grow in orchestrated harmony in the form of a protected, peaceful, and
+enchanting sanction.  To the west, through a natural archway of oaks, lies
+an altar, the dark forest extends off in all other directions.
+} T Kyrandia locations text
+
+
+KRD024 {...You're at a silver altar.  Enclosed by large, majestic oak trees, this
+small alcove is illuminated by a beautiful, shining altar carved from pure
+silver.  It's holy radiance fills your soul with peace and love, leaving you
+breathless with joy.  The altar is surrounded by several lavender rose bushes,
+their purplish pulchritude complimenting the brilliance of the altar.  The
+only exit is an archway of oaks to the east.
+} T Kyrandia locations text
+
+
+KRD025 {...You're in the Grove of Oaks.  These magnificent and majestic soldiers of
+the forest stand tall and proud, rising above the forest in an aura of sheer
+power and wisdom.  Something about their august presence fills your soul with
+courage and determination.  As you glance around, a vision suddenly appears in
+your mind of the Goddess Tashanna, who smiles at you warmly and whispers in
+your ear: "No matter where you go, I will be with you...".  The vision then
+vanishes as quickly as it had appeared.  Dark forest surrounds you in all
+directions.
+} T Kyrandia locations text
+
+
+KRD026 {...You're in a cluster of ash trees.  Silent and solemn in their pose,
+these ash trees are analogous to coffin bearers in mourning.  You can almost
+feel the sorrow and regret these ancestral guardians of peace, who's realm
+has been disturbed by a spreading pain or evil, which has destroyed the very
+roots of their existence.  As you look around, you feel emotion swelling in
+your soul, feeling sorry for the sorrow and pain of the world.  Dark forest
+lies in all directions.
+} T Kyrandia locations text
+
+
+KRD027 {...You're near a strange, large rock.  This uniquely shaped boulder dominates
+this small, dark clearing within the surrounding forest.  The ground is rather
+damp and muddy, and the air is rather moist and muggy.  A faint, purplish mist
+hovers around the base of the rock, creating an aura of divine mysticism.  The
+sunlight which filters down through the surrounding trees creates fantastical
+shadows, seeming to dance with their own souls.  Dark forest surrounds you in
+all directions.
+} T Kyrandia locations text
+
+
+KRD028 {...You're at an abandoned campsite.  This small clearing has the remains of
+a campsite littered about its center.  Ashes from a fire, broken branches, and
+trampled undergrowth mark this place as a once well-used base camp.  Written
+on a nearby tree, apparently carved by a previous camper, is the phrase:
+"Travel fast and travel far..."; the writing then ends abruptly.  Dark forest
+lies off in all directions.
+} T Kyrandia locations text
+
+
+KRD029 {...You're on a plateau.  Rising slightly above the treeline of the forest,
+this leveled peak of rocky grassland gives you an excellent view of the entire
+region extending for miles in all directions.  Off to the northeast you can
+see the sparkle of the sea, to the west a misty mountain range, and off in
+all directions deep, dark forest.  The air is crisp and clean, and you feel
+good to be alive.  A wooded hill slopes down to the east.
+} T Kyrandia locations text
+
+
+KRD030 {...You're on a densely wooded hill.  Sloping steeply up to the west, this
+hill is covered with tall pine trees and thick undergrowth.  You hear the
+hum of bees in somewhere in one of the nearby pines, accompanied by the
+rather annoying, although harmonious, chirping of birds.  The air seems to
+become cleaner up to the west, and the base of this hill lies down to the
+east.
+} T Kyrandia locations text
+
+
+KRD031 {...You're at the base of a densely wooded hill.  A pine covered hill rises
+up to the west, although densely overgrown.  Overhanging pine branches sweep
+past your head in the intermittent gusts of air which blow down from the hill
+to the west.  An odor of sweet flowers emanates from somewhere off to the
+south, and you hear the faint rush of water off to the north.  For a moment,
+as you look around, you get a feeling of loneliness.  Except for the rising
+hill to the west, dark forest lies in all other directions.
+} T Kyrandia locations text
+
+
+KRD032 {...You're at a bubbling spring of water.  Crystal-clear water spouts from
+the heavy undergrowth from a small, limestone fissure in the ground.  The
+unmistakable scent of springwater fills your nostrils and brings a feeling
+of freshness to your soul.  Blooming near this sparkling spray of water, a
+beautiful, lavender rose bush flourishes colorfully.  Dark forest stretches
+off in all directions.
+} T Kyrandia locations text
+
+
+KRD033 {...You're in a shady, natural shelter.  The boughs of the surrounding elm
+trees have grown together, enclosing this small area into a protected, natural
+shelter.  The dirt floor is covered with a layer of dry, fallen leaves.  No
+sunlight is able to penetrate through the natural roof of this shelter, and
+it is illuminated only by the reflections of the forest around it.  The air is
+slightly humid and has an odor of decaying vegetation.  Dark forest continues
+off in all directions.
+} T Kyrandia locations text
+
+
+KRD034 {...You're in the Druid's Circle.  This unparalleled spectacle of enchantment
+is totally awe-inspiring, and your soul is filled with wonder.  Three silver
+rings, encompassing the entire area, magically float in the air, stacked upon
+each other.  They are surrounded by a wide circle of the largest and most
+majestic oak trees you have ever laid eyes upon.  In the center of this
+dazzling vortex is a brightly glowing orb of pure light, whose brilliance is
+almost blinding.  You can feel the powerful presence of the goddess Tashanna
+radiating throughout all of this mystical and holy sphere.  Dark forest lies
+in all directions.
+} T Kyrandia locations text
+
+
+KRD035 {...You're at a terraced waterfall.  Gently flowing water tinkling down
+layers of polished, purplish stone paint a majestic landscape before your
+eyes.  A few rays of sunlight filter through the nearby forest growth to
+glitter off the shallow, rushing water, sparkling with a holy radiance.  As
+you behold this natural fascination, a surge of overwhelming emotions fills
+your soul with a love beyond anything describable.  You notice an entrance
+to a cave to the north and dark forest lies in all other directions.
+} T Kyrandia locations text
+
+
+KRD036 {...You're at a large, sparkling waterfall.  Rushing white water plunges down
+this great cataract, sending sprays of cold spring water in all directions.
+Perhaps the most august, magnificent, and inspiring scene of nature you have
+ever witnessed, this majestic, sparkling cascade takes your breath away with
+its sheer natural beauty.  This graceful torrent rushes down into a clear,
+deep pool which flows into a surging stream that vanishes into the undergrowth
+to the east.  Several assorted green plants have flourished in the rich soil
+nearby, complemented by a few, blooming lavender rose bushes, all adding the
+final touch of perfection to this heaven on earth.  You see a cavern behind
+the falls to the north, an entrance to a cave to the west, and dark forest
+to the south and east.
+} T Kyrandia locations text
+
+
+KRD037 {...You're in a small clearing in a forest.  The sweet smell of springtime
+drifts through the gentle breeze in this small, grassy clearing.  Dew drips
+from the petals of the assorted flowers which are blooming freely here, and
+the ground is soft and damp.  Above you, the sky is a beautiful, bright shade
+of blue with fluffy, white clouds sailing smoothly across the horizon.  Your
+soul feels at peace in this natural sanction.  Surrounding you in all
+directions is a deep, green forest.
+} T Kyrandia locations text
+
+
+KRD038 {...You're near the Fountain of Eternal Magic.  Concealed for eons within
+the depths of the surrounding dark forest, this enchanting and mystical jet
+of shimmering, iridescent water rises grandly before you.  Rising from a
+beautiful well, carved from the purest white marble, this resplendent wonder
+radiates an aura of powerful sorcery, its glittering water inviting you to
+drink its enticing ambrosia.  A splendid portrait of the Goddess Tashanna
+has been inscribed in the base of this fountain along with an engraving
+which reads "aeid treven alliw suoy irof levol yym ftub ayb tseog aemit
+sdna issap lsdnegel y f".  Dark forest lies in all directions.
+} T Kyrandia locations text
+
+
+KRD039 {...You're near a platinum tree.  Yet another wonder of the world of the
+Goddess Tashanna, before you rises a magnificent oak tree magically turned to
+solid platinum, sparkling in the sunlight.  Even more awe-inspiring, however,
+are the branches of this platinum beauty which have grown together in the
+shape of a large heart, emanating an aura of powerful magic and love.  In
+the mystical zephyrs which waft around this tree, you hear whispers of words
+that you cannot clearly hear, but which bring peace to your soul.  Dark
+forest surrounds you in all directions.
+} T Kyrandia locations text
+
+
+KRD040 {...You're in a small field of lilacs.  A breezy, sunlit opening within the
+vast forest, this small field is alive with the grass and lilacs waving in
+the gentle wind.  Without the tall trees of the forest obstructing too much
+of your view, you can now discern large mountains, shrouded in purplish mists,
+far off in the west.  You are also quite aware of the continuous buzzing of
+assorted insects which swarm around you in this grassy clearing.  Dark forest
+awaits you in all directions.
+} T Kyrandia locations text
+
+
+KRD041 {...You're at the Secret Shrine of Tashanna.  Hidden behind the plunging
+cascade of water and covered in purplish mists, this sacred spot radiates an
+aura of unmatched "good".  The shrine itself is in the shape of a unicorn,
+carved from pure silver, which glitters in the spray of the waterfall,
+shining in a holy brilliance that fills your soul with awe.  The rest of this
+wizened cavern appears to have been carved from solid, unflawed amethyst,
+which sparkles incandescently, dazzling you with its iridescence.  The only
+exit is through the waterfall to the south.
+} T Kyrandia locations text
+
+
+KRD042 {...You're near a large statue.  Located in the middle of dark forest, this
+incredible work of art would be amazing if discovered within the finest art
+gallery of Kyrandia, and far so lost deep in the center of a dark forest.
+You feel a powerful urge to examine the statue more closely, and in your mind
+you cannot help but to wonder about the nature of the artist who created this,
+his inspiration and dedication.  Dark forest lies in all directions.
+} T Kyrandia locations text
+
+
+KRD043 {...You're at the entrance to a dark cave.  Before you rises a colossal
+mountain cliff of solid granite with a small, dark hole at the base, leading
+into a dark cave.  The ground is rather rocky, with assorted patches of grass
+sprouting like oases in a desert of gray granite.  To the east, a large
+waterfall thunders loudly, as a smaller, terraced waterfall flows off to the
+south.  The cave entrance is to the north.
+} T Kyrandia locations text
+
+
+KRD101 {...You're in a dark forest.  Tall, ominous pine trees surround you, their
+thick, bristly branches hanging down and making it difficult to proceed in
+any direction.  Almost all of the sunlight is blocked out by the densely
+packed trees, and the few rays which do filter down create dark, menacing
+shadows which seem to dance along the leafy forest floor.  As you glance
+around, you happen to notice a small shrine, almost completely hidden in
+the underbrush.  You feel a tingle of excitement in your very heart and
+soul.  It is very confusing to determine your exact location.
+} T Kyrandia locations text
+
+
+KRD170 {...You're in a dark cave.  This natural excavation in the granite of the
+mountain is not very large.  The walls, floor, and ceiling of this dark hole
+are jagged and uneven making it difficult to keep your balance.  The air is
+extremely humid and water drips from the ceiling high above, creating an eerie
+atmosphere to the entire place.  Sunlight finds its way in from the opening
+to the south, and dark, twisting caverns wind off in all other directions.
+} T Kyrandia locations text
+
+
+KRD178 {...You're in a natural hall.  This long passageway has been smoothly carved
+from the solid granite of this mountain, in contrast to the jagged caverns
+to the south.  Oddly enough, there is a strong smell of sulfur in the air,
+almost choking you with its strength.  This strange hall continues off into
+the darkness to the north, from which a cold, eerie wind gently blows.  The
+caverns twist off to the south.
+} T Kyrandia locations text
+
+
+KRD179 {...You're at a bottomless chasm.  At the northern end of a great natural hall,
+this wide, dark pit lies ominously before you, as though taunting you with its
+impassibility.  There appears to be no way around this blockade; the ceiling
+of this cavern is very high, the walks are smooth and slippery, and the
+chasm expands from wall to wall and is at least twenty feet across.  Far on
+the other side, you see a sparkling jade cavern, its beauty tempting you
+almost mockingly.  There is a natural hall which continues off to the south.
+} T Kyrandia locations text
+
+
+KRD180 {...You're in a jade cavern.  Multiple hues of beautiful jade sparkle around
+you in this cavern of precious gems.  All the walls, floor, and ceiling of
+this incredible natural chamber shine with their own incandescent light, their
+combined brilliance lighting the surroundings in a holy, green aura.  A huge,
+bottomless chasm blocks the way to the south, while a dark passage in the far
+side of this lovely cavern leads off to the north.
+} T Kyrandia locations text
+
+
+KRD181 {...You're at a statue of Tashanna.  Before you rises a lovely sculptured
+statue of the Goddess Tashanna, Lady of Legends.  It rises from an iron base
+and extends up about eight feet to the ceiling of this smooth cavern.  A
+beautifully carved marble path leads off to a large structure to the east.
+You hear a distant thunder of rushing water off to the north, and from a dark
+passageway to the south you see a faint glimmer of green light.
+} T Kyrandia locations text
+
+
+KRD182 {...You're near a reflecting pool.  This peaceful and delightful pool has been
+ornately hand-carved from the purest marble.  The water of the pool is crystal
+clear, and it sparkles in the light of this large cavern, reflecting a faint
+image of you as you peer into it.  You also notice many intricate symbols at
+the bottom of the pool, traced by pure gold, although you can identify none of
+them.  A large, marble structure rises off to the east, while a marble path
+leads to the west.
+} T Kyrandia locations text
+
+
+KRD183 {...You're at the forgotten Pantheon of Tashanna.  Long lost within the depths
+of this hidden underground city, this ancient temple of the Lady of Legends,
+Tashanna, is perhaps the greatest legend of all Kyrandia.  Folklore of ages
+past claim this spot to be the greatest pinnacle of the power of Tashanna.
+Constructed from pure marble pillars embedded with mystical symbols of silver
+and gold, and covered in purplish mists, this holy sanction radiates an aura
+of eternal peace and love.  An odd-shaped marble archway lies to the east and
+a reflecting pool is located to the west.
+} T Kyrandia locations text
+
+
+KRD184 {...You're at the Portal of the Past.  Huge, marble archways line the entrance
+to this relatively small marble chamber.  On the far side of this chamber a
+shimmering, magical portal radiates with an enchanting, multi-chromatic light.
+Many strange and wonderful visions flash through the portal, almost holding
+you spellbound with their dancing, iridescent images.  Unfortunately, the
+visions change so quickly, you can rarely catch more than a brief, blurry
+flash.  The only exit appears to be the marble archways leading off to the
+west.
+} T Kyrandia locations text
+
+
+KRD185 {...You're in a smooth-walled alcove.  Dark and barren, this small, natural
+chamber has few noticeable features.  The ceiling is about two feet above your
+head, and is made of the same smooth and solid granite of the floor and walls.
+The west side of this tiny cave has a noticeable, fist-sized crevice, and you
+hear the faint rush of water from somewhere around you.  The only exit is to
+the south.
+} T Kyrandia locations text
+
+
+KRD186 {...You're in a dark cave.  This damp, gloomy location is characterized only
+by jagged rock covered with fungi and bacteria.  A dominating odor of decay
+fills your nostrils making it difficult to breathe.  Your attention is caught
+by a fancy, large machine sitting in the corner.  The only exit is a bright
+passageway to the north.
+} T Kyrandia locations text
+
+
+KRD187 {...You're in a bright passageway.  This mystical hall appears to be pure
+light, radiating in awe-inspiring brilliance all around you.  You feel as if
+you are floating in mid-air.  There seem to be no boundaries as to where you
+can go, however, you do notice what appear to be exits from this spectacular
+wonder to the north and south.
+} T Kyrandia locations text
+
+
+KRD188 {...You're at some misty ruins.  A thick layer of purplish mists blanket this
+entire cavern; the mists are so smooth and beautiful, however, they almost
+seem like a magical, royal carpet.  Shrouded within the mists, you see faint
+glimpses of broken marble pillars, as though this was once some great temple.
+In the center of this mysterious cavern, a bright blue orb of pure light
+floats, mystically suspended in midair.  A strange feeling enters your very
+soul, and an eerie wind seems to whisper as it blows across your face.  The
+only exit is a bright passageway to the south.
+} T Kyrandia locations text
+
+
+KRD189 {...You're on a sandy beach near the sea.  The beautiful, bright blue sea lies
+to the south, where it seems to extend on forever, except for a few distant
+mountain peaks across the sparkling water to the south.  The crashing of the
+small waves on the wet sand near the water sounds like faraway thunder, which
+conjures up strange memories of your early childhood.  The beach becomes more
+grassy to the north.
+} T Kyrandia locations text
+
+
+KRD190 {...You're on a grassy beach.  Large clumps of long, soft grass cover almost
+all of the sand of this little beach.  A gentle breeze blows from the south,
+warm and salty, filling your lungs with clean, fresh air.  Beautiful, golden
+forest lies off in all directions, except the sea which is off the south.
+} T Kyrandia locations text
+
+
+KRD199 {...You're at a large clump of silver tulips.  Beauty within beauty, this
+sparkling, silver tulip bush blooms magically amongst the golden elm trees,
+seeming to naturally blend in with this mystical fantasyland.  The enchanted
+tulips are too numerous to count, their almost unending silver magic filling
+your eyes with stars.  As rays of sunlight filter down, they're defracted by
+the silver into many vivid rainbows, truly a wonderful spectacle to witness.
+Golden forest lies off in all directions.
+} T Kyrandia locations text
+
+
+KRD201 {...You're at a crystal tree.  This unique crystalline tree has been delicately
+carved in the shape of two hearts bound together in the harmony of nature.
+This beautiful structure sparkles in the sunlight and radiance of the forest
+around it, and its reflected rays of warmth sends a tingle down your spine and
+fills your soul with the touch of love.  Golden forest lies off in all
+directions.
+} T Kyrandia locations text
+
+
+KRD204 {...You're at the Gateway of the Rainbows.  Before your eyes rises the most
+breathtakingly beautiful scene you have ever witnessed.  An incredible, large
+archway of rainbows shines brilliantly, its vivid spectrum of colors almost
+blinding you with awe.  Within the archway, an intricate assortment of "bars"
+of rainbows create a shimmering gateway of beauty, which although lovely,
+effectively block passage through them to the east.  Beyond the gateway, you
+can only imagine what fantastical paradises thrive in heavenly sanction.
+Golden forest lies off in all other directions.
+} T Kyrandia locations text
+
+
+KRD207 {...You're in the Centre of the Elms.  The very heart of this magical forest,
+this cluster of golden elm trees is indeed a mystical sight to behold.  In
+the center of this sanction, silvery letters float in the air above your head
+to read: "Put your faith before yourself; you shall have but one chance to
+prove your piety".  Golden forest lies off in all directions.
+} T Kyrandia locations text
+
+
+KRD213 {...You're at the Altar of Eternal Sunshine.  Rising from the depths of this
+seemingly endless golden fantasyland, this silver altar is a magnificent
+representation of the glory of Tashanna.  At the base of the altar, there is
+an inscription which reads: "D-tu u-f vo-opx- tqf-m i-sf".  The gentle breezes
+of the forest seem especially soothing here.  Golden forest lies off in all
+directions.
+} T Kyrandia locations text
+
+
+KRD216 {...You're on a grassy plain.  This open field is covered with short blades
+of soft, green grass which wave like an ocean in the gentle breezes.  The
+air is fresh and the sky is clear, but something feels ominous about this
+peaceful appearing picnic ground.  Golden forest lies off to the south,
+and a barren desert is to the north.
+} T Kyrandia locations text
+
+
+KRD217 {...You're in a wasteland of decay.  This barren desert of death and decay
+radiates an aura of sheer evil.  Even the air is stagnant and filled with the
+odors of rotting waste.  The ground is hard, grey rock, and the sky is almost
+as dark.  You feel a chilling fear in your heart, and the sudden urge to run
+as fast as your feet can carry you.  A large mountain lies to the north, and
+there is a grassy plain to the south.
+} T Kyrandia locations text
+
+
+KRD218 {...You're at the Demon Gate.  Before you rises a huge mountain face of jagged
+rock which extends high above your view.  Directly in front of you is what
+appears to be the form of a gate, carved into the rock, and adorned with
+elaborate figures of devils and demons.  In the center of this gate a small
+niche lies noticeably empty, as though waiting for a key.  A barren wasteland
+of decay lies to the south.
+} T Kyrandia locations text
+
+
+KRD219 {...You're in a resplendent cul-de-sac.  This royal entrance has been richly
+decorated with fine tapestries and marble structures.  The mystical scent of
+incense lingers in the air from times long ago.  Gold lettering on the south
+wall read: "Welcome to the Halls of Lady Kyra".  A long hallway leads off to
+the north.
+} T Kyrandia locations text
+
+
+KRD220 {...You're in a long, decorated hallway.  Constructed from beautiful marble,
+this long hallway has been adorned with lovely tapestries, a red and gold
+royal carpet, and a faint scent of incense.  There's a cul-de-sac to the
+south, and a large hall to the north.
+} T Kyrandia locations text
+
+
+KRD221 {...You're in the Royal Welcome Hall.  This is the royal reception center of
+the Halls of Lady Kyra.  Everything has been carpeted in rich red and gold
+materials, filling your heart with a sense of total awe.  There is a large
+sign suspended high in the air which reads: "Lady Kyra welcomes you to her
+castle under the mountain!".  Flights of marble stairs lie to the east and
+west, and hallways lead off to the north and south.
+} T Kyrandia locations text
+
+
+KRD222 {...You're on a flight of marble stairs.  Constructed from solid marble and
+decorated with beautiful, red carpeting, these royal stairs lead up to the
+north, and down to the east.
+} T Kyrandia locations text
+
+
+KRD223 {...You're on a flight of marble stairs.  Constructed from solid marble and
+decorated with beautiful, red carpeting, these royal stairs lead up to the
+north, and down to the west.
+} T Kyrandia locations text
+
+
+KRD224 {...You're in a smooth hallway.  This smooth, marble hallway has no real
+outstanding features, except for some scratching on the west wall which
+reads: "Travel fast and travel far, thou shall never escape the wrath of
+Zar".  The hallway continues to the north and south.
+} T Kyrandia locations text
+
+
+KRD225 {...You're in a crumbling passageway.  Constructed from the ancient stone
+of the mountain, this tight hall is crumbling around you.  Bits of dust
+float down from the slowly collapsing ceiling.  There are small alcoves
+to the east and west, a larger hall to the south, and stairs leading
+downward to the north.
+} T Kyrandia locations text
+
+
+KRD226 {...You're in an eroded storage closet.  This small and barren little room
+was apparently once used for storage of food... or so you assume from the
+smell of rotted provisions that hangs heavily in the air.  You happen to
+notice something scraped into the western wall which reads, in a barely
+decipherable script: "Time changes everything".  The only exit is a crumbling
+hall to the east.
+} T Kyrandia locations text
+
+
+KRD227 {...You're in a small, stuffy alcove.  This room has many wooden pegs sticking
+out from the eastern wall; you conclude this chamber was once used for storage
+of cloaks and armor, however none lie here.  The repulsive odor of large
+quantities of rat droppings fills the air,  driving you to uncontrollable
+nausea... almost.  The only exit is a crumbling hall to the west.
+} T Kyrandia locations text
+
+
+KRD228 {...You're on a flight of stone stairs.  Roughly carved from grayish stone,
+these stairs lead down to the north and up to the south.  You also happen to
+notice something carved into one of the steps, a memory of a young couple
+which reads: "T+A Forever".
+} T Kyrandia locations text
+
+
+KRD229 {...You're at the base of a stone stairway.  Beneath the main structure of
+this castle under the mountain lies this simple basement construction.  A
+flight of stone stairs rises up to the south, and there are exits to the
+north, east, and west.  The air is particularly damp down here.
+} T Kyrandia locations text
+
+
+KRD230 {...You're in a stinking, damp passageway.  This moist, stone hall is filled
+with an almost unbearable odor of rot and decay.  Slime and mold cover all the
+walls, floor, and ceiling.  There is a crumbling dungeon cell lying open to the
+south, and you see a flight of stairs to the east.
+} T Kyrandia locations text
+
+
+KRD231 {...You're in an crumbling dungeon cell.  Once used to imprison the criminals
+of Kyrandia, this now deserted jail lies barren and empty.  A sense of great
+evil lingers in the air, however, making you shiver with a twinge of fear.
+Something doesn't seem right here, but you just can't seem to place your
+finger on what... or can you?  A stinking, damp passageway leads off to the
+north.
+} T Kyrandia locations text
+
+
+KRD232 {...You're in the underground animal pen.  This smelly cave is saturated with
+the odor of rotted animal waste.  The fencing of this pen has long since
+crumbled to dust, leaving only a few deteriorating troughs near the eastern
+wall.  The only exit appears to be to the west.
+} T Kyrandia locations text
+
+
+KRD233 {...You're in a decaying, stone hallway.  This ancient passage winds off
+to the north and south.  An ominous feeling of great magic tingles at your
+soul here, from no apparently visible source.
+} T Kyrandia locations text
+
+
+KRD234 {...You're at a small, abandoned water well.  Before your eyes lies a
+quaint, old water well constructed from beautiful, hand-carved red bricks.
+It has an almost magical aura to it -- though simple in design -- and
+you feel a strange sense of eternal peace as you lean near it.  You happen
+to notice a small hole in the eastern wall which leads off into darkness.
+The rest of this chamber seems to be crumbling like the other parts of
+the basement.  A decaying, stone hall lies off to the south.
+} T Kyrandia locations text
+
+
+KRD235 {...You're in a dark, damp cavern.  You can barely see much in this near
+pitch black hole, but you feel yourself on sturdy, though somewhat uneven,
+terrain.  A certain moistness lingers in the air, and you feel drops of
+water from the ceiling shrouded in darkness above you.  You see a definite
+exit to the west, but the darkness prohibits you from determining what
+other exits may exist.
+} T Kyrandia locations text
+
+
+KRD236 {...You're in an odd-shaped cave.  This chalky cavern seems to be lit by
+the phosphorous nature of its walls and ceiling.  In the dim light provided
+by this mysterious mineral, you can see many strange, encrypted symbols,
+which read: "Hqofowy asitpqnm ifqnpytuvc qotmay gioem loopas asit, illiada
+falgoria simajf.  Unaloop la heartoy".  A dark cavern twists off to the
+west.
+} T Kyrandia locations text
+
+
+KRD237 {...You're in a tiny, curved cave.  Shrouded in almost complete darkness,
+you find it difficult to observe any of the visible features of this cave.
+However, from feeling your way around, you realize that the curved and
+rocky walls seem to be made from sandstone-like rock, while the floor is
+a very fine and dusty sand; you cannot reach the ceiling.  You cannot
+see where any exits may lie, but you feel curves of the floor towards
+the south and east.
+} T Kyrandia locations text
+
+
+KRD238 {...You're in a cavern of diamonds.  This magnificent natural beauty is
+illuminated by the magical properties of the walls, floor, and ceiling of
+this breathtaking chamber which seems to be carved from solid diamond.
+You are almost overwhelmed by the sheer extravagance of such a hidden wonder,
+concealed within the depths of the Halls of Lady Kyra.  Something special
+seems to touch your soul as you examine your surroundings... a feeling
+beyond expression with mortal words.  The only apparent exit is a dark
+cave to the west.
+} T Kyrandia locations text
+
+
+KRD239 {...You're at an intricate, marble balcony.  You're overlooking the Royal
+Welcome Hall.  Dark red carpeting covers the floor, and the balcony itself
+has been intricately carved by a fine craftsman into a beautiful work of
+marble art.
+} T Kyrandia locations text
+
+
+KRD240 {...You're at the top of a marble stairway.  Beautifully carved marbles
+stairs lead downward to the south, covered with a dark red carpet.  Halls
+lead off to the east and west.
+} T Kyrandia locations text
+
+
+KRD241 {...You're at the top of a marble stairway.  Beautifully carved marbles
+stairs lead downward to the south, covered with a dark red carpet.  Halls
+lead off to the east and west.
+} T Kyrandia locations text
+
+
+KRD242 {...You're in a gold-decorated hallway.  This lovely passageway has been
+lavishly covered with various gold ornamentations.  Large gold lettering
+on the marble floor reads: "Hail to the Lady Kyra".  Marble halls continue
+to the east and west.
+} T Kyrandia locations text
+
+
+KRD243 {...You're in the southeast corner.  This junction of two marble halls
+is quite splendidly decorated.  Beautiful tapestries hang from the walls,
+and the ceiling is a incredibly wonderful portrait of the Lady Kyra.  The
+halls continue separately to the north and west.
+} T Kyrandia locations text
+
+
+KRD244 {...You're in a southeast hall.  This marble hall is sparsely decorated with
+only a few small murals of faraway lands.  Large chambers lie to the east and
+west, and the hall continues to the north and south.
+} T Kyrandia locations text
+
+
+KRD245 {...You're in the Chamber of the Alchemist.  This large chamber is filled with
+various scents of strange and mystical spices, decorated with exotic paintings,
+and covered in a rather thick layer of dust.  An eerie green light filters
+down from the oddly shaped ceiling above you.  The only exit is to the west.
+} T Kyrandia locations text
+
+
+KRD246 {...You're in the Chamber of the Lavender Rose.  This gracefully designed
+chamber tells a pictorial history of the lavender roses of Kyrandia.  You
+see a lovely mural of the Lady Kyra declaring the lavender rose as the
+official symbol of the Kingdom of Kyrandia.  Another beautiful mural portrays
+the Goddess Tashanna creating the lavender rose, taking a plain white rose
+and touching it with her Wand of Rainbows.  You cannot help but smile at
+the sight of such magic.  The only exit is to the east.
+} T Kyrandia locations text
+
+
+KRD247 {...You're in a northeast hall.  This marble hall is decorated with a
+beautiful mural on the ceiling which portrays the quests of many great
+heroes.  As you examine it closely, you can recognize a few of the names
+such as Corvus Andromeda, Richard the Lion-Hearted, Anastasia the Beautiful,
+and many others... even a picture of the horrible bastard, The Enchanter.
+Chambers lie to the east and west, and the hall continues to the north
+and south.
+} T Kyrandia locations text
+
+
+KRD248 {...You're in the Chamber of the Gateway.  This majestic chamber of the
+history of Kyrandia has been uniquely decorated with the story of the magical
+Gateway of Rainbows in the golden forest.  A dazzlingly colorful painting on
+the ceiling displays the wondrous fantasyland which lies beyond the brilliant
+hues of the Gateway itself.  Various murals on the walls describe the legends
+of the Gateway... how only two people of pure heart and soul may pass beyond
+its majestic arches.  The only exit from this chamber appears to be to the
+west.
+} T Kyrandia locations text
+
+
+KRD249 {...You're in the Chamber of Sir Alexis.  This beautifully decorated chamber
+of the pictorial history of Sir Alexis, is filled with an air of greatness and
+honor... like the great knight himself.  Artistic paintings of this knight's
+many wonderful deeds portray a vital aspect of the history of Kyrandia -- the
+romantic order of knighthood.  The knights of Kyrandia fought for the cause
+of good, to defend righteousness, and to represent the glory of the Goddess
+Tashanna and the wise ruler of the kingdom, the beautiful Lady Kyra.  You
+are amazed at the life-like quality of the artwork.  The only exit appears
+to be to the east.
+} T Kyrandia locations text
+
+
+KRD250 {...You're in the northeast corner.  The intersection between two great,
+marble hallways is adorned with oil paintings of beautiful landscapes of
+various Kyrandian scenes.  Among these are the Magic Sand Castle in the
+center of the ancient kingdom, the lava pits of the Great Volcano of Tears,
+and a masterpiece depiction of the Bard's Carnival, the magical and musical
+event of each Kyrandian century.  The halls lead off to the west and south.
+} T Kyrandia locations text
+
+
+KRD251 {...You're in a silver hall.  Everything, from the paint on the wall to the
+silver inscriptions on the floor to the intricate silver chandelier hanging
+above is made of silver.  The inscriptions are a replica of an ancient
+document from long ago, which read: "By the glory of the Goddess Tashanna,
+I swear my eternal loyalty to the Lady Kyra and the defense of the Kingdom
+of Kyrandia.  Across time and space, Lord Alexis, Knight of the Lavender
+Rose, Champion of the Lady of the Kingdom."  Each silver letter seems
+to sparkle with something special, touching your heart with patriotism for
+this wonderful land.  The hall continues to the east and west.
+} T Kyrandia locations text
+
+
+KRD252 {...You're in the Hall of Music.  This entire chamber reverberates with the
+beautiful sound of one of the ancient romantic songs of Kyrandia past.  It
+goes like this:  "I live my life in a fantasy land, dreaming of the day when
+I'll win your hand.  Every breath I take, every beat of my heart, my love
+grows for you as it has from the start.  Sing me a song of a fairy tale, a
+story of our magic love.  Whisper the lyrics in my ear, you're the one I've
+been dreaming of.  All the knights of legends past can't match my love for
+you.  I'd sail the golden seas of fantasy and chase the stars for you.
+Legends pass, but I will still love you.  You are my paradise, my dream come
+true.  Heaven is in your arms, lying next to you.  Lady of legends, my dream's
+confirmation; queen of a world of my imagination.  The world of reality
+believes legends are gone, yet looking in your eyes I see legends live on.
+If I could freeze the hands of time for just one day, I'd ask you to come
+with me and sail far away.  Across our rainbow, hand in hand together, living
+a legend and loving forever.  Legends pass and time goes by but my love for
+you will never die, 'cause you are my legend come true, legend come true..."
+You may exit to the east or west.
+} T Kyrandia locations text
+
+
+KRD253 {...You're in the Hall of Memories.  From the moment you first step into
+this room, your mind is suddenly filled with memories of times, places,
+and people of your past.  Some are good and happy, while others are so
+powerfully filled with sorrow and grief, you almost faint from all the
+emotional pain that surges within your heart.  Truly, this is one of the
+strangest of all of the remaining chambers of the fortress under the
+mountain.  You may leave to the east or west.
+} T Kyrandia locations text
+
+
+KRD254 {...You're in the Hall of LadyHawk.  Dedicated years ago to the great
+Lady of the Hawks, who helped to save the kingdom in the Battle of the
+Great Dragons in the Third Age of Kyrandia, this chamber, unfortunately,
+has also been looted and vandalized by the evil which has passed through
+here.  However, you still have a dim memory of the beautiful memories
+of this lady of ancient times.  You may leave to the north or the east.
+} T Kyrandia locations text
+
+
+KRD255 {...You're in the Hall of Hearts.  Once beautifully decorated with many
+lovely, detailed stone sculptures of hearts of love, this chamber is now
+an object of sheer sorrow and pity.  Someone, or something, purposely came
+through and cracked, broke, or completely shattered each and every heart.
+You mind is overwhelmed with the symbolic meaning of this tragic event.
+You may leave in any direction.
+} T Kyrandia locations text
+
+
+KRD256 {...You're in the Chamber of the Champion.  As you glance around this
+incredible chamber, you are left awe-struck with the sheer magnificence
+of it's artistic beauty.  Everything from the floor to the ceiling is
+one, breathtaking mural depicting the service of Lady Kyra's famed
+champion.  In the air you hear the echoing of a voice singing "I'll
+be the hero you've been dreaming of...".  You may leave to the west.
+} T Kyrandia locations text
+
+
+KRD257 {...You're in the Chamber of the Lady.  This magical chamber is covered
+with lovely paintings of the legendary Lady Kyra.  This was her room,
+created with love and care by the finest architects of the entire kingdom.
+However, it is now dark and empty... the lady, like all the other fantastic
+beauties of Kyrandia, has vanished.  Questions in your mind: "Is she gone
+forever?" "Can this world ever live again?" "What IS the power of true
+love?".  Only time will tell.  You may leave to the east.
+} T Kyrandia locations text
+
+
+KRD258 {...You're in the Hall of Winter.  Once known as the Hall of Spring, this
+cold and deserted chamber is now dead... the beautiful life it once had
+has disappeared and vanished into eternal desolation.  A biting chill runs
+down the back of your neck, leaving you shivering in sorrow.  You may go
+in any direction.
+} T Kyrandia locations text
+
+
+KRD259 {...You're in the Chamber of the Bard.  This splendidly decorated room is
+filled with murals of the history of the many great bards, including the most
+famous of all, Brin.  Enscribed in golden gothic letters are some of the
+lyrics of one of his more popular songs, "Fairy Tales", which read:
+
+ If you believe in magic, or wish upon a star...
+ Then fantasy can touch your life, no matter who you are
+ It doesn't matter how old you are, or if you're rich or poor
+ Your imagination is the key that opens any door...
+
+ And nothing is impossible, if only you believe...
+ Once you find your dreamworld, you'll never want to leave
+ You can ride a winged horse high into the skies...
+ And as reality fades away your spirit starts to rise
+
+As you read the inscriptions, a beautiful melody runs through your mind,
+sending a tingle through your soul.  The only exit appears to be to the west.
+} T Kyrandia locations text
+
+
+KRD260 {...You're the Chamber of the Magician.  This mystical chamber was once the
+quarters of the honorable magician known as "The Wanderer".  Colorful murals
+of magical events, famous wizards, and mysterious, faraway places cover the
+walls and ceiling.  In center of the floor lies various wizard-like symbols,
+including the ancient truth, "Love is a power beyond all magic".  The only
+visible exit is to the east.
+} T Kyrandia locations text
+
+
+KRD261 {..You're in the Chamber of Poetry.  This small room was once used to
+glorify some of the greatest poets and poems of the kingdom of Kyrandia.
+However, it too has long been deserted, but one last poem remains carved
+on the otherwise barren stone floor.  The poem reads:
+
+  Through the looking glass I spied
+  A fantasy forest that long ago died
+  And standing there's a little girl
+  All alone and teary-eyed
+  Bewildered and mystified
+  In her forest, against the world
+  All alone in her fantasy forest
+
+You may exit to the east or south.
+} T Kyrandia locations text
+
+
+KRD262 {...You're in an empty garden.  This strange and lonely chamber was
+apparently once a small, beautiful garden, but died long ago, leaving
+the flagstones bare... nothing grows here no more.  A sudden feeling of
+sadness overwhelms you, as tears fall from your eyes for the unknown
+gardener who once cared for this now empty garden.  You can leave to
+the east or west.
+} T Kyrandia locations text
+
+
+KRD263 {...You're in the Hall of the Sea.  A lovely painting of a seaside romance
+is depicted on the ceiling of this strange chamber.  A sudden chill enters
+the depths of your heart here, beyond anything you have ever felt before,
+almost bringing you to your knees.  You may leave to the east or west.
+} T Kyrandia locations text
+
+
+KRD264 {...You're in the Hall of Marble Pillars.  Beautifully designed, this was
+once a wonderful center for the great philosophers of old to meet and discuss
+life, the universe, and everything.  However, it has long been deserted, the
+pillars are starting to crumble, and an overall feeling of gloom blankets
+everything in misery.  Archways highlight exits in all directions.
+} T Kyrandia locations text
+
+
+KRD265 {...You're in the northern Hall of Tashanna.  Your eyes can see nothing
+here.  You can go to the north or south.
+} T Kyrandia locations text
+
+
+KRD266 {...You're in the southern Hall of Tashanna.  Your eyes can see nothing
+here.  You can go to the north or south.
+} T Kyrandia locations text
+
+
+KRD267 {...You're in a grey-black hall.  Everything seem extremely dismal here,
+and you feel the sudden urge to leave as quickly as your feet can
+carry you.  You may follow this urge to the north or the south.
+} T Kyrandia locations text
+
+
+KRD268 {...You're on a red carpeted stairway.  This red-carpeted stairway is
+stained with the tears of the Great Death, which passed, not so long
+ago, through this magical kingdom, destroying all the beauty which once
+existed in this fantasyworld.  You feel helpless, because you are
+helpless.  That's life for you!  Speaking of helpless, I hope you ARE
+aware that there is a very large and very nasty dragon searching to
+cook your buns to a nice crisp and then feast upon your flesh.  Have
+a nice day, and by the way, you can go north and south, or you can
+just do nothing!
+} T Kyrandia locations text
+
+
+KRD269 {...You're in a red carpeted hall.  Well, everything's red.  You
+suddenly recollect an old saying, "Love is like a red, red rose...
+it has thorns, soon dies, and generally isn't worth the trouble
+that comes with it".  (Yeah, I know the author is switching the theme,
+but who reads long descriptions anyway).  This thought does not
+brighten your day.  Stairs go down to the south, and there's something
+to the north.
+} T Kyrandia locations text
+
+
+KRD270 {...You're nowhere really.  You can go to the east, west, north, and gee,
+even south.  That means you can go in all directions.  Have fun, and don't
+forget, dragon feces rolls downhill.
+} T Kyrandia locations text
+
+
+KRD271 {...You're on a marble stairway.  The stairs lead up to the north, and
+down to the east.  Not much more to say, except you smell the distinctive
+odor of dragon's urine here.
+} T Kyrandia locations text
+
+
+KRD272 {...You're on a marble stairway.  The stairs lead up to the north, and
+down to the west.  Not much more to say, except you smell the distinctive
+odor of dragon's urine here.
+} T Kyrandia locations text
+
+
+KRD273 {...You're at the top of a marble stairway.  There is a balcony to the
+east, and marble stairs leading down to the south.  Everything seems to be
+shrouded in a cloud of evil darkness.
+} T Kyrandia locations text
+
+
+KRD274 {...You're on a marble balcony.  This well-constructed gothic-style
+(god we have alot of dashes here!) balcony has been blackened by the
+flames of a very powerful dragon.  Darkness is everywhere, blackness
+shrouds anything and everything, and a feeling of general gloom pervades
+everything.  Home, sweet home.  You can go to marble stairs leading down
+to the east and west, or you can go up stairs to the north.
+} T Kyrandia locations text
+
+
+KRD275 {...You're at the top of a marble stairway.  There is a balcony to the
+west, and marble stairs leading down to the south.  Everything seems to be
+shrouded in a cloud of evil darkness.
+} T Kyrandia locations text
+
+
+KRD276 {...You're on a spiral stairway.  This boring stairway leads up to the north
+and down to the south.  On one of the stairs an inscription reads "From the
+light comes darkness, and darkness shall rule forever."
+} T Kyrandia locations text
+
+
+KRD277 {...You're on a spiral stairway.  You can go north (up) or south (down).
+Enjoy.
+} T Kyrandia locations text
+
+
+KRD278 {...You're on the mountain's peak.  From this high, top-of-the-world
+ledge you can see the beautiful land of Kyrandia stretching for an
+eternity in all directions.  You see off in the distance the Golden
+Forest, the Silver Sea, and far, far away you can faintly see the
+silhouette of the incredible SandCastle of Kyrandia, the capital of
+this once great kingdom.  You gasp in awe, as you feel like you are
+living only in a dreamworld.  The only exit is the stairs down to the
+south.
+} T Kyrandia locations text
+
+
+KRD279 {...You're in a blue-carpeted hall.  Everything has been decorated with a
+beautiful silk carpeting, from the floor to the ceiling, creating a plush
+environment for warm greetings and royal processions.  You may go to the
+north or south.
+} T Kyrandia locations text
+
+
+KRD280 {...You're in the Chamber of Truth.  This plain, marble room is completely
+barren, except for yet another inscription on the floor which reads: "Seek
+the truth here."  Exits lie off in all directions.
+} T Kyrandia locations text
+
+
+KRD281 {...You're in the lonely hall.  As you glance around this barren stone
+chamber, a sudden surge of emptiness fills your soul, bringing the emotions
+of hopelessness and despair to your heart.  A tear runs down your cheek,
+but you brush it away and deep inside you feel the inspiration to bring
+life once again to the world of Kyrandia.  This hall leads off to the east
+and west.
+} T Kyrandia locations text
+
+
+KRD282 {...You're in the Chamber of the Body.  This corner-chamber is mundanely
+decorated, except for the quite noticeable feature of a large chasm
+splitting one half of the room.  It's width, strangely enough, is difficult
+to accurately estimate -- you cannot help but wonder if you could
+successfully jump across.  There are smaller halls leading off to the north
+and west.
+} T Kyrandia locations text
+
+
+KRD283 {...You're in blackened quadrangle.  Apparently decimated a while ago
+by a great blast of fire, nothing remains of this intersection of four
+chambers.  You can go to the north, south, east, or west.
+} T Kyrandia locations text
+
+
+KRD284 {...You're at the Waterfall of Fantasy.  Shrouded here in purplish mists lies
+the most awe-inspiring wonderment of the magic of Tashanna... the mystical
+Waterfall of Fantasy.  Before you, rising high into the clouds, this majestic
+cascade of beautifully clear water sparkles flamingly as it rushes from the
+heavens to this dreamworld come true, stepping down on plateaus made of pure
+emerald.  At the bottom of this jeweled cataract, an enchanting, crystal clear
+pool has formed in serene harmony with this enchanting place of legends.  The
+air is filled with the sweet aroma of the surrounding lavender rose bushes
+and the melodious music of songbirds singing in joy.  In the sky, night and
+day, shines the brightest rainbow you've ever seen... and floating above it
+are golden letters which read: "ATASILYF".  The only exit is to the east.
+} T Kyrandia locations text
+
+
+KRD285 {...You're in the Chamber of the Mind.  The only really noticeable feature
+of this room is some writing on the floor which reads:
+
+  This thing all things devours;
+  Birds, beasts, trees, flowers;
+  Gnaws iron, bites steel;
+  Grinds hard stones to meal;
+  Slays kings, ruins town,
+  And beats high mountains down.
+
+The only exits are to the west and south.
+} T Kyrandia locations text
+
+
+KRD286 {...You're in the Hall of Feasting.  This hall was once used to hold the
+great feast of the honorable Lady Kyra.  It's latest feast, however, was
+the feast the dragon Zar had upon the flesh of the last inhabitants of this
+kingdom under the mountain.  Remnants of human bones and other body parts,
+as well as large globs of blood stains, are everywhere, mandating the evil
+which has taken over this cold, grey place.  You can exit to the east and
+west if you wish, or you can just choose to stay here and rot like everything
+else.
+} T Kyrandia locations text
+
+
+KRD287 {...You're in a hall.  The hall continues to the east and west.
+} T Kyrandia locations text
+
+
+KRD288 {...You're in the Chamber of the Heart.  This particular room has a certain
+warmth to it, setting your spirit to peace.  Nothing spectacular seems to
+catch your attention, except for an inscription on the west wall, which
+reads: "Commitment of the heart strengthens the soul."  The only exits are
+to the north and east.
+} T Kyrandia locations text
+
+
+KRD289 {...You're in a crumbling centre.  This intersection of four chambers is
+slowly being destroyed by the decay of time.  Once long, long ago this
+chamber was cared for and loved, but now it has been abandoned and left
+to waste away into oblivion.  There are chambers in all directions.
+} T Kyrandia locations text
+
+
+KRD290 {...You're in the Chamber of Eternal Magic.  If this magical room once
+contained any powerful sorcery, it has long since been destroyed.  You
+notice a roughly carved inscription in the far wall which read: "Nothing
+is Eternal".  You find your soul void of any and all feelings in this
+strangely familiar location, and you feel yourself growing weak and faint.
+You cannot help but contemplate the peace of death.  The only exit is to
+the west.
+} T Kyrandia locations text
+
+
+KRD291 {...You're in the Chamber of the Soul.  This mystical room strikes you with
+complete awe.  As you look around, everything seems to extend forever, in
+an infinitely large universe... with no boundaries.  Far in the distance
+billions of stars glimmer as whole galaxies grow and die before your eyes.
+Within your vision, you are witnessing eternity... beyond any and all
+mortal limitations.  You feel the rush of time passing by, oblivious to all
+things of physical nature.  Doorways of light are exits to the south and east.
+} T Kyrandia locations text
+
+
+KRD292 {...You're in a barren hall.  Except for the dirty and worn marble floor,
+walls, and ceiling, there is nothing else of interest.  Looking at such
+total emptiness makes you only more aware of the sheer desolation of this
+once dreamy fantasy world.  Emotions of remorse, hopelessness, and plain
+disgust fill your heart, soul, mind, and body.  The hall continues to the
+east and west.
+} T Kyrandia locations text
+
+
+KRD293 {...You're in the chamber of the magic orb.  In the center of this room,
+floating high in the air, is the fading silhouette of a once great orb.
+Perhaps long ago it was a materialized reality, but now it has faded to
+a mere quasi-real image.  Your hand passes freely through it, and it seems
+oblivious to your existence.  Nothing really remains of this ancient
+magic... like everything in Kyrandia, this fantasy seems to be dying too.
+The only exit from this room is a crumbling archway to the east.
+} T Kyrandia locations text
+
+
+KRD294 {...You're in the Chamber of Hidden Magic.  This room, like most wonderful
+things in life, is only a dream.  It doesn't exist.
+} T Kyrandia locations text
+
+
+KRD295 {...You're in the Chamber of Life.  This is a dimly lit room, with a somber
+ambiance and a low hum that emanates from deep within.  The floor is made of
+the purest white marble, and placed exactly in the center of the room is an
+unadorned altar.  Exits lie to the north and south.
+} T Kyrandia locations text
+
+
+KRD296 {...You're in a beautiful, small chapel.  Oh, how lovely this religious
+chamber appears to your worldly eye... all delicate and "good" amongst the
+chaos of reality.  The silver altar on the far side (don't bother looking,
+it doesn't have an extra description) is tarnished, something that you notice
+with considerable irony -- after all, it is the holy focus of the WONDERFUL
+Goddess Tashanna.  You look around and suddenly realize: this world is no
+longer a living fantasy, but instead a cold, grey world, long forgotten by
+it's patron goddess.  You feel the desire to leave; the exit is to the west.
+} T Kyrandia locations text
+
+
+KRD297 {...You're at a hidden, emerald shrine.  This fantasy room does not
+exist.
+} T Kyrandia locations text
+
+
+KRD298 {...You're in the Hall of the Royal Knights.  Before your eyes lies yet
+another "great" hall of this kingdom under the mountain.  You smirk as
+you glance at its gothic architecture, again, made mostly from marble
+like everything else in this forgotten realm.  You spit on the floor in
+disgust.  At your last glance, you also notice a triangular rune in the
+center of the floor.  Words inscribed beside it say, "Patience, wisdom,
+and faith are the devotions of fools".  Plain, old exits lead to the
+north, south, and east.
+} T Kyrandia locations text
+
+
+KRD299 {...You're in the Hall of the Throne.  Constructed from the purest of marble,
+in a Gothic-style architecture, this beautiful hall served as both a greetings
+chamber for those who came to see the Lady Kyra and a feasting hall for any
+special royal banquets or other such events.  Once alive with activity, it
+now lies empty
+} T Kyrandia locations text
+
+
+KRD300 {...You're in the royal kitchen.  This rather large room was once used to
+prepare the great feasts and banquets for the Lady Kyra and her guests.  Now,
+however, it lies barren and deserted, as if some horrible evil had vanquished
+the good magic that once thrived here.  A strong odor of sulfur floats from
+the northern wall.  The Hall of the Throne lies to the west.
+} T Kyrandia locations text
+
+
+KRD301 {...You're in the throne chamber.  Once the great hall where the Lady Kyra
+herself ruled the Kingdom of Kyrandia, this Gothic-style chamber has been
+trashed by some unknown force.  The walls and floor have large cracks in
+them, dust and debris cover everything, and anything of value has long since
+been looted by  thieves.  You also notice a huge hole in the northern wall,
+beyond which lies a pitch-black darkness.  A evil stench of death and decay
+emanates from that hole.  The Hall of the Throne lies to the south.
+} T Kyrandia locations text
+
+
+KRD302 {...You're in the lair of the dragon.  This dark, gloomy cave radiates an aura
+of incredible evil.  The darkness hides almost all the features of this large,
+ragged cavern, but the distinctive odor of dragon waste identifies this place
+as a lair of a dragon.  A chill of fear runs through your blood and your heart
+beats fast as the effects of dragonfear overcome you.  The throne chamber lies
+to the south.
+} T Kyrandia locations text
+
+
+KRD303 {...You're in the Forest of Fantasy.
+} T Kyrandia locations text
+
+
+KRD304 {...You're at the Waterfall of Fantasy.  Shrouded here in purplish mists lies
+the most awe-inspiring wonderment of the magic of Tashanna... the mystical
+Waterfall of Fantasy.  Before you, rising high into the clouds, this majestic
+cascade of beautifully clear water sparkles flamingly as it rushes from the
+heavens to this dreamworld come true, stepping down on plateaus made of pure
+emerald.  At the bottom of this jeweled cataract, an enchanting, crystal clear
+pool has formed in serene harmony with this enchanting place of legends.  The
+air is filled with the sweet aroma of the surrounding lavender rose bushes
+and the melodious music of songbirds singing in joy.  In the sky, night and
+day, shines the brightest rainbow you've ever seen... and floating above it
+are golden letters which read: "ATASILYF".  The Forest of Fantasy lies to
+the west.
+} T Kyrandia locations text
+
