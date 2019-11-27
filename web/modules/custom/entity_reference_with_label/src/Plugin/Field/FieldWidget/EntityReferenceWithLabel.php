@@ -22,6 +22,12 @@ class EntityReferenceWithLabel extends OptionsSelectWidget {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    // Prepare some properties for the child methods to build the actual form
+    // element.
+    $this->required = $element['#required'];
+    $this->multiple = $this->fieldDefinition->getFieldStorageDefinition()->isMultiple();
+    $this->has_value = isset($items[0]->{$this->column});
+
     $element['target_id'] = [
       '#type' => 'select',
       '#options' => $this->getOptions($items->getEntity()),

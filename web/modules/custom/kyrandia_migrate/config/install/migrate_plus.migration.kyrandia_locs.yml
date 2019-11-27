@@ -10,17 +10,40 @@ source:
   plugin: kyrandia_lcs
   keys:
     - "Location#"
+  constants:
+    location_title: 'Location'
 process:
   title:
-    plugin: default_value
-    default_value: 'Location'
+    plugin: concat
+    delimiter: ' '
+    source:
+      - constants/location_title
+      - 'Location#'
   field_object_location: "Obj Locat"
+  field_game:
+    -
+      plugin: default_value
+      default_value: Kyrandia
+    -
+      plugin: entity_lookup
+      value_key: title
+      entity_type: node
+      bundle_key: type
+      bundle: Game
   field_brief_description/value: "Brief Des"
   field_brief_description/format:
     plugin: default_value
     default_value: "basic_html"
 #  Objs' Idx: 46,45,2,0,0,0
-#  N:1 S:88 E:94 W:71
+  field_exits:
+    plugin: iterator
+    source: exits
+    process:
+      label: direction
+      target_id:
+        plugin: migration_lookup
+        migration: kyrandia_locs
+        source: location
   uid:
     plugin: default_value
     default_value: 1

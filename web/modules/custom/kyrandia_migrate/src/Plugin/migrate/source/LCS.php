@@ -91,12 +91,6 @@ class LCS extends SourcePluginBase implements ConfigurableInterface {
    * @throws \League\Csv\Exception
    */
   public function initializeIterator() {
-    if ($this->configuration['fields']) {
-      // If there is no header record, we need to flip description and name so
-      // the name becomes the header record.
-      $header = array_flip($this->fields());
-    }
-
     $contents = file_get_contents($this->configuration['path']);
     $contents = str_replace("\r\n \r\n", "\n\n", $contents);
     $raw_rows = explode("\n\n", $contents);
@@ -109,13 +103,26 @@ class LCS extends SourcePluginBase implements ConfigurableInterface {
           $split_item = explode(": ", $split_columns);
           if (count($split_item) == 1) {
             // Only one element, this is probably the exits.
-            $split_item = explode(" ", $split_columns);
-            foreach ($split_item as $exit_item) {
-              $split_sub_item = explode(":", $exit_item);
-              $row[$split_sub_item[0]] = $split_sub_item[1];
+            if (strpos($split_item[0], "N:") === 0) {
+              $split_exits = explode(" ", $split_columns);
+              $split_exit_array = [];
+              foreach ($split_exits as $exit_item) {
+                $split_exit_item = explode(":", $exit_item);
+                if (count($split_exit_item) > 1 && $split_exit_item[1] != -1) {
+                  $split_exit_array[] = [
+                    'direction' => $split_exit_item[0],
+                    'location' => $split_exit_item[1],
+                  ];
+                }
+              }
+              if ($split_exit_array) {
+                $row['exits'] = $split_exit_array;
+              }
             }
           }
-          $row[$split_item[0]] = $split_item[1];
+          elseif (count($split_item) > 1) {
+            $row[$split_item[0]] = $split_item[1];
+          }
         }
         $rows[] = $row;
       }
@@ -128,7 +135,7 @@ class LCS extends SourcePluginBase implements ConfigurableInterface {
    */
   public function getIds() {
     $ids = [];
-    foreach ($this->configuration['ids'] as $value) {
+    foreach ($this->configuration['keys'] as $value) {
       $ids[$value]['type'] = 'string';
     }
     return $ids;
