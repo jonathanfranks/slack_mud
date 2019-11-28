@@ -2,8 +2,10 @@
 
 namespace Drupal\kyrandia\EventSubscriber;
 
+use Drupal\Component\Uuid\Com;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\slack_mud\Event\CommandEvent;
 use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -18,6 +20,10 @@ class MudEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     $events[LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT] = [
       'onLookAtPlayer',
+      600,
+    ];
+    $events[CommandEvent::COMMAND_EVENT] = [
+      'onCommand',
       600,
     ];
     return $events;
@@ -40,9 +46,48 @@ class MudEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * @param \Drupal\node\NodeInterface $targetPlayer
+   * Subscriber for MudEvent CommandEvent event.
    *
-   * @return NodeInterface|null
+   * @param \Drupal\slack_mud\Event\CommandEvent $event
+   *   The command event.
+   */
+  public function onCommand(CommandEvent $event) {
+    $result = NULL;
+    $actingPlayer = $event->getActingPlayer();
+    $kyrandiaProfile = $this->getKyrandiaProfile($actingPlayer);
+    if ($kyrandiaProfile) {
+      // @TODO What about command plugins?
+      $removeWords = [
+        ' at ',
+        ' to ',
+        ' from ',
+        ' with ',
+      ];
+      $rawCommand = $event->getCommandString();
+      $command = str_replace($removeWords, " ", $rawCommand);
+      // Let's assume everything breaks nicely into individual words.
+      $commandWords = explode(' ', $command);
+      $verb = $commandWords[0];
+
+      $pluginManager = \Drupal::service('plugin.manager.kyrandia_command');
+      /** @var \Drupal\kyrandia\KyrandiaCommandPluginInterface $plugin */
+      $plugin = $pluginManager->createInstance($verb);
+      if ($plugin) {
+        $result = $plugin->perform($command, $actingPlayer);
+      }
+    }
+    if ($result) {
+      $event->setResponse($result);
+    }
+  }
+
+  /**
+   * Gets the Kyrandia profile node for the given player node.
+   *
+   * @param \Drupal\node\NodeInterface $targetPlayer
+   *   The player.
+   *
+   * @return \Drupal\node\NodeInterface|null
    *   The player's Kyrandia profile node.
    */
   protected function getKyrandiaProfile(NodeInterface $targetPlayer) {

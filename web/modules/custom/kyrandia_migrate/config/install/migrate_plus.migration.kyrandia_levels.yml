@@ -30,6 +30,11 @@ process:
     source: 'female description'
     trailing_text: '} T Kyrandia description'
 
+  description/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  description/value: title
+
   uid:
     plugin: default_value
     default_value: 1

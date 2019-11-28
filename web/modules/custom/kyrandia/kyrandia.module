@@ -3,6 +3,9 @@
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
 
+define('KYRANDIA_HP_PER_LEVEL', 4);
+define('KYRANDIA_SP_PER_LEVEL', 2);
+
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
@@ -23,9 +26,46 @@ function kyrandia_node_insert(EntityInterface $entity) {
         'title' => 'kyrandia_profile' . '_' . $entity->field_slack_user_name->value,
         'field_player' => $entity,
         'field_kyrandia_level' => ['target_id' => $level_id],
+        'field_kyrandia_max_hit_points' => KYRANDIA_HP_PER_LEVEL,
+        'field_kyrandia_hit_points' => KYRANDIA_HP_PER_LEVEL,
+        'field_kyrandia_max_spell_points' => KYRANDIA_SP_PER_LEVEL,
+        'field_kyrandia_spell_points' => KYRANDIA_SP_PER_LEVEL,
       ]);
       $kyrandia_profile->save();
     }
   }
+}
 
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function kyrandia_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == 'kyrandia_profile') {
+    $original_level_id = $entity->original->field_kyrandia_level->target_id;
+    $new_level_id = $entity->field_kyrandia_level->target_id;
+    if ($original_level_id != $new_level_id) {
+      // Level changed.
+      // Adjust HP and SP.
+      $level = $entity->field_kyrandia_level->entity->getName();
+
+      $originalMaxHP = $entity->original->field_kyrandia_max_hit_points->value;
+      $originalHP = $entity->original->field_kyrandia_hit_points->value;
+      $originalHPMissing = $originalMaxHP - $originalHP;
+
+      $originalMaxSP = $entity->original->field_kyrandia_max_spell_points->value;
+      $originalSP = $entity->original->field_kyrandia_spell_points->value;
+      $originalSPMissing = $originalMaxSP - $originalSP;
+
+      $newMaxHP = $level * KYRANDIA_HP_PER_LEVEL;
+      $newCurrentHP = $newMaxHP - $originalHPMissing;
+      $newMaxSP = $level * KYRANDIA_SP_PER_LEVEL;
+      $newCurrentSP = $newMaxSP - $originalSPMissing;
+
+      $entity->field_kyrandia_max_hit_points->value = $newMaxHP;
+      $entity->field_kyrandia_hit_points->value = $newCurrentHP;
+      $entity->field_kyrandia_max_spell_points->value = $newMaxSP;
+      $entity->field_kyrandia_spell_points->value = $newCurrentSP;
+    }
+  }
 }

@@ -6,6 +6,7 @@ use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_incoming\Event\SlackEvent;
 use Drupal\slack_incoming\Service\SlackInterface;
+use Drupal\slack_mud\Event\CommandEvent;
 use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -134,12 +135,18 @@ class SlackEventSubscriber implements EventSubscriberInterface {
               }
               else {
                 // Command handler.
-                // If the command was a command, you can't do that here.
-                $message = "You can't do that here.";
+                $mudEvent = new CommandEvent($player, $messageText);
+                $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
+                $response = $mudEvent->getResponse();
+                if (!$response) {
+                  // If the command event didn't return any response, then
+                  // you can't do that here.
+                  $response = t("You can't do that here.");
+                }
                 $channel = $eventCallback['user'];
                 $this->slack->slackApi('chat.postMessage', 'POST', [
                   'channel' => $channel,
-                  'text' => strip_tags($message),
+                  'text' => strip_tags($response),
                   'as_user' => TRUE,
                 ]);
               }
