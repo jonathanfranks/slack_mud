@@ -1,0 +1,23 @@
+uuid: 1c4e9847-d650-47c9-8e6f-dc72d900505d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_kyrandia_minimum_level
+    - taxonomy.vocabulary.kyrandia_spell
+id: taxonomy_term.kyrandia_spell.field_kyrandia_minimum_level
+field_name: field_kyrandia_minimum_level
+entity_type: taxonomy_term
+bundle: kyrandia_spell
+label: 'Kyrandia minimum level'
+description: 'Level at which the Kyrandia player can cast this spell.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

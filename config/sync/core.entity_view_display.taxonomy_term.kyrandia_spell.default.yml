@@ -1,0 +1,31 @@
+uuid: 2b5262ac-22e1-4657-ba76-e627b2a0fd2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.kyrandia_spell.field_kyrandia_minimum_level
+    - taxonomy.vocabulary.kyrandia_spell
+  module:
+    - text
+id: taxonomy_term.kyrandia_spell.default
+targetEntityType: taxonomy_term
+bundle: kyrandia_spell
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_kyrandia_minimum_level:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+hidden: {  }

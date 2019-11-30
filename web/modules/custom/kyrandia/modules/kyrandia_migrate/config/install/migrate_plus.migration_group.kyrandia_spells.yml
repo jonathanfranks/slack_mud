@@ -1,0 +1,8 @@
+id: kyrandia_spells
+label: 'Kyrandia Spells'
+description: 'Imports Kyrandia spells into the site.'
+source_type: 'CSV File'
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

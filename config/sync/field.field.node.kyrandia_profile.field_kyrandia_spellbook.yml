@@ -1,0 +1,29 @@
+uuid: 43e7a3b3-e001-440d-9473-ad72ef13ba83
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_spellbook
+    - node.type.kyrandia_profile
+    - taxonomy.vocabulary.kyrandia_spell
+id: node.kyrandia_profile.field_kyrandia_spellbook
+field_name: field_kyrandia_spellbook
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia Spellbook'
+description: 'Spellbook for Kyrandia game.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      kyrandia_spell: kyrandia_spell
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

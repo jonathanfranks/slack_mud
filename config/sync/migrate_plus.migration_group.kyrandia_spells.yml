@@ -1,0 +1,13 @@
+uuid: 66dea21f-2954-47b0-a3f5-1a99edb0efee
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+id: kyrandia_spells
+label: 'Kyrandia Spells'
+description: 'Imports Kyrandia spells into the site.'
+source_type: 'CSV File'
+module: null
+shared_configuration: null

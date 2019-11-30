@@ -1,0 +1,68 @@
+name,id,ref,bitdef,level,briefdesc
+"abbracada",spl001,2,SBD001,10,"other pro II (scry,tel,etc)
+"allbettoo",spl002,2,SBD002,17,ultimate heal
+"blowitawa",spl003,3,SBD003,5,destroy one item
+"blowoutma",spl004,3,SBD004,12,destroy all items
+"bookworm",spl005,3,SBD005,21,zap other's spell book
+"burnup",spl006,1,SBD006,6,fireball I
+"cadabra",spl007,2,SBD007,4,see invisibility I
+"cantcmeha",spl008,2,SBD008,7,invisibility I
+"canthur",spl009,2,SBD009,16,ultimate protection I
+"chillou",spl010,1,SBD010,20,ice storm II
+"clutzopho",spl011,3,SBD011,5,make player drop all items
+"cuseme",spl012,3,SBD012,3,detect power (spell pts)
+"dumdum",spl013,3,SBD013,17,forget all spells
+"feeluck",spl014,3,SBD014,10,teleport random
+"firstai",spl015,2,SBD015,10,heal III
+"flyaway",spl016,3,SBD016,10,transform into pegasus
+"fpandl",spl017,1,SBD017,2,firebolt I
+"freezuu",spl018,1,SBD018,14,ice ball II
+"frostie",spl019,1,SBD019,8,cone of cold II
+"frozenu",spl020,1,SBD020,7,ice ball I
+"frythes",spl021,1,SBD021,13,firebolt III
+"gotcha",spl022,1,SBD022,9,lightning bolt II
+"goto",spl023,3,SBD023,13,teleport specific
+"gringri",spl024,3,SBD024,12,transform into psuedo drag
+"handsof",spl025,2,SBD025,3,object protection I
+"heater",spl026,2,SBD026,7,ice protection II
+"hehhehh",spl027,1,SBD027,22,lightning storm
+"hocus",spl028,3,SBD028,18,dispel magic
+"holyshe",spl029,1,SBD029,14,lightning bolt III
+"hotflas",spl030,1,SBD030,8,lightning ball
+"hotfoot",spl031,1,SBD031,12,fireball II
+"hotkiss",spl032,1,SBD032,5,firebolt II
+"hotseat",spl033,2,SBD033,3,ice protection I
+"howru",spl034,3,SBD034,2,detect health (hit points)
+"hydrant",spl035,2,SBD035,6,fire protection II
+"ibebad",spl036,2,SBD036,24,ultimate protection II
+"icedtea",spl037,1,SBD037,15,ice storm I
+"icutwo",spl038,3,SBD038,16,see invisibility III
+"iseeyou",spl039,3,SBD039,3,see invisibility II
+"koolit",spl040,1,SBD040,3,cone of cold I
+"makemyd",spl041,2,SBD041,8,object protection II
+"mower",spl042,3,SBD042,7,destroy things on ground
+"noouch",spl043,2,SBD043,1,heal I
+"nosey",spl044,3,SBD044,5,read other's memorized spls
+"peekabo",spl045,2,SBD045,15,invisibility II
+"peepint",spl046,3,SBD046,7,scry someone
+"pickpoc",spl047,3,SBD047,8,steal a player's item
+"pocus",spl048,1,SBD048,1,magic missile
+"polarba",spl049,2,SBD049,13,ice protection III
+"sapspel",spl050,1,SBD050,11,sap spell points II
+"saywhat",spl051,3,SBD051,6,forget one spell
+"screwem",spl052,1,SBD052,16,fire storm
+"smokey",spl053,2,SBD053,2,fire protection I
+"snowjob",spl054,1,SBD054,13,cone of cold III
+"sunglass",spl055,2,SBD055,3,lightning protection I
+"surgless",spl056,2,SBD056,12,lightning protection III
+"takethat",spl057,1,SBD057,4,sap spell points I
+"thedoc",spl058,2,SBD058,5,heal II
+"tiltowait",spl059,1,SBD059,24,earthquake
+"tinting",spl060,2,SBD060,8,lightning protection II
+"toastem",spl061,1,SBD061,18,fireball III
+"weewillo",spl062,3,SBD062,7,transform into willowisp
+"whereami",spl063,3,SBD063,6,location finder
+"whopper",spl064,2,SBD064,12,fire protection III
+"whoub",spl065,3,SBD065,3,detect true idenity
+"zapher",spl066,1,SBD066,4,lightning bolt I
+"zelastone",spl067,1,SBD067,10 ariel servant

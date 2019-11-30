@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
     - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
     - field.field.node.kyrandia_profile.field_kyrandia_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_spellbook
     - field.field.node.kyrandia_profile.field_player
     - node.type.kyrandia_profile
   module:
@@ -59,6 +60,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_kyrandia_spellbook:
+    weight: 128
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_player:
     weight: 122

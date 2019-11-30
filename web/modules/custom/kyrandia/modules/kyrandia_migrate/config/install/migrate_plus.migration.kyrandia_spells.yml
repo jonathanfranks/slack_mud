@@ -1,0 +1,34 @@
+langcode: en
+status: true
+id: kyrandia_spells
+migration_tags:
+  - kyrandia
+  - spells
+migration_group: kyrandia_spells
+label: 'Kyrandia spells'
+source:
+  plugin: csv
+  path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/spells.csv
+  ids:
+    - "id"
+process:
+  name: name
+  field_kyrandia_minimum_level: level
+  description/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  description/value: briefdesc
+
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: kyrandia_spell
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+migration_dependencies:
+  required:
+    - kyrandia_game
