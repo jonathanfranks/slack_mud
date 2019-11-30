@@ -8,14 +8,14 @@ use Drupal\slack_mud\MudCommandPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines Level command plugin implementation.
+ * Defines Look command plugin implementation.
  *
  * @MudCommandPlugin(
  *   id = "look",
  *   module = "slack_mud"
  * )
  *
- * @package Drupal\kyrnandia\Plugin\MudCommand
+ * @package Drupal\slack_mud\Plugin\MudCommand
  */
 class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
 
@@ -56,7 +56,7 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
   }
 
   /**
-   * Gets a player's current inventory.
+   * Looks in the current location.
    *
    * @param \Drupal\node\NodeInterface $player
    *   The current player node.

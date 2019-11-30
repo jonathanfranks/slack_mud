@@ -115,10 +115,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
 
               $player = $this->currentPlayer($eventCallback['user']);
 
-              if ($messageText == 'inventory') {
-                $this->inventory($eventCallback, $player);
-              }
-              elseif (strpos($messageText, 'get ') !== FALSE) {
+              if (strpos($messageText, 'get ') !== FALSE) {
                 $this->getHandler($messageText, $player, $eventCallback);
               }
               elseif (strpos($messageText, 'drop ') !== FALSE) {
@@ -175,31 +172,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       $player = Node::load($playerNid);
     }
     return $player;
-  }
-
-  /**
-   * Gets a player's current inventory.
-   *
-   * @param array $eventCallback
-   *   The event info from Slack.
-   * @param \Drupal\node\NodeInterface $player
-   *   The current player node.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  protected function inventory(array $eventCallback, NodeInterface $player) {
-    $message = 'You have ';
-    $inv = [];
-    foreach ($player->field_inventory as $itemNid => $item) {
-      $inv[] = $item->entity->getTitle();
-    }
-    $message .= implode(', ', $inv);
-    $channel = $eventCallback['user'];
-    $this->slack->slackApi('chat.postMessage', 'POST', [
-      'channel' => $channel,
-      'text' => strip_tags($message),
-      'as_user' => TRUE,
-    ]);
   }
 
   /**
