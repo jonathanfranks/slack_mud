@@ -165,7 +165,7 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
       }
     }
 
-    if (!$foundSomething) {
+    if (!$foundSomething && $loc->field_description_items) {
       // Now description items.
       foreach ($loc->field_description_items as $item) {
         $itemName = strtolower(trim($item->entity->getTitle()));
