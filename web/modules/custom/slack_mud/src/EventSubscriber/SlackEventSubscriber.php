@@ -113,14 +113,14 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 $messageText = $messageAliases[$messageText];
               }
 
-              $player = $this->currentPlayer($eventCallback['user']);
+              $actingPlayer = $this->currentPlayer($eventCallback['user']);
 
               if (in_array($messageText, $this->directions)) {
-                $this->moveHandler($messageText, $player, $eventCallback);
+                $messageText = 'move ' . $messageText;
               }
               else {
                 // Command handler.
-                $mudEvent = new CommandEvent($player, $messageText);
+                $mudEvent = new CommandEvent($actingPlayer, $messageText);
                 $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
                 $response = $mudEvent->getResponse();
                 if (!$response) {
@@ -165,43 +165,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       $player = Node::load($playerNid);
     }
     return $player;
-  }
-
-  /**
-   * @param string $messageText
-   * @param $player
-   * @param $eventCallback
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  protected function moveHandler(string $messageText, $player, $eventCallback): void {
-    // Check if the text entered is a direction from the location's
-    // exists.
-    // Alias north/n, west/w, south/s, east/e.
-    $loc = $player->field_location->entity;
-    $foundExit = FALSE;
-    foreach ($loc->field_exits as $exit) {
-      if ($messageText == $exit->label) {
-        $nextLoc = $exit->entity;
-        $player->field_location = $nextLoc;
-        $player->save();
-        $this->lookLocation($eventCallback, $player);
-        $foundExit = TRUE;
-        break;
-      }
-    }
-    if (!$foundExit) {
-      // If the command was a direction, you can't go that way.
-      if (in_array($messageText, $this->directions)) {
-        $message = "You can't go that way.";
-      }
-      $channel = $eventCallback['user'];
-      $this->slack->slackApi('chat.postMessage', 'POST', [
-        'channel' => $channel,
-        'text' => strip_tags($message),
-        'as_user' => TRUE,
-      ]);
-    }
   }
 
 }
