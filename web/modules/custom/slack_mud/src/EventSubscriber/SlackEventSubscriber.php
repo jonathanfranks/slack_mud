@@ -115,10 +115,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
 
               $player = $this->currentPlayer($eventCallback['user']);
 
-              if (strpos($messageText, 'get ') !== FALSE) {
-                $this->getHandler($messageText, $player, $eventCallback);
-              }
-              elseif (strpos($messageText, 'drop ') !== FALSE) {
+              if (strpos($messageText, 'drop ') !== FALSE) {
                 $this->dropHandler($messageText, $player, $eventCallback);
               }
               elseif (in_array($messageText, $this->directions)) {
@@ -172,83 +169,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       $player = Node::load($playerNid);
     }
     return $player;
-  }
-
-  /**
-   * Handler for getting.
-   *
-   * @param string $messageText
-   *   The message from Slack.
-   * @param \Drupal\node\NodeInterface $player
-   *   The current player.
-   * @param array $eventCallback
-   *   The Slack event.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  protected function getHandler(string $messageText, NodeInterface $player, array $eventCallback) {
-    // Now remove the GET and we'll see who or what they're taking.
-    $target = str_replace('get', '', $messageText);
-    $target = trim($target);
-
-    $foundSomething = FALSE;
-    $loc = $player->field_location->entity;
-    $slackUsername = $player->field_slack_user_name->value;
-    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
-
-    foreach ($loc->field_visible_items as $delta => $item) {
-      $itemName = strtolower(trim($item->entity->getTitle()));
-      if (strpos($itemName, $target) === 0) {
-        // Item's name starts with the string the user typed.
-
-        // If the item is gettable, add item to player's inventory.
-        if ($item->entity->field_can_pick_up->value) {
-          $player->field_inventory[] = ['target_id' => $item->entity->id()];
-          $player->save();
-
-          // Remove item from location.
-          unset($loc->field_visible_items[$delta]);
-          $loc->save();
-
-          $channel = $eventCallback['user'];
-          $message = 'You picked up the ' . $itemName;
-          $this->slack->slackApi('chat.postMessage', 'POST', [
-            'channel' => $channel,
-            'text' => strip_tags($message),
-            'as_user' => TRUE,
-          ]);
-        }
-        else {
-          // Can't pick up - show its deny get message.
-          $channel = $eventCallback['user'];
-          $message = $item->entity->field_deny_get_message->value;
-          $this->slack->slackApi('chat.postMessage', 'POST', [
-            'channel' => $channel,
-            'text' => strip_tags($message),
-            'as_user' => TRUE,
-          ]);
-        }
-        $foundSomething = TRUE;
-        break;
-      }
-    }
-
-    if (!$foundSomething) {
-      $channel = $eventCallback['user'];
-      $where = $loc->field_object_location->value;
-      $message = t("Sorry, there is no :target :where.",
-        [
-          ':target' => $target,
-          ':where' => $where,
-        ]
-      );
-      $this->slack->slackApi('chat.postMessage', 'POST', [
-        'channel' => $channel,
-        'text' => strip_tags($message),
-        'as_user' => TRUE,
-      ]);
-    }
-
   }
 
   /**

@@ -165,19 +165,6 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
       }
     }
 
-    if (!$foundSomething && $loc->field_description_items) {
-      // Now description items.
-      foreach ($loc->field_description_items as $item) {
-        $itemName = strtolower(trim($item->entity->getTitle()));
-        if (strpos($itemName, $target) === 0) {
-          // Other item's name starts with the string the user
-          // typed.
-          $desc = $item->entity->body->value;
-          return $desc;
-        }
-      }
-    }
-
     if (!$foundSomething) {
       // Finally, the items in the player's inventory.
       foreach ($player->field_inventory as $item) {
