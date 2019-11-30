@@ -4,7 +4,3 @@ services:
     arguments: []
     tags:
       - { name: event_subscriber }
-
-  plugin.manager.kyrandia_command:
-    class: Drupal\kyrandia\KyrandiaCommandPluginManager
-    parent: default_plugin_manager

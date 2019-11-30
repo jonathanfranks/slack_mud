@@ -1,23 +1,23 @@
 <?php
 
-namespace Drupal\kyrandia\Plugin\KyrandiaCommand;
+namespace Drupal\kyrandia\Plugin\MudCommand;
 
-use Drupal\kyrandia\KyrandiaCommandPluginInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\slack_mud\MudCommandPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Kneel command plugin implementation.
  *
- * @KyrandiaCommandPlugin(
+ * @MudCommandPlugin(
  *   id = "kneel",
  *   module = "kyrandia"
  * )
  *
- * @package Drupal\kyrnandia\Plugin\KyrandiaCommand
+ * @package Drupal\kyrnandia\Plugin\MudCommand
  */
-class Kneel extends KyrandiaCommandPluginBase implements KyrandiaCommandPluginInterface {
+class Kneel extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
 
   /**
    * Creates an instance of the plugin.
@@ -80,29 +80,6 @@ A spell has been added to your spellbook!";
       $result = 'You kneel.';
     }
     return $result;
-  }
-
-  /**
-   * Gets the Kyrandia profile node for the given player node.
-   *
-   * @param \Drupal\node\NodeInterface $targetPlayer
-   *   The player.
-   *
-   * @return \Drupal\node\NodeInterface|null
-   *   The player's Kyrandia profile node.
-   */
-  protected function getKyrandiaProfile(NodeInterface $targetPlayer) {
-    // @TODO: Service-ize this.
-    $kyrandiaProfile = NULL;
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'kyrandia_profile')
-      ->condition('field_player.target_id', $targetPlayer->id());
-    $kyrandiaProfileNids = $query->execute();
-    if ($kyrandiaProfileNids) {
-      $kyrandiaProfileNid = reset($kyrandiaProfileNids);
-      $kyrandiaProfile = Node::load($kyrandiaProfileNid);
-    }
-    return $kyrandiaProfile;
   }
 
 }

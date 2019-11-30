@@ -48,3 +48,13 @@ function slack_mud_node_presave(EntityInterface $entity) {
     }
   }
 }
+
+function xx() {
+  $eventDispatcher = \Drupal::getContainer()->get('event_dispatcher');
+  $player = Drupal\node\Entity\Node::load(1375);
+  $messageText = 'kneel';
+  $mudEvent = new \Drupal\slack_mud\Event\CommandEvent($player, $messageText);
+  $mudEvent = $eventDispatcher->dispatch(\Drupal\slack_mud\Event\CommandEvent::COMMAND_EVENT, $mudEvent);
+  $response = $mudEvent->getResponse();
+  print($response);
+}

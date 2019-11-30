@@ -1,24 +1,24 @@
 <?php
 
-namespace Drupal\kyrandia;
+namespace Drupal\slack_mud;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
- * Manages discovery and instantiation of Kyrandia Command plugins.
+ * Manages discovery and instantiation of MUD Command plugins.
  *
  * @todo Add documentation to this class.
  *
- * @package Drupal\kyrandia
+ * @package Drupal\slack_mud
  *
- * @see \Drupal\kyrandia\KyrandiaCommandPluginInterface
+ * @see \Drupal\slack_mud\MudCommandPluginInterface
  */
-class KyrandiaCommandPluginManager extends DefaultPluginManager {
+class MudCommandPluginManager extends DefaultPluginManager {
 
   /**
-   * Constructs the KyrandiaCommandPluginManager object.
+   * Constructs the MudCommandPluginManager object.
    *
    * @param \Traversable $namespaces
    *   An object that implements \Traversable which contains the root paths
@@ -29,9 +29,9 @@ class KyrandiaCommandPluginManager extends DefaultPluginManager {
    *   The module handler to invoke the alter hook with.
    */
   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
-    parent::__construct('Plugin/KyrandiaCommand', $namespaces, $module_handler, 'Drupal\kyrandia\KyrandiaCommandPluginInterface', 'Drupal\kyrandia\Annotation\KyrandiaCommandPlugin');
-    $this->alterInfo('kyrandia_command_info');
-    $this->setCacheBackend($cache_backend, 'kyrandia_command_plugins');
+    parent::__construct('Plugin/MudCommand', $namespaces, $module_handler, 'Drupal\slack_mud\MudCommandPluginInterface', 'Drupal\slack_mud\Annotation\MudCommandPlugin');
+    $this->alterInfo('slack_mud_command_info');
+    $this->setCacheBackend($cache_backend, 'slack_mud_command_plugins');
   }
 
 }

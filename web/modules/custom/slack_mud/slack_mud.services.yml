@@ -10,3 +10,8 @@ services:
     arguments: []
     tags:
       - { name: event_subscriber }
+
+
+  plugin.manager.mud_command:
+    class: Drupal\slack_mud\MudCommandPluginManager
+    parent: default_plugin_manager

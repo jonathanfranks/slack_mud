@@ -1,19 +1,19 @@
 <?php
 
-namespace Drupal\kyrandia\Annotation;
+namespace Drupal\slack_mud\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
 /**
- * Defines a Kyrandia command plugin annotation object.
+ * Defines a MUD command plugin annotation object.
  *
- * Plugin Namespace: Plugin\KyrandiaCommand
+ * Plugin Namespace: Plugin\MudCommand
  *
  * @package Drupal\kyrandia\Annotation
  *
  * @Annotation
  */
-class KyrandiaCommandPlugin extends Plugin {
+class MudCommandPlugin extends Plugin {
 
   /**
    * The plugin ID.

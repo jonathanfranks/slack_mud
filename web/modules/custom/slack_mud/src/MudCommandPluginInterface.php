@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\kyrandia;
+namespace Drupal\slack_mud;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\node\NodeInterface;
 
 /**
- * Defines the interface for Kyrandia commands.
+ * Defines the interface for MUD commands.
  */
-interface KyrandiaCommandPluginInterface extends PluginInspectionInterface, ContainerFactoryPluginInterface {
+interface MudCommandPluginInterface extends PluginInspectionInterface, ContainerFactoryPluginInterface {
 
   /**
    * Return the name of the plugin.

@@ -69,8 +69,8 @@ class MudEventSubscriber implements EventSubscriberInterface {
       $commandWords = explode(' ', $command);
       $verb = $commandWords[0];
 
-      $pluginManager = \Drupal::service('plugin.manager.kyrandia_command');
-      /** @var \Drupal\kyrandia\KyrandiaCommandPluginInterface $plugin */
+      $pluginManager = \Drupal::service('plugin.manager.mud_command');
+      /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
       $plugin = $pluginManager->createInstance($verb);
       if ($plugin) {
         $result = $plugin->perform($command, $actingPlayer);
