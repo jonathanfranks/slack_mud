@@ -1,0 +1,23 @@
+uuid: c6a0bf53-5202-4f93-a9c5-169be98d7800
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_spell_points
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_spell_points
+field_name: field_kyrandia_spell_points
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia spell points'
+description: 'Player''s current spell points in Kyrandia game.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,20 @@
+uuid: da41c457-cbd1-4fed-984e-0f9a6a65e912
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_kyrandia_spell_points
+field_name: field_kyrandia_spell_points
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

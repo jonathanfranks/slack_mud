@@ -3,7 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.kyrandia_profile.field_kyrandia_hit_points
     - field.field.node.kyrandia_profile.field_kyrandia_level
+    - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
+    - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_spell_points
     - field.field.node.kyrandia_profile.field_player
     - node.type.kyrandia_profile
   module:
@@ -19,6 +23,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_kyrandia_hit_points:
+    weight: 124
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_kyrandia_level:
     weight: 123
     settings:
@@ -27,6 +38,27 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_kyrandia_max_hit_points:
+    weight: 125
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_max_spell_points:
+    weight: 127
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_spell_points:
+    weight: 126
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   field_player:
     weight: 122

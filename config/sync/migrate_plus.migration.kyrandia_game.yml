@@ -1,0 +1,39 @@
+uuid: ede0bd4a-8dcb-4730-8144-6d4927849cd5
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+id: kyrandia_game
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - kyrandia
+  - game
+migration_group: kyrandia_game
+label: 'Kyrandia Game record'
+source:
+  plugin: csv
+  path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/game.csv
+  ids:
+    - id
+process:
+  title: name
+  body/format:
+    plugin: default_value
+    default_value: basic_html
+  body/value: description
+  field_starting_location/target_id:
+    plugin: migration_lookup
+    migration: kyrandia_locs
+    source: 'starting location'
+  field_plugin_identifer: 'plugin id'
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:node'
+  default_bundle: game
+migration_dependencies: null

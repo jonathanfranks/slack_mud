@@ -1,13 +1,13 @@
-uuid: 9099013d-9a80-4af0-85ab-8943826e9f7d
+uuid: d69aa4ec-3113-4847-b60c-17ad6496450d
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - kyrandia_migrate
-id: kyrandia_items
-label: 'Kyrandia Items'
-description: 'Imports Kyrandia items  into the site.'
+id: kyrandia_game
+label: 'Kyrandia Game'
+description: 'Imports Kyrandia game into the site.'
 source_type: 'CSV File'
 module: null
 shared_configuration: null

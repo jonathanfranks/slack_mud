@@ -1,0 +1,19 @@
+uuid: 25f9702c-27f1-41b7-8efd-b8b2ac326d4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_plugin_identifier
+    - node.type.game
+id: node.game.field_plugin_identifier
+field_name: field_plugin_identifier
+entity_type: node
+bundle: game
+label: 'Plugin identifier'
+description: 'Identifier for plugin prefixes. For instance, if the plugin identifier is "zork", then a command plugin might be identified as "zork_attack".'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,4 +1,4 @@
-uuid: 3af1d641-51ff-4a92-aacd-ab61b216b95e
+uuid: 6b00bd23-9e56-42f3-8d3c-9d3c42de7213
 langcode: en
 status: true
 dependencies:
@@ -16,7 +16,7 @@ migration_group: kyrandia_levels
 label: 'Kyrandia Levels'
 source:
   plugin: csv
-  path: ./modules/custom/kyrandia_migrate/data/levels.csv
+  path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/levels.csv
   ids:
     - id
 process:
@@ -26,7 +26,7 @@ process:
     default_value: basic_html
   field_male_description/value:
     plugin: kyrandia_get_description
-    message_file_path: ./modules/custom/kyrandia_migrate/data/GALKYRM.MSG
+    message_file_path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/GALKYRM.MSG
     source: 'male description'
     trailing_text: '} T Kyrandia description'
   field_female_description/format:
@@ -34,13 +34,19 @@ process:
     default_value: basic_html
   field_female_description/value:
     plugin: kyrandia_get_description
-    message_file_path: ./modules/custom/kyrandia_migrate/data/GALKYRM.MSG
+    message_file_path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/GALKYRM.MSG
     source: 'female description'
     trailing_text: '} T Kyrandia description'
+  description/format:
+    plugin: default_value
+    default_value: basic_html
+  description/value: title
   uid:
     plugin: default_value
     default_value: 1
 destination:
   plugin: 'entity:taxonomy_term'
   default_bundle: kyrandia_level
-migration_dependencies: null
+migration_dependencies:
+  required:
+    - kyrandia_game

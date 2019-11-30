@@ -1,4 +1,4 @@
-uuid: 7514d4ee-1e82-40a0-840b-c25cb05c3518
+uuid: 9b3ae173-86c8-4089-8aa6-8d82a31c938e
 langcode: en
 status: true
 dependencies:
@@ -16,7 +16,7 @@ migration_group: kyrandia_items
 label: 'Kyrandia Items'
 source:
   plugin: csv
-  path: ./modules/custom/kyrandia_migrate/data/items.csv
+  path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/items.csv
   ids:
     - id
 process:
@@ -28,12 +28,12 @@ process:
     default_value: basic_html
   body/value:
     plugin: kyrandia_get_description
-    message_file_path: ./modules/custom/kyrandia_migrate/data/GALKYRM.MSG
+    message_file_path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/GALKYRM.MSG
     source: description
     trailing_text: '} T Kyrandia description'
   deny_description:
     plugin: kyrandia_get_description
-    message_file_path: ./modules/custom/kyrandia_migrate/data/GALKYRM.MSG
+    message_file_path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/GALKYRM.MSG
     source: 'deny description'
     trailing_text: '} T Kyrandia description'
   field_deny_get_message/format:
@@ -48,17 +48,16 @@ process:
   field_game/target_id:
     -
       plugin: default_value
-      default_value: Kyrandia
+      default_value: 0
     -
-      plugin: entity_lookup
-      value_key: title
-      entity_type: node
-      bundle_key: type
-      bundle: Game
+      plugin: migration_lookup
+      migration: kyrandia_game
   uid:
     plugin: default_value
     default_value: 1
 destination:
   plugin: 'entity:node'
   default_bundle: item
-migration_dependencies: null
+migration_dependencies:
+  required:
+    - kyrandia_game
