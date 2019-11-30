@@ -47,12 +47,12 @@ class Inventory extends MudCommandPluginBase implements MudCommandPluginInterfac
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
     if (count($actingPlayer->field_inventory)) {
-      $result = 'You have ';
       $inv = [];
       foreach ($actingPlayer->field_inventory as $itemNid => $item) {
         $inv[] = $item->entity->getTitle();
       }
-      $result .= implode(', ', $inv);
+      $results = implode(', ', $inv);
+      $result = t('You have :results.', [':results' => $results]);
     }
     else {
       $result = t('You are not carrying anything.');

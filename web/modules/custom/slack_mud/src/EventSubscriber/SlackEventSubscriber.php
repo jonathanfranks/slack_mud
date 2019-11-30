@@ -115,10 +115,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
 
               $player = $this->currentPlayer($eventCallback['user']);
 
-              if (strpos($messageText, 'drop ') !== FALSE) {
-                $this->dropHandler($messageText, $player, $eventCallback);
-              }
-              elseif (in_array($messageText, $this->directions)) {
+              if (in_array($messageText, $this->directions)) {
                 $this->moveHandler($messageText, $player, $eventCallback);
               }
               else {
@@ -147,7 +144,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     }
   }
 
-
   /**
    * Returns the current player node.
    *
@@ -169,53 +165,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
       $player = Node::load($playerNid);
     }
     return $player;
-  }
-
-  /**
-   * Handler for dropping.
-   *
-   * @param string $messageText
-   *   The message from Slack.
-   * @param \Drupal\node\NodeInterface $player
-   *   The current player.
-   * @param array $eventCallback
-   *   The Slack event.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
-   */
-  protected function dropHandler(string $messageText, NodeInterface $player, array $eventCallback): void {
-    // Now remove the DROP and we'll see who or what they're taking.
-    $target = str_replace('drop', '', $messageText);
-    $target = trim($target);
-
-    $foundSomething = FALSE;
-    $loc = $player->field_location->entity;
-    $slackUsername = $player->field_slack_user_name->value;
-    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
-
-    foreach ($player->field_inventory as $delta => $item) {
-      $itemName = strtolower(trim($item->entity->getTitle()));
-      if (strpos($itemName, $target) === 0) {
-        // Item's name starts with the string the user typed.
-        // Add item to location.
-        $loc->field_visible_items[] = ['target_id' => $item->entity->id()];
-        $loc->save();
-
-        // Remove item from inventory.
-        unset($player->field_inventory[$delta]);
-        $player->save();
-
-        $channel = $eventCallback['user'];
-        $message = 'You dropped the ' . $itemName;
-        $this->slack->slackApi('chat.postMessage', 'POST', [
-          'channel' => $channel,
-          'text' => strip_tags($message),
-          'as_user' => TRUE,
-        ]);
-        $foundSomething = TRUE;
-        break;
-      }
-    }
   }
 
   /**
