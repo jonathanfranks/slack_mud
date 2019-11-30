@@ -1,0 +1,8 @@
+id: kyrandia_game
+label: 'Kyrandia Game'
+description: 'Imports Kyrandia game into the site.'
+source_type: 'CSV File'
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
