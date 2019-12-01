@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.kyrandia_profile.field_kyrandia_birth_stones
     - field.field.node.kyrandia_profile.field_kyrandia_hit_points
     - field.field.node.kyrandia_profile.field_kyrandia_level
     - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
@@ -18,6 +19,14 @@ targetEntityType: node
 bundle: kyrandia_profile
 mode: default
 content:
+  field_kyrandia_birth_stones:
+    weight: 109
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_kyrandia_hit_points:
     weight: 104
     label: above
