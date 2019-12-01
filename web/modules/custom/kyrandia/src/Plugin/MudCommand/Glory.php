@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @package Drupal\kyrnandia\Plugin\MudCommand
  */
-class GloryBe extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
+class Glory extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
 
   /**
    * Creates an instance of the plugin.
