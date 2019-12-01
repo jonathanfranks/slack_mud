@@ -8,16 +8,16 @@ use Drupal\slack_mud\MudCommandPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines Kneel command plugin implementation.
+ * Defines Pray command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "glory",
+ *   id = "pray",
  *   module = "kyrandia"
  * )
  *
  * @package Drupal\kyrnandia\Plugin\MudCommand
  */
-class GloryBe extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
+class Pray extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
 
   /**
    * Creates an instance of the plugin.
@@ -51,29 +51,16 @@ class GloryBe extends KyrandiaCommandPluginBase implements MudCommandPluginInter
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
-    if ($commandText == 'glory be tashanna' && $loc->getTitle() == 'Location 7') {
-      // Player is at the temple.
-      $level = $profile->field_kyrandia_level->entity;
-      if ($level->getName() == '2') {
-        // Set the player's level to 3.
-        // Get the Level 3 term.
-        $query = \Drupal::entityQuery('taxonomy_term')
-          ->condition('vid', 'kyrandia_level')
-          ->condition('name', '3');
-        $level_ids = $query->execute();
-        $level_id = $level_ids ? reset($level_ids) : NULL;
-
-        $profile->field_kyrandia_level->target_id = $level_id;
-        $profile->save();
-
-        $result = "
-As you praise the Goddess Tashanna, you feel yourself grow in power!\n
-***\n
-You are now at level 3!";
-      }
+    if ($loc->getTitle() == 'Location 24') {
+      // Player is at the silver altar.
+      $result = "As you pray, a vision of the Goddess Tashanna appears before you, shining in her eternal, radiant beauty. She smiles at you and says: \"Oh, brave and courageous one, there is so much you must learn. What you have seen is only a small fraction of the world of Kyrandia... don't let your pride outmatch your knowledge. Search for the truth of the four elements of all life, and know your corresponding birthstones, and their relation to the forces of nature and magic. I bid thee the best of luck.\"  The goddess then vanishes as mysteriously as she had appeared.";
+    }
+    elseif ($loc->getTitle() == 'Location 7') {
+      // In the temple.
+      $result = "As you pray, a vision of the Goddess Tashanna appears in your mind, standing before you in a holy brilliance of light. She smiles and speaks softly to you: \"One of your many quests must be the realization of your astral origins; seek thy birthstones and prove thy knowledge.";
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result = 'As you pray, a vision of the Goddess Tashanna appears in your mind, she smiles at you, and offers her blessings.';
     }
     return $result;
   }
