@@ -3,11 +3,9 @@
 namespace Drupal\slack_mud\EventSubscriber;
 
 use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
 use Drupal\slack_incoming\Event\SlackEvent;
 use Drupal\slack_incoming\Service\SlackInterface;
 use Drupal\slack_mud\Event\CommandEvent;
-use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
