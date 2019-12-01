@@ -46,11 +46,10 @@ class Pray extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players say a command at the temple to get to level 3.
+    // Offers hints at silver altar and temple, otherwise just a nothing action.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->getKyrandiaProfile($actingPlayer);
-    // The 'to' gets stripped out.
     if ($loc->getTitle() == 'Location 24') {
       // Player is at the silver altar.
       $result = "As you pray, a vision of the Goddess Tashanna appears before you, shining in her eternal, radiant beauty. She smiles at you and says: \"Oh, brave and courageous one, there is so much you must learn. What you have seen is only a small fraction of the world of Kyrandia... don't let your pride outmatch your knowledge. Search for the truth of the four elements of all life, and know your corresponding birthstones, and their relation to the forces of nature and magic. I bid thee the best of luck.\"  The goddess then vanishes as mysteriously as she had appeared.";
