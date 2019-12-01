@@ -16,7 +16,7 @@ class MudEventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     $events[LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT] = [
       'onLookAtPlayer',
-      999,
+      800,
     ];
     return $events;
   }
