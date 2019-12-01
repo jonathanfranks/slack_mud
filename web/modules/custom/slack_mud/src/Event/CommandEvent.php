@@ -39,6 +39,20 @@ class CommandEvent extends Event {
   protected $commandString;
 
   /**
+   * Has event been processed by any handlers?
+   *
+   * @var bool
+   */
+  protected $processed = FALSE;
+
+  /**
+   * Should other handles continue to process this event?
+   *
+   * @var bool
+   */
+  protected $stopPropagation = FALSE;
+
+  /**
    * CommandEvent constructor.
    *
    * @param \Drupal\node\NodeInterface $acting_player
@@ -89,6 +103,46 @@ class CommandEvent extends Event {
    */
   public function setResponse(string $response) {
     $this->response = $response;
+  }
+
+  /**
+   * Has another event handler already processed this event?
+   *
+   * @return bool
+   *   TRUE if processed.
+   */
+  public function isProcessed(): bool {
+    return $this->processed;
+  }
+
+  /**
+   * Set when an event processes.
+   *
+   * @param bool $processed
+   *   Processed?
+   */
+  public function setProcessed(bool $processed) {
+    $this->processed = $processed;
+  }
+
+  /**
+   * Should the event continue to propagate?
+   *
+   * @return bool
+   *   TRUE if we should stop handling event.
+   */
+  public function isStopPropagation(): bool {
+    return $this->stopPropagation;
+  }
+
+  /**
+   * Set event stop propagation.
+   *
+   * @param bool $stopPropagation
+   *   Stop propagation.
+   */
+  public function setStopPropagation(bool $stopPropagation) {
+    $this->stopPropagation = $stopPropagation;
   }
 
 }
