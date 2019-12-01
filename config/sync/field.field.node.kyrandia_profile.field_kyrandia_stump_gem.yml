@@ -1,0 +1,28 @@
+uuid: bb439bf5-078a-4967-8a97-077fd58fcfda
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_stump_gem
+    - node.type.item
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_stump_gem
+field_name: field_kyrandia_stump_gem
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia stump gem'
+description: "Next gem to be dropped in the stump to advance to level 6. NOTE: Gems must be inserted in order -\r\n                   1) ruby      2) emerald     3) garnet\r\n                   4) pearl     5) aquamarine  6) moonstone\r\n                   7) sapphire  8) diamond     9) amethyst\r\n                  10) onyx     11) opal       12) bloodstone"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      item: item
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

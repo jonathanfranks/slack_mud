@@ -1,0 +1,19 @@
+uuid: 6771903d-8862-4d24-9221-3b3d68bf68e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_kyrandia_stump_gem
+field_name: field_kyrandia_stump_gem
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

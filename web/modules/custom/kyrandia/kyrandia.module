@@ -45,6 +45,13 @@ function kyrandia_node_insert(EntityInterface $entity) {
       $birthstones = [];
       $birthstone_keys = array_rand($ids, 4);
 
+      $query = Drupal::entityQuery('node')
+        ->condition('type', 'item')
+        ->condition('field_game.entity.title', 'kyrandia')
+        ->condition('title', 'ruby');
+      $ids = $query->execute();
+      $ruby_id = reset($ids);
+
       $kyrandia_profile = Node::create([
         'type' => 'kyrandia_profile',
         'title' => 'kyrandia_profile' . '_' . $entity->field_slack_user_name->value,
@@ -55,6 +62,7 @@ function kyrandia_node_insert(EntityInterface $entity) {
         'field_kyrandia_max_spell_points' => KYRANDIA_SP_PER_LEVEL,
         'field_kyrandia_spell_points' => KYRANDIA_SP_PER_LEVEL,
         'field_kyrandia_birth_stones' => $birthstone_keys,
+        'field_kyrandia_stump_gem' => $ruby_id,
       ]);
 
       $kyrandia_profile->save();
