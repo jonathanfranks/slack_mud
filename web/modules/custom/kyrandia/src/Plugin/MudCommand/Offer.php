@@ -2,7 +2,6 @@
 
 namespace Drupal\kyrandia\Plugin\MudCommand;
 
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

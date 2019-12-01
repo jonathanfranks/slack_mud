@@ -4,7 +4,6 @@ namespace Drupal\slack_mud\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\Event\CommandEvent;
-use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
