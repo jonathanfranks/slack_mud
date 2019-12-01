@@ -64,7 +64,7 @@ class MudEventSubscriber implements EventSubscriberInterface {
         ' with ',
       ];
       $rawCommand = $event->getCommandString();
-      $command = str_replace($removeWords, " ", $rawCommand);
+      $command = trim(str_replace($removeWords, " ", $rawCommand));
       // Let's assume everything breaks nicely into individual words.
       $commandWords = explode(' ', $command);
       $verb = $commandWords[0];

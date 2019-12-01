@@ -21,6 +21,30 @@ function kyrandia_node_insert(EntityInterface $entity) {
       $level_ids = $query->execute();
       $level_id = $level_ids ? reset($level_ids) : NULL;
 
+      // Birthstones:
+      $available_birthstones = [
+        'ruby',
+        'emerald',
+        'garnet',
+        'pearl',
+        'aquamarine',
+        'moonstone',
+        'sapphire',
+        'diamond',
+        'amethyst',
+        'onyx',
+        'opal',
+        'bloodstone',
+      ];
+      $birthstone_items = [];
+      $query = Drupal::entityQuery('node')
+        ->condition('type', 'item')
+        ->condition('field_game.entity.title', 'kyrandia')
+        ->condition('title', $available_birthstones, 'IN');
+      $ids = $query->execute();
+      $birthstones = [];
+      $birthstone_keys = array_rand($ids, 4);
+
       $kyrandia_profile = Node::create([
         'type' => 'kyrandia_profile',
         'title' => 'kyrandia_profile' . '_' . $entity->field_slack_user_name->value,
@@ -30,7 +54,9 @@ function kyrandia_node_insert(EntityInterface $entity) {
         'field_kyrandia_hit_points' => KYRANDIA_HP_PER_LEVEL,
         'field_kyrandia_max_spell_points' => KYRANDIA_SP_PER_LEVEL,
         'field_kyrandia_spell_points' => KYRANDIA_SP_PER_LEVEL,
+        'field_kyrandia_birth_stones' => $birthstone_keys,
       ]);
+
       $kyrandia_profile->save();
     }
   }
@@ -42,21 +68,35 @@ function kyrandia_node_insert(EntityInterface $entity) {
  */
 function kyrandia_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->bundle() == 'kyrandia_profile') {
-    $original_level_id = $entity->original->field_kyrandia_level->target_id;
+    if ($entity->original) {
+      if ($entity->original->field_kyrandia_level->target_id) {
+        $original_level_id = 0;
+      }
+      else {
+        $original_level_id = $entity->original->field_kyrandia_level->target_id;
+      }
+    }
+    else {
+      $original_level_id = 0;
+    }
     $new_level_id = $entity->field_kyrandia_level->target_id;
     if ($original_level_id != $new_level_id) {
       // Level changed.
       // Adjust HP and SP.
       $level = $entity->field_kyrandia_level->entity->getName();
+      if ($entity->original) {
+        $originalMaxHP = $entity->original->field_kyrandia_max_hit_points->value;
+        $originalHP = $entity->original->field_kyrandia_hit_points->value;
+        $originalHPMissing = $originalMaxHP - $originalHP;
 
-      $originalMaxHP = $entity->original->field_kyrandia_max_hit_points->value;
-      $originalHP = $entity->original->field_kyrandia_hit_points->value;
-      $originalHPMissing = $originalMaxHP - $originalHP;
-
-      $originalMaxSP = $entity->original->field_kyrandia_max_spell_points->value;
-      $originalSP = $entity->original->field_kyrandia_spell_points->value;
-      $originalSPMissing = $originalMaxSP - $originalSP;
-
+        $originalMaxSP = $entity->original->field_kyrandia_max_spell_points->value;
+        $originalSP = $entity->original->field_kyrandia_spell_points->value;
+        $originalSPMissing = $originalMaxSP - $originalSP;
+      }
+      else {
+        $originalHPMissing = 0;
+        $originalSPMissing = 0;
+      }
       $newMaxHP = $level * KYRANDIA_HP_PER_LEVEL;
       $newCurrentHP = $newMaxHP - $originalHPMissing;
       $newMaxSP = $level * KYRANDIA_SP_PER_LEVEL;
@@ -68,4 +108,9 @@ function kyrandia_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
       $entity->field_kyrandia_spell_points->value = $newCurrentSP;
     }
   }
+}
+
+function yy() {
+  $node = Node::load(1375);
+  kyrandia_node_insert($node);
 }
