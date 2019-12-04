@@ -99,7 +99,7 @@ A spell has been added to your spellbook!";
   }
 
   /**
-   * Gets the item targetd by the command.
+   * Gets the item targeted by the command.
    *
    * @param string $commandText
    *   The command text the user entered.

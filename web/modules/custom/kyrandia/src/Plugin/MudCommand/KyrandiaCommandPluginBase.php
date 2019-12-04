@@ -48,10 +48,10 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function advanceLevel(NodeInterface $profile, $level) {
-    // Set the player's level to 6.
+    // Set the player's level to $level.
     $query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', 'kyrandia_level')
-      ->condition('name', '6');
+      ->condition('name', $level);
     $level_ids = $query->execute();
     $level_id = $level_ids ? reset($level_ids) : NULL;
 
