@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Kneel command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "kneel",
+ *   id = "kyrandia_kneel",
  *   module = "kyrandia"
  * )
  *

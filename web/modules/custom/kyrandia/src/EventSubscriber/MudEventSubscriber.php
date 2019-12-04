@@ -2,10 +2,8 @@
 
 namespace Drupal\kyrandia\EventSubscriber;
 
-use Drupal\Component\Uuid\Com;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\slack_mud\Event\CommandEvent;
 use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -22,10 +20,7 @@ class MudEventSubscriber implements EventSubscriberInterface {
       'onLookAtPlayer',
       600,
     ];
-    $events[CommandEvent::COMMAND_EVENT] = [
-      'onCommand',
-      600,
-    ];
+
     return $events;
   }
 
@@ -42,42 +37,6 @@ class MudEventSubscriber implements EventSubscriberInterface {
       $level = $kyrandiaProfile->field_kyrandia_level->entity;
       $desc = $level->field_male_description->value;
       $event->setResponse(strip_tags($desc));
-    }
-  }
-
-  /**
-   * Subscriber for MudEvent CommandEvent event.
-   *
-   * @param \Drupal\slack_mud\Event\CommandEvent $event
-   *   The command event.
-   */
-  public function onCommand(CommandEvent $event) {
-    $result = NULL;
-    $actingPlayer = $event->getActingPlayer();
-    $kyrandiaProfile = $this->getKyrandiaProfile($actingPlayer);
-    if ($kyrandiaProfile) {
-      // @TODO What about command plugins?
-      $removeWords = [
-        ' at ',
-        ' to ',
-        ' from ',
-        ' with ',
-      ];
-      $rawCommand = $event->getCommandString();
-      $command = trim(str_replace($removeWords, " ", $rawCommand));
-      // Let's assume everything breaks nicely into individual words.
-      $commandWords = explode(' ', $command);
-      $verb = $commandWords[0];
-
-      $pluginManager = \Drupal::service('plugin.manager.mud_command');
-      /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
-      $plugin = $pluginManager->createInstance($verb);
-      if ($plugin) {
-        $result = $plugin->perform($command, $actingPlayer);
-      }
-    }
-    if ($result) {
-      $event->setResponse($result);
     }
   }
 

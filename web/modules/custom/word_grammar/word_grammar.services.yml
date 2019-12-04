@@ -1,0 +1,4 @@
+services:
+  word_grammar_service:
+    class: Drupal\word_grammar\Service\WordGrammar
+    arguments: []

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Spellbook command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "spellbook",
+ *   id = "kyrandia_spellbook",
  *   module = "kyrandia"
  * )
  *

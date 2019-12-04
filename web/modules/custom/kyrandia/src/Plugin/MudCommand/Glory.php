@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Glory command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "glory",
+ *   id = "kyrandia_glory",
  *   module = "kyrandia"
  * )
  *

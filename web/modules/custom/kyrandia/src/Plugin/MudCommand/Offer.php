@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Offer command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "offer",
+ *   id = "kyrandia_offer",
  *   module = "kyrandia"
  * )
  *

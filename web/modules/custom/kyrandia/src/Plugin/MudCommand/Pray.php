@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Pray command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "pray",
+ *   id = "kyrandia_pray",
  *   module = "kyrandia"
  * )
  *

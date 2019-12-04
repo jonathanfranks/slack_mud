@@ -20,32 +20,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
 
   /**
-   * Creates an instance of the plugin.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The container to pull out services used in the plugin.
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   *
-   * @return static
-   *   Returns an instance of this plugin.
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition
-    );
-  }
-
-  /**
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
+    $result = NULL;
     if ($commandText == 'look') {
       $result = $this->lookLocation($actingPlayer);
     }
@@ -90,24 +68,29 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
     $visible_items = [];
     foreach ($loc->field_visible_items as $visible_item) {
       if ($visible_item->entity->field_visible->value) {
-        $visible_items[] = $visible_item->entity->getTitle();
+        $itemTitle = $visible_item->entity->getTitle();
+        $article = $this->wordGrammar->getIndefiniteArticle($itemTitle);
+        $visible_items[] = $article . ' ' . $itemTitle;
       }
     }
     $where = $loc->field_object_location->value;
-    switch (count($visible_items)) {
-      case 1:
-        $here = t(' is :where.', [':where' => $where]);
-        break;
+    $visible_items_text = $this->wordGrammar->getWordList($visible_items);
 
+    // Currently using "is" for any number.
+    switch (count($visible_items)) {
       case 0:
-        $here = t('There is nothing :where.', [':where' => $where]);
+        $here = t('There is nothing :where.', [
+          ':where' => $where,
+        ]);
         break;
 
       default:
-        $here = t(' are :where.', [':where' => $where]);
+        $here = t('There is :items :where.', [
+          ':items' => $visible_items_text,
+          ':where' => $where,
+        ]);
     }
-    $visible_items_message = implode(' and ', $visible_items) . $here;
-    $message .= "\n" . $visible_items_message;
+    $message .= "\n" . $here;
 
     $response = strip_tags($message);
     return $response;
@@ -143,6 +126,7 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
       if (strpos($otherPlayerDisplayName, $target) === 0) {
         // Other player's name starts with the string the user
         // typed.
+        /** @var \Drupal\slack_mud\Event\LookAtPlayerEvent $mudEvent */
         $mudEvent = new LookAtPlayerEvent($player, $otherPlayer);
         $mudEvent = $this->eventDispatcher->dispatch(LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT, $mudEvent);
         if ($response = $mudEvent->getResponse()) {

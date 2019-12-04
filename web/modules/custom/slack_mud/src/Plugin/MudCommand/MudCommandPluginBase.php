@@ -2,11 +2,14 @@
 
 namespace Drupal\slack_mud\Plugin\MudCommand;
 
+use Drupal\a_or_an\Service\IndefiniteArticleInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
+use Drupal\word_grammar\Service\WordGrammarInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Defines a base MudCommand plugin implementation.
@@ -14,6 +17,40 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @package Drupal\slack_mud\Plugin\MudCommand
  */
 abstract class MudCommandPluginBase extends PluginBase implements MudCommandPluginInterface {
+
+  /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
+   * Indefinite article generator.
+   *
+   * @var \Drupal\a_or_an\Service\IndefiniteArticleInterface
+   */
+  protected $wordGrammar;
+
+  /**
+   * MudCommandPluginBase constructor.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
+   * @param \Drupal\word_grammar\Service\WordGrammarInterface $word_grammar
+   *   The indefinite article service.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, WordGrammarInterface $word_grammar) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->eventDispatcher = $event_dispatcher;
+    $this->wordGrammar = $word_grammar;
+  }
 
   /**
    * Creates an instance of the plugin.
@@ -34,7 +71,9 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     return new static(
       $configuration,
       $plugin_id,
-      $plugin_definition
+      $plugin_definition,
+      $container->get('event_dispatcher'),
+      $container->get('word_grammar_service')
     );
   }
 

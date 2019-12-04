@@ -1,0 +1,5 @@
+name: 'Word Grammar'
+type: module
+description: 'Module with services to handle grammar rules for words, such as multi-word lists with Oxford commas and indefinite articles.'
+core: 8.x
+package: Tools

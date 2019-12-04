@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1cce88dd5b696ef7c37f4cf738668447",
+    "content-hash": "3f27f66f9a6bc52fbdfe57ca006d3159",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6575,6 +6575,47 @@
             "time": "2019-10-18T11:59:10+00:00"
         },
         {
+            "name": "useallfive/a-vs-an",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/UseAllFive/a-vs-an.git",
+                "reference": "4e01279f83bfb90f34fa32b291d6e5a30841e664"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/UseAllFive/a-vs-an/zipball/4e01279f83bfb90f34fa32b291d6e5a30841e664",
+                "reference": "4e01279f83bfb90f34fa32b291d6e5a30841e664",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "UseAllFive\\AvsAnBundle": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Brown",
+                    "email": "zeebz91@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Determines whether 'a' or 'an' should precede a word",
+            "keywords": [
+                "a",
+                "an",
+                "article",
+                "avsan",
+                "prefix"
+            ],
+            "time": "2013-10-18T20:02:39+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.6.1",
             "source": {
@@ -9259,7 +9300,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/flag": 10
+        "drupal/flag": 10,
+        "useallfive/a-vs-an": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Level command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "level",
+ *   id = "kyrandia_level",
  *   module = "kyrandia"
  * )
  *

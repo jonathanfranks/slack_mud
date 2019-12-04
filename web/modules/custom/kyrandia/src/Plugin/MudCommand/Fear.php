@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines Fear command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "fear",
+ *   id = "kyrandia_fear",
  *   module = "kyrandia"
  * )
  *
