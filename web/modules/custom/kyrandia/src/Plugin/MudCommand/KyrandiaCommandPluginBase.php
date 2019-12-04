@@ -2,41 +2,17 @@
 
 namespace Drupal\kyrandia\Plugin\MudCommand;
 
-use Drupal\Core\Plugin\PluginBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\slack_mud\Plugin\MudCommand\MudCommandPluginBase;
 
 /**
  * Defines a base MudCommand plugin implementation.
  *
  * @package Drupal\kyrnandia\Plugin\MudCommand
  */
-abstract class KyrandiaCommandPluginBase extends PluginBase implements MudCommandPluginInterface {
-
-  /**
-   * Creates an instance of the plugin.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   The container to pull out services used in the plugin.
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin ID for the plugin instance.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   *
-   * @return static
-   *   Returns an instance of this plugin.
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition
-    );
-  }
+abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements MudCommandPluginInterface {
 
   /**
    * Gets the Kyrandia profile node for the given player node.
@@ -59,6 +35,28 @@ abstract class KyrandiaCommandPluginBase extends PluginBase implements MudComman
       $kyrandiaProfile = Node::load($kyrandiaProfileNid);
     }
     return $kyrandiaProfile;
+  }
+
+  /**
+   * Advance the profile to the specified level.
+   *
+   * @param \Drupal\node\NodeInterface $profile
+   *   Acting player.
+   * @param int $level
+   *   Level to advance to.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function advanceLevel(NodeInterface $profile, $level) {
+    // Set the player's level to 6.
+    $query = \Drupal::entityQuery('taxonomy_term')
+      ->condition('vid', 'kyrandia_level')
+      ->condition('name', '6');
+    $level_ids = $query->execute();
+    $level_id = $level_ids ? reset($level_ids) : NULL;
+
+    $profile->field_kyrandia_level->target_id = $level_id;
+    $profile->save();
   }
 
 }

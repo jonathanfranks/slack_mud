@@ -31,17 +31,7 @@ class Kneel extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       // Player is at the willow tree.
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '1') {
-        // Set the player's level to 2.
-        // Get the Level 2 term.
-        $query = \Drupal::entityQuery('taxonomy_term')
-          ->condition('vid', 'kyrandia_level')
-          ->condition('name', '2');
-        $level_ids = $query->execute();
-        $level_id = $level_ids ? reset($level_ids) : NULL;
-
-        $profile->field_kyrandia_level->target_id = $level_id;
-        $profile->save();
-
+        $this->advanceLevel($profile, 1);
         $result = "
 As you kneel, a vision of the Goddess Tashanna materializes before you.\n
 She lays her hand gently upon your shoulder and says to you, \"Rise, rise, Magic-user!  Your first advancement has begun.\"\n

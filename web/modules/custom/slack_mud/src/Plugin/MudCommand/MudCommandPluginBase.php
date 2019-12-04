@@ -102,4 +102,26 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     return $players;
   }
 
+  /**
+   * Checks if the player has the specified item.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player whose inventory we are checking.
+   * @param string $targetItemName
+   *   The item we're checking for.
+   *
+   * @return bool|int
+   *   FALSE if the player doesn't the item, otherwise the delta of the item in
+   *   the player's inventory field.
+   */
+  protected function playerHasItem(NodeInterface $player, $targetItemName) {
+    foreach ($player->field_inventory as $delta => $item) {
+      $itemName = strtolower(trim($item->entity->getTitle()));
+      if (strpos($itemName, $targetItemName) === 0) {
+        return $delta;
+      }
+    }
+    return FALSE;
+  }
+
 }

@@ -32,15 +32,7 @@ class Fear extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       // Player is at the temple.
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '4') {
-        // Set the player's level to 5.
-        $query = \Drupal::entityQuery('taxonomy_term')
-          ->condition('vid', 'kyrandia_level')
-          ->condition('name', '5');
-        $level_ids = $query->execute();
-        $level_id = $level_ids ? reset($level_ids) : NULL;
-
-        $profile->field_kyrandia_level->target_id = $level_id;
-        $profile->save();
+        $this->advanceLevel($profile, 5);
 
         $result = "As you boldly defy the evil, the Goddess Tashanna rewards you for your courage with more knowledge and power. You are now level 5!";
       }

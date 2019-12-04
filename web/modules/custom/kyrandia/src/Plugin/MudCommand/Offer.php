@@ -56,12 +56,8 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
               $profile->field_kyrandia_birth_stones[0] = NULL;
               if ($lastBirthstone) {
                 // This was the last birthstone! The player advances to level 4.
-                $query = \Drupal::entityQuery('taxonomy_term')
-                  ->condition('vid', 'kyrandia_level')
-                  ->condition('name', '4');
-                $level_ids = $query->execute();
-                $level_id = $level_ids ? reset($level_ids) : NULL;
-                $profile->field_kyrandia_level->target_id = $level_id;
+                $level_ids = $this->advanceLevel($profile, 4);
+
                 $result = "
 As you offer your fourth birthstone to the Goddess Tashanna, you feel a powerful surge of magical energy course through your body!\n
 ***\n
@@ -72,7 +68,6 @@ A spell has been added to your spellbook!";
               else {
                 $result = "The Goddess Tashanna accepts the offer of your birthstone! You feel the urge to complete the offering with the rest of your birthstones.";
               }
-              $profile->save();
             }
             else {
               $result = "The Goddess accepts your offer, but in your soul you realize that your offering was not one of your birthstones, or was out of sequence.";

@@ -31,17 +31,7 @@ class Glory extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       // Player is at the temple.
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '2') {
-        // Set the player's level to 3.
-        // Get the Level 3 term.
-        $query = \Drupal::entityQuery('taxonomy_term')
-          ->condition('vid', 'kyrandia_level')
-          ->condition('name', '3');
-        $level_ids = $query->execute();
-        $level_id = $level_ids ? reset($level_ids) : NULL;
-
-        $profile->field_kyrandia_level->target_id = $level_id;
-        $profile->save();
-
+        $this->advanceLevel($profile, 3);
         $result = "
 As you praise the Goddess Tashanna, you feel yourself grow in power!\n
 ***\n

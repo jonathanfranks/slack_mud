@@ -27,27 +27,24 @@ class Drop extends MudCommandPluginBase implements MudCommandPluginInterface {
     $target = str_replace('drop', '', $commandText);
     $target = trim($target);
 
-    $foundSomething = FALSE;
     $loc = $actingPlayer->field_location->entity;
 
-    foreach ($actingPlayer->field_inventory as $delta => $item) {
-      $itemName = strtolower(trim($item->entity->getTitle()));
-      if (strpos($itemName, $target) === 0) {
-        // Item's name starts with the string the user typed.
-        // Add item to location.
-        $loc->field_visible_items[] = ['target_id' => $item->entity->id()];
-        $loc->save();
+    $invDelta = $this->playerHasItem($actingPlayer, $target);
+    if ($invDelta !== FALSE) {
+      // Player has the item.
+      $item = $actingPlayer->field_inventory[$invDelta]->entity;
+      // Now handle the dropping of it.
+      // Add item to location.
+      $loc->field_visible_items[] = ['target_id' => $item->id()];
+      $loc->save();
 
-        // Remove item from inventory.
-        unset($actingPlayer->field_inventory[$delta]);
-        $actingPlayer->save();
+      // Remove item from inventory.
+      unset($actingPlayer->field_inventory[$invDelta]);
+      $actingPlayer->save();
 
-        $result = 'You dropped the ' . $itemName;
-        $foundSomething = TRUE;
-        break;
-      }
+      $result = t('You dropped the :item.', [':item' => $item->getTitle()]);
     }
-    if (!$foundSomething) {
+    else {
       $result = t("You don't have a :target.", [':target' => $target]);
     }
     return $result;
