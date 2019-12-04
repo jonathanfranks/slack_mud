@@ -124,4 +124,33 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     return FALSE;
   }
 
+  /**
+   * Gives the named item to the specified player.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player.
+   * @param string $itemName
+   *   The item to give.
+   *
+   * @return bool
+   *   TRUE if the item was given.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function giveItemToPlayer(NodeInterface $player, string $itemName) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'item')
+      ->condition('field_game.entity.title', 'kyrandia')
+      ->condition('title', $itemName);
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      // @TODO Handling max items for player.
+      $player->field_inventory[] = ['target_id' => $id];
+      $player->save();
+      return TRUE;
+    }
+    return FALSE;
+  }
+
 }
