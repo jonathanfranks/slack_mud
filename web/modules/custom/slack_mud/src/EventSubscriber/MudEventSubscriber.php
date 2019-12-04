@@ -82,7 +82,7 @@ class MudEventSubscriber implements EventSubscriberInterface {
         }
         // Didn't find a plugin for the game. Try a generic one.
         if (!$plugin) {
-          if ($pluginManager->hasDefinition($pluginPrefix . '_' . $verb)) {
+          if ($pluginManager->hasDefinition($verb)) {
             $plugin = $pluginManager->createInstance($verb);
           }
         }

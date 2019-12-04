@@ -7,16 +7,16 @@ use Drupal\slack_mud\MudCommandPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines Fear command plugin implementation.
+ * Defines Kyrandia-specific Drop command plugin implementation.
  *
  * @MudCommandPlugin(
- *   id = "kyrandia_fear",
+ *   id = "kyrandia_drop",
  *   module = "kyrandia"
  * )
  *
  * @package Drupal\kyrnandia\Plugin\MudCommand
  */
-class Fear extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
+class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
 
   /**
    * {@inheritdoc}
