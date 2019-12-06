@@ -1,0 +1,30 @@
+langcode: en
+status: true
+id: kyrandia_messages
+migration_tags:
+  - kyrandia
+  - items
+migration_group: kyrandia_messages
+label: 'Kyrandia Items'
+source:
+  plugin: kyrandia_msg
+  path: ./modules/custom/kyrandia/modules/kyrandia_migrate/data/GALKYRM.MSG
+process:
+  name: name
+  description/format:
+    plugin: default_value
+    default_value: 'basic_html'
+  description/value: description
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: kyrandia_message
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+migration_dependencies:
+  required:
+    - kyrandia_game

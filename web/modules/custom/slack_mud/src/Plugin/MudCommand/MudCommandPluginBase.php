@@ -6,6 +6,7 @@ use Drupal\a_or_an\Service\IndefiniteArticleInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Drupal\word_grammar\Service\WordGrammarInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -80,8 +81,9 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
   /**
    * Returns other player nodes who are in the same location.
    *
-   * @param string $slackUserName
-   *   The current player's Slack username.
+   * @param string|null $slackUserName
+   *   The current player's Slack username. If no slackUserName is specified,
+   *   return all the players in the location.
    * @param \Drupal\node\NodeInterface $location
    *   The location where the user is.
    *
@@ -92,9 +94,12 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     $players = [];
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'player')
-      ->condition('field_slack_user_name', $slackUserName, '<>')
       ->condition('field_location.target_id', $location->id())
       ->condition('field_active', TRUE);
+    if ($slackUserName) {
+      $query->condition('field_slack_user_name', $slackUserName, '<>');
+
+    }
     $playerNids = $query->execute();
     if ($playerNids) {
       $players = Node::loadMultiple($playerNids);
@@ -125,6 +130,30 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
   }
 
   /**
+   * Removes the named item from the player's inventory.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player.
+   * @param string $targetItemName
+   *   The name of the item.
+   *
+   * @return bool
+   *   TRUE if the item was present and removed.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function takeItemFromPlayer(NodeInterface $player, $targetItemName) {
+    $invDelta = $this->playerHasItem($player, $targetItemName);
+    if ($invDelta) {
+      // Remove item from inventory whether it matches or not.
+      unset($player->field_inventory[$invDelta]);
+      $player->save();
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
    * Gives the named item to the specified player.
    *
    * @param \Drupal\node\NodeInterface $player
@@ -147,6 +176,99 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
       $id = reset($ids);
       // @TODO Handling max items for player.
       $player->field_inventory[] = ['target_id' => $id];
+      $player->save();
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Puts the named item in the specified location.
+   *
+   * @param \Drupal\node\NodeInterface $location
+   *   The location.
+   * @param string $itemName
+   *   The item to place.
+   *
+   * @return bool
+   *   TRUE if the item was placed.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function placeItemInLocation(NodeInterface $location, string $itemName) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'item')
+      ->condition('field_game.entity.title', 'kyrandia')
+      ->condition('title', $itemName);
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      // @TODO Handling max items for location.
+      $location->field_visible_items[] = ['target_id' => $id];
+      $location->save();
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * Does the specified target player exist in the specified location?
+   *
+   * @param string $target
+   *   Partial player display name to look for.
+   * @param \Drupal\node\NodeInterface $location
+   *   Location node.
+   * @param bool $excludeActingPlayer
+   *   TRUE if we should exclude the acting player.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The acting player, so we can exclude them if specified.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\node\Entity\Node|mixed|null
+   *   The targeted player.
+   */
+  protected function locationHasPlayer($target, NodeInterface $location, $excludeActingPlayer, NodeInterface $actingPlayer = NULL) {
+    if ($excludeActingPlayer) {
+      $slackUsername = $actingPlayer->field_slack_user_name->value;
+    }
+    else {
+      $slackUsername = NULL;
+    }
+    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $location);
+    foreach ($otherPlayers as $otherPlayer) {
+      $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
+      if (strpos($otherPlayerDisplayName, $target) === 0) {
+        // Other player's name starts with the string the user
+        // typed.
+        return $otherPlayer;
+      }
+    }
+    return NULL;
+  }
+
+
+  /**
+   * Moves a player to the specified location.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player being moved.
+   * @param string $locationName
+   *   The name of the new location.
+   *
+   * @return bool
+   *   TRUE if the move was successful (location exists).
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function movePlayer(NodeInterface $player, $locationName) {
+    $gameId = $player->field_game->target_id;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'location')
+      ->condition('field_game.target_id', $gameId)
+      ->condition('title', $locationName);
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $player->field_location = $id;
       $player->save();
       return TRUE;
     }

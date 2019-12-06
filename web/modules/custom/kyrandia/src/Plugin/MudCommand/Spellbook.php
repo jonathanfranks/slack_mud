@@ -4,7 +4,6 @@ namespace Drupal\kyrandia\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Spellbook command plugin implementation.
@@ -29,8 +28,12 @@ class Spellbook extends KyrandiaCommandPluginBase implements MudCommandPluginInt
         $result = t('You currently have no spells in your spellbook.');
       }
       else {
-        $spells = '';
-        $result = t('Your spellbook currently contains :spells', [':spells' => $spells]);
+        $spells = [];
+        foreach ($profile->field_kyrandia_spellbook as $spell) {
+          $spells[] = $spell->entity->getName();
+        }
+        $spellList = $this->wordGrammar->getWordList($spells);
+        $result = t('Your spellbook currently contains :spells.', [':spells' => $spellList]);
       }
     }
     return $result;

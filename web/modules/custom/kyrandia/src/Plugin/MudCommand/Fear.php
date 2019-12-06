@@ -4,7 +4,6 @@ namespace Drupal\kyrandia\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Fear command plugin implementation.

@@ -78,10 +78,10 @@ function kyrandia_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->bundle() == 'kyrandia_profile') {
     if ($entity->original) {
       if ($entity->original->field_kyrandia_level->target_id) {
-        $original_level_id = 0;
+        $original_level_id = $entity->original->field_kyrandia_level->target_id;
       }
       else {
-        $original_level_id = $entity->original->field_kyrandia_level->target_id;
+        $original_level_id = 0;
       }
     }
     else {

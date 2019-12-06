@@ -1,0 +1,8 @@
+id: kyrandia_messages
+label: 'Kyrandia Messages'
+description: 'Imports Kyrandia messages into the site.'
+source_type: 'MSG File'
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate

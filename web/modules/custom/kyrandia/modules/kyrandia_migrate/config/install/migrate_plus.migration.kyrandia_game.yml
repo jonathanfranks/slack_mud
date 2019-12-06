@@ -24,7 +24,7 @@ process:
     migration: kyrandia_locs
     source: "starting location"
 
-  field_plugin_identifer: "plugin id"
+  field_plugin_identifier: "plugin id"
 
   uid:
     plugin: default_value

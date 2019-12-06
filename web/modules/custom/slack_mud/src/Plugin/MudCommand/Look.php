@@ -5,7 +5,6 @@ namespace Drupal\slack_mud\Plugin\MudCommand;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Look command plugin implementation.

@@ -4,7 +4,6 @@ namespace Drupal\kyrandia\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Pray command plugin implementation.
@@ -33,6 +32,12 @@ class Pray extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     elseif ($loc->getTitle() == 'Location 7') {
       // In the temple.
       $result = "As you pray, a vision of the Goddess Tashanna appears in your mind, standing before you in a holy brilliance of light. She smiles and speaks softly to you: \"One of your many quests must be the realization of your astral origins; seek thy birthstones and prove thy knowledge.";
+    }
+    elseif ($loc->getTitle() == 'Location 27') {
+      // At the rock. Player only has to pray once for the mists to come.
+      $result = "Your prayers are heard.\n***\nThe mists around the rock begin to swirl magically!\n";
+      $game = $actingPlayer->field_game->entity;
+      $this->saveInstanceSetting($game, 'currentRockPrayCount', 1);
     }
     if (!$result) {
       $result = 'As you pray, a vision of the Goddess Tashanna appears in your mind, she smiles at you, and offers her blessings.';
