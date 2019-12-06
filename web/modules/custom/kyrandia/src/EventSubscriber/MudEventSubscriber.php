@@ -29,6 +29,8 @@ class MudEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\slack_mud\Event\LookAtPlayerEvent $event
    *   The LookAtPlayer event.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function onLookAtPlayer(LookAtPlayerEvent $event) {
     $targetPlayer = $event->getTargetPlayer();
