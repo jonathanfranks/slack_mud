@@ -217,4 +217,40 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
     $game->save();
   }
 
+  /**
+   * Removes the first item from the player's inventory.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function removeFirstItem(NodeInterface $actingPlayer) {
+    if (count($actingPlayer->field_inventory)) {
+      // Remove the player's first item.
+      $firstItemName = $actingPlayer->field_inventory[0]->entity->getTitle();
+      $this->takeItemFromPlayer($actingPlayer, $firstItemName);
+    }
+  }
+
+  /**
+   * Is the dragon in this location?
+   *
+   * @param \Drupal\node\NodeInterface $location
+   *   The location.
+   *
+   * @return bool
+   *   TRUE if the dragon is there.
+   */
+  protected function isDragonHere(NodeInterface $location) {
+    $dragonHere = FALSE;
+    foreach ($location->field_visible_items as $visible_item) {
+      if ($visible_item->entity->getTitle() == 'dragon') {
+        $dragonHere = TRUE;
+        break;
+      }
+    }
+    return $dragonHere;
+  }
+
 }

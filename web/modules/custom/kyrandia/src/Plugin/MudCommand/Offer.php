@@ -66,6 +66,32 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         }
       }
     }
+    elseif ($loc->getTitle() == 'Location 288') {
+      if ($profile->field_kyrandia_level->entity->getName() == 14) {
+        $words = explode(' ', $commandText);
+        if ($profile->field_kyrandia_married_to->entity) {
+          $results = [];
+          // We're looking for "offer heart to [spouse]".
+          $spouse = $profile->field_kyrandia_married_to->entity;
+          $spouseName = strtolower($spouse->field_display_name->value);
+          $heartPos = array_search('heart', $words);
+          $spousePos = array_search($spouseName, $words);
+          if ($heartPos !== FALSE && $spousePos !== FALSE && $heartPos < $spousePos) {
+            if ($this->advanceLevel($profile, 15)) {
+              $results[] = $this->getMessage('HEAR01');
+              if (!$this->giveItemToPlayer($actingPlayer, 'locket')) {
+                $results[] = $this->getMessage('HEAR03');
+                // Couldn't give - item limits?
+                $this->removeFirstItem($actingPlayer);
+                // Remove first item and give again.
+                $this->giveItemToPlayer($actingPlayer, 'locket');
+              }
+            }
+          }
+          $result = implode("\n", $results);
+        }
+      }
+    }
     if (!$result) {
       $result = "You can't do that here.";
     }

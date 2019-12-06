@@ -117,8 +117,3 @@ function kyrandia_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
     }
   }
 }
-
-function yy() {
-  $node = Node::load(1375);
-  kyrandia_node_insert($node);
-}
