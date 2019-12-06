@@ -57,14 +57,12 @@ class Buy extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
           $price = $values[$target];
           $playerGold = $profile->field_kyrandia_gold->value;
           if ($price > $playerGold) {
-            $result = "The shop keeper smirks at you and says, \"Sorry, but you're going to need more gold for THAT spell.\"";
+            $result = $this->getMessage('BUYM00');
           }
           else {
             // Add spell.
             if ($this->giveSpellToPlayer($actingPlayer, $target)) {
-              $result = "The shop keeper smiles, takes your gold, and says, \"Thank you!\".\n
-***\n
-He then waves his hands and a bright purplish globe of light envelops your spellbook for a moment!";
+              $result = $this->getMessage('BUYM02');
               // Subtract gold.
               $playerGold -= $price;
               $profile->field_kyrandia_gold = $playerGold;
@@ -77,16 +75,13 @@ He then waves his hands and a bright purplish globe of light envelops your spell
         }
         else {
           // Doesn't have it.
-          $result = 'The gem cutter says to you, "Thanks, but no thanks."';
+          $result = $this->getMessage('BUYM04');
         }
       }
     }
     if (!$result) {
-
       $result = 'Nothing happens.';
-
     }
-
     return $result;
   }
 

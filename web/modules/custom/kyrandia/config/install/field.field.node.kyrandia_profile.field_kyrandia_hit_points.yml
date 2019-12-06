@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_hit_points
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_hit_points
+field_name: field_kyrandia_hit_points
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia hit points'
+description: 'Player''s current hit points in Kyrandia game.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

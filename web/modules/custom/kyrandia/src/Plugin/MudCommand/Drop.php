@@ -105,12 +105,11 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
 
     // Player is dropping something in or into stump.
     $target = $this->getTargetItem($commandText);
-    $invDelta = $this->playerHasItem($actingPlayer, $target);
-    if ($invDelta === FALSE) {
+    $item = $this->playerHasItem($actingPlayer, $target, TRUE);
+    if ($item === FALSE) {
       $result = t("But you don't have one, you hallucinating fool!");
     }
     else {
-      $item = $actingPlayer->field_inventory[$invDelta]->entity;
       $itemTitle = $item->getTitle();
       $stumpStoneIndex = array_search($itemTitle, $stumpStones);
       if ($stumpStoneIndex === $currentStumpStone) {
@@ -118,15 +117,11 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         // level 5!
         if ($currentStumpStone == count($stumpStones) - 1 && $profile->field_kyrandia_level->entity->getName() == '5') {
           $this->advanceLevel($profile, 6);
-          $result = "As you drop the gem into the stump, a powerful surge of magical energy rushes through your entire body!
-***\n
-You are now at level 6!\n
-***\n
-A spell has been added to your spellbook!";
+          $result = $this->getMessage('BGEM00');
         }
         else {
           // Match! Set the stone index to the next one.
-          $result = "The gem drops smoothly into the endless depths of the stump. You feel a mysterious tingle down your spine, as though you have begun to unleash a powerful source of magic.";
+          $result = $this->getMessage('BGEM02');
           if ($currentStumpStone < count($stumpStones) - 1) {
             // If it's the last one but the user isn't level 5, just keep the
             // index where it is.
@@ -137,11 +132,8 @@ A spell has been added to your spellbook!";
         }
       }
       else {
-        $result = "It drops into the endless depths of the stump, but nothing seems to happen.";
+        $result = $this->getMessage('BGEM04');
       }
-      // Remove item from inventory whether it matches or not.
-      unset($actingPlayer->field_inventory[$invDelta]);
-      $actingPlayer->save();
     }
     return $result;
   }
@@ -179,14 +171,12 @@ A spell has been added to your spellbook!";
         $randomLocation = Node::load($id);
         if ($randomLocation) {
           $this->placeItemInLocation($randomLocation, 'scroll');
-          $result = "As you toss the pinecone into the fountain, a genie suddenly appears above the fountain and states: \"Thanks for you donation; a scroll has been delivered somewhere within the forest of Kyrandia as a sign of our thanks.\"\n
-***\n
-The genie then vanishes!";
+          $result = $this->getMessage('MAGF00');
         }
       }
     }
     else {
-      $result = "As you toss the pinecone into the fountain, a voice echoes all around, whispering in the wind: \"The fountain needs more to work its magic!\"";
+      $result = $this->getMessage('MAGF04');
     }
     $this->saveInstanceSetting($game, 'fountainPineconeCount', $fountainPineconeCount);
     return $result;
@@ -213,11 +203,11 @@ The genie then vanishes!";
       $shardCount = 0;
       // A shard is given to the acting player.
       if ($this->giveItemToPlayer($actingPlayer, 'amulet')) {
-        $result = "As you toss the shard into the fountain, a genie magically appears for a moment, hands you an amulet, and then vanishes!";
+        $result = $this->getMessage('MAGF05');
       }
     }
     else {
-      $result = "As you toss the shard into the fountain, a voice echoes all around, whispering in the wind: \"The fountain needs more to work its magic!\"";
+      $result = $this->getMessage('MAGF06');
     }
     $profile->field_kyrandia_shard_count = $shardCount;
     $profile->save();
@@ -255,7 +245,7 @@ The genie then vanishes!";
         }
         else {
           // Wasn't a pinecone or shard.
-          $result = "The fountain sparkles magically in acceptance of your gift!";
+          $result = $this->getMessage('MAGF02');
         }
       }
     }
@@ -286,14 +276,12 @@ The genie then vanishes!";
       if (strpos($commandText, 'dagger') !== FALSE) {
         if ($this->takeItemFromPlayer($actingPlayer, $target)) {
           if ($this->giveItemToPlayer($actingPlayer, 'sword')) {
-            $result = "As you toss the dagger into the pool, it vanishes in circles of ripples.\n
-***\n
-Suddenly, a beautiful sword rises from the water and levitates into your hands!\n";
+            $result = $this->getMessage('REFM00');
           }
         }
         else {
           // Player doesn't have a dagger.
-          $result = "Oh, surely thou jest!";
+          $result = $this->getMessage('REFM02');
         }
       }
     }

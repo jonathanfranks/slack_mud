@@ -41,7 +41,7 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $this->saveInstanceSetting($game, 'currentTempleChantCount', $currentTempleChantCount);
     }
     elseif ($commandText == 'chant opensesame' && $loc->getTitle() == 'Location 185') {
-      $result = "As you chant the words, the wall suddenly begins to glow with a shimmering, golden hue!";
+      $result = $this->getMessage('WALM03');
       $profile->field_kyrandia_open_sesame = TRUE;
       $profile->save();
     }

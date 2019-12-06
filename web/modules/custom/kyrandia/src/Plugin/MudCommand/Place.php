@@ -83,27 +83,17 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $tiaraPos = array_search('tiara', $words);
       $altarPos = array_search('altar', $words);
       if ($charmPos !== FALSE && $charmPos < $altarPos && $profile->field_kyrandia_level->entity->getName() == 8) {
-        $charmDelta = $this->playerHasItem($actingPlayer, 'charm');
-        if ($charmDelta !== FALSE) {
-          $result = "Tashanna accepts your offer!\n
-***\n
-You are now at level 9!";
+        $charm = $this->playerHasItem($actingPlayer, 'charm', TRUE);
+        if ($charm) {
+          $result = $this->getMessage('LVL9M0');
           $this->advanceLevel($profile, 9);
-          // Remove item from inventory.
-          unset($actingPlayer->field_inventory[$charmDelta]);
-          $actingPlayer->save();
         }
       }
       elseif ($tiaraPos !== FALSE && $tiaraPos < $altarPos && $profile->field_kyrandia_level->entity->getName() == 9) {
-        $tiaraDelta = $this->playerHasItem($actingPlayer, 'tiara');
-        if ($tiaraDelta !== FALSE) {
-          $result = "Tashanna graciously accepts your gift.\n
-***\n
-You are now at level 10!";
+        $tiara = $this->playerHasItem($actingPlayer, 'tiara', TRUE);
+        if ($tiara) {
+          $result = $this->getMessage('LV10M0');
           $this->advanceLevel($profile, 10);
-          // Remove item from inventory.
-          unset($actingPlayer->field_inventory[$tiaraDelta]);
-          $actingPlayer->save();
         }
       }
       elseif ($altarPos >= 2) {
@@ -119,12 +109,9 @@ You are now at level 10!";
           '',
         ], $commandText);
         $commandText = trim($commandText);
-        $itemDelta = $this->playerHasItem($actingPlayer, $commandText);
+        $itemDelta = $this->playerHasItem($actingPlayer, $commandText, TRUE);
         if ($itemDelta !== FALSE) {
-          $result = "The Goddess Tashanna accepts your humble offer and gives you her eternal blessings!";
-          // Remove item from inventory.
-          unset($actingPlayer->field_inventory[$itemDelta]);
-          $actingPlayer->save();
+          $result = $this->getMessage('OFFER0');
         }
       }
     }
@@ -158,13 +145,11 @@ You are now at level 10!";
       if ($swordPos !== FALSE && $rockPos !== FALSE && $swordPos < $rockPos) {
         if ($this->takeItemFromPlayer($actingPlayer, 'sword')) {
           if ($this->giveItemToPlayer($actingPlayer, 'tiara')) {
-            $result = "The rock glows a bright purple in acceptance of your offering, and the sword vanishes!\n
-***\n
-A tiara suddenly appears in your hands!";
+            $result = $this->getMessage('ROCK00');
           }
         }
         else {
-          $result = "Hmmmmm, that's an interesting concept, but unfortunately, not an acceptable one.";
+          $result = $this->getMessage('ROCK02');
         }
       }
     }
@@ -200,7 +185,7 @@ A tiara suddenly appears in your hands!";
       if ($swordPos !== FALSE && $rockPos !== FALSE && $swordPos < $rockPos) {
         if ($this->takeItemFromPlayer($actingPlayer, 'key')) {
           if ($this->movePlayer($actingPlayer, 'Location 186')) {
-            $result = "As you drop the key into the crevice, a flash of golden light engulfs you, and you feel yourself being magically transported through space...\n";
+            $result = $this->getMessage('WALM00');
           }
           // The result is LOOKing at the new location.
           $mudEvent = new CommandEvent($actingPlayer, 'look');
@@ -210,7 +195,7 @@ A tiara suddenly appears in your hands!";
       }
     }
     if (!$result) {
-      $result = "For some reason, nothing happens at all!";
+      $result = $this->getMessage('WALM01');
     }
     return $result;
   }
@@ -257,13 +242,10 @@ A tiara suddenly appears in your hands!";
             ];
             $prize = $prizes[array_rand($prizes)];
             $this->giveItemToPlayer($actingPlayer, $prize);
-            $result = t("You drop the garnet in the slot, and the machine starts to hum and spin...\n***\nSuddenly a voice booms: \"WE HAVE A WIIIIIIINNNNNNERRRR!\"\nSuddenly, :article :prize appears in your hands!", [
-              ':article' => $this->wordGrammar->getIndefiniteArticle($prize),
-              ':prize' => $prize,
-            ]);
+            $result = $this->getMessage('SLOT00') . "\n" . sprintf($this->getMessage('SLOT02'), $this->wordGrammar->getIndefiniteArticle($prize) . ' ' . $prize);
           }
           else {
-            $result = "You drop the garnet in the slot, and the machine starts to hum and spin...\n***\nSuddenly a voice booms:  \"WE HAVE A LOOOOOSSSSEEEEERRRRR!\"";
+            $result = $this->getMessage('SLOT03');
           }
         }
       }
@@ -298,7 +280,7 @@ A tiara suddenly appears in your hands!";
       $profile = $this->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName == '7' && $this->takeItemFromPlayer($actingPlayer, 'dagger')) {
         if ($this->advanceLevel($profile, '8')) {
-          $result = "The orb accepts your offer, and glows brightly for a moment!\n***\nYou are now at level 8!";
+          $result = $this->getMessage('MISM04');
         }
       }
     }

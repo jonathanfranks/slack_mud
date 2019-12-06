@@ -47,12 +47,10 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           $randomSpellKey = array_rand($spells);
           $spell = $spells[$randomSpellKey];
           $this->giveSpellToPlayer($actingPlayer, $spell);
-          $result = "As you touch the scepter to the orb of light, it vanishes in a flash!\n
-***\n
-A spell has been added to your spellbook!";
+          $result = $this->getMessage('DRUID0');
         }
         else {
-          $result = "Unfortunately, you don't have a scepter!";
+          $result = $this->getMessage('DRUID2');
         }
       }
     }
@@ -94,7 +92,7 @@ A spell has been added to your spellbook!";
         $id = reset($ids);
         $actingPlayer->field_location = $id;
         $actingPlayer->save();
-        $result = "As you touch the orb, you are suddenly pulled through a magical portal...\n";
+        $result = $this->getMessage('MISM00') . "\n";
 
         // The result is LOOKing at the new location.
         $mudEvent = new CommandEvent($actingPlayer, 'look');

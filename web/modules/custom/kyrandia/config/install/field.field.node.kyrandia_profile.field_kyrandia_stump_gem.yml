@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_stump_gem
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_stump_gem
+field_name: field_kyrandia_stump_gem
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia stump gem'
+description: "Current index of player's stump gem for dropping into the stump for level 6. Gems must be inserted in order: 0) ruby      1) emerald     2) garnet\r\n                   3) pearl     4) aquamarine  5) moonstone\r\n                   6) sapphire  7) diamond     8) amethyst\r\n                  9) onyx     10) opal       11) bloodstone"
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

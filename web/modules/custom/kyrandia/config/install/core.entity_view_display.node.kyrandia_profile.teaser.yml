@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.kyrandia_profile
+  module:
+    - user
+id: node.kyrandia_profile.teaser
+targetEntityType: node
+bundle: kyrandia_profile
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

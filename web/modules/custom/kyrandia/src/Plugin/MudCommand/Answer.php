@@ -21,7 +21,6 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 285') {

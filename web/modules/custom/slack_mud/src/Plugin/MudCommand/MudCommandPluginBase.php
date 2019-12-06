@@ -2,11 +2,9 @@
 
 namespace Drupal\slack_mud\Plugin\MudCommand;
 
-use Drupal\a_or_an\Service\IndefiniteArticleInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Drupal\word_grammar\Service\WordGrammarInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -29,7 +27,7 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
   /**
    * Indefinite article generator.
    *
-   * @var \Drupal\a_or_an\Service\IndefiniteArticleInterface
+   * @var \Drupal\word_grammar\Service\WordGrammarInterface
    */
   protected $wordGrammar;
 
@@ -114,16 +112,24 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    *   The player whose inventory we are checking.
    * @param string $targetItemName
    *   The item we're checking for.
+   * @param bool $removeItem
+   *   If TRUE, remove the item from the player's inventory when found.
    *
-   * @return bool|int
-   *   FALSE if the player doesn't the item, otherwise the delta of the item in
+   * @return \Drupal\node\NodeInterface|bool
+   *   FALSE if the player doesn't the item, otherwise the item in
    *   the player's inventory field.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function playerHasItem(NodeInterface $player, $targetItemName) {
+  protected function playerHasItem(NodeInterface $player, $targetItemName, $removeItem = FALSE) {
     foreach ($player->field_inventory as $delta => $item) {
       $itemName = strtolower(trim($item->entity->getTitle()));
       if (strpos($itemName, $targetItemName) === 0) {
-        return $delta;
+        if ($removeItem) {
+          unset($player->field_inventory[$delta]);
+          $player->save();
+        }
+        return $item->entity;
       }
     }
     return FALSE;
@@ -143,14 +149,7 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function takeItemFromPlayer(NodeInterface $player, $targetItemName) {
-    $invDelta = $this->playerHasItem($player, $targetItemName);
-    if ($invDelta) {
-      // Remove item from inventory whether it matches or not.
-      unset($player->field_inventory[$invDelta]);
-      $player->save();
-      return TRUE;
-    }
-    return FALSE;
+    return $this->playerHasItem($player, $targetItemName, TRUE);
   }
 
   /**
@@ -245,7 +244,6 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     return NULL;
   }
 
-
   /**
    * Moves a player to the specified location.
    *
@@ -293,6 +291,41 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     }
     $results = $this->wordGrammar->getWordList($inv);
     return $results;
+  }
+
+  /**
+   * Gets the item targetted in the command in the specified location.
+   *
+   * @param \Drupal\node\NodeInterface $location
+   *   The location.
+   * @param string $commandText
+   *   The command text.
+   * @param bool $removeItem
+   *   If TRUE, remove the item from the location when found.
+   *
+   * @return \Drupal\node\NodeInterface|null
+   *   The item if found, otherwise NULL.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function locationHasItem(NodeInterface $location, $commandText, $removeItem = FALSE) {
+    $words = explode(' ', $commandText);
+    foreach ($location->field_visible_items as $delta => $item) {
+      // Item names have to be exact matches.
+      // Assume first word is always the verb.
+      $verb = array_shift($words);
+      // Any of the other words could target an item in the room.
+      $itemName = strtolower(trim($item->entity->getTitle()));
+      if (in_array($itemName, $words)) {
+        // We have an exact match on the name. Use this item.
+        if ($removeItem) {
+          unset($location->field_visible_items[$delta]);
+          $location->save();
+        }
+        return $item->entity;
+      }
+    }
+    return NULL;
   }
 
 }

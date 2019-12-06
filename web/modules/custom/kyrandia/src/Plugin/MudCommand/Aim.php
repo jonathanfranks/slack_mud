@@ -21,7 +21,6 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 201') {
@@ -62,7 +61,7 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       }
     }
     if (!$result) {
-      $result = "For some reason, nothing happens at all!";
+      $result = $this->getMessage('WALM01');
     }
     return $result;
   }

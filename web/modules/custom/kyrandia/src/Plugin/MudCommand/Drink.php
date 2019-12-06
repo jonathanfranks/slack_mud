@@ -21,7 +21,6 @@ class Drink extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->getKyrandiaProfile($actingPlayer);
@@ -39,7 +38,7 @@ class Drink extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       ];
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
-        $result = "The fresh water is very delicious and refreshing!";
+        $result = $this->getMessage('DRINK0');
       }
     }
     if (!$result) {

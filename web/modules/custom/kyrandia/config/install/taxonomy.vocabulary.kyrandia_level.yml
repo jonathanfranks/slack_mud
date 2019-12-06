@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Kyrandia level'
+vid: kyrandia_level
+description: 'Levels and character descriptions for Kyrandia game.'
+weight: 0

@@ -172,6 +172,34 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
   }
 
   /**
+   * Heals the target player.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   Player to heal.
+   * @param int $heal
+   *   Amount of health to apply.
+   *
+   * @return int
+   *   The player's current hit points after healing.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function healPlayer(NodeInterface $player, $heal) {
+    $profile = $this->getKyrandiaProfile($player);
+    $currentHits = $profile->field_kyrandia_hit_points->value;
+    $maxHits = $profile->field_kyrandia_max_hit_points->value;
+    if ($currentHits + $heal <= $maxHits) {
+      $currentHits += $heal;
+    }
+    else {
+      $currentHits = $maxHits;
+    }
+    $profile->field_kyrandia_hit_points = $currentHits;
+    $profile->save();
+    return $currentHits;
+  }
+
+  /**
    * Gets the value of the specified instance setting.
    *
    * @param \Drupal\node\NodeInterface $game

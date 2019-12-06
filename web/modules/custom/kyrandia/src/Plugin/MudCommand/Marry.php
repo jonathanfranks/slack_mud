@@ -49,13 +49,13 @@ class Marry extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
             $otherProfile = $this->getKyrandiaProfile($otherPlayer);
             $otherProfile->field_kyrandia_married_to = $actingPlayer;
             $otherProfile->save();
-            $result = t('You devote the rest of your mortal life in Kyrandia to :spouse.', [':spouse' => $otherPlayer->field_display_name->value]);
+            $result = sprintf($this->getMessage('MARRY4'), $otherPlayer->field_display_name->value);
           }
         }
       }
       else {
         // Player isn't here.
-        $result = "Feeling somewhat lonely, huh?  Sorry, that person isn't around...";
+        $result = $this->getMessage('MARRY7');
       }
     }
     if (!$result) {

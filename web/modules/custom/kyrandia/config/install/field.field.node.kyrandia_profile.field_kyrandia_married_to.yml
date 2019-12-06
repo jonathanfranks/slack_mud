@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_married_to
+    - node.type.kyrandia_profile
+    - node.type.player
+id: node.kyrandia_profile.field_kyrandia_married_to
+field_name: field_kyrandia_married_to
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia married to'
+description: 'Player this player is married to in Kyrandia.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      player: player
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

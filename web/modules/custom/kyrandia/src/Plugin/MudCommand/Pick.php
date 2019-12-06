@@ -21,7 +21,6 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->getKyrandiaProfile($actingPlayer);
@@ -107,14 +106,14 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $chance = rand(0, 100);
       if ($chance < 40) {
         if ($this->giveItemToPlayer($actingPlayer, 'pinecone')) {
-          $result = "You successfully grab one of the pinecones!";
+          $result = $this->getMessage('PINEC0');
         }
         else {
-          $result = "You miss!";
+          $result = $this->getMessage('PINEC2');
         }
       }
       else {
-        $result = "You miss!";
+        $result = $this->getMessage('PINEC2');
       }
     }
     return $result;
@@ -146,16 +145,14 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $chance = rand(0, 100);
       if ($chance < 20) {
         if ($this->giveItemToPlayer($actingPlayer, 'ruby')) {
-          $result = "You successfully grab one of the rubies!";
+          $result = $this->getMessage('RUBY00');
         }
       }
       if (!$result) {
         $result = $this->damagePlayer($actingPlayer, 8);
         if (!$result) {
           // Damage didn't kill the player.
-          $result = "You fail to grab a ruby.\n
-**\n
-A snake lunges out from the tree and bites for you for 8 points of damage!";
+          $result = $this->getMessage('RUBY02');
         }
       }
     }
@@ -185,10 +182,10 @@ A snake lunges out from the tree and bites for you for 8 points of damage!";
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
       if ($this->giveItemToPlayer($actingPlayer, 'tulip')) {
-        $result = "You pick a beautiful silver tulip!";
+        $result = $this->getMessage('TULM00');
       }
       else {
-        $result = "You can't seem to grab one.";
+        $result = $this->getMessage('TULM02');
       }
     }
     return $result;

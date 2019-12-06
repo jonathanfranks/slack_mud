@@ -21,7 +21,6 @@ class Devote extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 295') {
@@ -35,6 +34,7 @@ class Devote extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
         if ($hasBroach && $hasPendant && $hasLocket && $hasRing) {
           $this->advanceLevel($profile, 17);
           $result = $this->getMessage('DEVM01');
+          // Remove broach, pendant, locket, and ring.
           $this->takeItemFromPlayer($actingPlayer, 'broach');
           $this->takeItemFromPlayer($actingPlayer, 'pendant');
           $this->takeItemFromPlayer($actingPlayer, 'locket');

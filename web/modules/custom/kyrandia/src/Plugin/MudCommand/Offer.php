@@ -142,19 +142,14 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
               // This was the last birthstone! The player advances to level 4.
               $level_ids = $this->advanceLevel($profile, 4);
 
-              $result = "
-As you offer your fourth birthstone to the Goddess Tashanna, you feel a powerful surge of magical energy course through your body!\n
-***\n
-You are now at level 4!\n
-***\n
-A spell has been added to your spellbook!";
+              $result = $this->getMessage('SILVM0');
             }
             else {
-              $result = "The Goddess Tashanna accepts the offer of your birthstone! You feel the urge to complete the offering with the rest of your birthstones.";
+              $result = $this->getMessage('SILVM2');
             }
           }
           else {
-            $result = "The Goddess accepts your offer, but in your soul you realize that your offering was not one of your birthstones, or was out of sequence.";
+            $result = $this->getMessage('SILVM4');
           }
           $foundSomething = TRUE;
           break;
@@ -208,11 +203,7 @@ A spell has been added to your spellbook!";
     $indexSoul = array_search('soul', $words);
     $indexTashanna = array_search('tashanna', $words);
     if ($indexHeart < $indexSoul && $indexSoul < $indexTashanna) {
-      $result = "As you offer your heart and soul, the most precious jewels of your life, you feel the hand of the Goddess Tashanna bless you with power.\n
-***\n
-You are now at level 7!\n
-***\n
-A spell has been added to your spellbook!";
+      $result = $this->getMessage('HNSYOU');
       $this->advanceLevel($profile, 7);
     }
     return $result;
@@ -241,16 +232,14 @@ A spell has been added to your spellbook!";
           if ($offeringGold > 0) {
             $playerGold = $profile->field_kyrandia_gold->value;
             if ($playerGold >= $offeringGold) {
-              $result = "As you make you offering, a flash of lightning streaks from the sky and strikes your offered gold, disintegrating it!\n
-***\n
-The Goddess Tashanna appears to you and graciously thanks you for your wonderful sacrifice.";
+              $result = $this->getMessage('NOGTCR');
               $playerGold = $playerGold - $offeringGold;
               $profile->field_kyrandia_gold = $playerGold;
               $profile->save();
             }
             else {
               // Player doesn't have enough.
-              $result = "Unfortunately, you do not have that in gold. Best beware of making false offers to the gods!";
+              $result = $this->getMessage('CHEAPO');
             }
           }
         }
@@ -260,11 +249,18 @@ The Goddess Tashanna appears to you and graciously thanks you for your wonderful
   }
 
   /**
-   * @param $commandText
+   * Offering at the healer.
+   *
+   * @param string $commandText
+   *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
    * @param \Drupal\node\NodeInterface $profile
+   *   The player's Kyrandia profile.
    *
    * @return string
+   *   The result.
+   *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function healer($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
@@ -272,28 +268,20 @@ The Goddess Tashanna appears to you and graciously thanks you for your wonderful
     $words = explode(' ', $commandText);
     if (count($words) > 1) {
       if ($words[1] == 'rose') {
-        $invDelta = $this->playerHasItem($actingPlayer, $words[1]);
-        if ($invDelta !== FALSE) {
-          $result = "The healer smiles at you and humbly accepts you beautiful offer. She then touches her palm to your forehead and utters a strange incantation.";
-          // Remove item from inventory.
-          unset($actingPlayer->field_inventory[$invDelta]);
-          $actingPlayer->save();
+        $item = $this->playerHasItem($actingPlayer, $words[1], TRUE);
+        if ($item) {
+          $result = $this->getMessage('TAKROS');
           // Healer adds 10 HP.
-          $healedHp = $profile->field_kyrandia_hit_points->value + 10;
-          if ($healedHp > $profile->field_kyrandia_max_hit_points->value) {
-            $healedHp = $profile->field_kyrandia_max_hit_points->value;
-          }
-          $profile->field_kyrandia_hit_points = $healedHp;
-          $profile->save();
+          $this->healPlayer($actingPlayer, 10);
         }
         else {
           // Player doesn't have a rose.
-          $result = "Unfortunately, you don't have a rose.  The healer smiles at you, but does nothing.";
+          $result = $this->getMessage('NOHAVE');
         }
       }
       else {
         // Player offered something else.
-        $result = "The healer denies your offer and tells you to be less materialistic; to appreciate and respect more of the beauty of nature.";
+        $result = $this->getMessage('NOGOOD');
       }
     }
     return $result;

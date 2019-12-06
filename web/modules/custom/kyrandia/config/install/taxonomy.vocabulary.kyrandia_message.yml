@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Kyrandia message'
+vid: kyrandia_message
+description: 'Messages displayed during various Kyrandia game events.'
+weight: 0

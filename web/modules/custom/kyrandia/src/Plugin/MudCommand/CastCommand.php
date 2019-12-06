@@ -49,13 +49,11 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     if ($this->playerHasSpell($actingPlayer, $spell)) {
       switch ($spell) {
         case 'zapher':
-          if ($loc->getTitle() == 'Location 213' && $target == 'tulip' && $this->playerHasItem($actingPlayer, 'tulip')) {
+          if ($loc->getTitle() == 'Location 213' && $target == 'tulip' && $this->playerHasItem($actingPlayer, 'tulip', TRUE)) {
             // Casting zapher at the tulip at the altar of sunshine gives player
             // a wand.
-            if ($this->takeItemFromPlayer($actingPlayer, 'tulip')) {
-              if ($this->giveItemToPlayer($actingPlayer, 'wand')) {
-                $result = $this->getMessage('SUNM00');
-              }
+            if ($this->giveItemToPlayer($actingPlayer, 'wand')) {
+              $result = $this->getMessage('SUNM00');
             }
           }
           break;

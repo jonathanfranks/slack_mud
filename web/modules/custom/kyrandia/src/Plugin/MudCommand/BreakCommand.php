@@ -21,7 +21,6 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 204') {
@@ -56,16 +55,16 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
       $profile = $this->getKyrandiaProfile($actingPlayer);
       if ($this->takeItemFromPlayer($actingPlayer, 'wand')) {
         if ($this->playerHasItem($actingPlayer, 'kyragem')) {
-          $result = "The wand breaks in two.";
+          $result = $this->getMessage('RABOM0');
         }
         else {
-          $result = "The wand breaks in two.\n***\nSuddenly, a the goddess Tashanna appears in holy beauty before you. She smiles kindly at you and places a legendary kyragem in your hands. \"Take care, fair one,\" she whispers to you before vanishing!";
+          $result = $this->getMessage('RABOM2');
           $this->giveItemToPlayer($actingPlayer, 'kyragem');
         }
       }
     }
     if (!$result) {
-      $result = "For some reason, nothing happens at all!";
+      $result = $this->getMessage('WALM01');
     }
     return $result;
   }

@@ -1,0 +1,201 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.kyrandia_profile.field_kyrandia_birth_stones
+    - field.field.node.kyrandia_profile.field_kyrandia_blessed
+    - field.field.node.kyrandia_profile.field_kyrandia_gold
+    - field.field.node.kyrandia_profile.field_kyrandia_hit_points
+    - field.field.node.kyrandia_profile.field_kyrandia_is_female
+    - field.field.node.kyrandia_profile.field_kyrandia_level
+    - field.field.node.kyrandia_profile.field_kyrandia_married_to
+    - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
+    - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_open_sesame
+    - field.field.node.kyrandia_profile.field_kyrandia_protection_other
+    - field.field.node.kyrandia_profile.field_kyrandia_shard_count
+    - field.field.node.kyrandia_profile.field_kyrandia_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_spellbook
+    - field.field.node.kyrandia_profile.field_kyrandia_stump_gem
+    - field.field.node.kyrandia_profile.field_player
+    - node.type.kyrandia_profile
+  module:
+    - path
+id: node.kyrandia_profile.default
+targetEntityType: node
+bundle: kyrandia_profile
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_kyrandia_birth_stones:
+    weight: 129
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_kyrandia_blessed:
+    weight: 133
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_kyrandia_gold:
+    weight: 132
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_hit_points:
+    weight: 124
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_is_female:
+    weight: 137
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_kyrandia_level:
+    weight: 123
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_kyrandia_married_to:
+    weight: 131
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_kyrandia_max_hit_points:
+    weight: 125
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_max_spell_points:
+    weight: 127
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_open_sesame:
+    weight: 135
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_kyrandia_protection_other:
+    weight: 136
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_shard_count:
+    weight: 134
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_spell_points:
+    weight: 126
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_spellbook:
+    weight: 128
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_kyrandia_stump_gem:
+    weight: 130
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_player:
+    weight: 122
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 120
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden: {  }

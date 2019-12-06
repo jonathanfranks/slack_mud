@@ -39,7 +39,7 @@ class Concentrate extends KyrandiaCommandPluginBase implements MudCommandPluginI
         // @TODO Handling max items for player.
         $actingPlayer->field_inventory[] = ['target_id' => $id];
         $actingPlayer->save();
-        $result = "As you concentrate upon the orb, it glows even brighter for a moment, and suddenly a charm appears in your hands!";
+        $result = $this->getMessage('MISM01');
       }
     }
     if (!$result) {

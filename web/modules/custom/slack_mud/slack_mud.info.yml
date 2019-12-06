@@ -5,3 +5,4 @@ core: 8.x
 package: Slack
 dependencies:
   - slack_incoming
+  - menu_ui

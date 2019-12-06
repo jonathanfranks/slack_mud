@@ -31,10 +31,7 @@ class Glory extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '2') {
         $this->advanceLevel($profile, 3);
-        $result = "
-As you praise the Goddess Tashanna, you feel yourself grow in power!\n
-***\n
-You are now at level 3!";
+        $result = $this->getMessage('LVL300');
       }
     }
     if (!$result) {

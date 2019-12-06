@@ -65,12 +65,12 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $digGold = rand(2, 102);
       $playerGold = $profile->field_kyrandia_gold->value;
       if ($digGold < 10 && $playerGold < 101) {
-        $result = t("You find :found pieces of gold in the brook!", [':found' => $digGold]);
+        $result = sprintf($this->getMessage('FNDGOL'), $digGold);
         $profile->field_kyrandia_gold->value += $digGold;
         $profile->save();
       }
       else {
-        $result = "You search the brook, but don't find anything this time.";
+        $result = $this->getMessage('NOFNDG');
       }
     }
     return $result;
@@ -101,12 +101,12 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $digGold = rand(0, 100);
       $playerGold = $profile->field_kyrandia_gold->value;
       if ($digGold < 10) {
-        $result = t("You dig through the sand and happen to find a piece of gold!");
+        $result = $this->getMessage('SANM00');
         $profile->field_kyrandia_gold->value += 1;
         $profile->save();
       }
       else {
-        $result = "You dig through the sand, but you find nothing of interest!";
+        $result = $this->getMessage('SANM02');
       }
     }
     return $result;

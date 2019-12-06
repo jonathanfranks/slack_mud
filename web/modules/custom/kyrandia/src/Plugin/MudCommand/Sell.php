@@ -48,35 +48,29 @@ class Sell extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       // We don't care about anything after word 1.
       if (count($words) > 1) {
         $target = $words[1];
-        $invDelta = $this->playerHasItem($actingPlayer, $target);
-        if ($invDelta !== FALSE) {
+        $item = $this->playerHasItem($actingPlayer, $target, FALSE);
+        if ($item) {
           // Player has item.
-          $item = $actingPlayer->field_inventory[$invDelta]->entity;
           if (array_key_exists($item->getTitle(), $values)) {
             // Gem is on the menu.
             $price = $values[$item->getTitle()];
-            $result = t("The gem cutter considers for a moment, takes your gem, and then gives you :gold pieces of gold.", [':gold' => $price]);
+            $result = sprintf($this->getMessage('TRDM00'), $price);
             $profile->field_kyrandia_gold->value += $price;
             $profile->save();
-
-            // Remove item from inventory.
-            unset($actingPlayer->field_inventory[$invDelta]);
-            $actingPlayer->save();
+            $this->takeItemFromPlayer($actingPlayer, $item->getTitle());
           }
           elseif ($item->getTitle() == 'kyragem') {
-            $result = 'The gem cutter looks sharply at you, and then suddenly smiles. He leans closer and says, "I bid you good luck, brave seeker of legends". He takes the kyragem and hands you a soulstone.';
-            // Remove item from inventory.
-            unset($actingPlayer->field_inventory[$invDelta]);
-            $actingPlayer->save();
+            $result = $this->getMessage('TRDM02');
+            $this->takeItemFromPlayer($actingPlayer, $item->getTitle());
             $this->giveItemToPlayer($actingPlayer, 'soulstone');
           }
           else {
             // Doesn't want it.
-            $result = 'The gem cutter says to you, "Thanks, but no thanks."';
+            $result = $this->getMessage('TRDM04');
           }
         }
         else {
-          $result = "Unfortunately, you don't have that at the moment.";
+          $result = $this->getMessage('TRDM05');
         }
       }
     }

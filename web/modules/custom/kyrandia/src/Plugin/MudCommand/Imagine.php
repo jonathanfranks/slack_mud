@@ -30,7 +30,7 @@ class Imagine extends KyrandiaCommandPluginBase implements MudCommandPluginInter
       // Imagining a dagger at the statue gives the player a dagger.
       $itemName = 'dagger';
       if ($this->giveItemToPlayer($actingPlayer, $itemName)) {
-        $result = "As you concentrate upon your wish, the Goddess Tashanna intervenes with her magic, and a dagger appears in your hands!";
+        $result = $this->getMessage('DAGM00');
       }
     }
     if (!$result) {

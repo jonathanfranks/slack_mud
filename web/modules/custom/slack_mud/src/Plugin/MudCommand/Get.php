@@ -4,7 +4,6 @@ namespace Drupal\slack_mud\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines Get command plugin implementation.
@@ -22,46 +21,39 @@ class Get extends MudCommandPluginBase implements MudCommandPluginInterface {
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = '';
-    // Now remove the GET and we'll see who or what they're taking.
-    $target = str_replace('get', '', $commandText);
-    $target = trim($target);
-
     $foundSomething = FALSE;
+    $result = '';
     $loc = $actingPlayer->field_location->entity;
-
-    foreach ($loc->field_visible_items as $delta => $item) {
-      $itemName = strtolower(trim($item->entity->getTitle()));
-      if (strpos($itemName, $target) === 0) {
-        // Item's name starts with the string the user typed.
-        // If the item is gettable, add item to player's inventory.
-        if ($item->entity->field_can_pick_up->value) {
-          $actingPlayer->field_inventory[] = ['target_id' => $item->entity->id()];
-          $actingPlayer->save();
-
-          // Remove item from location.
-          unset($loc->field_visible_items[$delta]);
-          $loc->save();
-
-          $result = 'You picked up the ' . $itemName;
-        }
-        else {
-          // Can't pick up - show its deny get message.
-          $result = $item->entity->field_deny_get_message->value;
-        }
+    $item = $this->locationHasItem($loc, $commandText, TRUE);
+    if ($item) {
+      if ($item->field_can_pick_up->value) {
+        $this->giveItemToPlayer($actingPlayer, $item->getTitle());
+        $result = 'You picked up the ' . $item->getTitle();
         $foundSomething = TRUE;
-        break;
+      }
+      else {
+        // Can't pick up - show its deny get message.
+        $result = $item->field_deny_get_message->value;
       }
     }
 
     if (!$foundSomething) {
-      $where = $loc->field_object_location->value;
-      $result = t("Sorry, there is no :target :where.",
-        [
-          ':target' => $target,
-          ':where' => $where,
-        ]
-      );
+      // Didn't find a matching object, so we'll construct an error sentence.
+      $words = explode(' ', $commandText);
+      // Assume that word 0 is 'get' and word 1 is the object.
+      if (count($words) > 1) {
+        $target = $words[1];
+        $where = $loc->field_object_location->value;
+        $result = t("Sorry, there is no :target :where.",
+          [
+            ':target' => $target,
+            ':where' => $where,
+          ]
+        );
+      }
+      else {
+        $result = t('What are you talking about?');
+      }
     }
     return $result;
   }

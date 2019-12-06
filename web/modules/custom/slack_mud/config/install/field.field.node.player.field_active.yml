@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_active
+    - node.type.player
+id: node.player.field_active
+field_name: field_active
+entity_type: node
+bundle: player
+label: Active
+description: 'Is this the user''s currently active game? A user may only have one active game, since the Bot only has one DM channel.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

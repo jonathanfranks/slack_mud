@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_default_items
+    - node.type.item
+    - node.type.location
+id: node.location.field_default_items
+field_name: field_default_items
+entity_type: node
+bundle: location
+label: 'Default items'
+description: 'Items that appear in this location when started or respawned.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      item: item
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

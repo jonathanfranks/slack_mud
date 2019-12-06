@@ -33,7 +33,7 @@ class Fear extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       if ($level->getName() == '4') {
         $this->advanceLevel($profile, 5);
 
-        $result = "As you boldly defy the evil, the Goddess Tashanna rewards you for your courage with more knowledge and power. You are now level 5!";
+        $result = $this->getMessage('FEAR01');
       }
     }
     if (!$result) {

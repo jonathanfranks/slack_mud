@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Kyrandia spell'
+vid: kyrandia_spell
+description: 'Spell in the Kyrandia game.'
+weight: 0
