@@ -1,0 +1,23 @@
+uuid: 76d4156b-0dd8-44ad-b980-43e4d3879f39
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_is_female
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_is_female
+field_name: field_kyrandia_is_female
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia is female'
+description: 'Is the player female? If you''re neither male nor female, I''m very sorry - this game is from 1988 and only supported the binary genders. This port does not yet support modern-day sensibilities.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

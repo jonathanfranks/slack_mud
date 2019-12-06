@@ -1,16 +1,15 @@
-uuid: 1736ac62-c689-4189-ada0-6cca2f1d3da6
+uuid: be0a9946-b8b9-478d-a9d6-fc0efc2742c1
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_stump_gem
-field_name: field_kyrandia_stump_gem
+id: node.field_kyrandia_married_to
+field_name: field_kyrandia_married_to
 entity_type: node
-type: integer
+type: entity_reference
 settings:
-  unsigned: false
-  size: normal
+  target_type: node
 module: core
 locked: false
 cardinality: 1

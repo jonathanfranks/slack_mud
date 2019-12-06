@@ -1,0 +1,8 @@
+uuid: fab0eabd-1450-42eb-b269-f42c54abafc9
+langcode: en
+status: true
+dependencies: {  }
+name: 'Kyrandia message'
+vid: kyrandia_message
+description: 'Messages displayed during various Kyrandia game events.'
+weight: 0

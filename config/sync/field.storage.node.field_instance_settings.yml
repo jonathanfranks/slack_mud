@@ -1,16 +1,15 @@
-uuid: 1736ac62-c689-4189-ada0-6cca2f1d3da6
+uuid: f26db1eb-75ca-4968-8d41-8e79a44f4699
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_stump_gem
-field_name: field_kyrandia_stump_gem
+id: node.field_instance_settings
+field_name: field_instance_settings
 entity_type: node
-type: integer
+type: string_long
 settings:
-  unsigned: false
-  size: normal
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

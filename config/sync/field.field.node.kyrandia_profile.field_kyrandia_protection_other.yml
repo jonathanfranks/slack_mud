@@ -1,0 +1,25 @@
+uuid: f1c78294-de11-4b53-a20b-03d0f32bf3cd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_protection_other
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_protection_other
+field_name: field_kyrandia_protection_other
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia protection other'
+description: 'Amount of "other" protection the player has.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

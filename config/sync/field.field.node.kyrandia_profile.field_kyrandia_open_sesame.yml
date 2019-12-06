@@ -1,0 +1,23 @@
+uuid: 3645063c-07b2-42ce-b00e-1b679346d872
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_open_sesame
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_open_sesame
+field_name: field_kyrandia_open_sesame
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia open sesame'
+description: 'Player can use the crevice in the alcove to transport. Activated by chanting opensesame in the alcove.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

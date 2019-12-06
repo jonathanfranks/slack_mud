@@ -1,0 +1,23 @@
+uuid: 55061007-540b-4377-b30d-6e15c9802554
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_blessed
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_blessed
+field_name: field_kyrandia_blessed
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia blessed'
+description: 'If the player is blessed, they can create a scroll at the fountain.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

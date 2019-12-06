@@ -1,11 +1,11 @@
-uuid: 1736ac62-c689-4189-ada0-6cca2f1d3da6
+uuid: b24092c2-d783-4e0e-9953-23177ba798c1
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_stump_gem
-field_name: field_kyrandia_stump_gem
+id: node.field_kyrandia_gold
+field_name: field_kyrandia_gold
 entity_type: node
 type: integer
 settings:

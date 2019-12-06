@@ -1,0 +1,13 @@
+uuid: 7b21d050-9f7e-44fb-87cd-de9e36c3f69c
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - kyrandia_migrate
+id: kyrandia_messages
+label: 'Kyrandia Messages'
+description: 'Imports Kyrandia messages into the site.'
+source_type: 'MSG File'
+module: null
+shared_configuration: null

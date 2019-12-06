@@ -1,0 +1,25 @@
+uuid: 9e25acd9-827a-43bd-9d12-5444d82e15cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_gold
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_gold
+field_name: field_kyrandia_gold
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia gold'
+description: 'Number of gold pieces held by player in Kyrandia.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

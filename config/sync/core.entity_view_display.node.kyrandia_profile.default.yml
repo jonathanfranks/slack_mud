@@ -4,10 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.kyrandia_profile.field_kyrandia_birth_stones
+    - field.field.node.kyrandia_profile.field_kyrandia_blessed
+    - field.field.node.kyrandia_profile.field_kyrandia_gold
     - field.field.node.kyrandia_profile.field_kyrandia_hit_points
+    - field.field.node.kyrandia_profile.field_kyrandia_is_female
     - field.field.node.kyrandia_profile.field_kyrandia_level
+    - field.field.node.kyrandia_profile.field_kyrandia_married_to
     - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
     - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_open_sesame
+    - field.field.node.kyrandia_profile.field_kyrandia_protection_other
+    - field.field.node.kyrandia_profile.field_kyrandia_shard_count
     - field.field.node.kyrandia_profile.field_kyrandia_spell_points
     - field.field.node.kyrandia_profile.field_kyrandia_spellbook
     - field.field.node.kyrandia_profile.field_kyrandia_stump_gem
@@ -28,6 +35,25 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_kyrandia_blessed:
+    weight: 113
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_kyrandia_gold:
+    weight: 112
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
   field_kyrandia_hit_points:
     weight: 104
     label: above
@@ -37,8 +63,26 @@ content:
     third_party_settings: {  }
     type: number_integer
     region: content
+  field_kyrandia_is_female:
+    weight: 117
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_kyrandia_level:
     weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_kyrandia_married_to:
+    weight: 111
     label: above
     settings:
       link: true
@@ -56,6 +100,34 @@ content:
     region: content
   field_kyrandia_max_spell_points:
     weight: 107
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_kyrandia_open_sesame:
+    weight: 115
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_kyrandia_protection_other:
+    weight: 116
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_kyrandia_shard_count:
+    weight: 114
     label: above
     settings:
       thousand_separator: ''
@@ -84,9 +156,10 @@ content:
     weight: 110
     label: above
     settings:
-      link: true
+      thousand_separator: ''
+      prefix_suffix: true
     third_party_settings: {  }
-    type: entity_reference_label
+    type: number_integer
     region: content
   field_player:
     weight: 102

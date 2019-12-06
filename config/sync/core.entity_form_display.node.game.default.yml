@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.game.body
+    - field.field.node.game.field_instance_settings
     - field.field.node.game.field_plugin_identifier
     - field.field.node.game.field_starting_location
     - node.type.game
@@ -30,6 +31,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_instance_settings:
+    weight: 124
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
   field_plugin_identifier:
     weight: 123
     settings:

@@ -4,10 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.kyrandia_profile.field_kyrandia_birth_stones
+    - field.field.node.kyrandia_profile.field_kyrandia_blessed
+    - field.field.node.kyrandia_profile.field_kyrandia_gold
     - field.field.node.kyrandia_profile.field_kyrandia_hit_points
+    - field.field.node.kyrandia_profile.field_kyrandia_is_female
     - field.field.node.kyrandia_profile.field_kyrandia_level
+    - field.field.node.kyrandia_profile.field_kyrandia_married_to
     - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
     - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_open_sesame
+    - field.field.node.kyrandia_profile.field_kyrandia_protection_other
+    - field.field.node.kyrandia_profile.field_kyrandia_shard_count
     - field.field.node.kyrandia_profile.field_kyrandia_spell_points
     - field.field.node.kyrandia_profile.field_kyrandia_spellbook
     - field.field.node.kyrandia_profile.field_kyrandia_stump_gem
@@ -35,6 +42,20 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
+  field_kyrandia_blessed:
+    weight: 133
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_kyrandia_gold:
+    weight: 132
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_kyrandia_hit_points:
     weight: 124
     settings:
@@ -42,8 +63,24 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_kyrandia_is_female:
+    weight: 137
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_kyrandia_level:
     weight: 123
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_kyrandia_married_to:
+    weight: 131
     settings:
       match_operator: CONTAINS
       size: 60
@@ -60,6 +97,27 @@ content:
     region: content
   field_kyrandia_max_spell_points:
     weight: 127
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_open_sesame:
+    weight: 135
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_kyrandia_protection_other:
+    weight: 136
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_shard_count:
+    weight: 134
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -84,11 +142,9 @@ content:
   field_kyrandia_stump_gem:
     weight: 130
     settings:
-      match_operator: CONTAINS
-      size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: number
     region: content
   field_player:
     weight: 122
