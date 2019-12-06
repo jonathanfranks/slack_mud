@@ -35,7 +35,19 @@ class MudEventSubscriber implements EventSubscriberInterface {
     $kyrandiaProfile = $this->getKyrandiaProfile($targetPlayer);
     if ($kyrandiaProfile) {
       $level = $kyrandiaProfile->field_kyrandia_level->entity;
-      $desc = $level->field_male_description->value;
+      $displayName = $targetPlayer->field_display_name->value;
+      $isFemale = $kyrandiaProfile->field_kyrandia_is_female->value;
+      $genderDescription = $isFemale ? $level->field_female_description->value : $level->field_male_description->value;
+      $desc = sprintf($genderDescription, $displayName);
+
+      // Use the inventory_other command to get the other player's items.
+      /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
+      $pluginManager = \Drupal::service('plugin.manager.mud_command');
+      /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
+      $plugin = $pluginManager->createInstance('inventory_other');
+      $descInv = ' ' . $plugin->perform('', $targetPlayer) . '.';
+
+      $desc .= $descInv;
       $event->setResponse(strip_tags($desc));
     }
   }

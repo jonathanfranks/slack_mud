@@ -72,10 +72,10 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
       if ($this->giveItemToPlayer($actingPlayer, 'rose')) {
-        $result = "You pick one of the beautiful, lavender roses and add it to your possessions!";
+        $result = $this->getMessage('GROSE1');
       }
       else {
-        $result = "You have too many possessions to grab one.";
+        $result = $this->getMessage('GROSE3');
       }
     }
     return $result;

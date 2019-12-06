@@ -144,7 +144,7 @@ You are now at level 10!";
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function strangeRock($commandText, NodeInterface $actingPlayer): string {
+  protected function strangeRock($commandText, NodeInterface $actingPlayer) {
     // At the strange rock.
     // It has to have been prayed at.
     $game = $actingPlayer->field_game->entity;

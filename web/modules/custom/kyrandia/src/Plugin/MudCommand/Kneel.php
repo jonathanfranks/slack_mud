@@ -31,14 +31,7 @@ class Kneel extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '1') {
         $this->advanceLevel($profile, 1);
-        $result = "
-As you kneel, a vision of the Goddess Tashanna materializes before you.\n
-She lays her hand gently upon your shoulder and says to you, \"Rise, rise, Magic-user!  Your first advancement has begun.\"\n
-She then vanishes, and you feel yourself grow in power!\n
-***\n
-You are now at level 2!\n
-***\n
-A spell has been added to your spellbook!";
+        $result = $this->getMessage("LVL200");
       }
     }
     if (!$result) {

@@ -72,7 +72,7 @@ class PlayerTargetEvent extends Event {
    * @return string
    *   The current response text.
    */
-  public function getResponse(): string {
+  public function getResponse() {
     return $this->response;
   }
 

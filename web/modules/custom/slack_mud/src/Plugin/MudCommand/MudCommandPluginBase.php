@@ -275,4 +275,24 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     return FALSE;
   }
 
+  /**
+   * Gets human-readable items a player is holding.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player whose items we're looking at.
+   *
+   * @return string
+   *   The human-readable stringified inventory.
+   */
+  protected function playerInventoryString(NodeInterface $player) {
+    $inv = [];
+    foreach ($player->field_inventory as $itemNid => $item) {
+      $itemTitle = $item->entity->getTitle();
+      $article = $this->wordGrammar->getIndefiniteArticle($itemTitle);
+      $inv[] = $article . ' ' . $itemTitle;
+    }
+    $results = $this->wordGrammar->getWordList($inv);
+    return $results;
+  }
+
 }

@@ -54,7 +54,7 @@ class SlackEvent extends Event {
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response.
    */
-  public function getResponse(): Response {
+  public function getResponse() {
     return $this->response;
   }
 

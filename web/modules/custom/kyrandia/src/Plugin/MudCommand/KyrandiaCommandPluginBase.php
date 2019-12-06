@@ -160,7 +160,7 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
     if ($currentHits - $damage <= 0) {
       // Kills player.
       // @TODO Handle player death.
-      $result = "Suddenly, everything goes black, and you feel yourself falling through a deep chasm. Strange colors flash in your mind and your ears are deafened with the sound of rolling thunder. After what seems like an eternity, you finally feel yourself floating gently to the ground, and your vision returns...";
+      $result = $this->getMessage('DIEMSG');
       return $result;
     }
     else {

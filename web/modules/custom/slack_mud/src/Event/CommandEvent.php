@@ -81,7 +81,7 @@ class CommandEvent extends Event {
    * @return string
    *   Command text entered in full, including targets or modifiers.
    */
-  public function getCommandString(): string {
+  public function getCommandString() {
     return $this->commandString;
   }
 
@@ -91,7 +91,7 @@ class CommandEvent extends Event {
    * @return string
    *   The current response text.
    */
-  public function getResponse(): string {
+  public function getResponse() {
     return $this->response;
   }
 
@@ -111,7 +111,7 @@ class CommandEvent extends Event {
    * @return bool
    *   TRUE if processed.
    */
-  public function isProcessed(): bool {
+  public function isProcessed() {
     return $this->processed;
   }
 
@@ -131,7 +131,7 @@ class CommandEvent extends Event {
    * @return bool
    *   TRUE if we should stop handling event.
    */
-  public function isStopPropagation(): bool {
+  public function isStopPropagation() {
     return $this->stopPropagation;
   }
 

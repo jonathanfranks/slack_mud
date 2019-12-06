@@ -57,7 +57,7 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $profile = $this->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '10' && $this->playerHasItem($actingPlayer, 'wand')) {
         if ($this->advanceLevel($profile, '11')) {
-          $result = "As you aim the wand at the crystal tree, there's a flash of silver light!\n***\nYou are now at level 11!";
+          $result = $this->getMessage('CTREM0');
         }
       }
     }

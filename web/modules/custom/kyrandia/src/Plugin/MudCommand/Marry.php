@@ -33,13 +33,13 @@ class Marry extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       if ($otherPlayer = $this->locationHasPlayer($target, $loc, FALSE, $actingPlayer)) {
         if ($otherPlayer->id() == $actingPlayer->id()) {
           // Can't marry self.
-          $result = "Trying to marry yourself, huh?  Sorry, we don't allow that sort of self pleasure in Kyrandia...";
+          $result = $this->getMessage('MARRY2');
         }
         else {
           if ($profile->field_kyrandia_married_to->target_id) {
             // Already married.
             $spouse = $profile->field_kyrandia_married_to->entity->field_display_name->value;
-            $result = t("What bigamy is this? You've already sworn your life to :spouse! Surely you have more dedication than that!", [':spouse' => $spouse]);
+            $result = sprintf($this->getMessage('MARRY0'), $spouse);
           }
           else {
             // Set acting spouse.

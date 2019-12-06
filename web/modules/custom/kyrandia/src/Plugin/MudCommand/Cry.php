@@ -36,14 +36,13 @@ class Cry extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       ];
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
-        $result = "As you cry your tears for the sorrow of the ash trees, they fall to the ground and magically transform into a beautiful crystal shard!";
+        $result = $this->getMessage('ASHM00');
         if ($this->placeItemInLocation($loc, 'shard')) {
         }
         else {
-          $result .= "\nUnfortunately, the shard vanishes a moment later!";
+          $result .= "\n" . $this->getMessage('ASHM02');
         }
       }
-
     }
     if (!$result) {
       $result = 'Nothing happens.';

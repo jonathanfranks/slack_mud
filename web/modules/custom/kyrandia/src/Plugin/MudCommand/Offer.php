@@ -231,7 +231,7 @@ A spell has been added to your spellbook!";
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function temple($commandText, NodeInterface $profile): string {
+  protected function temple($commandText, NodeInterface $profile) {
     if (strpos($commandText, 'gold') !== FALSE) {
       // Assume this is offer # gold.
       $words = explode(' ', $commandText);
@@ -267,7 +267,7 @@ The Goddess Tashanna appears to you and graciously thanks you for your wonderful
    * @return string
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function healer($commandText, NodeInterface $actingPlayer, NodeInterface $profile): string {
+  protected function healer($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
     // We only care about 'offer rose...'. So we'll check word 1.
     $words = explode(' ', $commandText);
     if (count($words) > 1) {
