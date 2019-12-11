@@ -1,0 +1,20 @@
+uuid: 7cb7458f-e11f-4478-a379-7ae140a0a3b2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_kyrandia_prot_lightning
+field_name: field_kyrandia_prot_lightning
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

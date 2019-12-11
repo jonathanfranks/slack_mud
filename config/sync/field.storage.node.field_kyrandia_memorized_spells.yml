@@ -1,0 +1,20 @@
+uuid: 1f028d08-d1c5-46a7-bf86-2fe47dc63f24
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_kyrandia_memorized_spells
+field_name: field_kyrandia_memorized_spells
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

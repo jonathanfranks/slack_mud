@@ -12,7 +12,9 @@ dependencies:
     - field.field.node.kyrandia_profile.field_kyrandia_married_to
     - field.field.node.kyrandia_profile.field_kyrandia_max_hit_points
     - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
+    - field.field.node.kyrandia_profile.field_kyrandia_memorized_spells
     - field.field.node.kyrandia_profile.field_kyrandia_open_sesame
+    - field.field.node.kyrandia_profile.field_kyrandia_prot_lightning
     - field.field.node.kyrandia_profile.field_kyrandia_protection_other
     - field.field.node.kyrandia_profile.field_kyrandia_shard_count
     - field.field.node.kyrandia_profile.field_kyrandia_spell_points
@@ -102,12 +104,28 @@ content:
     third_party_settings: {  }
     type: number
     region: content
+  field_kyrandia_memorized_spells:
+    weight: 138
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_kyrandia_open_sesame:
     weight: 135
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
+  field_kyrandia_prot_lightning:
+    weight: 139
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   field_kyrandia_protection_other:
     weight: 136

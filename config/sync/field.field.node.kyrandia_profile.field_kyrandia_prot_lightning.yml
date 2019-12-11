@@ -1,0 +1,25 @@
+uuid: f3f6618d-e996-48c3-bc9f-1c6319bd5732
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_prot_lightning
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_prot_lightning
+field_name: field_kyrandia_prot_lightning
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia protection lightning'
+description: 'The level of lightning protection charm this player has.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
