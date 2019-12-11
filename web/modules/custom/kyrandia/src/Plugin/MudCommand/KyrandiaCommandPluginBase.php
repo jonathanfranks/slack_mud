@@ -128,14 +128,43 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    * @param string $spellName
    *   The spell name.
    *
-   * @return bool
-   *   TRUE if the player has the spell in their spellbook.
+   * @return \Drupal\node\NodeInterface
+   *   The spell if the player has the spell in their spellbook or null.
    */
   protected function playerHasSpell(NodeInterface $player, $spellName) {
     $profile = $this->getKyrandiaProfile($player);
     foreach ($profile->field_kyrandia_spellbook as $spell) {
       if ($spell->entity->getName() == $spellName) {
-        return TRUE;
+        return $spell->entity;
+      }
+    }
+    return FALSE;
+  }
+
+  /**
+   * Checks if specified player has specified spell memorized.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player.
+   * @param string $spellName
+   *   The spell name.
+   * @param bool $removeSpell
+   *   If TRUE, remove the spell from the player's memorized spells when found.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The spell if the player has the spell memorized or null.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function playerMemorizedSpell(NodeInterface $player, $spellName, $removeSpell = FALSE) {
+    $profile = $this->getKyrandiaProfile($player);
+    foreach ($profile->field_kyrandia_memorized_spells as $delta => $spell) {
+      if ($spell->entity->getName() == $spellName) {
+        if ($removeSpell) {
+          unset($profile->field_kyrandia_memorized_spells[$delta]);
+          $profile->save();
+        }
+        return $spell->entity;
       }
     }
     return FALSE;
