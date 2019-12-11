@@ -119,7 +119,8 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
 
     $loc = $player->field_location->entity;
     $slackUsername = $player->field_slack_user_name->value;
-    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
+    // Allow players to look at themselves.
+    $otherPlayers = $this->otherPlayersInLocation(NULL, $loc);
     foreach ($otherPlayers as $otherPlayer) {
       $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
       if (strpos($otherPlayerDisplayName, $target) === 0) {

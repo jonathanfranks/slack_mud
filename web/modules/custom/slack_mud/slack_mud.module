@@ -49,11 +49,9 @@ function slack_mud_node_presave(EntityInterface $entity) {
   }
 }
 
-function xx() {
-  $messages = ['level', 'look', 'kneel', 'level'];
-
+function test_commands($messages, $playerNid) {
   $eventDispatcher = \Drupal::getContainer()->get('event_dispatcher');
-  $player = Drupal\node\Entity\Node::load(1375);
+  $player = Drupal\node\Entity\Node::load($playerNid);
   foreach($messages as $messageText) {
     print('>' . $messageText);
     print PHP_EOL;

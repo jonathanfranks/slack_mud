@@ -43,6 +43,8 @@ class MudEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\slack_mud\Event\CommandEvent $event
    *   The command event.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   public function onCommand(CommandEvent $event) {
     // If the event is set for stopPropagation, don't process it here.
@@ -84,6 +86,13 @@ class MudEventSubscriber implements EventSubscriberInterface {
         if (!$plugin) {
           if ($pluginManager->hasDefinition($verb)) {
             $plugin = $pluginManager->createInstance($verb);
+          }
+        }
+        if (!$plugin) {
+          // See if the game has a generic handler.
+          $pluginId = $pluginPrefix . '_generic_command_handler';
+          if ($pluginManager->hasDefinition($pluginId)) {
+            $plugin = $pluginManager->createInstance($pluginId);
           }
         }
         // Now that we've had another chance to load a plugin, see if we can
