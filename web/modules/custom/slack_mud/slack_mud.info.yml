@@ -6,3 +6,4 @@ package: Slack
 dependencies:
   - slack_incoming
   - menu_ui
+  - entity_reference_with_label

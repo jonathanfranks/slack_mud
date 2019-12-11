@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_deny_get_message
+    - node.type.item
+  module:
+    - text
+id: node.item.field_deny_get_message
+field_name: field_deny_get_message
+entity_type: node
+bundle: item
+label: 'Deny get message'
+description: 'Message sent to player when they try to pick up something that can''t be picked up.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
