@@ -228,6 +228,29 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             }
             return NULL;
 
+          case 'blowoutma':
+            $loc = $actingPlayer->field_location->entity;
+            if ($targetPlayer = $this->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $targetPlayerName = $targetPlayer->field_display_name->value;
+              $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+              $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
+              if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
+                count($targetPlayer->field_inventory) == 0) {
+                // Charmed or not carrying anything.
+                $result = $this->getMessage('SNW000');
+                return $result;
+              }
+              else {
+                // Vaporize target's entire inventory.
+                $targetPlayer->field_inventory = NULL;
+                $targetPlayer->save();
+                $hisHer = $targetProfile->field_kyrandia_is_female->value ? 'her' : 'his';
+                $result = sprintf($this->getMessage('SPM007'), $targetPlayerName, $hisHer);
+                return $result;
+              }
+            }
+            return NULL;
+
           case 'zapher':
             $result = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0');
             return $result;
