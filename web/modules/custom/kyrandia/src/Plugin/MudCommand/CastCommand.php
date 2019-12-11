@@ -18,6 +18,16 @@ use Drupal\slack_mud\MudCommandPluginInterface;
 class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginInterface {
 
   /**
+   * List of charms for protection.
+   *
+   * @var array
+   */
+  protected $protections = [
+    'LIGPRO' => 'field_kyrandia_prot_lightning',
+    'OBJPRO' => 'field_kyrandia_protection_other',
+  ];
+
+  /**
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
@@ -177,13 +187,47 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
       if ($spell[0] == $castingSpellName) {
         // The original game keys off of the 'splXXX' but we can check on the
         // spell name.
-        if (count($words) > 1) {
+        if (count($words) > 2) {
           $target = $words[2];
         }
         else {
           $target = NULL;
         }
+        $actingProfile = $this->getKyrandiaProfile($actingPlayer);
+        $playerLevel = intval($actingProfile->field_kyrandia_level->entity->getName());
         switch ($castingSpellName) {
+          case 'abbracada':
+            $this->charm($actingPlayer, 'OBJPRO', 8);
+            $result = $this->getMessage('SPM000');
+            return $result;
+
+          case 'allbettoo':
+            $this->healPlayer($actingPlayer, 4 * $playerLevel);
+            $result = $this->getMessage('SPM002');
+            return $result;
+
+          case 'blowitawa':
+            $loc = $actingPlayer->field_location->entity;
+            if ($targetPlayer = $this->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $targetPlayerName = $targetPlayer->field_display_name->value;
+              $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+              $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
+              if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
+                count($targetPlayer->field_inventory) == 0) {
+                // Charmed or not carrying anything.
+                $result = $this->getMessage('SNW000');
+                return $result;
+              }
+              else {
+                // Vaporize target's first held object.
+                $item0Name = $targetPlayer->field_inventory[0]->entity->getTitle();
+                $this->takeItemFromPlayer($targetPlayer, $item0Name);
+                $result = sprintf($this->getMessage('SPM004'), $targetPlayerName, $item0Name);
+                return $result;
+              }
+            }
+            return NULL;
+
           case 'zapher':
             $result = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0');
             return $result;
@@ -233,10 +277,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
       $targetProfile = $this->getKyrandiaProfile($targetPlayer);
 
       // Check if player is charmed with protection.
-      $protections = [
-        'LIGPRO' => 'field_kyrandia_prot_lightning',
-      ];
-      $protectionFieldName = array_key_exists($protectionType, $protections) ? $protections[$protectionType] : NULL;
+      $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
       if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
         $message = $msg . '0';
         $result = sprintf($this->getMessage($message), $targetPlayerName);
@@ -260,6 +301,27 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
       $result = "...Something is missing and the spell fails!";
     }
     return $result;
+  }
+
+  /**
+   * Adds protection charm to player.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player casting the charm spell.
+   * @param string $protectionType
+   *   The type of charm.
+   * @param int $protection
+   *   The amount of protection given by the charm.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function charm(NodeInterface $actingPlayer, string $protectionType, int $protection) {
+    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
+    if ($protectionFieldName) {
+      $profile->{$protectionFieldName}->value = $protection;
+      $profile->save();
+    }
   }
 
 }
