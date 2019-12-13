@@ -330,4 +330,21 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
     }
   }
 
+  /**
+   * Handles player doing something to a non-existent item.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param array $result
+   *   The result array.
+   */
+  protected function targetNonExistantItem(NodeInterface $actingPlayer, array &$result) {
+    $result[$actingPlayer->id()][] = $this->getMessage('OBJM09');
+    $location = $actingPlayer->field_location->entity;
+    $othersMessage = t(':actor is having wild dreams.', [
+      ':actor' => $actingPlayer->field_display_name->value,
+    ]);
+    $this->sendMessageToOthersInLocation($actingPlayer, $location, $othersMessage, $result);
+  }
+
 }
