@@ -10,7 +10,7 @@ define('KYRANDIA_SP_PER_LEVEL', 2);
  * Implements hook_ENTITY_TYPE_insert().
  */
 function kyrandia_node_insert(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player') {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player' && $entity->id()) {
     if ($entity->field_game->entity->getTitle() == 'Kyrandia') {
       // The user is playing Kyrandia, so set up a Kyrandia profile.
 
@@ -55,7 +55,7 @@ function kyrandia_node_insert(EntityInterface $entity) {
       $kyrandia_profile = Node::create([
         'type' => 'kyrandia_profile',
         'title' => 'kyrandia_profile' . '_' . $entity->field_slack_user_name->value,
-        'field_player' => $entity,
+        'field_player' => $entity->id(),
         'field_kyrandia_level' => ['target_id' => $level_id],
         'field_kyrandia_max_hit_points' => KYRANDIA_HP_PER_LEVEL,
         'field_kyrandia_hit_points' => KYRANDIA_HP_PER_LEVEL,
@@ -114,6 +114,25 @@ function kyrandia_node_presave(Drupal\Core\Entity\EntityInterface $entity) {
       $entity->field_kyrandia_hit_points->value = $newCurrentHP;
       $entity->field_kyrandia_max_spell_points->value = $newMaxSP;
       $entity->field_kyrandia_spell_points->value = $newCurrentSP;
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_delete().
+ */
+function kyrandia_node_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player' && $entity->id()) {
+    if ($entity->field_game->entity->getTitle() == 'Kyrandia') {
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'kyrandia_profile')
+        ->condition('field_player.target_id', $entity->id());
+      $ids = $query->execute();
+      if ($ids) {
+        $id = reset($ids);
+        $profile = Node::load($id);
+        $profile->delete();
+      }
     }
   }
 }
