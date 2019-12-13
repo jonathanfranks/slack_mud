@@ -79,24 +79,23 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
   /**
    * Returns other player nodes who are in the same location.
    *
-   * @param string|null $slackUserName
-   *   The current player's Slack username. If no slackUserName is specified,
-   *   return all the players in the location.
+   * @param \Drupal\node\NodeInterface|null $actingPlayer
+   *   The player looking in the room (to be excluded from list). If no player
+   *   is specified, return all the players in the location.
    * @param \Drupal\node\NodeInterface $location
    *   The location where the user is.
    *
    * @return array|\Drupal\Core\Entity\EntityInterface[]|\Drupal\node\Entity\Node[]
    *   An array of players who are also in the same location.
    */
-  protected function otherPlayersInLocation($slackUserName, NodeInterface $location) {
+  protected function otherPlayersInLocation(NodeInterface $actingPlayer, NodeInterface $location) {
     $players = [];
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'player')
       ->condition('field_location.target_id', $location->id())
       ->condition('field_active', TRUE);
-    if ($slackUserName) {
-      $query->condition('field_slack_user_name', $slackUserName, '<>');
-
+    if ($actingPlayer) {
+      $query->condition('nid', $actingPlayer->id(), '<>');
     }
     $playerNids = $query->execute();
     if ($playerNids) {
@@ -232,7 +231,7 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
     else {
       $slackUsername = NULL;
     }
-    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $location);
+    $otherPlayers = $this->otherPlayersInLocation($actingPlayer, $location);
     foreach ($otherPlayers as $otherPlayer) {
       $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
       if (strpos($otherPlayerDisplayName, $target) === 0) {

@@ -52,13 +52,19 @@ function slack_mud_node_presave(EntityInterface $entity) {
 function test_commands($messages, $playerNid) {
   $eventDispatcher = \Drupal::getContainer()->get('event_dispatcher');
   $player = Drupal\node\Entity\Node::load($playerNid);
-  foreach($messages as $messageText) {
+  foreach ($messages as $messageText) {
     print('>' . $messageText);
     print PHP_EOL;
     $mudEvent = new \Drupal\slack_mud\Event\CommandEvent($player, $messageText);
     $mudEvent = $eventDispatcher->dispatch(\Drupal\slack_mud\Event\CommandEvent::COMMAND_EVENT, $mudEvent);
-    $response = $mudEvent->getResponse();
-    print($response);
-    print PHP_EOL;
+    $responses = $mudEvent->getResponse();
+    $playersWhoGetMessagesNids = array_keys($responses);
+    $playersWhoGetMessages = Drupal\node\Entity\Node::loadMultiple($playersWhoGetMessagesNids);
+    foreach ($responses as $messagePlayerNid => $playerResponses) {
+      $displayName = $playersWhoGetMessages[$messagePlayerNid]->field_display_name->value;
+      foreach ($playerResponses as $playerResponse) {
+        print("[$displayName]: $playerResponse" . PHP_EOL);
+      }
+    }
   }
 }

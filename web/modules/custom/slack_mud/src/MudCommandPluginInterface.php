@@ -19,8 +19,19 @@ interface MudCommandPluginInterface extends PluginInspectionInterface, Container
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player performing the action.
    *
-   * @return string
-   *   The name of the plugin.
+   * @return array
+   *   Response array where the player node ID is the key and the value is an
+   *   array of the response messages to return to that player. Multiple players
+   *   may receive responses. Example:
+   *     [
+   *       1735 => [
+   *         'You do not see anything here.',
+   *         'You might be eaten by a grue.',
+   *       ],
+   *       18203 => [
+   *         'Jack is looking around.',
+   *       ],
+   *     ]
    */
   public function perform($commandText, NodeInterface $actingPlayer);
 

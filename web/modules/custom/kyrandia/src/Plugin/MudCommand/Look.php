@@ -2,7 +2,6 @@
 
 namespace Drupal\kyrandia\Plugin\MudCommand;
 
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
 
@@ -23,21 +22,21 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
     // Players drop things into the stump at Loc 18 to reach level 6.
-    $result = NULL;
+    $result = [];
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
     if (strpos($commandText, 'statue') !== FALSE && $loc->getTitle() == 'Location 181') {
-      $result = $this->statue();
+      $result[$actingPlayer->id()][] = $this->statue();
     }
     elseif (strpos($commandText, 'pool') !== FALSE && $loc->getTitle() == 'Location 182') {
-      $result = $this->reflectingPool();
+      $result[$actingPlayer->id()][] = $this->reflectingPool();
     }
     elseif (strpos($commandText, 'symbols') !== FALSE && $loc->getTitle() == 'Location 183') {
-      $result = $this->pantheonSymbols();
+      $result[$actingPlayer->id()][] = $this->pantheonSymbols();
     }
     elseif (strpos($commandText, 'pillars') !== FALSE && $loc->getTitle() == 'Location 183') {
-      $result = $this->pantheonSymbols();
+      $result[$actingPlayer->id()][] = $this->pantheonSymbols();
     }
     else {
       // Not a special look. Handle this like a regular look.
@@ -48,7 +47,7 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $result = $plugin->perform($commandText, $actingPlayer);
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }

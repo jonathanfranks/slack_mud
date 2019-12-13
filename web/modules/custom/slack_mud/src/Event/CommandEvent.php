@@ -22,9 +22,22 @@ class CommandEvent extends Event {
   protected $actingPlayer;
 
   /**
-   * The response of the action, in this case, the player's description.
+   * The response of the action and the target player.
    *
-   * @var string
+   * Response array where the player node ID is the key and the value is an
+   * array of the response messages to return to that player. Multiple players
+   * may receive responses. Example:
+   *   [
+   *     1735 => [
+   *       'You do not see anything here.',
+   *       'You might be eaten by a grue.',
+   *     ],
+   *     18203 => [
+   *       'Jack is looking around.',
+   *     ],
+   *   ]
+   *
+   * @var array
    */
   protected $response;
 
@@ -86,10 +99,10 @@ class CommandEvent extends Event {
   }
 
   /**
-   * Gets the current response text.
+   * Gets the current response array.
    *
-   * @return string
-   *   The current response text.
+   * @return array
+   *   The current response array.
    */
   public function getResponse() {
     return $this->response;
@@ -98,10 +111,10 @@ class CommandEvent extends Event {
   /**
    * Sets new response text.
    *
-   * @param string $response
-   *   New response text.
+   * @param array $response
+   *   New response array.
    */
-  public function setResponse(string $response) {
+  public function setResponse(array $response) {
     $this->response = $response;
   }
 

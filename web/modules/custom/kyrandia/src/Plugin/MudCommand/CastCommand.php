@@ -25,6 +25,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
   protected $protections = [
     'LIGPRO' => 'field_kyrandia_prot_lightning',
     'OBJPRO' => 'field_kyrandia_protection_other',
+    'FIRPRO' => 'field_kyrandia_protection_fire',
   ];
 
   /**
@@ -251,8 +252,45 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             }
             return NULL;
 
+          case 'bookworm':
+            $loc = $actingPlayer->field_location->entity;
+            if ($targetPlayer = $this->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $targetPlayerName = $targetPlayer->field_display_name->value;
+              $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+              $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
+              if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
+                $result = $this->getMessage('S05M00');
+                return $result;
+              }
+              else {
+                // Player needs a moonstone.
+                if ($this->playerHasItem($actingPlayer, 'moonstone', TRUE)) {
+                  $targetProfile->field_kyrandia_memorized_spells = NULL;
+                  $targetProfile->field_kyrandia_spellbook = NULL;
+                  $targetProfile->save();
+                  $result = sprintf($this->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
+                  return $result;
+                }
+                else {
+                  $result = $this->getMessage('MISS00');
+                  return $result;
+                }
+              }
+            }
+          case 'burnup':
+            $result = $this->getMessage('S06M00');
+            $loc = $actingPlayer->field_location->entity;
+            $slackUsername = $actingPlayer->field_slack_user_name->value;
+            $result = $this->masshitr($actingPlayer, 10, 'FIRPRO', 1, 'S66M0', 'MERCYU');
+            //S06M02,S06M03,S06M04,0,1)
+            //            $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
+            //            foreach ($otherPlayers as $otherPlayer) {
+            //              $target = $otherPlayer->field_display_name->value;
+            //            }
+            return $result;
+
           case 'zapher':
-            $result = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0');
+            $result = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0', 'MERCYA');
             return $result;
         }
       }
@@ -338,13 +376,39 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function charm(NodeInterface $actingPlayer, string $protectionType, int $protection) {
+  protected function charm(NodeInterface $actingPlayer, $protectionType, $protection) {
     $profile = $this->getKyrandiaProfile($actingPlayer);
     $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
     if ($protectionFieldName) {
       $profile->{$protectionFieldName}->value = $protection;
       $profile->save();
     }
+  }
+
+  /**
+   * Mass hit users.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player casting the spell.
+   * @param int $damage
+   *   The amount of damage.
+   * @param string $protectionType
+   *   The type of protection from this spell.
+   * @param string $hitMessage
+   *   The message for hit.
+   * @param string $otherMessage
+   *   The message for other players.
+   * @param string $protectedMessage
+   *   The message for protected players.
+   * @param bool $hitsSelf
+   *   TRUE if this spell damages the caster.
+   * @param int $mercyLevel
+   *   The level the target has to be to be affected by the spell at all
+   *   (mercy rule).
+   *
+   */
+  private function masshitr(NodeInterface $actingPlayer, $damage, $protectionType, $hitMessage, $otherMessage, $protectedMessage, $hitsSelf, $mercyLevel) {
+
   }
 
 }

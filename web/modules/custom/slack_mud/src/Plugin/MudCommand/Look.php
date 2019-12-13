@@ -22,12 +22,12 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     if ($commandText == 'look') {
       $result = $this->lookLocation($actingPlayer);
     }
     elseif (strpos($commandText, 'look ') !== FALSE) {
-      $result = $this->lookTarget($commandText, $actingPlayer);
+      $result[$actingPlayer->id()][] = $this->lookTarget($commandText, $actingPlayer);
     }
     return $result;
   }
@@ -35,64 +35,22 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
   /**
    * Looks in the current location.
    *
-   * @param \Drupal\node\NodeInterface $player
+   * @param \Drupal\node\NodeInterface $actingPlayer
    *   The current player node.
    *
-   * @return string
+   * @return array
    *   The response.
    */
-  protected function lookLocation(NodeInterface $player) {
-    $inv = [];
-    $loc = $player->field_location->entity;
-    $slackUsername = $player->field_slack_user_name->value;
-    $message = $loc->body->value;
-
-    $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
-    if ($otherPlayers) {
-      $here = '';
-      $playerNames = [];
-      if (count($otherPlayers) == 1) {
-        $here = ' is here.';
-      }
-      else {
-        $here = ' are here.';
-      }
-      foreach ($otherPlayers as $otherPlayer) {
-        $playerNames[] = $otherPlayer->field_display_name->value;
-      }
-      $otherPlayersMessage = implode(' and ', $playerNames) . $here;
-      $message .= "\n" . $otherPlayersMessage;
-    }
-
-    $visible_items = [];
-    foreach ($loc->field_visible_items as $visible_item) {
-      if ($visible_item->entity->field_visible->value) {
-        $itemTitle = $visible_item->entity->getTitle();
-        $article = $this->wordGrammar->getIndefiniteArticle($itemTitle);
-        $visible_items[] = $article . ' ' . $itemTitle;
-      }
-    }
-    $where = $loc->field_object_location->value;
-    $visible_items_text = $this->wordGrammar->getWordList($visible_items);
-
-    // Currently using "is" for any number.
-    switch (count($visible_items)) {
-      case 0:
-        $here = t('There is nothing :where.', [
-          ':where' => $where,
-        ]);
-        break;
-
-      default:
-        $here = t('There is :items :where.', [
-          ':items' => $visible_items_text,
-          ':where' => $where,
-        ]);
-    }
-    $message .= "\n" . $here;
-
-    $response = strip_tags($message);
-    return $response;
+  protected function lookLocation(NodeInterface $actingPlayer) {
+    $messages = [];
+    $loc = $actingPlayer->field_location->entity;
+    $messages[] = $loc->body->value;
+    $messages[] = $this->seeOtherPlayersInLocation($actingPlayer, $loc, $messages);
+    $messages[] = $this->seeItemsInLocation($loc);
+    $result = [
+      $actingPlayer->id() => $messages,
+    ];
+    return $result;
   }
 
   /**
@@ -163,6 +121,78 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
     }
     // Didn't find anything.
     return t("There's nothing like that here.");
+  }
+
+  /**
+   * Returns the description line for other players in the location.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player looking in the room (to be excluded from list).
+   * @param \Drupal\node\NodeInterface $loc
+   *   The location being looked at.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The line showing what other players are in the location.
+   */
+  protected function seeOtherPlayersInLocation(NodeInterface $actingPlayer, NodeInterface $loc) {
+    $message = NULL;
+    $otherPlayers = $this->otherPlayersInLocation($actingPlayer, $loc);
+    if ($otherPlayers) {
+      $playerNames = [];
+      if (count($otherPlayers) == 1) {
+        $verb = 'is';
+      }
+      else {
+        $verb = 'are';
+      }
+      foreach ($otherPlayers as $otherPlayer) {
+        $playerNames[] = $otherPlayer->field_display_name->value;
+      }
+      $playerNameList = $this->wordGrammar->getWordList($playerNames);
+      $message = t(':otherPlayers :verb here.', [
+        ':otherPlayers' => $playerNameList,
+        ':verb' => $verb,
+      ]);
+    }
+    return $message;
+  }
+
+  /**
+   * Returns the description line for items in the location.
+   *
+   * @param \Drupal\node\NodeInterface $loc
+   *   The location node being looked at.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup
+   *   The description line for items in this location.
+   */
+  protected function seeItemsInLocation(NodeInterface $loc) {
+    $visible_items = [];
+    foreach ($loc->field_visible_items as $visible_item) {
+      if ($visible_item->entity->field_visible->value) {
+        $itemTitle = $visible_item->entity->getTitle();
+        $article = $this->wordGrammar->getIndefiniteArticle($itemTitle);
+        $visible_items[] = $article . ' ' . $itemTitle;
+      }
+    }
+    $where = $loc->field_object_location->value;
+    $visible_items_text = $this->wordGrammar->getWordList($visible_items);
+
+    // Currently using "is" for any number.
+    switch (count($visible_items)) {
+      case 0:
+        $here = t('There is nothing :where.', [
+          ':where' => $where,
+        ]);
+        break;
+
+      default:
+        $here = t('There is :items :where.', [
+          ':items' => $visible_items_text,
+          ':where' => $where,
+        ]);
+    }
+    return $here;
   }
 
 }
