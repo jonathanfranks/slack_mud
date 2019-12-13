@@ -37,17 +37,44 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $result = $this->reflectingPool($commandText, $actingPlayer, $profile);
     }
     else {
-      // Not a special drop. Handle this like a regular drop.
-      /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
-      $pluginManager = \Drupal::service('plugin.manager.mud_command');
-      /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
-      $plugin = $pluginManager->createInstance('drop');
-      $result = $plugin->perform($commandText, $actingPlayer);
+      $words = explode(' ', $commandText);
+      if (count($words) > 1) {
+        // Player needs to drop something.
+        // Not a special drop. Handle this like a regular drop.
+        /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
+        $pluginManager = \Drupal::service('plugin.manager.mud_command');
+        /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
+        $plugin = $pluginManager->createInstance('drop');
+        $result = $plugin->perform($commandText, $actingPlayer);
+        // @TODO: Check max object locations for DROPIT1.
+        if (array_key_exists(':item', $result[$actingPlayer->id()][0]->getArguments())) {
+          // Player successfully dropped an item.
+          $droppedObjectArticle = $this->wordGrammar->getIndefiniteArticle($result[$actingPlayer->id()][0]->getArguments()[':item']);
+          $droppedObject = $droppedObjectArticle . ' ' . $result[$actingPlayer->id()][0]->getArguments()[':item'];
+          $dropLocation = $loc->field_object_location->value;
+          $othersMessage = sprintf($this->getMessage('DROPIT3'), $actingPlayer->field_display_name->value, $droppedObject, $dropLocation);
+        }
+        else {
+          // Player did not successfully drop an item.
+          // Here we override the stock drop message.
+          $result[$actingPlayer->id()][0] = $this->getMessage('DROPIT4');
+          $othersMessage = t(':actor is acting very oddly.', [
+            ':actor' => $actingPlayer->field_display_name->value,
+          ]);
+        }
+        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      }
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      // Usually this is because the player just typed "drop".
+      $result[$actingPlayer->id()][] = $this->getMessage('DROPIT5');
+      $othersMessage = t(':actor is looking a little queer!', [
+        ':actor' => $actingPlayer->field_display_name->value,
+      ]);
+      $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
     }
     return $result;
+
   }
 
   /**

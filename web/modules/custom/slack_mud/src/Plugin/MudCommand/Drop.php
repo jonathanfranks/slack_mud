@@ -24,6 +24,7 @@ class Drop extends MudCommandPluginBase implements MudCommandPluginInterface {
     // Now remove the DROP and we'll see who or what they're taking.
     $target = str_replace('drop', '', $commandText);
     $target = trim($target);
+    $article = $this->wordGrammar->getIndefiniteArticle($target);
 
     $loc = $actingPlayer->field_location->entity;
 
@@ -31,10 +32,13 @@ class Drop extends MudCommandPluginBase implements MudCommandPluginInterface {
     if ($item) {
       // Player has the item.
       $this->placeItemInLocation($loc, $item->getTitle());
-      $result = t('You dropped the :item.', [':item' => $item->getTitle()]);
+      $result[$actingPlayer->id()][] = t('You dropped the :item.', [':item' => $item->getTitle()]);
     }
     else {
-      $result = t("You don't have a :target.", [':target' => $target]);
+      $result[$actingPlayer->id()][] = t("You don't have :article :target.", [
+        ':article' => $article,
+        ':target' => $target,
+      ]);
     }
     return $result;
   }

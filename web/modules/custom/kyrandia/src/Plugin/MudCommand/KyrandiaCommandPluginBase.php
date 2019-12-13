@@ -310,4 +310,24 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
     return $dragonHere;
   }
 
+  /**
+   * Sends the specified message to each other player in the actor's location.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player performing the action.
+   * @param \Drupal\node\NodeInterface $loc
+   *   The player's current location (usually - this could be a remotely
+   *   targeted location).
+   * @param string $othersMessage
+   *   The message to show the players in the target location.
+   * @param array $result
+   *   The message results.
+   */
+  protected function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result) {
+    $otherPlayers = $this->otherPlayersInLocation($loc, $actingPlayer);
+    foreach ($otherPlayers as $otherPlayer) {
+      $result[$otherPlayer->id()][] = $othersMessage;
+    }
+  }
+
 }

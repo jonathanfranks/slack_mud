@@ -45,6 +45,13 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
       $plugin = $pluginManager->createInstance('look');
       $result = $plugin->perform($commandText, $actingPlayer);
+
+      // Tell the other players in the room that actor is looking around.
+      // This is in source in looker(), there's no message for this.
+      $othersMessage = t(':actor is carefully inspecting the surroundings.', [
+        ':actor' => $actingPlayer->field_display_name->value,
+      ]);
+      $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
     }
     if (!$result) {
       $result[$actingPlayer->id()][] = 'Nothing happens.';
