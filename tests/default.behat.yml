@@ -1,0 +1,23 @@
+default:
+  formatters:
+    progress: true
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - FailureContext
+      failure_path: '%paths.base%/failures'
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+      # Change the base_url in your copy of behat.yml
+      base_url: http://127.0.0.1
+      files_path: '%paths.base%/testfiles'
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: 'drupal'
+      drupal:
+        drupal_root: '/app/web'
+      drush:
+        root: '/app/web'
