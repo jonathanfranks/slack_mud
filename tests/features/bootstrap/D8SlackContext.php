@@ -3,6 +3,7 @@
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\slack_mud\Event\CommandEvent;
 
 /**
@@ -100,6 +101,56 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
       $playerNode = Node::load($id);
     }
     return $playerNode;
+  }
+
+  /**
+   * @Then :player should not have :item in inventory
+   */
+  public function shouldNotHaveInInventory($player, $item) {
+    $playerNode = $this->getPlayerByName($player);
+    if ($this->playerHasItem($playerNode, $item)) {
+      throw new \Exception(sprintf('Player %s has %s in inventory', $player, $item));
+    }
+  }
+
+  /**
+   * @Then :player should have :item in inventory
+   */
+  public function shouldHaveInInventory($player, $item) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$this->playerHasItem($playerNode, $item)) {
+      throw new \Exception(sprintf('Player %s does not have %s in inventory', $player, $item));
+    }
+  }
+
+  /**
+   * Checks if the player has the specified item.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   The player whose inventory we are checking.
+   * @param string $targetItemName
+   *   The item we're checking for.
+   * @param bool $removeItem
+   *   If TRUE, remove the item from the player's inventory when found.
+   *
+   * @return \Drupal\node\NodeInterface|bool
+   *   FALSE if the player doesn't the item, otherwise the item in
+   *   the player's inventory field.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function playerHasItem(NodeInterface $player, $targetItemName, $removeItem = FALSE) {
+    foreach ($player->field_inventory as $delta => $item) {
+      $itemName = strtolower(trim($item->entity->getTitle()));
+      if (strpos($itemName, $targetItemName) === 0) {
+        if ($removeItem) {
+          unset($player->field_inventory[$delta]);
+          $player->save();
+        }
+        return $item->entity;
+      }
+    }
+    return FALSE;
   }
 
 }
