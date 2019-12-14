@@ -8,12 +8,12 @@ Feature: Kyrandia commands not specific to locations
       | Joe   | kyrandia   | Location 0     | garnet,garnet   | 1            | Joe                | Joe                   |
       | Flo   | kyrandia   | Location 0     | ruby,diamond    | 1            | Flo                | Flo                   |
     And "Joe" should not have the spell "smokey"
-    And "Joe" should be level "1"
+    And "Joe" should be level 1
     When "Joe" performs "kneel"
     Then "Joe" should see '...As you kneel, a vision of the Goddess Tashanna materializes before you.\nShe lays her hand gently upon your shoulder and says to you, "Rise, rise,\nMagic-user!  Your first advancement has begun."  She then vanishes, and\nyou feel yourself grow in power!\n***\nYou are now at level 2!\n***\nA spell has been added to your spellbook!\n'
     And "Flo" should see "***\nJoe seems to suddenly grow in strength and knowledge!\n"
     And "Joe" should have the spell "smokey"
-    And "Joe" should be level "2"
+    And "Joe" should be level 2
 
   @level @kneel @level3
   Scenario: Level 3
@@ -27,11 +27,11 @@ Feature: Kyrandia commands not specific to locations
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
       | kyrandia_profile_Joe | Joe          | 0                        | 2                    |
 
-    And "Joe" should be level "2"
+    And "Joe" should be level 2
     When "Joe" performs "glory be to tashanna"
     Then "Joe" should see '...As you praise the Goddess Tashanna, you feel yourself grow in power!\n***\nYou are now at level 3!\n'
     And "Flo" should see "***\nJoe seems to suddenly grow in strength and knowledge!\n"
-    And "Joe" should be level "3"
+    And "Joe" should be level 3
 
   @level @kneel @level4 @silveraltar
   Scenario: Level 4
@@ -44,7 +44,7 @@ Feature: Kyrandia commands not specific to locations
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
       | kyrandia_profile_Joe | Joe          | 0                        | 3                    | garnet,pearl,bloodstone,diamond |
-    And Joe should be level "3"
+    And Joe should be level 3
 
     # Offer item player doesn't have.
     When Joe performs "offer key"
@@ -95,3 +95,109 @@ Feature: Kyrandia commands not specific to locations
     And Flo should see "***\nJoe seems to grow in strength and power!\n"
     And Joe should be level 4
     And "Joe" should have the spell "hotseat"
+
+  @level @kneel @level5 @deadwoodedglade
+  Scenario: Level 5
+    Given player content:
+      | title | field_game | field_location | field_inventory                                | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 16    | garnet,garnet,pearl,bloodstone,diamond,emerald | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 16    | ruby,diamond                                   | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 4                    | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 4
+    When Joe performs "fear no evil"
+    Then Joe should see "...As you boldly defy the evil, the Goddess Tashanna rewards you for your\ncourage with more knowledge and power.  You are now level 5!\n"
+    And Flo should see "***\nJoe has just gained in wisdom and courage.\n"
+    And Joe should be level 5
+
+  @level @kneel @level5 @stump
+  Scenario: Level 6
+    Given player content:
+      | title | field_game | field_location | field_inventory                                                                                          | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 18    | ruby,emerald,emerald,tulip,garnet,pearl,aquamarine,moonstone,sapphire,diamond,amethyst,onyx,opal,bloodstone | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 18    | ruby,diamond                                                                                             | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 5                    | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 5
+    # Drop an item player doesn't have.
+    When Joe performs "drop key in stump"
+    Then Joe should see "...But you don't have one, you hallucinating fool!\n"
+    And Flo should see "***\nJoe, who has apparently been smoking too many magic weeds, is having\nhallucinations with the stump!\n"
+    # Drop an item that isn't the next stone.
+    When Joe performs "drop tulip in stump"
+    Then Joe should see "...It drops into the endless depths of the stump, but nothing seems to\nhappen.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have tulip in inventory
+    # Drop the next stone.
+    When Joe performs "drop ruby in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have ruby in inventory
+    # Drop the next stone.
+    When Joe performs "drop emerald in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should have emerald in inventory
+    # Repeat this stone to check that it is rejected.
+    When Joe performs "drop emerald in stump"
+    Then Joe should see "...It drops into the endless depths of the stump, but nothing seems to\nhappen.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have emerald in inventory
+    # Drop the next stone.
+    When Joe performs "drop garnet in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have garnet in inventory
+    # Drop the next stone.
+    When Joe performs "drop pearl in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have pearl in inventory
+    # Drop the next stone.
+    When Joe performs "drop aquamarine in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have aquamarine in inventory
+    # Drop the next stone.
+    When Joe performs "drop moonstone in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have moonstone in inventory
+    # Drop the next stone.
+    When Joe performs "drop sapphire in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have sapphire in inventory
+    # Drop the next stone.
+    When Joe performs "drop diamond in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have diamond in inventory
+    # Drop the next stone.
+    When Joe performs "drop amethyst in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have amethyst in inventory
+    # Drop the next stone.
+    When Joe performs "drop onyx in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have onyx in inventory
+    # Drop the next stone.
+    When Joe performs "drop opal in stump"
+    Then Joe should see "...The gem drops smoothly into the endless depths of the stump.  You\nfeel a mysterious tingle down your spine, as though you have begun to\nunleash a powerful source of magic.\n"
+    And Flo should see "***\nJoe is dropping things in the stump.\n"
+    And Joe should not have opal in inventory
+    # Drop the next stone.
+    When Joe performs "drop bloodstone in stump"
+    Then Joe should see "...As you drop the gem into the stump, a powerful surge of magical energy\nrushes through your entire body!\n***\nYou are now at level 6!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe has just gained in power and knowledge!\n"
+    And Joe should not have bloodstone in inventory
+    And Joe should be level 6
+    And Joe should have the spell hotkiss
