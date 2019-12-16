@@ -115,12 +115,15 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '10' && $this->gameHandler->playerHasItem($actingPlayer, 'wand')) {
         if ($this->gameHandler->advanceLevel($profile, 11)) {
-          $result = $this->gameHandler->getMessage('CTREM0');
+          $loc = $actingPlayer->field_location->entity;
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('CTREM0');
+          $othersMessage = sprintf($this->gameHandler->getMessage('CTREM1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
         }
       }
     }
     if (!$result) {
-      $result = $this->gameHandler->getMessage('WALM01');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM01');
     }
     return $result;
   }
