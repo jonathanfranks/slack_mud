@@ -21,7 +21,7 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($commandText == 'chant tashanna' && $loc->getTitle() == 'Location 7') {
@@ -30,10 +30,15 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $currentTempleChantCount = $this->gameHandler->getInstanceSetting($game, 'currentTempleChantCount', 0);
       if ($currentTempleChantCount == 0) {
         // First time chanting.
-        $result = 'The altar begins to glow dimly.';
+        $result[$actingPlayer->id()][] = t('The altar begins to glow dimly.');
+        $othersMessage = t('The altar begins to glow dimly.');
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+
       }
       else {
-        $result = 'The altar begins to glow even brighter!';
+        $result[$actingPlayer->id()][] = t('The altar begins to glow even brighter!');
+        $othersMessage = t('The altar begins to glow even brighter!');
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
       if ($currentTempleChantCount < 5) {
         $currentTempleChantCount++;
@@ -46,7 +51,7 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $profile->save();
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }

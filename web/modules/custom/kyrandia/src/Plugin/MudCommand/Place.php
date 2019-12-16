@@ -66,9 +66,11 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function temple($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
+    $result = [];
     $words = explode(' ', $commandText);
     // Word 0 has to be 'place', otherwise we wouldn't be here.
     $game = $actingPlayer->field_game->entity;
+    $loc = $actingPlayer->field_location->entity;
     $instanceSettingsText = $game->field_instance_settings->value;
     $settings = json_decode($instanceSettingsText, TRUE);
     $currentTempleChantCount = 0;
@@ -85,14 +87,18 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       if ($charmPos !== FALSE && $charmPos < $altarPos && $profile->field_kyrandia_level->entity->getName() == 8) {
         $charm = $this->gameHandler->playerHasItem($actingPlayer, 'charm', TRUE);
         if ($charm) {
-          $result = $this->gameHandler->getMessage('LVL9M0');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LVL9M0');
+          $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           $this->gameHandler->advanceLevel($profile, 9);
         }
       }
       elseif ($tiaraPos !== FALSE && $tiaraPos < $altarPos && $profile->field_kyrandia_level->entity->getName() == 9) {
         $tiara = $this->gameHandler->playerHasItem($actingPlayer, 'tiara', TRUE);
         if ($tiara) {
-          $result = $this->gameHandler->getMessage('LV10M0');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LV10M0');
+          $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           $this->gameHandler->advanceLevel($profile, 10);
         }
       }

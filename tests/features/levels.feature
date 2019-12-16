@@ -242,18 +242,76 @@ Feature: Kyrandia commands not specific to locations
   Scenario: Level 9
     Given player content:
       | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
-      | Joe   | kyrandia   | Location 7   | dagger          | 1            | Joe                | Joe                   |
-      | Flo   | kyrandia   | Location 7   | ruby,diamond    | 1            | Flo                | Flo                   |
+      | Joe   | kyrandia   | Location 7     | dagger,charm    | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 7     | ruby,diamond    | 1            | Flo                | Flo                   |
 
     And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
       | kyrandia_profile_Joe | Joe          | 0                        | 8                    | garnet,pearl,bloodstone,diamond |
     And Joe should be level 8
-    And the current temple chant count is 0
-
-    When Joe performs "place dagger in orb"
-    Then Joe should see "...The orb accepts your offer, and glows brightly for a moment!\n***\nYou are now at level 8!\n"
-    And Flo should see "***\nJoe is attempting to touch the orb!\n"
+    And the current temple chant count is set to 0
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow dimly."
+    And Flo should see "The altar begins to glow dimly."
+    And the current temple chant count should be 1
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 2
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 3
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 4
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 5
+    And Joe performs "place charm on altar"
+    Then Joe should see "...Tashanna accepts your offer!\n***\nYou are now at level 9!\n"
+    And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
     And Joe should be level 9
-    And Joe should not have dagger in inventory
+    And Joe should not have charm in inventory
+
+  @level @kneel @level10 @mistyruins
+  Scenario: Level 10
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 7     | dagger,tiara    | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 7     | ruby,diamond    | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 9                    | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 9
+    And the current temple chant count is set to 0
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow dimly."
+    And Flo should see "The altar begins to glow dimly."
+    And the current temple chant count should be 1
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 2
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 3
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 4
+    When Joe performs "chant tashanna"
+    Then Joe should see "The altar begins to glow even brighter!"
+    And Flo should see "The altar begins to glow even brighter!"
+    And the current temple chant count should be 5
+    And Joe performs "place tiara on altar"
+    Then Joe should see "...Tashanna graciously accepts your gift.\n***\nYou are now at level 10!\n"
+    And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
+    And Joe should be level 10
+    And Joe should not have tiara in inventory

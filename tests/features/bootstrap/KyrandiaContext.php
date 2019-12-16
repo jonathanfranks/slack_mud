@@ -134,10 +134,42 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
-   * @Given the current temple chant count is :count
+   * @Given the current temple chant count is set to :count
    */
   public function setCurrentTempleChantCountIs($count) {
-    throw new PendingException();
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $this->gameHandler->saveInstanceSetting($game, 'currentTempleChantCount', $count);
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Then the current temple chant count should be :count
+   */
+  public function getCurrentTempleChantCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $current = $this->gameHandler->getInstanceSetting($game, 'currentTempleChantCount', 0);
+      if ($count != $current) {
+        throw new \Exception(sprintf('The temple chant count is supposed to be %s but is currently %s.', $count, $current));
+      }
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
   }
 
 }
