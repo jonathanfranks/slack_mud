@@ -61,7 +61,9 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       if (in_array('love', $words)) {
         if ($profile->field_kyrandia_level->entity->getName() == '21') {
           if ($this->gameHandler->advanceLevel($profile, 22)) {
-            $result = $this->gameHandler->getMessage('LEVL22');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL22');
+            $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           }
         }
       }

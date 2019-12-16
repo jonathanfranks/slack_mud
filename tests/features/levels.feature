@@ -577,3 +577,20 @@ Feature: Kyrandia commands not specific to locations
     And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
     And Joe should be level 21
 
+  @level @kneel @level22 @hallofhearts
+  Scenario: Level 22
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 255   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 255   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 21                   |
+    And Joe should be level 21
+    And Joe performs "offer love"
+    And Joe should see "...You're now level 22!  Congratulations!\n"
+    And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
+    And Joe should be level 22
+
