@@ -309,10 +309,10 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    */
   protected function locationHasItem(NodeInterface $location, $commandText, $removeItem = FALSE) {
     $words = explode(' ', $commandText);
+    // Assume first word is always the verb.
+    $verb = array_shift($words);
     foreach ($location->field_visible_items as $delta => $item) {
       // Item names have to be exact matches.
-      // Assume first word is always the verb.
-      $verb = array_shift($words);
       // Any of the other words could target an item in the room.
       $itemName = strtolower(trim($item->entity->getTitle()));
       if (in_array($itemName, $words)) {

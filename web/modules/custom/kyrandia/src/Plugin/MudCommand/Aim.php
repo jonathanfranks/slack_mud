@@ -114,7 +114,7 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
     if ($itemPos !== FALSE && $targetPos !== FALSE && $itemPos < $targetPos) {
       $profile = $this->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '10' && $this->playerHasItem($actingPlayer, 'wand')) {
-        if ($this->advanceLevel($profile, '11')) {
+        if ($this->advanceLevel($profile, 11)) {
           $result = $this->getMessage('CTREM0');
         }
       }

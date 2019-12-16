@@ -31,7 +31,9 @@ class Glory extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '2') {
         $this->advanceLevel($profile, 3);
-        $result = $this->getMessage('LVL300');
+        $result[$actingPlayer->id()][] = $this->getMessage("LVL300");
+        $othersMessage = sprintf($this->getMessage('GETLVL'), $actingPlayer->field_display_name->value);
+        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
     }
     if (!$result) {

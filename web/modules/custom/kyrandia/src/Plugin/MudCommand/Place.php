@@ -279,7 +279,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     if ($itemPos !== FALSE && $targetPos !== FALSE && $itemPos < $targetPos) {
       $profile = $this->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName == '7' && $this->takeItemFromPlayer($actingPlayer, 'dagger')) {
-        if ($this->advanceLevel($profile, '8')) {
+        if ($this->advanceLevel($profile, 8)) {
           $result = $this->getMessage('MISM04');
         }
       }

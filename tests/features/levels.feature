@@ -113,12 +113,12 @@ Feature: Kyrandia commands not specific to locations
     And Flo should see "***\nJoe has just gained in wisdom and courage.\n"
     And Joe should be level 5
 
-  @level @kneel @level5 @stump
+  @level @kneel @level6 @stump
   Scenario: Level 6
     Given player content:
-      | title | field_game | field_location | field_inventory                                                                                          | field_active | field_display_name | field_slack_user_name |
+      | title | field_game | field_location | field_inventory                                                                                             | field_active | field_display_name | field_slack_user_name |
       | Joe   | kyrandia   | Location 18    | ruby,emerald,emerald,tulip,garnet,pearl,aquamarine,moonstone,sapphire,diamond,amethyst,onyx,opal,bloodstone | 1            | Joe                | Joe                   |
-      | Flo   | kyrandia   | Location 18    | ruby,diamond                                                                                             | 1            | Flo                | Flo                   |
+      | Flo   | kyrandia   | Location 18    | ruby,diamond                                                                                                | 1            | Flo                | Flo                   |
 
     And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
     And kyrandia_profile content:
@@ -201,3 +201,21 @@ Feature: Kyrandia commands not specific to locations
     And Joe should not have bloodstone in inventory
     And Joe should be level 6
     And Joe should have the spell hotkiss
+
+  @level @kneel @level7 @deadwoodedglade
+  Scenario: Level 7
+    Given player content:
+      | title | field_game | field_location | field_inventory                                | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 101   | garnet,garnet,pearl,bloodstone,diamond,emerald | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 101   | ruby,diamond                                   | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 6                    | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 6
+    When Joe performs "offer heart and soul to tashanna"
+    Then Joe should see "...As you offer your heart and soul, the most precious jewels of your life,\nyou feel the hand of the Goddess Tashanna bless you with power.\n***\nYou are now at level 7!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe has suddenly grown in strength and knowledge!\n"
+    And Joe should be level 7
+    And Joe should have the spell weewillo

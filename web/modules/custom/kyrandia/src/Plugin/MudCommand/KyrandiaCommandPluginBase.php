@@ -322,11 +322,19 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    *   The message to show the players in the target location.
    * @param array $result
    *   The message results.
+   * @param array $exceptPlayers
+   *   Players in the location not to send the message to.
    */
-  protected function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result) {
+  protected function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result, array $exceptPlayers = []) {
     $otherPlayers = $this->otherPlayersInLocation($loc, $actingPlayer);
+    $noMessagePlayerIds = [];
+    foreach ($exceptPlayers as $exceptPlayer) {
+      $noMessagePlayerIds[] = $exceptPlayer->id();
+    }
     foreach ($otherPlayers as $otherPlayer) {
-      $result[$otherPlayer->id()][] = $othersMessage;
+      if (!in_array($otherPlayer->id(), $noMessagePlayerIds)) {
+        $result[$otherPlayer->id()][] = $othersMessage;
+      }
     }
   }
 

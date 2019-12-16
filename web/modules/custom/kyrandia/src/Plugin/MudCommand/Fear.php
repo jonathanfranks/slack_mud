@@ -26,14 +26,13 @@ class Fear extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->getKyrandiaProfile($actingPlayer);
-    // The 'to' gets stripped out.
     if ($commandText == 'fear no evil' && $loc->getTitle() == 'Location 16') {
-      // Player is at the temple.
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '4') {
         $this->advanceLevel($profile, 5);
-
-        $result = $this->getMessage('FEAR01');
+        $result[$actingPlayer->id()][] = $this->getMessage('FEAR01');
+        $othersMessage = sprintf($this->getMessage('FEAR02'), $actingPlayer->field_display_name->value);
+        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
     }
     if (!$result) {

@@ -46,12 +46,63 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $plugin = $pluginManager->createInstance('look');
       $result = $plugin->perform($commandText, $actingPlayer);
 
-      // Tell the other players in the room that actor is looking around.
-      // This is in source in looker(), there's no message for this.
-      $othersMessage = t(':actor is carefully inspecting the surroundings.', [
-        ':actor' => $actingPlayer->field_display_name->value,
-      ]);
-      $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $words = explode(' ', $commandText);
+      if (count($words) > 1) {
+        // Assume word 1 is the target.
+        $target = $words[1];
+        if ($target == 'brief') {
+          $briefDesc = $loc->field_brief_description->value;
+          $result[$actingPlayer->id()][0] = sprintf($this->getMessage('LOOKER5'), $briefDesc);
+          $othersMessage = t(':actor is glancing around briefly!', [
+            ':actor' => $actingPlayer->field_display_name->value,
+          ]);
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        }
+        elseif ($target == 'spellbook') {
+          /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
+          $pluginManager = \Drupal::service('plugin.manager.mud_command');
+          /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
+          $plugin = $pluginManager->createInstance('kyrandia_spellbook');
+          $result = $plugin->perform($commandText, $actingPlayer);
+        }
+        elseif ($targetPlayer = $this->locationHasPlayer($target, $loc, FALSE)) {
+          $profile = $this->getKyrandiaProfile($targetPlayer);
+          // Override the look description if the target player is in a
+          // different form.
+          if ($profile->field_kyrandia_invisible->value) {
+            $result[$actingPlayer->id()][0] = $this->getMessage('INVDES');
+          }
+          elseif ($profile->field_kyrandia_willowisp->value) {
+            $result[$actingPlayer->id()][0] = $this->getMessage('WILDES');
+          }
+          elseif ($profile->field_kyrandia_pegasus->value) {
+            $result[$actingPlayer->id()][0] = $this->getMessage('PEGDES');
+          }
+          elseif ($profile->field_kyrandia_pseudodragon->value) {
+            $result[$actingPlayer->id()][0] = $this->getMessage('PDRDES');
+          }
+          $result[$targetPlayer->id()][] = sprintf($this->getMessage('LOOKER3'), $actingPlayer->field_display_name->value);
+          $othersMessage = sprintf($this->getMessage('LOOKER4'), $actingPlayer->field_display_name->value, $targetPlayer->field_display_name->value);
+          $exceptPlayers = [$targetPlayer];
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result, $exceptPlayers);
+        }
+        elseif ($item = $this->locationHasItem($loc, $commandText, FALSE)) {
+          $othersMessage = sprintf($this->getMessage('LOOKER1'), $actingPlayer->field_display_name->value, $target, $loc->field_object_location->value);
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        }
+        elseif ($item = $this->playerHasItem($actingPlayer, $target, FALSE)) {
+          $othersMessage = sprintf($this->getMessage('LOOKER2'), $actingPlayer->field_display_name->value, $profile->field_kyrandia_is_female->value ? 'her' : 'his', $target);
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        }
+      }
+      else {
+        // Tell the other players in the room that actor is looking around.
+        // This is in source in looker(), there's no message for this.
+        $othersMessage = t(':actor is carefully inspecting the surroundings.', [
+          ':actor' => $actingPlayer->field_display_name->value,
+        ]);
+        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      }
     }
     if (!$result) {
       $result[$actingPlayer->id()][] = 'Nothing happens.';

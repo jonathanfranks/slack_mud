@@ -87,12 +87,15 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The object the user typed.
    */
   protected function getTargetItem($commandText) {
-    $target = str_replace('stump', '', $commandText);
-    $target = str_replace('into', '', $target);
-    $target = str_replace('in', '', $target);
-    // Now remove the DROP and we'll see what they're dropping.
-    $target = str_replace('drop', '', $target);
-    $target = trim($target);
+    // This usually goes like "drop garnet in stump" so let's assume that the
+    // first word is the verb and the second word is the item.
+    $words = explode(' ', $commandText);
+    if (count($words) > 1) {
+      $target = $words[1];
+    }
+    else {
+      $target = NULL;
+    }
     return $target;
   }
 
@@ -133,8 +136,11 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     // Player is dropping something in or into stump.
     $target = $this->getTargetItem($commandText);
     $item = $this->playerHasItem($actingPlayer, $target, TRUE);
+    $loc = $actingPlayer->field_location->entity;
     if ($item === FALSE) {
-      $result = t("But you don't have one, you hallucinating fool!");
+      $result[$actingPlayer->id()][] = $this->getMessage('BGEM05');
+      $othersMessage = sprintf($this->getMessage('BGEM06'), $actingPlayer->field_display_name->value);
+      $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
     }
     else {
       $itemTitle = $item->getTitle();
@@ -144,11 +150,16 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         // level 5!
         if ($currentStumpStone == count($stumpStones) - 1 && $profile->field_kyrandia_level->entity->getName() == '5') {
           $this->advanceLevel($profile, 6);
-          $result = $this->getMessage('BGEM00');
+          $result[$actingPlayer->id()][] = $this->getMessage('BGEM00');
+          $othersMessage = sprintf($this->getMessage('BGEM01'), $actingPlayer->field_display_name->value);
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->giveSpellToPlayer($actingPlayer, 'hotkiss');
         }
         else {
           // Match! Set the stone index to the next one.
-          $result = $this->getMessage('BGEM02');
+          $result[$actingPlayer->id()][] = $this->getMessage('BGEM02');
+          $othersMessage = sprintf($this->getMessage('BGEM03'), $actingPlayer->field_display_name->value);
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           if ($currentStumpStone < count($stumpStones) - 1) {
             // If it's the last one but the user isn't level 5, just keep the
             // index where it is.
@@ -159,7 +170,9 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         }
       }
       else {
-        $result = $this->getMessage('BGEM04');
+        $result[$actingPlayer->id()][] = $this->getMessage('BGEM04');
+        $othersMessage = sprintf($this->getMessage('BGEM03'), $actingPlayer->field_display_name->value);
+        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
     }
     return $result;
