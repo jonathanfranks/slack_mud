@@ -50,27 +50,27 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     // We're looking for "jump chasm" or "jump across chasm".
     $words = explode(' ', $commandText);
     if (in_array('chasm', $words)) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       $results = [];
       if ($profile->field_kyrandia_level->entity->getName() == '12') {
         // If user is protected.
         $userIsProtected = $profile->field_kyrandia_protection_other->value;
         if ($userIsProtected) {
-          if ($this->advanceLevel($profile, 13)) {
-            $results[] = $this->getMessage('BODM01');
+          if ($this->gameHandler->advanceLevel($profile, 13)) {
+            $results[] = $this->gameHandler->getMessage('BODM01');
           }
-          if (!$this->giveItemToPlayer($actingPlayer, 'broach')) {
+          if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'broach')) {
             // Can't give the item to the player - max item limit.
-            $results[] = $this->getMessage('BODM03');
-            $this->removeFirstItem($actingPlayer);
+            $results[] = $this->gameHandler->getMessage('BODM03');
+            $this->gameHandler->removeFirstItem($actingPlayer);
             // Then give the broach again.
-            $this->giveItemToPlayer($actingPlayer, 'broach');
+            $this->gameHandler->giveItemToPlayer($actingPlayer, 'broach');
           }
         }
         else {
           // User isn't protected. Death.
-          $results[] = $this->getMessage('BODM04');
-          $this->damagePlayer($actingPlayer, 100);
+          $results[] = $this->gameHandler->getMessage('BODM04');
+          $this->gameHandler->damagePlayer($actingPlayer, 100);
         }
       }
       $result = implode("\n", $results);

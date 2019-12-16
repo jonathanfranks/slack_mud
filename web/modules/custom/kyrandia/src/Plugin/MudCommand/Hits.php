@@ -22,7 +22,7 @@ class Hits extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
       $result = t('You have :gold gold piece:plural.', [
         ':gold' => $profile->field_kyrandia_gold->value,

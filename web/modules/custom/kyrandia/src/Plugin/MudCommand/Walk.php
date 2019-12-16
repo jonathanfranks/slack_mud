@@ -23,7 +23,7 @@ class Walk extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 19') {
       $words = explode(' ', $commandText);
       $synonyms = [
@@ -32,7 +32,7 @@ class Walk extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
         // If player walks through thicket, they are damaged for 10 hp.
-        $result = $this->damagePlayer($actingPlayer, 10);
+        $result = $this->gameHandler->damagePlayer($actingPlayer, 10);
         if (!$result) {
           $result = t("Ouch!");
         }

@@ -24,41 +24,41 @@ class Help extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     $result = NULL;
     $words = explode(' ', $commandText);
     if (count($words) == 1) {
-      $result[$actingPlayer->id()][] = $this->getMessage('HLPMSG');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPMSG');
     }
     else {
       $topic = $words[1];
       switch ($topic) {
         case 'commands':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPCOM');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPCOM');
           break;
 
         case 'fantasy':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPFAN');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPFAN');
           break;
 
         case 'gold':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPGOL');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPGOL');
           break;
 
         case 'hits':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPHIT');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPHIT');
           break;
 
         case 'levels':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPLEV');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPLEV');
           break;
 
         case 'spells':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPSPE');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPSPE');
           break;
 
         case 'winning':
-          $result[$actingPlayer->id()][] = $this->getMessage('HLPWIN');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPWIN');
           break;
 
         default:
-          $result[$actingPlayer->id()][] = sprintf($this->getMessage('NOHELP'), $topic);
+          $result[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('NOHELP'), $topic);
           break;
       }
     }

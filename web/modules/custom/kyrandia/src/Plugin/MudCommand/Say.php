@@ -24,13 +24,13 @@ class Say extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 183' && $commandText == 'say legends pass and time goes by but true love will never die') {
-      if ($this->giveItemToPlayer($actingPlayer, 'key')) {
-        $result = $this->getMessage('PANM00');
+      if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'key')) {
+        $result = $this->gameHandler->getMessage('PANM00');
       }
       else {
-        $result = $this->getMessage('PANM02');
+        $result = $this->gameHandler->getMessage('PANM02');
       }
     }
     else {

@@ -22,7 +22,7 @@ class Inventory extends MudCommandPluginBase implements MudCommandPluginInterfac
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
     if (count($actingPlayer->field_inventory)) {
-      $results = $this->playerInventoryString($actingPlayer);
+      $results = $this->gameHandler->playerInventoryString($actingPlayer);
       $result = t('You have :results.', [':results' => $results]);
     }
     else {

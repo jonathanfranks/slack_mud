@@ -25,16 +25,16 @@ class Kneel extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     // level 2.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 0') {
       // Player is at the willow tree.
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '1') {
-        $this->advanceLevel($profile, 2);
-        $result[$actingPlayer->id()][] = $this->getMessage("LVL200");
-        $othersMessage = sprintf($this->getMessage('GETLVL'), $actingPlayer->field_display_name->value);
-        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-        $this->giveSpellToPlayer($actingPlayer, 'smokey');
+        $this->gameHandler->advanceLevel($profile, 2);
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage("LVL200");
+        $othersMessage = sprintf($this->gameHandler->getMessage('GETLVL'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->giveSpellToPlayer($actingPlayer, 'smokey');
       }
     }
     if (!$result) {

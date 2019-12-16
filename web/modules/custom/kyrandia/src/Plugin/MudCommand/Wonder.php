@@ -24,10 +24,10 @@ class Wonder extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 264') {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '22') {
-        if ($this->advanceLevel($profile, 23)) {
-          $result = $this->getMessage('LEVL23');
+        if ($this->gameHandler->advanceLevel($profile, 23)) {
+          $result = $this->gameHandler->getMessage('LEVL23');
         }
       }
     }

@@ -27,13 +27,13 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
       $result = $this->time($commandText, $actingPlayer);
     }
     elseif ($loc->getTitle() == 'Location 302') {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '24') {
         if ($commandText == 'answer cast the spells and cross the seas, heart, soul, mind, and body are the keys') {
-          $dragonHere = $this->isDragonHere($loc);
+          $dragonHere = $this->gameHandler->isDragonHere($loc);
           if ($dragonHere) {
-            $this->advanceLevel($profile, 25);
-            $result = $this->getMessage('YOUWIN');
+            $this->gameHandler->advanceLevel($profile, 25);
+            $result = $this->gameHandler->getMessage('YOUWIN');
           }
         }
       }
@@ -62,18 +62,18 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
     // We're looking for "answer time".
     $words = explode(' ', $commandText);
     if (in_array('time', $words)) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       $results = [];
       if ($profile->field_kyrandia_level->entity->getName() == '13') {
-        if ($this->advanceLevel($profile, 14)) {
-          $results[] = $this->getMessage('MINM01');
-          if (!$this->giveItemToPlayer($actingPlayer, 'pendant')) {
-            $results[] = $this->getMessage('MIM03');
+        if ($this->gameHandler->advanceLevel($profile, 14)) {
+          $results[] = $this->gameHandler->getMessage('MINM01');
+          if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'pendant')) {
+            $results[] = $this->gameHandler->getMessage('MIM03');
             // Not enough room? Item limits?
             // Take the first item away to make room.
-            $this->removeFirstItem($actingPlayer);
+            $this->gameHandler->removeFirstItem($actingPlayer);
             // And give the broach again.
-            $this->giveItemToPlayer($actingPlayer, 'pendant');
+            $this->gameHandler->giveItemToPlayer($actingPlayer, 'pendant');
           }
         }
       }

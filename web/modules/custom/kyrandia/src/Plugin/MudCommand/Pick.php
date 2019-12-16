@@ -23,7 +23,7 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $roseLocations = [
       'Location 12',
       'Location 32',
@@ -70,11 +70,11 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     ];
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
-      if ($this->giveItemToPlayer($actingPlayer, 'rose')) {
-        $result = $this->getMessage('GROSE1');
+      if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'rose')) {
+        $result = $this->gameHandler->getMessage('GROSE1');
       }
       else {
-        $result = $this->getMessage('GROSE3');
+        $result = $this->gameHandler->getMessage('GROSE3');
       }
     }
     return $result;
@@ -105,15 +105,15 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       // Random chance to grab one.
       $chance = rand(0, 100);
       if ($chance < 40) {
-        if ($this->giveItemToPlayer($actingPlayer, 'pinecone')) {
-          $result = $this->getMessage('PINEC0');
+        if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'pinecone')) {
+          $result = $this->gameHandler->getMessage('PINEC0');
         }
         else {
-          $result = $this->getMessage('PINEC2');
+          $result = $this->gameHandler->getMessage('PINEC2');
         }
       }
       else {
-        $result = $this->getMessage('PINEC2');
+        $result = $this->gameHandler->getMessage('PINEC2');
       }
     }
     return $result;
@@ -144,15 +144,15 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       // Random chance to grab one.
       $chance = rand(0, 100);
       if ($chance < 20) {
-        if ($this->giveItemToPlayer($actingPlayer, 'ruby')) {
-          $result = $this->getMessage('RUBY00');
+        if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'ruby')) {
+          $result = $this->gameHandler->getMessage('RUBY00');
         }
       }
       if (!$result) {
-        $result = $this->damagePlayer($actingPlayer, 8);
+        $result = $this->gameHandler->damagePlayer($actingPlayer, 8);
         if (!$result) {
           // Damage didn't kill the player.
-          $result = $this->getMessage('RUBY02');
+          $result = $this->gameHandler->getMessage('RUBY02');
         }
       }
     }
@@ -181,11 +181,11 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     ];
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
-      if ($this->giveItemToPlayer($actingPlayer, 'tulip')) {
-        $result = $this->getMessage('TULM00');
+      if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'tulip')) {
+        $result = $this->gameHandler->getMessage('TULM00');
       }
       else {
-        $result = $this->getMessage('TULM02');
+        $result = $this->gameHandler->getMessage('TULM02');
       }
     }
     return $result;

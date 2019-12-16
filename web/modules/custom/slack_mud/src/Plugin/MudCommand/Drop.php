@@ -28,10 +28,10 @@ class Drop extends MudCommandPluginBase implements MudCommandPluginInterface {
 
     $loc = $actingPlayer->field_location->entity;
 
-    $item = $this->playerHasItem($actingPlayer, $target, TRUE);
+    $item = $this->gameHandler->playerHasItem($actingPlayer, $target, TRUE);
     if ($item) {
       // Player has the item.
-      $this->placeItemInLocation($loc, $item->getTitle());
+      $this->gameHandler->placeItemInLocation($loc, $item->getTitle());
       $result[$actingPlayer->id()][] = t('You dropped the :item.', [':item' => $item->getTitle()]);
     }
     else {

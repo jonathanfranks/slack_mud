@@ -24,10 +24,10 @@ class Get extends MudCommandPluginBase implements MudCommandPluginInterface {
     $foundSomething = FALSE;
     $result = '';
     $loc = $actingPlayer->field_location->entity;
-    $item = $this->locationHasItem($loc, $commandText, TRUE);
+    $item = $this->gameHandler->locationHasItem($loc, $commandText, TRUE);
     if ($item) {
       if ($item->field_can_pick_up->value) {
-        $this->giveItemToPlayer($actingPlayer, $item->getTitle());
+        $this->gameHandler->giveItemToPlayer($actingPlayer, $item->getTitle());
         $result = 'You picked up the ' . $item->getTitle();
         $foundSomething = TRUE;
       }

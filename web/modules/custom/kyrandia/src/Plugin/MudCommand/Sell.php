@@ -24,7 +24,7 @@ class Sell extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 8') {
       // Selling gems at the gem store.
       // @TODO Maybe make this configurable?
@@ -48,29 +48,29 @@ class Sell extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       // We don't care about anything after word 1.
       if (count($words) > 1) {
         $target = $words[1];
-        $item = $this->playerHasItem($actingPlayer, $target, FALSE);
+        $item = $this->gameHandler->playerHasItem($actingPlayer, $target, FALSE);
         if ($item) {
           // Player has item.
           if (array_key_exists($item->getTitle(), $values)) {
             // Gem is on the menu.
             $price = $values[$item->getTitle()];
-            $result = sprintf($this->getMessage('TRDM00'), $price);
+            $result = sprintf($this->gameHandler->getMessage('TRDM00'), $price);
             $profile->field_kyrandia_gold->value += $price;
             $profile->save();
-            $this->takeItemFromPlayer($actingPlayer, $item->getTitle());
+            $this->gameHandler->takeItemFromPlayer($actingPlayer, $item->getTitle());
           }
           elseif ($item->getTitle() == 'kyragem') {
-            $result = $this->getMessage('TRDM02');
-            $this->takeItemFromPlayer($actingPlayer, $item->getTitle());
-            $this->giveItemToPlayer($actingPlayer, 'soulstone');
+            $result = $this->gameHandler->getMessage('TRDM02');
+            $this->gameHandler->takeItemFromPlayer($actingPlayer, $item->getTitle());
+            $this->gameHandler->giveItemToPlayer($actingPlayer, 'soulstone');
           }
           else {
             // Doesn't want it.
-            $result = $this->getMessage('TRDM04');
+            $result = $this->gameHandler->getMessage('TRDM04');
           }
         }
         else {
-          $result = $this->getMessage('TRDM05');
+          $result = $this->gameHandler->getMessage('TRDM05');
         }
       }
     }

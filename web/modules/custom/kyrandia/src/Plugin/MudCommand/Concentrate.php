@@ -23,7 +23,7 @@ class Concentrate extends KyrandiaCommandPluginBase implements MudCommandPluginI
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $commandText = str_replace('concentrate', '', $commandText);
     $commandText = str_replace(' on ', '', $commandText);
     $commandText = trim($commandText);
@@ -39,7 +39,7 @@ class Concentrate extends KyrandiaCommandPluginBase implements MudCommandPluginI
         // @TODO Handling max items for player.
         $actingPlayer->field_inventory[] = ['target_id' => $id];
         $actingPlayer->save();
-        $result = $this->getMessage('MISM01');
+        $result = $this->gameHandler->getMessage('MISM01');
       }
     }
     if (!$result) {

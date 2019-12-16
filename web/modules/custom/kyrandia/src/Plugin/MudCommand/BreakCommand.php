@@ -52,19 +52,19 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
     // We're looking for 'aim wand at tree'.
     $itemPos = array_search('wand', $words);
     if ($itemPos !== FALSE) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
-      if ($this->takeItemFromPlayer($actingPlayer, 'wand')) {
-        if ($this->playerHasItem($actingPlayer, 'kyragem')) {
-          $result = $this->getMessage('RABOM0');
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+      if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'wand')) {
+        if ($this->gameHandler->playerHasItem($actingPlayer, 'kyragem')) {
+          $result = $this->gameHandler->getMessage('RABOM0');
         }
         else {
-          $result = $this->getMessage('RABOM2');
-          $this->giveItemToPlayer($actingPlayer, 'kyragem');
+          $result = $this->gameHandler->getMessage('RABOM2');
+          $this->gameHandler->giveItemToPlayer($actingPlayer, 'kyragem');
         }
       }
     }
     if (!$result) {
-      $result = $this->getMessage('WALM01');
+      $result = $this->gameHandler->getMessage('WALM01');
     }
     return $result;
   }

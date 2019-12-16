@@ -15,3 +15,7 @@ services:
   plugin.manager.mud_command:
     class: Drupal\slack_mud\MudCommandPluginManager
     parent: default_plugin_manager
+
+  slack_mud.game_handler:
+    class: Drupal\slack_mud\Service\MudGameHandlerService
+    arguments: ['@word_grammar_service']

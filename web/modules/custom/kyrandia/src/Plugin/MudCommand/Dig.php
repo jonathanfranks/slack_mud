@@ -24,7 +24,7 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
     // Players can dig in the brook to randomly find gold.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 12') {
       $result = $this->brook($commandText, $profile);
     }
@@ -65,12 +65,12 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $digGold = rand(2, 102);
       $playerGold = $profile->field_kyrandia_gold->value;
       if ($digGold < 10 && $playerGold < 101) {
-        $result = sprintf($this->getMessage('FNDGOL'), $digGold);
+        $result = sprintf($this->gameHandler->getMessage('FNDGOL'), $digGold);
         $profile->field_kyrandia_gold->value += $digGold;
         $profile->save();
       }
       else {
-        $result = $this->getMessage('NOFNDG');
+        $result = $this->gameHandler->getMessage('NOFNDG');
       }
     }
     return $result;
@@ -101,12 +101,12 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $digGold = rand(0, 100);
       $playerGold = $profile->field_kyrandia_gold->value;
       if ($digGold < 10) {
-        $result = $this->getMessage('SANM00');
+        $result = $this->gameHandler->getMessage('SANM00');
         $profile->field_kyrandia_gold->value += 1;
         $profile->save();
       }
       else {
-        $result = $this->getMessage('SANM02');
+        $result = $this->gameHandler->getMessage('SANM02');
       }
     }
     return $result;

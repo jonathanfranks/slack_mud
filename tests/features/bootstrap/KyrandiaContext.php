@@ -15,6 +15,13 @@ use Drupal\node\NodeInterface;
 class KyrandiaContext implements Context, SnippetAcceptingContext {
 
   /**
+   * The game handler service.
+   *
+   * @var \Drupal\kyrandia\Service\KyrandiaGameHandlerServiceInterface
+   */
+  protected $gameHandler;
+
+  /**
    * Initializes context.
    *
    * Every scenario gets its own context instance.
@@ -22,6 +29,8 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
    * context constructor through behat.yml.
    */
   public function __construct() {
+    $gameHandler = \Drupal::getContainer()->get('kyrandia.game_handler');
+    $this->gameHandler = $gameHandler;
   }
 
   /**
@@ -29,8 +38,8 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
    */
   public function shouldNotHaveTheSpell($player, $spell) {
     $playerNode = $this->getPlayerByName($player);
-    $profile = $this->getKyrandiaProfile($playerNode);
-    if ($this->playerHasSpell($playerNode, $spell)) {
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if ($this->gameHandler->playerHasSpell($playerNode, $spell)) {
       throw new \Exception(sprintf('%s has the spell %s.', $player, $spell));
     }
   }
@@ -40,8 +49,8 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
    */
   public function shouldHaveTheSpell($player, $spell) {
     $playerNode = $this->getPlayerByName($player);
-    $profile = $this->getKyrandiaProfile($playerNode);
-    if (!$this->playerHasSpell($playerNode, $spell)) {
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if (!$this->gameHandler->playerHasSpell($playerNode, $spell)) {
       throw new \Exception(sprintf('%s does not have the spell %s.', $player, $spell));
     }
   }
@@ -103,7 +112,7 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
    *   The spell if the player has the spell in their spellbook or null.
    */
   protected function playerHasSpell(NodeInterface $player, $spellName) {
-    $profile = $this->getKyrandiaProfile($player);
+    $profile = $this->gameHandler->getKyrandiaProfile($player);
     foreach ($profile->field_kyrandia_spellbook as $spell) {
       if ($spell->entity->getName() == $spellName) {
         return $spell->entity;
@@ -117,11 +126,18 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
    */
   public function shouldBeLevel($player, $level) {
     $playerNode = $this->getPlayerByName($player);
-    $profile = $this->getKyrandiaProfile($playerNode);
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
     $actualLevel = $profile->field_kyrandia_level->entity->getName();
     if ($actualLevel != $level) {
       throw new \Exception(sprintf('Player %s is not level %s, but is level %s.', $player, $level, $actualLevel));
     }
+  }
+
+  /**
+   * @Given the current temple chant count is :count
+   */
+  public function setCurrentTempleChantCountIs($count) {
+    throw new PendingException();
   }
 
 }

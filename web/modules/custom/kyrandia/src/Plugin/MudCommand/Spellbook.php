@@ -22,7 +22,7 @@ class Spellbook extends KyrandiaCommandPluginBase implements MudCommandPluginInt
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = [];
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
       if (count($profile->field_kyrandia_spellbook) == 0) {
         $result[$actingPlayer->id()][] = t('You currently have no spells in your spellbook.');

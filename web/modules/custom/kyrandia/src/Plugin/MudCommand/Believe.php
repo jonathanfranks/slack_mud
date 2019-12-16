@@ -25,20 +25,20 @@ class Believe extends KyrandiaCommandPluginBase implements MudCommandPluginInter
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 257') {
       if ($commandText == 'believe in magic') {
-        $profile = $this->getKyrandiaProfile($actingPlayer);
+        $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         if ($profile->field_kyrandia_level->entity->getName() == '20') {
-          if ($this->advanceLevel($profile, 21)) {
-            $result = $this->getMessage('LEVL21');
+          if ($this->gameHandler->advanceLevel($profile, 21)) {
+            $result = $this->gameHandler->getMessage('LEVL21');
           }
         }
       }
     }
     elseif ($loc->getTitle() == 'Location 293') {
       if ($commandText == 'believe in fantasy') {
-        $profile = $this->getKyrandiaProfile($actingPlayer);
+        $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         if ($profile->field_kyrandia_level->entity->getName() == '23') {
-          if ($this->advanceLevel($profile, 24)) {
-            $result = $this->getMessage('LEVL24');
+          if ($this->gameHandler->advanceLevel($profile, 24)) {
+            $result = $this->gameHandler->getMessage('LEVL24');
           }
         }
       }

@@ -25,14 +25,14 @@ class Fear extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     // Players say a command at the temple to get to level 3.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($commandText == 'fear no evil' && $loc->getTitle() == 'Location 16') {
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '4') {
-        $this->advanceLevel($profile, 5);
-        $result[$actingPlayer->id()][] = $this->getMessage('FEAR01');
-        $othersMessage = sprintf($this->getMessage('FEAR02'), $actingPlayer->field_display_name->value);
-        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->advanceLevel($profile, 5);
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('FEAR01');
+        $othersMessage = sprintf($this->gameHandler->getMessage('FEAR02'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
     }
     if (!$result) {

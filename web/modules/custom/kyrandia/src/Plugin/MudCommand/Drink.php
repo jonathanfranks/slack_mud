@@ -23,7 +23,7 @@ class Drink extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $drinkableLocations = [
       'Location 12',
       'Location 32',
@@ -38,7 +38,7 @@ class Drink extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       ];
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
-        $result = $this->getMessage('DRINK0');
+        $result = $this->gameHandler->getMessage('DRINK0');
       }
     }
     if (!$result) {

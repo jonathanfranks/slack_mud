@@ -25,7 +25,7 @@ class Level extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     // level 2.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
       $result = t('You are currently level :level, :title.',
         [

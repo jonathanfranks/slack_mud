@@ -35,14 +35,14 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     // Players say a command at the temple to get to level 3.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
 
     $words = explode(' ', $commandText);
     $spellName = '';
     $target = '';
     if (count($words) == 1) {
       // Player only typed "cast".
-      $result = $this->getMessage('OBJM07');
+      $result = $this->gameHandler->getMessage('OBJM07');
       return $result;
     }
     if (count($words) > 1) {
@@ -58,27 +58,27 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     if ($spellName == 'zennyra' && $loc->getTitle() == 'Location 213') {
       // Casting zennyra (not a real spell) at the altar of sunshine gives a
       // message.
-      $result = $this->getMessage('SUNM02');
+      $result = $this->gameHandler->getMessage('SUNM02');
     }
 
     // Cast a spell.
-    if ($spell = $this->playerMemorizedSpell($actingPlayer, $spellName)) {
+    if ($spell = $this->gameHandler->playerMemorizedSpell($actingPlayer, $spellName)) {
       $spellLevel = intval($spell->field_kyrandia_minimum_level->value);
       if ($spellLevel > intval($profile->field_kyrandia_level->entity->getName())) {
-        $result = $this->getMessage('KSPM10');
+        $result = $this->gameHandler->getMessage('KSPM10');
       }
       elseif ($spellLevel > $profile->field_kyrandia_spell_points->value) {
-        $result = $this->getMessage('KSPM10');
+        $result = $this->gameHandler->getMessage('KSPM10');
       }
       else {
         // Player can cast spell.
         switch ($spellName) {
           case 'zapher':
-            if ($loc->getTitle() == 'Location 213' && $target == 'tulip' && $this->playerHasItem($actingPlayer, 'tulip', TRUE)) {
+            if ($loc->getTitle() == 'Location 213' && $target == 'tulip' && $this->gameHandler->playerHasItem($actingPlayer, 'tulip', TRUE)) {
               // Casting zapher at the tulip at the altar of sunshine gives
               // player a wand.
-              if ($this->giveItemToPlayer($actingPlayer, 'wand')) {
-                $result = $this->getMessage('SUNM00');
+              if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'wand')) {
+                $result = $this->gameHandler->getMessage('SUNM00');
               }
             }
             break;
@@ -86,11 +86,11 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         // Do spell.
         $result = $this->spellHandler($commandText, $actingPlayer);
         // Remove spell points.
-        $this->playerMemorizedSpell($actingPlayer, $spellName, TRUE);
+        $this->gameHandler->playerMemorizedSpell($actingPlayer, $spellName, TRUE);
       }
     }
     if (!$result) {
-      $result = $this->getMessage('NOTMEM');
+      $result = $this->gameHandler->getMessage('NOTMEM');
     }
     return $result;
   }
@@ -194,36 +194,36 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         else {
           $target = NULL;
         }
-        $actingProfile = $this->getKyrandiaProfile($actingPlayer);
+        $actingProfile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         $playerLevel = intval($actingProfile->field_kyrandia_level->entity->getName());
         switch ($castingSpellName) {
           case 'abbracada':
             $this->charm($actingPlayer, 'OBJPRO', 8);
-            $result = $this->getMessage('SPM000');
+            $result = $this->gameHandler->getMessage('SPM000');
             return $result;
 
           case 'allbettoo':
-            $this->healPlayer($actingPlayer, 4 * $playerLevel);
-            $result = $this->getMessage('SPM002');
+            $this->gameHandler->healPlayer($actingPlayer, 4 * $playerLevel);
+            $result = $this->gameHandler->getMessage('SPM002');
             return $result;
 
           case 'blowitawa':
             $loc = $actingPlayer->field_location->entity;
-            if ($targetPlayer = $this->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
               $targetPlayerName = $targetPlayer->field_display_name->value;
-              $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
               $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
                 count($targetPlayer->field_inventory) == 0) {
                 // Charmed or not carrying anything.
-                $result = $this->getMessage('SNW000');
+                $result = $this->gameHandler->getMessage('SNW000');
                 return $result;
               }
               else {
                 // Vaporize target's first held object.
                 $item0Name = $targetPlayer->field_inventory[0]->entity->getTitle();
-                $this->takeItemFromPlayer($targetPlayer, $item0Name);
-                $result = sprintf($this->getMessage('SPM004'), $targetPlayerName, $item0Name);
+                $this->gameHandler->takeItemFromPlayer($targetPlayer, $item0Name);
+                $result = sprintf($this->gameHandler->getMessage('SPM004'), $targetPlayerName, $item0Name);
                 return $result;
               }
             }
@@ -231,14 +231,14 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
 
           case 'blowoutma':
             $loc = $actingPlayer->field_location->entity;
-            if ($targetPlayer = $this->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
               $targetPlayerName = $targetPlayer->field_display_name->value;
-              $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
               $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
                 count($targetPlayer->field_inventory) == 0) {
                 // Charmed or not carrying anything.
-                $result = $this->getMessage('SNW000');
+                $result = $this->gameHandler->getMessage('SNW000');
                 return $result;
               }
               else {
@@ -246,7 +246,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
                 $targetPlayer->field_inventory = NULL;
                 $targetPlayer->save();
                 $hisHer = $targetProfile->field_kyrandia_is_female->value ? 'her' : 'his';
-                $result = sprintf($this->getMessage('SPM007'), $targetPlayerName, $hisHer);
+                $result = sprintf($this->gameHandler->getMessage('SPM007'), $targetPlayerName, $hisHer);
                 return $result;
               }
             }
@@ -254,31 +254,31 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
 
           case 'bookworm':
             $loc = $actingPlayer->field_location->entity;
-            if ($targetPlayer = $this->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
               $targetPlayerName = $targetPlayer->field_display_name->value;
-              $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
               $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
-                $result = $this->getMessage('S05M00');
+                $result = $this->gameHandler->getMessage('S05M00');
                 return $result;
               }
               else {
                 // Player needs a moonstone.
-                if ($this->playerHasItem($actingPlayer, 'moonstone', TRUE)) {
+                if ($this->gameHandler->playerHasItem($actingPlayer, 'moonstone', TRUE)) {
                   $targetProfile->field_kyrandia_memorized_spells = NULL;
                   $targetProfile->field_kyrandia_spellbook = NULL;
                   $targetProfile->save();
-                  $result = sprintf($this->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
+                  $result = sprintf($this->gameHandler->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
                   return $result;
                 }
                 else {
-                  $result = $this->getMessage('MISS00');
+                  $result = $this->gameHandler->getMessage('MISS00');
                   return $result;
                 }
               }
             }
           case 'burnup':
-            $result = $this->getMessage('S06M00');
+            $result = $this->gameHandler->getMessage('S06M00');
             $loc = $actingPlayer->field_location->entity;
             $slackUsername = $actingPlayer->field_slack_user_name->value;
             $result = $this->masshitr($actingPlayer, 10, 'FIRPRO', 1, 'S66M0', 'MERCYU');
@@ -331,27 +331,27 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
   protected function striker(NodeInterface $actingPlayer, $targetPlayerName, $damage, $protectionType, $mercyLevel, $msg) {
     // Target must be present.
     $loc = $actingPlayer->field_location->entity;
-    if ($targetPlayer = $this->locationHasPlayer($targetPlayerName, $loc, TRUE, $actingPlayer)) {
+    if ($targetPlayer = $this->gameHandler->locationHasPlayer($targetPlayerName, $loc, TRUE, $actingPlayer)) {
       // Get the target player's real display name with capitalization and
       // everything.
       $targetPlayerName = $targetPlayer->field_display_name->value;
-      $targetProfile = $this->getKyrandiaProfile($targetPlayer);
+      $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
 
       // Check if player is charmed with protection.
       $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
       if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
         $message = $msg . '0';
-        $result = sprintf($this->getMessage($message), $targetPlayerName);
+        $result = sprintf($this->gameHandler->getMessage($message), $targetPlayerName);
       }
       elseif (intval($targetProfile->field_kyrandia_level->entity->getName()) <= $mercyLevel) {
-        $result = sprintf($this->getMessage('MERCYA'), $targetPlayerName);
+        $result = sprintf($this->gameHandler->getMessage('MERCYA'), $targetPlayerName);
       }
       else {
         // Target isn't protected or too low level. Damage!
         $message = $msg . '3';
         $results = [];
-        $results[] = sprintf($this->getMessage($message), $targetPlayerName);
-        $damageResult = $this->damagePlayer($targetPlayer, $damage);
+        $results[] = sprintf($this->gameHandler->getMessage($message), $targetPlayerName);
+        $damageResult = $this->gameHandler->damagePlayer($targetPlayer, $damage);
         if ($damageResult) {
           $results[] = $damageResult;
         }
@@ -377,7 +377,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function charm(NodeInterface $actingPlayer, $protectionType, $protection) {
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
     if ($protectionFieldName) {
       $profile->{$protectionFieldName}->value = $protection;

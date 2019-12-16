@@ -22,7 +22,7 @@ class Spells extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
       $spellList = '';
       if (count($profile->field_kyrandia_memorized_spells) == 0) {

@@ -24,7 +24,7 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 188') {
       $result = $this->mistyRuins($actingPlayer, $commandText);
     }
@@ -35,7 +35,7 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $orbPosition = array_search('orb', $words);
       $sceptrePosition = array_search('sceptre', $words);
       if ($orbPosition !== FALSE && $sceptrePosition !== FALSE && $orbPosition < $sceptrePosition) {
-        if ($this->takeItemFromPlayer($actingPlayer, 'sceptre')) {
+        if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'sceptre')) {
           // Give the player a random spell from this list.
           $spells = [
             'chillou',
@@ -46,11 +46,11 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           ];
           $randomSpellKey = array_rand($spells);
           $spell = $spells[$randomSpellKey];
-          $this->giveSpellToPlayer($actingPlayer, $spell);
-          $result = $this->getMessage('DRUID0');
+          $this->gameHandler->giveSpellToPlayer($actingPlayer, $spell);
+          $result = $this->gameHandler->getMessage('DRUID0');
         }
         else {
-          $result = $this->getMessage('DRUID2');
+          $result = $this->gameHandler->getMessage('DRUID2');
         }
       }
     }
@@ -92,7 +92,7 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         $id = reset($ids);
         $actingPlayer->field_location = $id;
         $actingPlayer->save();
-        $result = $this->getMessage('MISM00') . "\n";
+        $result = $this->gameHandler->getMessage('MISM00') . "\n";
 
         // The result is LOOKing at the new location.
         $mudEvent = new CommandEvent($actingPlayer, 'look');

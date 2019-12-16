@@ -25,7 +25,7 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     // level 4. Item is removed from player's inventory whether correct or not.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
     if ($loc->getTitle() == 'Location 24' && $profile->field_kyrandia_level->entity->getName() == '3') {
       // Player is at the silver altar.
@@ -60,8 +60,8 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $words = explode(' ', $commandText);
       if (in_array('love', $words)) {
         if ($profile->field_kyrandia_level->entity->getName() == '21') {
-          if ($this->advanceLevel($profile, 22)) {
-            $result = $this->getMessage('LEVL22');
+          if ($this->gameHandler->advanceLevel($profile, 22)) {
+            $result = $this->gameHandler->getMessage('LEVL22');
           }
         }
       }
@@ -77,14 +77,14 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           $heartPos = array_search('heart', $words);
           $spousePos = array_search($spouseName, $words);
           if ($heartPos !== FALSE && $spousePos !== FALSE && $heartPos < $spousePos) {
-            if ($this->advanceLevel($profile, 15)) {
-              $results[] = $this->getMessage('HEAR01');
-              if (!$this->giveItemToPlayer($actingPlayer, 'locket')) {
-                $results[] = $this->getMessage('HEAR03');
+            if ($this->gameHandler->advanceLevel($profile, 15)) {
+              $results[] = $this->gameHandler->getMessage('HEAR01');
+              if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'locket')) {
+                $results[] = $this->gameHandler->getMessage('HEAR03');
                 // Couldn't give - item limits?
-                $this->removeFirstItem($actingPlayer);
+                $this->gameHandler->removeFirstItem($actingPlayer);
                 // Remove first item and give again.
-                $this->giveItemToPlayer($actingPlayer, 'locket');
+                $this->gameHandler->giveItemToPlayer($actingPlayer, 'locket');
               }
             }
           }
@@ -127,20 +127,20 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $target = trim($target);
 
       // Take the item the player is offering.
-      if ($item = $this->playerHasItem($actingPlayer, $target, TRUE)) {
+      if ($item = $this->gameHandler->playerHasItem($actingPlayer, $target, TRUE)) {
         if ($item->getTitle() == $firstBirthstoneName) {
           if ($lastBirthstone) {
             // Last one! Player gets a level and a spell.
-            $result[$actingPlayer->id()][] = $this->getMessage('SILVM0');
-            $othersMessage = sprintf($this->getMessage('SILVM1'), $actingPlayer->field_display_name->value);
-            $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-            $this->advanceLevel($profile, 4);
-            $this->giveSpellToPlayer($actingPlayer, 'hotseat');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM0');
+            $othersMessage = sprintf($this->gameHandler->getMessage('SILVM1'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->advanceLevel($profile, 4);
+            $this->gameHandler->giveSpellToPlayer($actingPlayer, 'hotseat');
           }
           else {
-            $result[$actingPlayer->id()][] = $this->getMessage('SILVM2');
-            $othersMessage = sprintf($this->getMessage('SILVM3'), $actingPlayer->field_display_name->value);
-            $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM2');
+            $othersMessage = sprintf($this->gameHandler->getMessage('SILVM3'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
             // Remove birthstone from player's profile.
             $profile->field_kyrandia_birth_stones[0] = NULL;
             $profile->save();
@@ -148,16 +148,16 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         }
         else {
           // Not the next birthstone.
-          $result[$actingPlayer->id()][] = $this->getMessage('SILVM4');
-          $othersMessage = sprintf($this->getMessage('SILVM3'), $actingPlayer->field_display_name->value);
-          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM4');
+          $othersMessage = sprintf($this->gameHandler->getMessage('SILVM3'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
         }
       }
       else {
         // Player doesn't actually have it.
-        $result[$actingPlayer->id()][] = $this->getMessage('TRDM05');
-        $othersMessage = sprintf($this->getMessage('SILVM5'), $actingPlayer->field_display_name->value);
-        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRDM05');
+        $othersMessage = sprintf($this->gameHandler->getMessage('SILVM5'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
       //      // Player actually has to have the item they're offering.
       //      $foundSomething = FALSE;
@@ -174,16 +174,16 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       //            $profile->field_kyrandia_birth_stones[0] = NULL;
       //            if ($lastBirthstone) {
       //              // This was the last birthstone! The player advances to level 4.
-      //              $level_ids = $this->advanceLevel($profile, 4);
+      //              $level_ids = $this->gameHandler->advanceLevel($profile, 4);
       //
-      //              $result = $this->getMessage('SILVM0');
+      //              $result = $this->gameHandler->getMessage('SILVM0');
       //            }
       //            else {
-      //              $result = $this->getMessage('SILVM2');
+      //              $result = $this->gameHandler->getMessage('SILVM2');
       //            }
       //          }
       //          else {
-      //            $result = $this->getMessage('SILVM4');
+      //            $result = $this->gameHandler->getMessage('SILVM4');
       //          }
       //          $foundSomething = TRUE;
       //          break;
@@ -240,11 +240,11 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $indexTashanna = array_search('tashanna', $words);
     if ($indexHeart < $indexSoul && $indexSoul < $indexTashanna) {
       $loc = $actingPlayer->field_location->entity;
-      $this->advanceLevel($profile, 7);
-      $result[$actingPlayer->id()][] = $this->getMessage('HNSYOU');
-      $othersMessage = sprintf($this->getMessage('HNSOTH'), $actingPlayer->field_display_name->value);
-      $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-      $this->giveSpellToPlayer($actingPlayer, 'weewillo');
+      $this->gameHandler->advanceLevel($profile, 7);
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HNSYOU');
+      $othersMessage = sprintf($this->gameHandler->getMessage('HNSOTH'), $actingPlayer->field_display_name->value);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $this->gameHandler->giveSpellToPlayer($actingPlayer, 'weewillo');
     }
     return $result;
   }
@@ -272,14 +272,14 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           if ($offeringGold > 0) {
             $playerGold = $profile->field_kyrandia_gold->value;
             if ($playerGold >= $offeringGold) {
-              $result = $this->getMessage('NOGTCR');
+              $result = $this->gameHandler->getMessage('NOGTCR');
               $playerGold = $playerGold - $offeringGold;
               $profile->field_kyrandia_gold = $playerGold;
               $profile->save();
             }
             else {
               // Player doesn't have enough.
-              $result = $this->getMessage('CHEAPO');
+              $result = $this->gameHandler->getMessage('CHEAPO');
             }
           }
         }
@@ -308,20 +308,20 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $words = explode(' ', $commandText);
     if (count($words) > 1) {
       if ($words[1] == 'rose') {
-        $item = $this->playerHasItem($actingPlayer, $words[1], TRUE);
+        $item = $this->gameHandler->playerHasItem($actingPlayer, $words[1], TRUE);
         if ($item) {
-          $result = $this->getMessage('TAKROS');
+          $result = $this->gameHandler->getMessage('TAKROS');
           // Healer adds 10 HP.
-          $this->healPlayer($actingPlayer, 10);
+          $this->gameHandler->healPlayer($actingPlayer, 10);
         }
         else {
           // Player doesn't have a rose.
-          $result = $this->getMessage('NOHAVE');
+          $result = $this->gameHandler->getMessage('NOHAVE');
         }
       }
       else {
         // Player offered something else.
-        $result = $this->getMessage('NOGOOD');
+        $result = $this->gameHandler->getMessage('NOGOOD');
       }
     }
     return $result;
@@ -345,10 +345,10 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $words = explode(' ', $commandText);
     $itemPos = array_search('kyragem', $words);
     if ($itemPos !== FALSE) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
-      if ($profile->field_kyrandia_level->entity->getName() == '11' && $this->playerHasItem($actingPlayer, 'kyragem')) {
-        if ($this->advanceLevel($profile, 12)) {
-          $result = $this->getMessage('SUNM03');
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+      if ($profile->field_kyrandia_level->entity->getName() == '11' && $this->gameHandler->playerHasItem($actingPlayer, 'kyragem')) {
+        if ($this->gameHandler->advanceLevel($profile, 12)) {
+          $result = $this->gameHandler->getMessage('SUNM03');
         }
       }
     }

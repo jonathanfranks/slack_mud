@@ -25,17 +25,17 @@ class Seek extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 280') {
       if ($commandText == 'seek truth') {
-        $profile = $this->getKyrandiaProfile($actingPlayer);
+        $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         if ($profile->field_kyrandia_level->entity->getName() == '17') {
-          $this->advanceLevel($profile, 18);
+          $this->gameHandler->advanceLevel($profile, 18);
           // Roughly 50% chance that player makes it or dies.
           $random = rand(0, 100);
           if ($random < 50) {
-            $result = $this->getMessage('TRUM01');
-            $this->damagePlayer($actingPlayer, 100);
+            $result = $this->gameHandler->getMessage('TRUM01');
+            $this->gameHandler->damagePlayer($actingPlayer, 100);
           }
           else {
-            $result = $this->getMessage('TRUM02');
+            $result = $this->gameHandler->getMessage('TRUM02');
           }
         }
       }

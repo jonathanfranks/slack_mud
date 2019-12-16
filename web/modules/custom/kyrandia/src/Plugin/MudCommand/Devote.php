@@ -24,24 +24,24 @@ class Devote extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 295') {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '16') {
         // Player needs broach, pendant, locket, and ring.
-        $hasBroach = $this->playerHasItem($actingPlayer, 'broach');
-        $hasPendant = $this->playerHasItem($actingPlayer, 'pendant');
-        $hasLocket = $this->playerHasItem($actingPlayer, 'locket');
-        $hasRing = $this->playerHasItem($actingPlayer, 'ring');
+        $hasBroach = $this->gameHandler->playerHasItem($actingPlayer, 'broach');
+        $hasPendant = $this->gameHandler->playerHasItem($actingPlayer, 'pendant');
+        $hasLocket = $this->gameHandler->playerHasItem($actingPlayer, 'locket');
+        $hasRing = $this->gameHandler->playerHasItem($actingPlayer, 'ring');
         if ($hasBroach && $hasPendant && $hasLocket && $hasRing) {
-          $this->advanceLevel($profile, 17);
-          $result = $this->getMessage('DEVM01');
+          $this->gameHandler->advanceLevel($profile, 17);
+          $result = $this->gameHandler->getMessage('DEVM01');
           // Remove broach, pendant, locket, and ring.
-          $this->takeItemFromPlayer($actingPlayer, 'broach');
-          $this->takeItemFromPlayer($actingPlayer, 'pendant');
-          $this->takeItemFromPlayer($actingPlayer, 'locket');
-          $this->takeItemFromPlayer($actingPlayer, 'ring');
+          $this->gameHandler->takeItemFromPlayer($actingPlayer, 'broach');
+          $this->gameHandler->takeItemFromPlayer($actingPlayer, 'pendant');
+          $this->gameHandler->takeItemFromPlayer($actingPlayer, 'locket');
+          $this->gameHandler->takeItemFromPlayer($actingPlayer, 'ring');
         }
         else {
-          $result = $this->getMessage('DEVM03');
+          $result = $this->gameHandler->getMessage('DEVM03');
         }
       }
     }

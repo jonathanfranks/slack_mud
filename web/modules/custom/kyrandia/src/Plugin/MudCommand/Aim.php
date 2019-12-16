@@ -30,43 +30,43 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $words = explode(' ', $commandText);
       if (count($words) == 1) {
         // Just typed "aim".
-        $result[$actingPlayer->id()][] = $this->getMessage('OBJM03');
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM03');
         $othersMessage = t(':actor is pointing wildly.', [
           ':actor' => $actingPlayer->field_display_name->value,
         ]);
-        $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
       else {
         $target = $words[1];
-        $profile = $this->getKyrandiaProfile($actingPlayer);
-        if ($this->playerHasItem($actingPlayer, $target)) {
+        $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+        if ($this->gameHandler->playerHasItem($actingPlayer, $target)) {
           // The "at" is removed, so "aim wand at jeff" turns into
           // "aim wand jeff".
           if (count($words) < 3) {
-            $result[$actingPlayer->id()][] = $this->getMessage('OBJM05');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM05');
             $othersMessage = t(':actor is waving :possessive arms.', [
               ':actor' => $actingPlayer->field_display_name->value,
               ':possessive' => $profile->field_kyrandia_is_female->value ? 'her' : 'his',
             ]);
-            $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           }
           else {
             $targetPlayerName = $words[2];
-            if ($targetPlayer = $this->locationHasPlayer($targetPlayerName, $loc, TRUE, $actingPlayer)) {
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($targetPlayerName, $loc, TRUE, $actingPlayer)) {
               // Handle aimable flag.
-              $result[$actingPlayer->id()][] = $this->getMessage('OBJM04');
+              $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM04');
               $othersMessage = t(':actor is waving obscenely!', [
                 ':actor' => $actingPlayer->field_display_name->value,
               ]);
-              $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+              $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
             }
             else {
               // Aiming at a player who isn't there.
-              $result[$actingPlayer->id()][] = $this->getMessage('OBJM06');
+              $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM06');
               $othersMessage = t(':actor is seeing ghosts!', [
                 ':actor' => $actingPlayer->field_display_name->value,
               ]);
-              $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+              $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
             }
           }
         }
@@ -75,15 +75,15 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
           // @TODO Profanity handler.
           $profane = FALSE;
           if ($profane) {
-            $result[$actingPlayer->id()][] = $this->getMessage('OBJM01');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM01');
             $othersMessage = t(':actor is playing with :possessive body parts!', [
               ':actor' => $actingPlayer->field_display_name->value,
               ':possessive' => $profile->field_kyrandia_is_female->value ? 'her' : 'his',
             ]);
-            $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           }
           else {
-            $this->targetNonExistantItem($actingPlayer, $result);
+            $this->gameHandler->targetNonExistantItem($actingPlayer, $result);
           }
         }
       }
@@ -112,15 +112,15 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
     $itemPos = array_search('wand', $words);
     $targetPos = array_search('tree', $words);
     if ($itemPos !== FALSE && $targetPos !== FALSE && $itemPos < $targetPos) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
-      if ($profile->field_kyrandia_level->entity->getName() == '10' && $this->playerHasItem($actingPlayer, 'wand')) {
-        if ($this->advanceLevel($profile, 11)) {
-          $result = $this->getMessage('CTREM0');
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+      if ($profile->field_kyrandia_level->entity->getName() == '10' && $this->gameHandler->playerHasItem($actingPlayer, 'wand')) {
+        if ($this->gameHandler->advanceLevel($profile, 11)) {
+          $result = $this->gameHandler->getMessage('CTREM0');
         }
       }
     }
     if (!$result) {
-      $result = $this->getMessage('WALM01');
+      $result = $this->gameHandler->getMessage('WALM01');
     }
     return $result;
   }

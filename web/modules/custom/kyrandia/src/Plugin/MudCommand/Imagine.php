@@ -23,14 +23,14 @@ class Imagine extends KyrandiaCommandPluginBase implements MudCommandPluginInter
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $commandText = str_replace('imagine', '', $commandText);
     $commandText = trim($commandText);
     if ($commandText == 'dagger' && $loc->getTitle() == 'Location 181') {
       // Imagining a dagger at the statue gives the player a dagger.
       $itemName = 'dagger';
-      if ($this->giveItemToPlayer($actingPlayer, $itemName)) {
-        $result = $this->getMessage('DAGM00');
+      if ($this->gameHandler->giveItemToPlayer($actingPlayer, $itemName)) {
+        $result = $this->gameHandler->getMessage('DAGM00');
       }
     }
     if (!$result) {

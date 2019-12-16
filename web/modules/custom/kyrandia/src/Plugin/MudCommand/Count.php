@@ -25,7 +25,7 @@ class Count extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
 
     $words = explode(' ', $commandText);
     if (count($words) == 1) {
-      $result[$actingPlayer->id()][] = $this->getMessage('COUNTR1');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('COUNTR1');
     }
     elseif ($words[1] == 'gold') {
       /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
@@ -35,7 +35,7 @@ class Count extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $result = $plugin->perform($commandText, $actingPlayer);
     }
     else {
-      $result[$actingPlayer->id()][] = $this->getMessage('COUNTR2');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('COUNTR2');
     }
     return $result;
   }

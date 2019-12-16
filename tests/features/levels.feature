@@ -202,7 +202,7 @@ Feature: Kyrandia commands not specific to locations
     And Joe should be level 6
     And Joe should have the spell hotkiss
 
-  @level @kneel @level7 @deadwoodedglade
+  @level @kneel @level7 @hiddenshrine
   Scenario: Level 7
     Given player content:
       | title | field_game | field_location | field_inventory                                | field_active | field_display_name | field_slack_user_name |
@@ -220,7 +220,7 @@ Feature: Kyrandia commands not specific to locations
     And Joe should be level 7
     And Joe should have the spell weewillo
 
-  @level @kneel @level8 @deadwoodedglade
+  @level @kneel @level8 @mistyruins
   Scenario: Level 8
     Given player content:
       | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
@@ -236,4 +236,24 @@ Feature: Kyrandia commands not specific to locations
     Then Joe should see "...The orb accepts your offer, and glows brightly for a moment!\n***\nYou are now at level 8!\n"
     And Flo should see "***\nJoe is attempting to touch the orb!\n"
     And Joe should be level 8
+    And Joe should not have dagger in inventory
+
+  @level @kneel @level9 @mistyruins
+  Scenario: Level 9
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 7   | dagger          | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 7   | ruby,diamond    | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 8                    | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 8
+    And the current temple chant count is 0
+
+    When Joe performs "place dagger in orb"
+    Then Joe should see "...The orb accepts your offer, and glows brightly for a moment!\n***\nYou are now at level 8!\n"
+    And Flo should see "***\nJoe is attempting to touch the orb!\n"
+    And Joe should be level 9
     And Joe should not have dagger in inventory

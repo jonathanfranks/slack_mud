@@ -24,7 +24,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
 
     if ($loc->getTitle() == 'Location 7') {
       $result = $this->temple($commandText, $actingPlayer, $profile);
@@ -83,17 +83,17 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $tiaraPos = array_search('tiara', $words);
       $altarPos = array_search('altar', $words);
       if ($charmPos !== FALSE && $charmPos < $altarPos && $profile->field_kyrandia_level->entity->getName() == 8) {
-        $charm = $this->playerHasItem($actingPlayer, 'charm', TRUE);
+        $charm = $this->gameHandler->playerHasItem($actingPlayer, 'charm', TRUE);
         if ($charm) {
-          $result = $this->getMessage('LVL9M0');
-          $this->advanceLevel($profile, 9);
+          $result = $this->gameHandler->getMessage('LVL9M0');
+          $this->gameHandler->advanceLevel($profile, 9);
         }
       }
       elseif ($tiaraPos !== FALSE && $tiaraPos < $altarPos && $profile->field_kyrandia_level->entity->getName() == 9) {
-        $tiara = $this->playerHasItem($actingPlayer, 'tiara', TRUE);
+        $tiara = $this->gameHandler->playerHasItem($actingPlayer, 'tiara', TRUE);
         if ($tiara) {
-          $result = $this->getMessage('LV10M0');
-          $this->advanceLevel($profile, 10);
+          $result = $this->gameHandler->getMessage('LV10M0');
+          $this->gameHandler->advanceLevel($profile, 10);
         }
       }
       elseif ($altarPos >= 2) {
@@ -109,9 +109,9 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           '',
         ], $commandText);
         $commandText = trim($commandText);
-        $itemDelta = $this->playerHasItem($actingPlayer, $commandText, TRUE);
+        $itemDelta = $this->gameHandler->playerHasItem($actingPlayer, $commandText, TRUE);
         if ($itemDelta !== FALSE) {
-          $result = $this->getMessage('OFFER0');
+          $result = $this->gameHandler->getMessage('OFFER0');
         }
       }
     }
@@ -135,7 +135,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     // At the strange rock.
     // It has to have been prayed at.
     $game = $actingPlayer->field_game->entity;
-    $rockPrayCount = $this->getInstanceSetting($game, 'currentRockPrayCount', 0);
+    $rockPrayCount = $this->gameHandler->getInstanceSetting($game, 'currentRockPrayCount', 0);
     if ($rockPrayCount) {
       $words = explode(' ', $commandText);
       // Word 0 has to be 'place', otherwise we wouldn't be here.
@@ -143,13 +143,13 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $swordPos = array_search('sword', $words);
       $rockPos = array_search('rock', $words);
       if ($swordPos !== FALSE && $rockPos !== FALSE && $swordPos < $rockPos) {
-        if ($this->takeItemFromPlayer($actingPlayer, 'sword')) {
-          if ($this->giveItemToPlayer($actingPlayer, 'tiara')) {
-            $result = $this->getMessage('ROCK00');
+        if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'sword')) {
+          if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'tiara')) {
+            $result = $this->gameHandler->getMessage('ROCK00');
           }
         }
         else {
-          $result = $this->getMessage('ROCK02');
+          $result = $this->gameHandler->getMessage('ROCK02');
         }
       }
     }
@@ -173,7 +173,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $result = NULL;
     // At the alcove.
     // Player needs to chant opensesame to use it.
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $openSesame = $profile->field_kyrandia_open_sesame->value;
 
     if ($openSesame) {
@@ -183,9 +183,9 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $swordPos = array_search('key', $words);
       $rockPos = array_search('crevice', $words);
       if ($swordPos !== FALSE && $rockPos !== FALSE && $swordPos < $rockPos) {
-        if ($this->takeItemFromPlayer($actingPlayer, 'key')) {
+        if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'key')) {
           if ($this->movePlayer($actingPlayer, 'Location 186')) {
-            $result = $this->getMessage('WALM00');
+            $result = $this->gameHandler->getMessage('WALM00');
           }
           // The result is LOOKing at the new location.
           $mudEvent = new CommandEvent($actingPlayer, 'look');
@@ -195,7 +195,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       }
     }
     if (!$result) {
-      $result = $this->getMessage('WALM01');
+      $result = $this->gameHandler->getMessage('WALM01');
     }
     return $result;
   }
@@ -222,7 +222,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $slotPos = array_search('slot', $words);
     if ($slotPos !== FALSE) {
       if ($itemPos !== FALSE && $slotPos !== FALSE && $itemPos < $slotPos) {
-        if ($this->takeItemFromPlayer($actingPlayer, 'garnet')) {
+        if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'garnet')) {
           // Random result.
           $rand = rand(1, 11);
           if ($rand < 3) {
@@ -241,11 +241,11 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
               "bloodstone",
             ];
             $prize = $prizes[array_rand($prizes)];
-            $this->giveItemToPlayer($actingPlayer, $prize);
-            $result = $this->getMessage('SLOT00') . "\n" . sprintf($this->getMessage('SLOT02'), $this->wordGrammar->getIndefiniteArticle($prize) . ' ' . $prize);
+            $this->gameHandler->giveItemToPlayer($actingPlayer, $prize);
+            $result = $this->gameHandler->getMessage('SLOT00') . "\n" . sprintf($this->gameHandler->getMessage('SLOT02'), $this->wordGrammar->getIndefiniteArticle($prize) . ' ' . $prize);
           }
           else {
-            $result = $this->getMessage('SLOT03');
+            $result = $this->gameHandler->getMessage('SLOT03');
           }
         }
       }
@@ -277,14 +277,14 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $itemPos = array_search('dagger', $words);
     $targetPos = array_search('orb', $words);
     if ($itemPos !== FALSE && $targetPos !== FALSE && $itemPos < $targetPos) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
-      if ($profile->field_kyrandia_level->entity->getName() == '7' && $this->takeItemFromPlayer($actingPlayer, 'dagger')) {
-        if ($this->advanceLevel($profile, 8)) {
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+      if ($profile->field_kyrandia_level->entity->getName() == '7' && $this->gameHandler->takeItemFromPlayer($actingPlayer, 'dagger')) {
+        if ($this->gameHandler->advanceLevel($profile, 8)) {
           $loc = $actingPlayer->field_location->entity;
-          $result[$actingPlayer->id()][] = $this->getMessage('MISM04');
-          $othersMessage = sprintf($this->getMessage('MISM05'), $actingPlayer->field_display_name->value);
-          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-          $this->giveSpellToPlayer($actingPlayer, 'weewillo');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('MISM04');
+          $othersMessage = sprintf($this->gameHandler->getMessage('MISM05'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->giveSpellToPlayer($actingPlayer, 'weewillo');
         }
       }
     }
@@ -315,9 +315,9 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $itemPos = array_search('soulstone', $words);
     $targetPos = array_search('niche', $words);
     if ($itemPos !== FALSE && $targetPos !== FALSE && $itemPos < $targetPos) {
-      $profile = $this->getKyrandiaProfile($actingPlayer);
-      if ($this->playerHasItem($actingPlayer, 'soulstone')) {
-        $result = $this->getMessage('SOUKEY');
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+      if ($this->gameHandler->playerHasItem($actingPlayer, 'soulstone')) {
+        $result = $this->gameHandler->getMessage('SOUKEY');
         $this->movePlayer($actingPlayer, 'Location 219');
         // The result is LOOKing at the new location.
         $mudEvent = new CommandEvent($actingPlayer, 'look');

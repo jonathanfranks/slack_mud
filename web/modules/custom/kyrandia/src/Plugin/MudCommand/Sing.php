@@ -23,12 +23,12 @@ class Sing extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 252') {
       // @TODO Handle verb synonyms.
       if ($profile->field_kyrandia_level->entity->getName() == '18') {
-        $this->advanceLevel($actingPlayer, 19);
-        $result = $this->getMessage('LEVL19');
+        $this->gameHandler->advanceLevel($actingPlayer, 19);
+        $result = $this->gameHandler->getMessage('LEVL19');
       }
     }
     if (!$result) {

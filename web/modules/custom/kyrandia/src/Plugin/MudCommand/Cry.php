@@ -24,7 +24,7 @@ class Cry extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
     // Players say a command at the temple to get to level 3.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 26') {
       // Player is at the ash trees.
       $words = explode(' ', $commandText);
@@ -36,11 +36,11 @@ class Cry extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       ];
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
-        $result = $this->getMessage('ASHM00');
+        $result = $this->gameHandler->getMessage('ASHM00');
         if ($this->placeItemInLocation($loc, 'shard')) {
         }
         else {
-          $result .= "\n" . $this->getMessage('ASHM02');
+          $result .= "\n" . $this->gameHandler->getMessage('ASHM02');
         }
       }
     }

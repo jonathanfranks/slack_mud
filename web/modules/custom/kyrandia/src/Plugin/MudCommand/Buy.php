@@ -24,7 +24,7 @@ class Buy extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->getKyrandiaProfile($actingPlayer);
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 9') {
       // Selling gems at the gem store.
       // @TODO Maybe make this configurable?
@@ -57,12 +57,12 @@ class Buy extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
           $price = $values[$target];
           $playerGold = $profile->field_kyrandia_gold->value;
           if ($price > $playerGold) {
-            $result = $this->getMessage('BUYM00');
+            $result = $this->gameHandler->getMessage('BUYM00');
           }
           else {
             // Add spell.
-            if ($this->giveSpellToPlayer($actingPlayer, $target)) {
-              $result = $this->getMessage('BUYM02');
+            if ($this->gameHandler->giveSpellToPlayer($actingPlayer, $target)) {
+              $result = $this->gameHandler->getMessage('BUYM02');
               // Subtract gold.
               $playerGold -= $price;
               $profile->field_kyrandia_gold = $playerGold;
@@ -75,7 +75,7 @@ class Buy extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
         }
         else {
           // Doesn't have it.
-          $result = $this->getMessage('BUYM04');
+          $result = $this->gameHandler->getMessage('BUYM04');
         }
       }
     }
