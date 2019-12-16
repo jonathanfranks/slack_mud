@@ -21,24 +21,13 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 285') {
-      $result = $this->time($commandText, $actingPlayer);
+      $this->time($commandText, $actingPlayer, $result);
     }
     elseif ($loc->getTitle() == 'Location 302') {
-      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
-      if ($profile->field_kyrandia_level->entity->getName() == '24') {
-        if ($commandText == 'answer cast the spells and cross the seas, heart, soul, mind, and body are the keys') {
-          $dragonHere = $this->gameHandler->isDragonHere($loc);
-          if ($dragonHere) {
-            $this->gameHandler->advanceLevel($profile, 25);
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('YOUWIN');
-            $othersMessage = sprintf($this->gameHandler->getMessage('SHEWON'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-          }
-        }
-      }
+      $this->winGame($commandText, $actingPlayer, $loc, $result);
     }
     if (!$result) {
       $result[$actingPlayer->id()][] = 'Nothing happens.';
@@ -53,14 +42,12 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return array
-   *   The result.
+   * @param array $result
+   *   The result array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function time($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  protected function time($commandText, NodeInterface $actingPlayer, array &$result) {
     // We're looking for "answer time".
     $words = explode(' ', $commandText);
     if (in_array('time', $words)) {
@@ -82,7 +69,33 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
         }
       }
     }
-    return $result;
+  }
+
+  /**
+   * Win the game with this command.
+   *
+   * @param string $commandText
+   *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param \Drupal\node\NodeInterface $loc
+   *   The location.
+   * @param array $result
+   *   The result array.
+   */
+  protected function winGame($commandText, NodeInterface $actingPlayer, NodeInterface $loc, array &$result) {
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+    if ($profile->field_kyrandia_level->entity->getName() == '24') {
+      if ($commandText == 'answer cast the spells and cross the seas, heart, soul, mind, and body are the keys') {
+        $dragonHere = $this->gameHandler->isDragonHere($loc);
+        if ($dragonHere) {
+          $this->gameHandler->advanceLevel($profile, 25);
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('YOUWIN');
+          $othersMessage = sprintf($this->gameHandler->getMessage('SHEWON'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        }
+      }
+    }
   }
 
 }

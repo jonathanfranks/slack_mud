@@ -73,7 +73,7 @@ class Aim extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
         else {
           // Doesn't have whatever they're aiming.
           // @TODO Profanity handler.
-          $profane = FALSE;
+          $profane = TRUE;
           if ($profane) {
             $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM01');
             $othersMessage = t(':actor is playing with :possessive body parts!', [

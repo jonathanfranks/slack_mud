@@ -1,5 +1,5 @@
-@api @registration @login
-Feature: Kyrandia commands not specific to locations
+@api
+Feature: Kyrandia level advancement
 
   @level @kneel @level2
   Scenario: Level 2

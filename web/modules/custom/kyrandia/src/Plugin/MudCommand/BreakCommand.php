@@ -48,23 +48,27 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
   protected function breakWand(string $commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     $words = explode(' ', $commandText);
+    $loc = $actingPlayer->field_location->entity;
     // Word 0 has to be 'aim', otherwise we wouldn't be here.
     // We're looking for 'aim wand at tree'.
     $itemPos = array_search('wand', $words);
     if ($itemPos !== FALSE) {
-      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'wand')) {
         if ($this->gameHandler->playerHasItem($actingPlayer, 'kyragem')) {
-          $result = $this->gameHandler->getMessage('RABOM0');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('RABOM0');
+          $othersMessage = sprintf($this->gameHandler->getMessage('RABOM1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
         }
         else {
-          $result = $this->gameHandler->getMessage('RABOM2');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('RABOM2');
+          $othersMessage = sprintf($this->gameHandler->getMessage('RABOM3'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           $this->gameHandler->giveItemToPlayer($actingPlayer, 'kyragem');
         }
       }
     }
     if (!$result) {
-      $result = $this->gameHandler->getMessage('WALM01');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM01');
     }
     return $result;
   }
