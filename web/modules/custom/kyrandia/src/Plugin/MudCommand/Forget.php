@@ -27,8 +27,10 @@ class Forget extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
     if ($loc->getTitle() == 'Location 253') {
       // @TODO Handle verb synonyms.
       if ($profile->field_kyrandia_level->entity->getName() == '19') {
-        $this->gameHandler->advanceLevel($actingPlayer, 20);
-        $result = $this->gameHandler->getMessage('LEVL20');
+        $this->gameHandler->advanceLevel($profile, 20);
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL20');
+        $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
     }
     if (!$result) {
