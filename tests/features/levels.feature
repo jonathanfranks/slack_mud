@@ -433,7 +433,7 @@ Feature: Kyrandia commands not specific to locations
     And Joe should have locket in inventory
 
   @level @kneel @level16 @chamberofthesoul
-  Scenario: Level 15
+  Scenario: Level 16
     Given player content:
       | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
       | Joe   | kyrandia   | Location 291   | soulstone       | 1            | Joe                | Joe                   |
@@ -449,4 +449,80 @@ Feature: Kyrandia commands not specific to locations
     And Flo should see "***\nJoe has suddenly grown in strength and wisdom.\n"
     And Joe should be level 16
     And Joe should have ring in inventory
+
+  @level @kneel @level17 @chamberoflife
+  Scenario: Level 17 - does not have items
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 295   | soulstone,ring  | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 295   | diamond         | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 16                   |
+    And Joe should be level 16
+    And Joe performs "devote"
+    And Joe should see "...Your devotion is not complete.\n"
+    And Flo should see "***\nJoe is looking rather disappointed.\n"
+    And Joe should be level 16
+    And Joe should have ring in inventory
+
+  @level @kneel @level17 @chamberoflife
+  Scenario: Level 17 - does have items
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 295   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 295   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 16                   |
+    And Joe should be level 16
+    And Joe performs "devote"
+    And Joe should see "...You devote yourself...\n***\nYour broach vanishes in a red flash!\n***\nYour pendant vanishes in a blue flash!\n***\nYour locket vanishes in a golden flash!\n***\nYour ring vanishes in a purple flash!\n***\nYou are now at level 17!\n"
+    And Flo should see "***\nJoe is suddenly surrounded by a rainbow variety of flashes of light!\n"
+    And Joe should be level 17
+    And Joe should not have ring in inventory
+    And Joe should not have broach in inventory
+    And Joe should not have locket in inventory
+    And Joe should not have pendant in inventory
+
+  @level @kneel @level18 @chamberoftruth
+  Scenario: Level 18 - Pass
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 280   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 280   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 17                   |
+    And Joe should be level 17
+    And the Kyrandia random number will generate 51
+    And Joe performs "seek truth"
+    And Joe should see '...As you seek the truth, the Goddess Tashanna, in all her glory and beauty\nappears before you and says: "This is your test to become a Mage of Fire.\nI wish you the best of luck."\n***\nThe Goddess then vanishes.\n***\nSuddenly, you feel yourself in a game of tug-o-war.  You fight with all\nyour effort against your invisible opponent, trying to win.  You feel\nyourself slipping, and losing the battle, when suddenly an inner strength\npulls you to victory!\n***\nYou are now at level 18!\n'
+    And Flo should see "***\nJoe is looking a little peaked.\n"
+    And Joe should be level 18
+
+  @level @kneel @level18 @chamberoftruth
+  Scenario: Level 18 - Fail
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 280   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 280   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 17                   |
+    And Joe should be level 17
+    And the Kyrandia random number will generate 1
+    And Joe performs "seek truth"
+    And Joe should see '...As you seek the truth, the Goddess Tashanna, in all her glory and beauty\nappears before you and says: "This is your test to become a Mage of Fire.\nI wish you the best of luck."\n***\nThe Goddess then vanishes.\n***\nSuddenly, you feel yourself in a game of tug-o-war.  You fight with all\nyour effort against your invisible opponent, trying to win.  You feel\nyourself starting to pull your opponent to your victory, when suddenly\nyou slip and fall...\n'
+    And Flo should see "***\nJoe just ceased to exist, having been sucked into a vanishing void.\n"
+    And Joe should be level 1
+    And Joe should be in "Location 0"
 

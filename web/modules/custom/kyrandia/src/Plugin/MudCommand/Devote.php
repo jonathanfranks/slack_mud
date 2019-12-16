@@ -21,7 +21,7 @@ class Devote extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 295') {
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
@@ -33,7 +33,9 @@ class Devote extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
         $hasRing = $this->gameHandler->playerHasItem($actingPlayer, 'ring');
         if ($hasBroach && $hasPendant && $hasLocket && $hasRing) {
           $this->gameHandler->advanceLevel($profile, 17);
-          $result = $this->gameHandler->getMessage('DEVM01');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('DEVM01');
+          $othersMessage = sprintf($this->gameHandler->getMessage('DEVM02'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           // Remove broach, pendant, locket, and ring.
           $this->gameHandler->takeItemFromPlayer($actingPlayer, 'broach');
           $this->gameHandler->takeItemFromPlayer($actingPlayer, 'pendant');
@@ -41,12 +43,14 @@ class Devote extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
           $this->gameHandler->takeItemFromPlayer($actingPlayer, 'ring');
         }
         else {
-          $result = $this->gameHandler->getMessage('DEVM03');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('DEVM03');
+          $othersMessage = sprintf($this->gameHandler->getMessage('DEVM04'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
         }
       }
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }

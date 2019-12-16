@@ -207,4 +207,31 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
     }
   }
 
+  /**
+   * @Given the Kyrandia random number will generate :number
+   */
+  public function forceRandomNumber($number) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $this->gameHandler->saveInstanceSetting($game, 'forceRandomNumber', $number);
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @AfterScenario
+   */
+  public function cleanRandom() {
+    // Sets the random number generator to NULL, which prevents the numbers from
+    // being forced.
+    $this->forceRandomNumber(NULL);
+  }
+
 }
