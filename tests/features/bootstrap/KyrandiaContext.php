@@ -134,6 +134,41 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Given :player is married to :spouse
+   */
+  public function isMarriedTo($player, $spouse) {
+    $playerNode = $this->getPlayerByName($player);
+    $spousePlayerNode = $this->getPlayerByName($spouse);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    if (!$spousePlayerNode) {
+      throw new \Exception(sprintf('No player called %s.', $spouse));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    $profile->field_kyrandia_married_to = $spousePlayerNode;
+    $profile->save();
+  }
+
+  /**
+   * @Then :player should be married to :spouse
+   */
+  public function assertMarriedTo($player, $spouse) {
+    $playerNode = $this->getPlayerByName($player);
+    $spousePlayerNode = $this->getPlayerByName($spouse);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    if (!$spousePlayerNode) {
+      throw new \Exception(sprintf('No player called %s.', $spouse));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if ($profile->field_kyrandia_married_to->target_id != $spousePlayerNode->id()) {
+      throw new \Exception(sprintf('Player %s is not married to %s.', $player, $spouse));
+    }
+  }
+
+  /**
    * @Given the current temple chant count is set to :count
    */
   public function setCurrentTempleChantCountIs($count) {

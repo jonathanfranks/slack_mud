@@ -369,6 +369,7 @@ Feature: Kyrandia commands not specific to locations
     And Joe should see "...You leap with all your might and cross the chasm!\n***\nA broach appears among your possesions!\n***\nYou are now at level 13!\n"
     And Flo should see "***\nJoe has just successfully leaped across the chasm!\n"
     And Joe should be level 13
+    And Joe should have broach in inventory
 
   @level @kneel @level13 @chamberofthebody
   Scenario: Level 13 - Unprotected
@@ -391,3 +392,44 @@ Feature: Kyrandia commands not specific to locations
     And Joe should be level 1
     And Joe should be in "Location 0"
     And Mo should see "***\nJoe has just appeared in a holy light!\n"
+    And Joe should not have broach in inventory
+
+  @level @kneel @level14 @chamberofthebody
+  Scenario: Level 14
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 285   | soulstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 285   | diamond         | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 13                   |
+    And Joe should be level 13
+    And Joe performs "answer time"
+    And Joe should see '...An emotionless voice responds: "Correct."\n***\nA pendant appears in your hands!\n***\nYou are now at level 14!\n'
+    And Flo should see "***\nJoe has suddenly grown in strength and knowledge.\n"
+    And Joe should be level 14
+    And Joe should have pendant in inventory
+
+  @level @kneel @level15 @chamberoftheheart
+  Scenario: Level 15
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 288   | soulstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 288   | diamond         | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 14                   |
+    And Joe should be level 14
+    And Joe is married to Flo
+    And Joe should be married to Flo
+    And Joe performs "offer heart to flo"
+    And Joe should see "...Your commitment to your heart's love proves you worthy of greater\nknowledge.\n***\nA locket suddenly appears in your hands!\n***\nYou are now at level 15!\n"
+    And Flo should see "***\nJoe is momentarily surrounded by a dark red glow.\n"
+    And Joe should be level 15
+    And Joe should have locket in inventory
+
+

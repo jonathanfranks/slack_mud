@@ -70,7 +70,6 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       if ($profile->field_kyrandia_level->entity->getName() == 14) {
         $words = explode(' ', $commandText);
         if ($profile->field_kyrandia_married_to->entity) {
-          $results = [];
           // We're looking for "offer heart to [spouse]".
           $spouse = $profile->field_kyrandia_married_to->entity;
           $spouseName = strtolower($spouse->field_display_name->value);
@@ -78,9 +77,11 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           $spousePos = array_search($spouseName, $words);
           if ($heartPos !== FALSE && $spousePos !== FALSE && $heartPos < $spousePos) {
             if ($this->gameHandler->advanceLevel($profile, 15)) {
-              $results[] = $this->gameHandler->getMessage('HEAR01');
+              $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HEAR01');
+              $othersMessage = sprintf($this->gameHandler->getMessage('HEAR02'), $actingPlayer->field_display_name->value);
+              $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
               if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'locket')) {
-                $results[] = $this->gameHandler->getMessage('HEAR03');
+                $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HEAR03');
                 // Couldn't give - item limits?
                 $this->gameHandler->removeFirstItem($actingPlayer);
                 // Remove first item and give again.
@@ -88,12 +89,11 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
               }
             }
           }
-          $result = implode("\n", $results);
         }
       }
     }
     if (!$result) {
-      $result = "You can't do that here.";
+      $result[$actingPlayer->id()][] = "You can't do that here.";
     }
     return $result;
   }
@@ -159,39 +159,6 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         $othersMessage = sprintf($this->gameHandler->getMessage('SILVM5'), $actingPlayer->field_display_name->value);
         $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
-      //      // Player actually has to have the item they're offering.
-      //      $foundSomething = FALSE;
-      //      foreach ($actingPlayer->field_inventory as $delta => $item) {
-      //        $itemName = strtolower(trim($item->entity->getTitle()));
-      //        if (strpos($itemName, $target) === 0) {
-      //          // Item's name starts with the string the user typed.
-      //          // Remove item from inventory.
-      //          unset($actingPlayer->field_inventory[$delta]);
-      //          $actingPlayer->save();
-      //
-      //          if ($itemName == $firstBirthstoneName) {
-      //            // This was the right stone. Remove it from the birthstones array.
-      //            $profile->field_kyrandia_birth_stones[0] = NULL;
-      //            if ($lastBirthstone) {
-      //              // This was the last birthstone! The player advances to level 4.
-      //              $level_ids = $this->gameHandler->advanceLevel($profile, 4);
-      //
-      //              $result = $this->gameHandler->getMessage('SILVM0');
-      //            }
-      //            else {
-      //              $result = $this->gameHandler->getMessage('SILVM2');
-      //            }
-      //          }
-      //          else {
-      //            $result = $this->gameHandler->getMessage('SILVM4');
-      //          }
-      //          $foundSomething = TRUE;
-      //          break;
-      //        }
-      //      }
-      //      if (!$foundSomething) {
-      //        $result = t("Unfortunately, you don't have that at the moment.");
-      //      }
     }
     return $result;
   }

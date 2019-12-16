@@ -33,13 +33,13 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
           $dragonHere = $this->gameHandler->isDragonHere($loc);
           if ($dragonHere) {
             $this->gameHandler->advanceLevel($profile, 25);
-            $result = $this->gameHandler->getMessage('YOUWIN');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('YOUWIN');
           }
         }
       }
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }
@@ -52,23 +52,25 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
    *
-   * @return string
+   * @return array
    *   The result.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function time($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     // We're looking for "answer time".
     $words = explode(' ', $commandText);
     if (in_array('time', $words)) {
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
-      $results = [];
       if ($profile->field_kyrandia_level->entity->getName() == '13') {
         if ($this->gameHandler->advanceLevel($profile, 14)) {
-          $results[] = $this->gameHandler->getMessage('MINM01');
+          $loc = $actingPlayer->field_location->entity;
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('MINM01');
+          $othersMessage = sprintf($this->gameHandler->getMessage('MINM02'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'pendant')) {
-            $results[] = $this->gameHandler->getMessage('MIM03');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('MINM03');
             // Not enough room? Item limits?
             // Take the first item away to make room.
             $this->gameHandler->removeFirstItem($actingPlayer);
@@ -77,7 +79,6 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
           }
         }
       }
-      $result = implode("\n", $results);
     }
     return $result;
   }
