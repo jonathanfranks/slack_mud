@@ -432,4 +432,21 @@ Feature: Kyrandia commands not specific to locations
     And Joe should be level 15
     And Joe should have locket in inventory
 
+  @level @kneel @level16 @chamberofthesoul
+  Scenario: Level 15
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 291   | soulstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 291   | diamond         | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 15                   |
+    And Joe should be level 15
+    And Joe performs "ignore time"
+    And Joe should see "...Your realization that time has no effect upon the immortal soul\nproves you worthy of greater enlightnment.\n***\nYou are now at level 16!\n***\nYou also receive a ring, the symbol of universal unity, as a mark of\nyour achievement.\n"
+    And Flo should see "***\nJoe has suddenly grown in strength and wisdom.\n"
+    And Joe should be level 16
+    And Joe should have ring in inventory
 

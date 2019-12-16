@@ -26,21 +26,21 @@ class Ignore extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 291' && $commandText == 'ignore time') {
-      $results = [];
-      $results[] = $this->gameHandler->getMessage('SOUL01');
       if ($this->gameHandler->advanceLevel($profile, 16)) {
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SOUL01');
+        $othersMessage = sprintf($this->gameHandler->getMessage('SOUL02'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
         if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'ring')) {
           // Can't give item - max items?
           // Remove first item and give it again.
-          $results[] = $this->gameHandler->getMessage('SOUL03');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SOUL03');
           $this->gameHandler->removeFirstItem($actingPlayer);
           $this->gameHandler->giveItemToPlayer($actingPlayer, 'ring');
         }
       }
-      $result = implode("\n", $results);
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }
