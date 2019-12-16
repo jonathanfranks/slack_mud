@@ -15,13 +15,7 @@ use Drupal\taxonomy\Entity\Term;
 class KyrandiaGameHandlerService extends MudGameHandlerService implements KyrandiaGameHandlerServiceInterface {
 
   /**
-   * Gets the Kyrandia profile node for the given player node.
-   *
-   * @param \Drupal\node\NodeInterface $targetPlayer
-   *   The player.
-   *
-   * @return \Drupal\node\NodeInterface|null
-   *   The player's Kyrandia profile node.
+   * {@inheritdoc}
    */
   public function getKyrandiaProfile(NodeInterface $targetPlayer) {
     // @TODO: Service-ize this.
@@ -38,13 +32,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Gets a Kyrandia message.
-   *
-   * @param string $messageId
-   *   The message ID.
-   *
-   * @return |null
-   *   The message text.
+   * {@inheritdoc}
    */
   public function getMessage($messageId) {
     $query = \Drupal::entityQuery('taxonomy_term')
@@ -61,17 +49,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Advance the profile to the specified level.
-   *
-   * @param \Drupal\node\NodeInterface $profile
-   *   Acting player.
-   * @param int $level
-   *   Level to advance to.
-   *
-   * @return bool
-   *   TRUE if level was advanced.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function advanceLevel(NodeInterface $profile, $level) {
     // Set the player's level to $level.
@@ -89,17 +67,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Gives the named spell to the specified player.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player.
-   * @param string $spellName
-   *   The spell to give.
-   *
-   * @return bool
-   *   TRUE if the spell was given.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function giveSpellToPlayer(NodeInterface $player, string $spellName) {
     $query = \Drupal::entityQuery('taxonomy_term')
@@ -120,15 +88,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Checks if specified player has specified spell.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player.
-   * @param string $spellName
-   *   The spell name.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The spell if the player has the spell in their spellbook or null.
+   * {@inheritdoc}
    */
   public function playerHasSpell(NodeInterface $player, $spellName) {
     $profile = $this->getKyrandiaProfile($player);
@@ -141,19 +101,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Checks if specified player has specified spell memorized.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player.
-   * @param string $spellName
-   *   The spell name.
-   * @param bool $removeSpell
-   *   If TRUE, remove the spell from the player's memorized spells when found.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The spell if the player has the spell memorized or null.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function playerMemorizedSpell(NodeInterface $player, $spellName, $removeSpell = FALSE) {
     $profile = $this->getKyrandiaProfile($player);
@@ -170,47 +118,45 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Applies damage to the target player.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   Player to damage.
-   * @param int $damage
-   *   Amount of damage to apply.
-   *
-   * @return string|null
-   *   NULL if the player is still alive, otherwise the death message.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
-  public function damagePlayer(NodeInterface $player, $damage) {
+  public function damagePlayer(NodeInterface $player, $damage, array &$result) {
     $profile = $this->getKyrandiaProfile($player);
     $currentHits = $profile->field_kyrandia_hit_points->value;
+    $loc = $player->field_location->entity;
     if ($currentHits - $damage <= 0) {
       // Kills player.
-      // @TODO Handle player death.
-      $result = $this->getMessage('DIEMSG');
-      return $result;
+      $this->killPlayer($player, $result);
+      return FALSE;
     }
     else {
       $currentHits -= $damage;
     }
     $profile->field_kyrandia_hit_points = $currentHits;
     $profile->save();
-    return NULL;
+    return TRUE;
   }
 
   /**
-   * Heals the target player.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   Player to heal.
-   * @param int $heal
-   *   Amount of health to apply.
-   *
-   * @return int
-   *   The player's current hit points after healing.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
+   */
+  public function killPlayer(NodeInterface $player, array &$result) {
+    $loc = $player->field_location->entity;
+    $profile = $this->getKyrandiaProfile($player);
+    $profile->delete();
+    _kyrandia_create_new_profile($player);
+    $result[$player->id()][] = $this->getMessage('DIEMSG');
+    $othersMessage = sprintf($this->getMessage('KILLED'), $player->field_display_name->value);
+    $this->sendMessageToOthersInLocation($player, $loc, $othersMessage, $result);
+    $this->movePlayer($player, 'Location 0');
+    $newLoc = $player->field_location->entity;
+    $msg = t('appeared in a holy light');
+    $entranceMessage = sprintf("***\n%s has just %s!\n", $player->field_display_name->value, $msg);
+    $this->sendMessageToOthersInLocation($player, $newLoc, $entranceMessage, $result);
+  }
+
+  /**
+   * {@inheritdoc}
    */
   public function healPlayer(NodeInterface $player, $heal) {
     $profile = $this->getKyrandiaProfile($player);
@@ -228,17 +174,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Gets the value of the specified instance setting.
-   *
-   * @param \Drupal\node\NodeInterface $game
-   *   The game.
-   * @param string $setting
-   *   The setting.
-   * @param mixed $defaultValue
-   *   The value to use if the setting hasn't been set.
-   *
-   * @return mixed|null
-   *   The setting value or NULL if it isn't set.
+   * {@inheritdoc}
    */
   public function getInstanceSetting(NodeInterface $game, $setting, $defaultValue) {
     $settingValue = $defaultValue;
@@ -254,16 +190,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Sets an instance value for a game.
-   *
-   * @param \Drupal\node\NodeInterface $game
-   *   The game.
-   * @param string $setting
-   *   The setting.
-   * @param mixed $value
-   *   The value.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function saveInstanceSetting(NodeInterface $game, $setting, $value) {
     $instanceSettingsText = $game->field_instance_settings->value;
@@ -274,12 +201,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Removes the first item from the player's inventory.
-   *
-   * @param \Drupal\node\NodeInterface $actingPlayer
-   *   The player.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function removeFirstItem(NodeInterface $actingPlayer) {
     if (count($actingPlayer->field_inventory)) {
@@ -290,13 +212,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Is the dragon in this location?
-   *
-   * @param \Drupal\node\NodeInterface $location
-   *   The location.
-   *
-   * @return bool
-   *   TRUE if the dragon is there.
+   * {@inheritdoc}
    */
   public function isDragonHere(NodeInterface $location) {
     $dragonHere = FALSE;
@@ -310,19 +226,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Sends the specified message to each other player in the actor's location.
-   *
-   * @param \Drupal\node\NodeInterface $actingPlayer
-   *   The player performing the action.
-   * @param \Drupal\node\NodeInterface $loc
-   *   The player's current location (usually - this could be a remotely
-   *   targeted location).
-   * @param string $othersMessage
-   *   The message to show the players in the target location.
-   * @param array $result
-   *   The message results.
-   * @param array $exceptPlayers
-   *   Players in the location not to send the message to.
+   * {@inheritdoc}
    */
   public function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result, array $exceptPlayers = []) {
     $otherPlayers = $this->otherPlayersInLocation($loc, $actingPlayer);
@@ -338,12 +242,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
-   * Handles player doing something to a non-existent item.
-   *
-   * @param \Drupal\node\NodeInterface $actingPlayer
-   *   The player.
-   * @param array $result
-   *   The result array.
+   * {@inheritdoc}
    */
   public function targetNonExistantItem(NodeInterface $actingPlayer, array &$result) {
     $result[$actingPlayer->id()][] = $this->getMessage('OBJM09');

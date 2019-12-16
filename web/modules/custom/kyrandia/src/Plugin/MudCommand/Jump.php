@@ -46,22 +46,24 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function chasm($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     // We're looking for "jump chasm" or "jump across chasm".
     $words = explode(' ', $commandText);
+    $loc = $actingPlayer->field_location->entity;
     if (in_array('chasm', $words)) {
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
-      $results = [];
       if ($profile->field_kyrandia_level->entity->getName() == '12') {
         // If user is protected.
         $userIsProtected = $profile->field_kyrandia_protection_other->value;
         if ($userIsProtected) {
           if ($this->gameHandler->advanceLevel($profile, 13)) {
-            $results[] = $this->gameHandler->getMessage('BODM01');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM01');
+            $othersMessage = sprintf($this->gameHandler->getMessage('BODM02'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           }
           if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'broach')) {
             // Can't give the item to the player - max item limit.
-            $results[] = $this->gameHandler->getMessage('BODM03');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM03');
             $this->gameHandler->removeFirstItem($actingPlayer);
             // Then give the broach again.
             $this->gameHandler->giveItemToPlayer($actingPlayer, 'broach');
@@ -69,11 +71,12 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         }
         else {
           // User isn't protected. Death.
-          $results[] = $this->gameHandler->getMessage('BODM04');
-          $this->gameHandler->damagePlayer($actingPlayer, 100);
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM04');
+          $othersMessage = sprintf($this->gameHandler->getMessage('BODM05'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->damagePlayer($actingPlayer, 100, $result);
         }
       }
-      $result = implode("\n", $results);
     }
     return $result;
   }

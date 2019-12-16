@@ -196,10 +196,13 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         }
         $actingProfile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         $playerLevel = intval($actingProfile->field_kyrandia_level->entity->getName());
+        $loc = $actingPlayer->field_location->entity;
         switch ($castingSpellName) {
           case 'abbracada':
             $this->charm($actingPlayer, 'OBJPRO', 8);
-            $result = $this->gameHandler->getMessage('SPM000');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SPM000');
+            $othersMessage = sprintf($this->gameHandler->getMessage('SPM001'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
             return $result;
 
           case 'allbettoo':
@@ -351,10 +354,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         $message = $msg . '3';
         $results = [];
         $results[] = sprintf($this->gameHandler->getMessage($message), $targetPlayerName);
-        $damageResult = $this->gameHandler->damagePlayer($targetPlayer, $damage);
-        if ($damageResult) {
-          $results[] = $damageResult;
-        }
+        $damageResult = $this->gameHandler->damagePlayer($targetPlayer, $damage, $result);
         $result = implode("\n", $results);
       }
     }

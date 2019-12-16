@@ -100,13 +100,26 @@ interface KyrandiaGameHandlerServiceInterface {
    *   Player to damage.
    * @param int $damage
    *   Amount of damage to apply.
+   * @param array $result
+   *   Existing results to add to or alter.
    *
-   * @return string|null
-   *   NULL if the player is still alive, otherwise the death message.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @return bool
+   *   TRUE if the player is still alive, FALSE if the player is dead.
    */
-  public function damagePlayer(NodeInterface $player, $damage);
+  public function damagePlayer(NodeInterface $player, $damage, array &$result);
+
+  /**
+   * Kills and reincarnates the target player.
+   *
+   * @param \Drupal\node\NodeInterface $player
+   *   Player to damage.
+   * @param array $result
+   *   Existing results to add to or alter.
+   *
+   * @return bool
+   *   TRUE if the player is still alive, FALSE if the player is dead.
+   */
+  public function killPlayer(NodeInterface $player, array &$result);
 
   /**
    * Heals the target player.

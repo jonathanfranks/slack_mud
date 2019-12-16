@@ -32,8 +32,8 @@ class Walk extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
         // If player walks through thicket, they are damaged for 10 hp.
-        $result = $this->gameHandler->damagePlayer($actingPlayer, 10);
-        if (!$result) {
+        $damage = $this->gameHandler->damagePlayer($actingPlayer, 10, $result);
+        if (!$damage) {
           $result = t("Ouch!");
         }
       }

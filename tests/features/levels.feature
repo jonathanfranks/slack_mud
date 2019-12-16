@@ -349,3 +349,45 @@ Feature: Kyrandia commands not specific to locations
     And Joe should see "...As you offer the kyragem, you feel a warmth surround you.\n***\nYou are now at level 12!\n"
     And Flo should see "***\nJoe is smiling with joy.\n"
     And Joe should be level 12
+
+  @level @kneel @level13 @chamberofthebody
+  Scenario: Level 13 - Protected
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 282   | dagger,kyragem  | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 282   | ruby,diamond    | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     | field_kyrandia_spellbook | field_kyrandia_memorized_spells |
+      | kyrandia_profile_Joe | Joe          | 0                        | 12                   | garnet,pearl,bloodstone,diamond | abbracada                | abbracada                       |
+    And Joe should be level 12
+    And Joe performs "cast abbracada"
+    And Joe should see "...As you cast the spell, a flash of bright blue light encircles you for a\nbrief moment!  You suddenly feel mystically protected.\n"
+    And Flo should see "***\nJoe casts a spells, and is suddenly encircled in a flash of bright blue\nlight for a brief moment!\n"
+    And Joe performs "jump across chasm"
+    And Joe should see "...You leap with all your might and cross the chasm!\n***\nA broach appears among your possesions!\n***\nYou are now at level 13!\n"
+    And Flo should see "***\nJoe has just successfully leaped across the chasm!\n"
+    And Joe should be level 13
+
+  @level @kneel @level13 @chamberofthebody
+  Scenario: Level 13 - Unprotected
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 282   | dagger,kyragem  | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 282   | ruby,diamond    | 1            | Flo                | Flo                   |
+      | Mo    | kyrandia   | Location 0     | ruby,diamond    | 1            | Mo                 | Mo                    |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 12                   | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 12
+    And Joe performs "jump across chasm"
+    And Joe should see "...You leap with all your might, and you almost make the other side, but at\nthe last inch, you slip and fall backwards, into the endless depths of the\nchasm...\n"
+    And Flo should see "***\nJoe attempts to jump the chasm, but unfortunately falls to certain death...\n"
+    And Joe should see "***\nSuddenly, everything goes black, and you feel yourself falling through a deep\nchasm.  Strange colors flash in your mind and your ears are deafened with the\nsound of rolling thunder.  After what seems like an eternity, you finally feel\nyourself floating gently to the ground, and your vision returns...\n\n"
+    And Flo should see "***\nJoe just ceased to exist, having been sucked into a vanishing void.\n"
+    And Joe should be level 1
+    And Joe should be in "Location 0"
+    And Mo should see "***\nJoe has just appeared in a holy light!\n"

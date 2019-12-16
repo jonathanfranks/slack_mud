@@ -149,7 +149,7 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         }
       }
       if (!$result) {
-        $result = $this->gameHandler->damagePlayer($actingPlayer, 8);
+        $result = $this->gameHandler->damagePlayer($actingPlayer, 8, $result);
         if (!$result) {
           // Damage didn't kill the player.
           $result = $this->gameHandler->getMessage('RUBY02');

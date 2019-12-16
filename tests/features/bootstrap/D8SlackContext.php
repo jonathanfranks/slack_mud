@@ -41,6 +41,20 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Then :player should be in :location
+   */
+  public function shouldBeIn($player, $expected) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('Player %s not found.', $player));
+    }
+    $actualLocation = $playerNode->field_location->entity->getTitle();
+    if ($actualLocation != $expected) {
+      throw new \Exception(sprintf('Player %s should be in %s but is in %s.', $player, $expected, $actualLocation));
+    }
+  }
+
+  /**
    * @Then :player should see :expected
    */
   public function shouldSee($player, $expected) {

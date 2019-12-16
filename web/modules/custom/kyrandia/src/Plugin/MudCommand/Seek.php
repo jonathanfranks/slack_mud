@@ -32,7 +32,7 @@ class Seek extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
           $random = rand(0, 100);
           if ($random < 50) {
             $result = $this->gameHandler->getMessage('TRUM01');
-            $this->gameHandler->damagePlayer($actingPlayer, 100);
+            $this->gameHandler->damagePlayer($actingPlayer, 100, $result);
           }
           else {
             $result = $this->gameHandler->getMessage('TRUM02');
