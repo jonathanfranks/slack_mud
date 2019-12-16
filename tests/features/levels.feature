@@ -526,3 +526,22 @@ Feature: Kyrandia commands not specific to locations
     And Joe should be level 1
     And Joe should be in "Location 0"
 
+
+  @level @kneel @level19 @hallofmusic
+  Scenario: Level 19
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 252   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 252   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 18                   |
+    And Joe should be level 18
+    And the Kyrandia random number will generate 1
+    And Joe performs "sing"
+    And Joe should see "...You're now level 19!  Congratulations!\n"
+    And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
+    And Joe should be level 19
+

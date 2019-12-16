@@ -103,7 +103,7 @@ class MudEventSubscriber implements EventSubscriberInterface {
       }
       if (!$result) {
         // Nothing processed a result. Treat it as an invalid command.
-        $result = t("You can't do that here.");
+        $result[$actingPlayer->id()][] = t("You can't do that here.");
       }
       if ($result) {
         $event->setResponse($result);

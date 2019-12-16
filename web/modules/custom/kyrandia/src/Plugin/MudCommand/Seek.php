@@ -44,7 +44,6 @@ class Seek extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
             $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRUM02');
             $othersMessage = sprintf($this->gameHandler->getMessage('TRUM03'), $actingPlayer->field_display_name->value);
             $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-
           }
         }
       }
