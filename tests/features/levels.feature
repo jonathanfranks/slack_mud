@@ -594,3 +594,73 @@ Feature: Kyrandia commands not specific to locations
     And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
     And Joe should be level 22
 
+  @level @kneel @level23 @hallofmarblepillars
+  Scenario: Level 23
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 264   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 264   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 22                   |
+    And Joe should be level 22
+    And Joe performs "wonder"
+    And Joe should see "...You're now level 23!  Congratulations!\n"
+    And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
+    And Joe should be level 23
+
+  @level @kneel @level24 @chamberofthemagicorb
+  Scenario: Level 24
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 293   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 293   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 23                   |
+    And Joe should be level 23
+    And Joe performs "believe in fantasy"
+    And Joe should see "...You're now level 24!  Congratulations!\n"
+    And Flo should see "***\nJoe suddenly grows in strength and knowledge!\n"
+    And Joe should be level 24
+
+  @level @kneel @level25 @dragonslair
+  Scenario: Level 25 - dragon present
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 302   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 302   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 24                   |
+    And Joe should be level 24
+    And the dragon is in "Location 302"
+    And Joe performs "answer cast the spells and cross the seas, heart, soul, mind, and body are the keys"
+    And Joe should see "\f\n\n...the dragon looks at you with contempt... yet respect.\n***\nYou are now at level 25... Arch-mage of Legends!\n***\nYou fear the dragon no longer...\n\nCongratulations to you, Arch-mage of Legends, you have mastered the magic of\nKyrandia!  Of course, you are now eligible to accept any prize the System\nOperator is offering; call the Sysop, at (XXX) XXX-XXXX to collect your\nprize (you must be the first caller to be the winner).  However, you have won\nmore than materialistic treasures, for to have reached this point, you have\nexperienced a magical journey through the very heart and soul of the author...\nand witnessed a visionary fantasy of true love, across time and space forever.\nFollow your dreams, for the story of Kyrandia, is one we all live, in one way\nor another... and the story will never end.\n\n"
+    And Flo should see "***\nSuddenly, the dragon bows respectfully to Joe who has now attained\nthe title of Arch-mage of Legends!\n"
+    And Joe should be level 25
+
+  @level @kneel @level25 @dragonslair
+  Scenario: Level 25 - dragon not present
+    Given player content:
+      | title | field_game | field_location | field_inventory                      | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 302   | soulstone,ring,broach,locket,pendant | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 302   | diamond                              | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
+      | kyrandia_profile_Joe | Joe          | 0                        | 24                   |
+    And Joe should be level 24
+    And the dragon is in "Location 300"
+    And Joe performs "answer cast the spells and cross the seas, heart, soul, mind, and body are the keys"
+    And Joe should see "Nothing happens."
+    And Flo should not have any messages
+    And Joe should be level 24
+

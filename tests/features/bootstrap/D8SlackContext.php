@@ -73,7 +73,11 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
     // There are problems specifying regular expressions like newlines in the
     // steps, so let's just convert them to text.
     foreach ($this->results[$playerNode->id()] as $result) {
-      $modifiedResult = strtr($result, ["\n" => "\\n", "\r" => "\\r"]);
+      $modifiedResult = strtr($result, [
+        "\n" => "\\n",
+        "\r" => "\\r",
+        "\f" => "\\f",
+      ]);
       if ($modifiedResult == $expected) {
         $found = TRUE;
         break;

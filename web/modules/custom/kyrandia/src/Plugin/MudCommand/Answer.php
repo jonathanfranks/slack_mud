@@ -34,6 +34,8 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
           if ($dragonHere) {
             $this->gameHandler->advanceLevel($profile, 25);
             $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('YOUWIN');
+            $othersMessage = sprintf($this->gameHandler->getMessage('SHEWON'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           }
         }
       }

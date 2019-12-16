@@ -135,6 +135,28 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
+   * Returns a location node from the location name.
+   *
+   * @param string $locationName
+   *   The name of the location to load.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The player node.
+   */
+  public function getLocationByName($locationName) {
+    $locationNode = NULL;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'location')
+      ->condition('title', $locationName);
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $locationNode = Node::load($id);
+    }
+    return $locationNode;
+  }
+
+  /**
    * Puts the named item in the specified location.
    *
    * @param \Drupal\node\NodeInterface $location

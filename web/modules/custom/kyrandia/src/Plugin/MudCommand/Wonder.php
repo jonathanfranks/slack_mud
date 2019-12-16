@@ -21,18 +21,21 @@ class Wonder extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 264') {
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '22') {
         if ($this->gameHandler->advanceLevel($profile, 23)) {
-          $result = $this->gameHandler->getMessage('LEVL23');
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL23');
+          $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+
         }
       }
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }

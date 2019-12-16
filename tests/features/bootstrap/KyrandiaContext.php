@@ -134,6 +134,17 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Given the dragon is in :location
+   */
+  public function moveDragonTo($location) {
+    $locationNode = $this->gameHandler->getLocationByName($location);
+    if (!$locationNode) {
+      throw new \Exception(sprintf('Location %s does not exist.', $location));
+    }
+    $this->gameHandler->moveDragon($locationNode);
+  }
+
+  /**
    * @Given :player is married to :spouse
    */
   public function isMarriedTo($player, $spouse) {

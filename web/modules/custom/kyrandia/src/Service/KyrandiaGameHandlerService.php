@@ -228,6 +228,38 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   /**
    * {@inheritdoc}
    */
+  public function moveDragon(NodeInterface $location) {
+    // First remove the dragon from wherever it is.
+    $query = \Drupal::entityQuery('node')
+      ->condition('field_game.entity.title', 'kyrandia')
+      ->condition('type', 'item')
+      ->condition('title', 'dragon');
+    $ids = $query->execute();
+    if ($ids) {
+      $dragon_item_id = reset($ids);
+    }
+
+    $query = \Drupal::entityQuery('node')
+      ->condition('field_game.entity.title', 'kyrandia')
+      ->condition('type', 'location')
+      ->condition('field_visible_items.target_id', $dragon_item_id);
+    $ids = $query->execute();
+    $locationNodes = Node::loadMultiple($ids);
+    // Now for each instance of a dragon in all locations, remove them.
+    foreach ($locationNodes as $locationNode) {
+      do {
+        $dragon = $this->locationHasItem($locationNode, 'remove dragon', TRUE);
+      } while ($dragon);
+    }
+    // Then put it where it needs to be.
+    if ($location) {
+      $this->placeItemInLocation($location, 'dragon');
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result, array $exceptPlayers = []) {
     $otherPlayers = $this->otherPlayersInLocation($loc, $actingPlayer);
     $noMessagePlayerIds = [];

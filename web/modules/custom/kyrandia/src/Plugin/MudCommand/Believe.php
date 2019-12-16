@@ -40,7 +40,9 @@ class Believe extends KyrandiaCommandPluginBase implements MudCommandPluginInter
         $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         if ($profile->field_kyrandia_level->entity->getName() == '23') {
           if ($this->gameHandler->advanceLevel($profile, 24)) {
-            $result = $this->gameHandler->getMessage('LEVL24');
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL24');
+            $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
           }
         }
       }

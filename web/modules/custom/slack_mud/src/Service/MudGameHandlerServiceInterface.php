@@ -74,6 +74,17 @@ interface MudGameHandlerServiceInterface {
   public function giveItemToPlayer(NodeInterface $player, string $itemName);
 
   /**
+   * Returns a location node from the location name.
+   *
+   * @param string $locationName
+   *   The name of the location to load.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The player node.
+   */
+  public function getLocationByName($locationName);
+
+  /**
    * Puts the named item in the specified location.
    *
    * @param \Drupal\node\NodeInterface $location
