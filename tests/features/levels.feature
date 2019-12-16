@@ -316,7 +316,6 @@ Feature: Kyrandia commands not specific to locations
     And Joe should be level 10
     And Joe should not have tiara in inventory
 
-
   @level @kneel @level11 @crystaltree
   Scenario: Level 11
     Given player content:
@@ -333,3 +332,20 @@ Feature: Kyrandia commands not specific to locations
     And Joe should see "...As you aim the wand at the crystal tree, there's a flash of silver light!\n***\nYou are now at level 11!\n"
     And Flo should see '***\nJoe is staring at the crystal tree with "oohs" and "ahhs".\n'
     And Joe should be level 11
+
+  @level @kneel @level12 @crystaltree
+  Scenario: Level 12
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | dagger,kyragem  | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | ruby,diamond    | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_birth_stones     |
+      | kyrandia_profile_Joe | Joe          | 0                        | 11                   | garnet,pearl,bloodstone,diamond |
+    And Joe should be level 11
+    And Joe performs "offer kyragem"
+    And Joe should see "...As you offer the kyragem, you feel a warmth surround you.\n***\nYou are now at level 12!\n"
+    And Flo should see "***\nJoe is smiling with joy.\n"
+    And Joe should be level 12

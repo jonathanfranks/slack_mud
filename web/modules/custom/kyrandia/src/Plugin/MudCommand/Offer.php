@@ -341,19 +341,22 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function sunshineKyragem(string $commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     $words = explode(' ', $commandText);
     $itemPos = array_search('kyragem', $words);
     if ($itemPos !== FALSE) {
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '11' && $this->gameHandler->playerHasItem($actingPlayer, 'kyragem')) {
         if ($this->gameHandler->advanceLevel($profile, 12)) {
-          $result = $this->gameHandler->getMessage('SUNM03');
+          $loc = $actingPlayer->field_location->entity;
+          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SUNM03');
+          $othersMessage = sprintf($this->gameHandler->getMessage('SUNM04'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
         }
       }
     }
     if (!$result) {
-      $result = "For some reason, nothing happens at all!";
+      $result[$actingPlayer->id()][] = "For some reason, nothing happens at all!";
     }
     return $result;
   }
