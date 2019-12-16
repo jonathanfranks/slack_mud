@@ -270,7 +270,7 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function mistyRuins(string $commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     $words = explode(' ', $commandText);
     // Word 0 has to be 'place', otherwise we wouldn't be here.
     // We're looking for 'place garnet in slot'.
@@ -278,14 +278,18 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $targetPos = array_search('orb', $words);
     if ($itemPos !== FALSE && $targetPos !== FALSE && $itemPos < $targetPos) {
       $profile = $this->getKyrandiaProfile($actingPlayer);
-      if ($profile->field_kyrandia_level->entity->getName == '7' && $this->takeItemFromPlayer($actingPlayer, 'dagger')) {
+      if ($profile->field_kyrandia_level->entity->getName() == '7' && $this->takeItemFromPlayer($actingPlayer, 'dagger')) {
         if ($this->advanceLevel($profile, 8)) {
-          $result = $this->getMessage('MISM04');
+          $loc = $actingPlayer->field_location->entity;
+          $result[$actingPlayer->id()][] = $this->getMessage('MISM04');
+          $othersMessage = sprintf($this->getMessage('MISM05'), $actingPlayer->field_display_name->value);
+          $this->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->giveSpellToPlayer($actingPlayer, 'weewillo');
         }
       }
     }
     if (!$result) {
-      $result = "For some reason, nothing happens at all!";
+      $result[$actingPlayer->id()][] = "For some reason, nothing happens at all!";
     }
     return $result;
   }
