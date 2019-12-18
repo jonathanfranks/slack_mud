@@ -31,16 +31,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Returns other player nodes who are in the same location.
-   *
-   * @param \Drupal\node\NodeInterface $location
-   *   The location where the user is.
-   * @param \Drupal\node\NodeInterface|null $actingPlayer
-   *   The player looking in the room (to be excluded from list). If no player
-   *   is specified, return all the players in the location.
-   *
-   * @return array|\Drupal\Core\Entity\EntityInterface[]|\Drupal\node\Entity\Node[]
-   *   An array of players who are also in the same location.
+   * {@inheritdoc}
    */
   public function otherPlayersInLocation(NodeInterface $location, NodeInterface $actingPlayer = NULL) {
     $players = [];
@@ -59,20 +50,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Checks if the player has the specified item.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player whose inventory we are checking.
-   * @param string $targetItemName
-   *   The item we're checking for.
-   * @param bool $removeItem
-   *   If TRUE, remove the item from the player's inventory when found.
-   *
-   * @return \Drupal\node\NodeInterface|bool
-   *   FALSE if the player doesn't the item, otherwise the item in
-   *   the player's inventory field.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function playerHasItem(NodeInterface $player, $targetItemName, $removeItem = FALSE) {
     foreach ($player->field_inventory as $delta => $item) {
@@ -89,34 +67,14 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Removes the named item from the player's inventory.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player.
-   * @param string $targetItemName
-   *   The name of the item.
-   *
-   * @return bool
-   *   TRUE if the item was present and removed.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function takeItemFromPlayer(NodeInterface $player, $targetItemName) {
     return $this->playerHasItem($player, $targetItemName, TRUE);
   }
 
   /**
-   * Gives the named item to the specified player.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player.
-   * @param string $itemName
-   *   The item to give.
-   *
-   * @return bool
-   *   TRUE if the item was given.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function giveItemToPlayer(NodeInterface $player, string $itemName) {
     $query = \Drupal::entityQuery('node')
@@ -135,13 +93,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Returns a location node from the location name.
-   *
-   * @param string $locationName
-   *   The name of the location to load.
-   *
-   * @return \Drupal\node\NodeInterface
-   *   The player node.
+   * {@inheritdoc}
    */
   public function getLocationByName($locationName) {
     $locationNode = NULL;
@@ -157,17 +109,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Puts the named item in the specified location.
-   *
-   * @param \Drupal\node\NodeInterface $location
-   *   The location.
-   * @param string $itemName
-   *   The item to place.
-   *
-   * @return bool
-   *   TRUE if the item was placed.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function placeItemInLocation(NodeInterface $location, string $itemName) {
     $query = \Drupal::entityQuery('node')
@@ -186,19 +128,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Does the specified target player exist in the specified location?
-   *
-   * @param string $target
-   *   Partial player display name to look for.
-   * @param \Drupal\node\NodeInterface $location
-   *   Location node.
-   * @param bool $excludeActingPlayer
-   *   TRUE if we should exclude the acting player.
-   * @param \Drupal\node\NodeInterface $actingPlayer
-   *   The acting player, so we can exclude them if specified.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\node\Entity\Node|mixed|null
-   *   The targeted player.
+   * {@inheritdoc}
    */
   public function locationHasPlayer($target, NodeInterface $location, $excludeActingPlayer, NodeInterface $actingPlayer = NULL) {
     if ($excludeActingPlayer) {
@@ -220,19 +150,30 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Moves a player to the specified location.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player being moved.
-   * @param string $locationName
-   *   The name of the new location.
-   *
-   * @return bool
-   *   TRUE if the move was successful (location exists).
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
-  public function movePlayer(NodeInterface $player, $locationName) {
+  public function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result, array $exceptPlayers = []) {
+    $otherPlayers = $this->otherPlayersInLocation($loc, $actingPlayer);
+    $noMessagePlayerIds = [];
+    foreach ($exceptPlayers as $exceptPlayer) {
+      $noMessagePlayerIds[] = $exceptPlayer->id();
+    }
+    foreach ($otherPlayers as $otherPlayer) {
+      if (!in_array($otherPlayer->id(), $noMessagePlayerIds)) {
+        $result[$otherPlayer->id()][] = $othersMessage;
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function movePlayer(NodeInterface $player, $locationName, array &$result, $exitMessage, $entranceMessage) {
+    $originalLocation = $player->field_location->entity;
+    if ($exitMessage) {
+      $exit = sprintf("***\n%s has just %s!\n", $player->field_display_name->value, $exitMessage);
+      $this->sendMessageToOthersInLocation($player, $originalLocation, $exit, $result);
+    }
     $gameId = $player->field_game->target_id;
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'location')
@@ -241,21 +182,20 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
     $ids = $query->execute();
     if ($ids) {
       $id = reset($ids);
+      $newLocation = Node::load($id);
       $player->field_location = $id;
       $player->save();
+      if ($entranceMessage) {
+        $entrance = sprintf("***\n%s has just %s!\n", $player->field_display_name->value, $entranceMessage);
+        $this->sendMessageToOthersInLocation($player, $newLocation, $entrance, $result);
+      }
       return TRUE;
     }
     return FALSE;
   }
 
   /**
-   * Gets human-readable items a player is holding.
-   *
-   * @param \Drupal\node\NodeInterface $player
-   *   The player whose items we're looking at.
-   *
-   * @return string
-   *   The human-readable stringified inventory.
+   * {@inheritdoc}
    */
   public function playerInventoryString(NodeInterface $player) {
     $inv = [];
@@ -269,19 +209,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   }
 
   /**
-   * Gets the item targetted in the command in the specified location.
-   *
-   * @param \Drupal\node\NodeInterface $location
-   *   The location.
-   * @param string $commandText
-   *   The command text.
-   * @param bool $removeItem
-   *   If TRUE, remove the item from the location when found.
-   *
-   * @return \Drupal\node\NodeInterface|null
-   *   The item if found, otherwise NULL.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * {@inheritdoc}
    */
   public function locationHasItem(NodeInterface $location, $commandText, $removeItem = FALSE) {
     $words = explode(' ', $commandText);

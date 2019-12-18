@@ -24,16 +24,15 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     $result = [];
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+    $game = $actingPlayer->field_game->entity;
     if ($commandText == 'chant tashanna' && $loc->getTitle() == 'Location 7') {
       // Chant Tashanna at the temple makes the altar glow in 5 stages.
-      $game = $actingPlayer->field_game->entity;
       $currentTempleChantCount = $this->gameHandler->getInstanceSetting($game, 'currentTempleChantCount', 0);
       if ($currentTempleChantCount == 0) {
         // First time chanting.
         $result[$actingPlayer->id()][] = t('The altar begins to glow dimly.');
         $othersMessage = t('The altar begins to glow dimly.');
         $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-
       }
       else {
         $result[$actingPlayer->id()][] = t('The altar begins to glow even brighter!');
@@ -46,7 +45,10 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $this->gameHandler->saveInstanceSetting($game, 'currentTempleChantCount', $currentTempleChantCount);
     }
     elseif ($commandText == 'chant opensesame' && $loc->getTitle() == 'Location 185') {
-      $result = $this->gameHandler->getMessage('WALM03');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM03');
+      $othersMessage = $this->gameHandler->getMessage('WALM04');
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $this->gameHandler->saveInstanceSetting($game, 'opensesame', TRUE);
       $profile->field_kyrandia_open_sesame = TRUE;
       $profile->save();
     }

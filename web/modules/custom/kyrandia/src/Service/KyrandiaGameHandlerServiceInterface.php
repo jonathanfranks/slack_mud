@@ -187,23 +187,6 @@ interface KyrandiaGameHandlerServiceInterface {
   public function isDragonHere(NodeInterface $location);
 
   /**
-   * Sends the specified message to each other player in the actor's location.
-   *
-   * @param \Drupal\node\NodeInterface $actingPlayer
-   *   The player performing the action.
-   * @param \Drupal\node\NodeInterface $loc
-   *   The player's current location (usually - this could be a remotely
-   *   targeted location).
-   * @param string $othersMessage
-   *   The message to show the players in the target location.
-   * @param array $result
-   *   The message results.
-   * @param array $exceptPlayers
-   *   Players in the location not to send the message to.
-   */
-  public function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result, array $exceptPlayers = []);
-
-  /**
    * Handles player doing something to a non-existent item.
    *
    * @param \Drupal\node\NodeInterface $actingPlayer

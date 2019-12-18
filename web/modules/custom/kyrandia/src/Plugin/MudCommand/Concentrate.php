@@ -39,11 +39,11 @@ class Concentrate extends KyrandiaCommandPluginBase implements MudCommandPluginI
         // @TODO Handling max items for player.
         $actingPlayer->field_inventory[] = ['target_id' => $id];
         $actingPlayer->save();
-        $result = $this->gameHandler->getMessage('MISM01');
+        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('MISM01');
       }
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }

@@ -176,11 +176,12 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   protected function alcove($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+    $result = [];
     // At the alcove.
     // Player needs to chant opensesame to use it.
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $openSesame = $profile->field_kyrandia_open_sesame->value;
+    $loc = $actingPlayer->field_location->entity;
 
     if ($openSesame) {
       $words = explode(' ', $commandText);
@@ -190,18 +191,21 @@ class Place extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $rockPos = array_search('crevice', $words);
       if ($swordPos !== FALSE && $rockPos !== FALSE && $swordPos < $rockPos) {
         if ($this->gameHandler->takeItemFromPlayer($actingPlayer, 'key')) {
-          if ($this->movePlayer($actingPlayer, 'Location 186')) {
-            $result = $this->gameHandler->getMessage('WALM00');
+          if ($this->gameHandler->movePlayer($actingPlayer, 'Location 186', $result, 'vanished in a golden flash of light', 'appeared in a golden flash of light')) {
+            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM00');
           }
           // The result is LOOKing at the new location.
           $mudEvent = new CommandEvent($actingPlayer, 'look');
           $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
-          $result .= $mudEvent->getResponse();
+          $lookResult = $mudEvent->getResponse();
+          $result = array_merge($lookResult);
         }
       }
     }
     if (!$result) {
-      $result = $this->gameHandler->getMessage('WALM01');
+      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM01');
+      $othersMessage = sprintf($this->gameHandler->getMessage('WALM02'), $actingPlayer->field_display_name->value);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
     }
     return $result;
   }

@@ -2,6 +2,7 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Gherkin\Node\PyStringNode;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\Event\CommandEvent;
@@ -55,6 +56,14 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Then :player should see
+   */
+  public function shouldSeePyString($player, PyStringNode $string) {
+    $modifiedResult = $this->fixString($string->getRaw());
+    $this->shouldSee($player, $modifiedResult);
+  }
+
+  /**
    * @Then :player should see :expected
    */
   public function shouldSee($player, $expected) {
@@ -73,11 +82,7 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
     // There are problems specifying regular expressions like newlines in the
     // steps, so let's just convert them to text.
     foreach ($this->results[$playerNode->id()] as $result) {
-      $modifiedResult = strtr($result, [
-        "\n" => "\\n",
-        "\r" => "\\r",
-        "\f" => "\\f",
-      ]);
+      $modifiedResult = $this->fixString($result);
       if ($modifiedResult == $expected) {
         $found = TRUE;
         break;
@@ -169,6 +174,20 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
       }
     }
     return FALSE;
+  }
+
+  /**
+   * @param $result
+   *
+   * @return string
+   */
+  protected function fixString($result): string {
+    $modifiedResult = strtr($result, [
+      "\n" => "\\n",
+      "\r" => "\\r",
+      "\f" => "\\f",
+    ]);
+    return $modifiedResult;
   }
 
 }

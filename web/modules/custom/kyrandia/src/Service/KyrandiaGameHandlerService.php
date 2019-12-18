@@ -260,22 +260,6 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   /**
    * {@inheritdoc}
    */
-  public function sendMessageToOthersInLocation(NodeInterface $actingPlayer, NodeInterface $loc, string $othersMessage, array &$result, array $exceptPlayers = []) {
-    $otherPlayers = $this->otherPlayersInLocation($loc, $actingPlayer);
-    $noMessagePlayerIds = [];
-    foreach ($exceptPlayers as $exceptPlayer) {
-      $noMessagePlayerIds[] = $exceptPlayer->id();
-    }
-    foreach ($otherPlayers as $otherPlayer) {
-      if (!in_array($otherPlayer->id(), $noMessagePlayerIds)) {
-        $result[$otherPlayer->id()][] = $othersMessage;
-      }
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function targetNonExistantItem(NodeInterface $actingPlayer, array &$result) {
     $result[$actingPlayer->id()][] = $this->getMessage('OBJM09');
     $location = $actingPlayer->field_location->entity;

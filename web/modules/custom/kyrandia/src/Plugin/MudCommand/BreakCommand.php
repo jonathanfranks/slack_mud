@@ -24,10 +24,10 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 204') {
-      $result = $this->breakWand($commandText, $actingPlayer);
+      $this->breakWand($commandText, $actingPlayer, $result);
     }
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }
@@ -39,14 +39,12 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
+   * @param array $result
+   *   The result array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function breakWand(string $commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  protected function breakWand(string $commandText, NodeInterface $actingPlayer, array &$result) {
     $words = explode(' ', $commandText);
     $loc = $actingPlayer->field_location->entity;
     // Word 0 has to be 'aim', otherwise we wouldn't be here.
@@ -70,7 +68,6 @@ class BreakCommand extends KyrandiaCommandPluginBase implements MudCommandPlugin
     if (!$result) {
       $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM01');
     }
-    return $result;
   }
 
 }

@@ -23,7 +23,7 @@ class Check extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   public function perform($commandText, NodeInterface $actingPlayer) {
     $result = NULL;
     if (!$result) {
-      $result = 'Nothing happens.';
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
     return $result;
   }

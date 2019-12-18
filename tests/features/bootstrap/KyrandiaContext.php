@@ -45,6 +45,17 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Then :player should have :gold gold
+   */
+  public function shouldHaveGold($player, $gold) {
+    $playerNode = $this->getPlayerByName($player);
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if ($profile->field_kyrandia_gold->value != $gold) {
+      throw new \Exception(sprintf('%s should have %s gold, but has %s.', $player, $gold, $profile->field_kyrandia_gold->value));
+    }
+  }
+
+  /**
    * @Then :player should have the spell :spell
    */
   public function shouldHaveTheSpell($player, $spell) {
@@ -211,6 +222,45 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
       $current = $this->gameHandler->getInstanceSetting($game, 'currentTempleChantCount', 0);
       if ($count != $current) {
         throw new \Exception(sprintf('The temple chant count is supposed to be %s but is currently %s.', $count, $current));
+      }
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Given the opensesame is set to :count
+   */
+  public function setOpenSesame($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $this->gameHandler->saveInstanceSetting($game, 'opensesame', $count);
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Then the opensesame should be :count
+   */
+  public function getOpenSesame($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $current = $this->gameHandler->getInstanceSetting($game, 'opensesame', 0);
+      if ($count != $current) {
+        throw new \Exception(sprintf('The opensesame is supposed to be %s but is currently %s.', $count, $current));
       }
     }
     else {

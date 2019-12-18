@@ -18,6 +18,8 @@ interface MudCommandPluginInterface extends PluginInspectionInterface, Container
    *   Command text to execute.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player performing the action.
+   * @param array $results
+   *   The results array that the command plugin adds to or modifies.
    *
    * @return array
    *   Response array where the player node ID is the key and the value is an
@@ -33,6 +35,6 @@ interface MudCommandPluginInterface extends PluginInspectionInterface, Container
    *       ],
    *     ]
    */
-  public function perform($commandText, NodeInterface $actingPlayer);
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results);
 
 }
