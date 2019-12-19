@@ -20,12 +20,10 @@ class Check extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'Nothing happens.';
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
 }

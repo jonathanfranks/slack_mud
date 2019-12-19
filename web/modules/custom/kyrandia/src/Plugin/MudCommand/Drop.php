@@ -21,20 +21,19 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players drop things into the stump at Loc 18 to reach level 6.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
     if (strpos($commandText, 'stump') !== FALSE && $loc->getTitle() == 'Location 18') {
-      $result = $this->stump($commandText, $actingPlayer, $profile);
+      $this->stump($commandText, $actingPlayer, $profile, $results);
     }
     elseif (strpos($commandText, 'fountain') !== FALSE && $loc->getTitle() == 'Location 38') {
-      $result = $this->fountain($commandText, $actingPlayer, $profile);
+      $this->fountain($commandText, $actingPlayer, $profile, $results);
     }
     elseif (strpos($commandText, 'pool') !== FALSE && $loc->getTitle() == 'Location 182') {
-      $result = $this->reflectingPool($commandText, $actingPlayer, $profile);
+      $this->reflectingPool($commandText, $actingPlayer, $results);
     }
     else {
       $words = explode(' ', $commandText);
@@ -65,15 +64,14 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
       }
     }
-    if (!$result) {
+    if (!$results) {
       // Usually this is because the player just typed "drop".
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('DROPIT5');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('DROPIT5');
       $othersMessage = t(':actor is looking a little queer!', [
         ':actor' => $actingPlayer->field_display_name->value,
       ]);
-      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
     }
-    return $result;
 
   }
 
@@ -110,13 +108,12 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The player.
    * @param \Drupal\node\NodeInterface $profile
    *   The player's profile.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function stump($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
+  protected function stump($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
     $currentStumpStone = intval($profile->field_kyrandia_stump_gem->value);
     $stumpStones = [
       'ruby',
@@ -138,9 +135,9 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     $item = $this->gameHandler->playerHasItem($actingPlayer, $target, TRUE);
     $loc = $actingPlayer->field_location->entity;
     if ($item === FALSE) {
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM05');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM05');
       $othersMessage = sprintf($this->gameHandler->getMessage('BGEM06'), $actingPlayer->field_display_name->value);
-      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
     }
     else {
       $itemTitle = $item->getTitle();
@@ -150,16 +147,16 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         // level 5!
         if ($currentStumpStone == count($stumpStones) - 1 && $profile->field_kyrandia_level->entity->getName() == '5') {
           $this->gameHandler->advanceLevel($profile, 6);
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM00');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM00');
           $othersMessage = sprintf($this->gameHandler->getMessage('BGEM01'), $actingPlayer->field_display_name->value);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           $this->gameHandler->giveSpellToPlayer($actingPlayer, 'hotkiss');
         }
         else {
           // Match! Set the stone index to the next one.
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM02');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM02');
           $othersMessage = sprintf($this->gameHandler->getMessage('BGEM03'), $actingPlayer->field_display_name->value);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           if ($currentStumpStone < count($stumpStones) - 1) {
             // If it's the last one but the user isn't level 5, just keep the
             // index where it is.
@@ -170,12 +167,11 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         }
       }
       else {
-        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM04');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BGEM04');
         $othersMessage = sprintf($this->gameHandler->getMessage('BGEM03'), $actingPlayer->field_display_name->value);
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    return $result;
   }
 
   /**
@@ -183,23 +179,25 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string|null
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function pinecone(NodeInterface $actingPlayer) {
-    $result = NULL;
+  protected function pinecone(NodeInterface $actingPlayer, array &$results) {
+    $loc = $actingPlayer->field_location->entity;
     // We're looking for something like 'drop pinecone in fountain'.
     $game = $actingPlayer->field_game->entity;
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $fountainPineconeCount = $this->gameHandler->getInstanceSetting($game, 'fountainPineconeCount', 0);
-    $fountainPineconeCount++;
+    if ($profile->field_kyrandia_blessed->value) {
+      $fountainPineconeCount++;
+    }
     if ($fountainPineconeCount >= 3) {
       $fountainPineconeCount = 0;
       // A scroll is randomly dropped in one of the mainland
       // locations, from 0-168.
-      $locId = rand(0, 168);
+      $locId = $this->generateRandomNumber($game, 0, 168);
       $locName = 'Location ' . $locId;
       $query = \Drupal::entityQuery('node')
         ->condition('type', 'location')
@@ -210,16 +208,19 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         $id = reset($ids);
         $randomLocation = Node::load($id);
         if ($randomLocation) {
-          $this->placeItemInLocation($randomLocation, 'scroll');
-          $result = $this->gameHandler->getMessage('MAGF00');
+          $this->gameHandler->placeItemInLocation($randomLocation, 'scroll');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MAGF00');
+          $othersMessage = sprintf($this->gameHandler->getMessage('MAGF01'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
     }
     else {
-      $result = $this->gameHandler->getMessage('MAGF04');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MAGF04');
+      $othersMessage = sprintf($this->gameHandler->getMessage('MAGF07'), $actingPlayer->field_display_name->value);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
     }
     $this->gameHandler->saveInstanceSetting($game, 'fountainPineconeCount', $fountainPineconeCount);
-    return $result;
   }
 
   /**
@@ -227,31 +228,32 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string|null
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function shard(NodeInterface $actingPlayer) {
-    $result = NULL;
+  protected function shard(NodeInterface $actingPlayer, array &$results) {
     // We're looking for something like 'drop shard in fountain'.
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
-    $shardCount = $profile->field_kyrandia_shard_count->value;
+    $game = $actingPlayer->field_game->entity;
+    $loc = $actingPlayer->field_location->entity;
+    $shardCount = $this->gameHandler->getInstanceSetting($game, 'fountainShardCount', 0);
     $shardCount++;
     if ($shardCount >= 6) {
       $shardCount = 0;
       // A shard is given to the acting player.
       if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'amulet')) {
-        $result = $this->gameHandler->getMessage('MAGF05');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MAGF05');
+        $othersMessage = sprintf($this->gameHandler->getMessage('MAGF03'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
     else {
-      $result = $this->gameHandler->getMessage('MAGF06');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MAGF06');
+      $othersMessage = sprintf($this->gameHandler->getMessage('MAGF03'), $actingPlayer->field_display_name->value);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
     }
-    $profile->field_kyrandia_shard_count = $shardCount;
-    $profile->save();
-    return $result;
+    $this->gameHandler->saveInstanceSetting($game, 'fountainShardCount', $shardCount);
   }
 
   /**
@@ -263,33 +265,33 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The player.
    * @param \Drupal\node\NodeInterface $profile
    *   The player's Kyrandia profile.
-   *
-   * @return string|null
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function fountain($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
+  protected function fountain($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
+    $loc = $actingPlayer->field_location->entity;
     // Remove the item.
     $words = explode(' ', $commandText);
     // Assume the second word is the target.
     if (count($words) > 1) {
       $target = $words[1];
       if ($this->gameHandler->takeItemFromPlayer($actingPlayer, $target)) {
-        // Player is blessed, so they can create scrolls.
-        if (strpos($commandText, 'pinecone') !== FALSE && $profile->field_kyrandia_blessed->value) {
-          $result = $this->pinecone($actingPlayer);
+        if (strpos($commandText, 'pinecone') !== FALSE) {
+          $this->pinecone($actingPlayer, $results);
         }
         elseif (strpos($commandText, 'shard') !== FALSE) {
-          $result = $this->shard($actingPlayer);
+          $this->shard($actingPlayer, $results);
         }
         else {
           // Wasn't a pinecone or shard.
-          $result = $this->gameHandler->getMessage('MAGF02');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MAGF02');
+          $othersMessage = sprintf($this->gameHandler->getMessage('MAGF03'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
     }
-    return $result;
   }
 
   /**
@@ -299,16 +301,11 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   * @param \Drupal\node\NodeInterface $profile
-   *   The player's Kyrandia profile.
-   *
-   * @return string|null
-   *   The result.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param array $results
+   *   The results array.
    */
-  protected function reflectingPool(string $commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
-    $result = NULL;
+  protected function reflectingPool(string $commandText, NodeInterface $actingPlayer, array &$results) {
+    $loc = $actingPlayer->field_location->entity;
     $words = explode(' ', $commandText);
     // Assume the second word is the target.
     if (count($words) > 1) {
@@ -316,16 +313,19 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       if (strpos($commandText, 'dagger') !== FALSE) {
         if ($this->gameHandler->takeItemFromPlayer($actingPlayer, $target)) {
           if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'sword')) {
-            $result = $this->gameHandler->getMessage('REFM00');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('REFM00');
+            $othersMessage = sprintf($this->gameHandler->getMessage('REFM01'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
         }
         else {
           // Player doesn't have a dagger.
-          $result = $this->gameHandler->getMessage('REFM02');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('REFM02');
+          $othersMessage = sprintf($this->gameHandler->getMessage('REFM01'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
     }
-    return $result;
   }
 
 }

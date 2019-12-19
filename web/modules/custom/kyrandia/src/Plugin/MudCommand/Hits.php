@@ -20,16 +20,15 @@ class Hits extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+    $loc = $actingPlayer->field_location->entity;
     if ($profile) {
-      $result = t('You have :gold gold piece:plural.', [
-        ':gold' => $profile->field_kyrandia_gold->value,
-        ':plural' => $profile->field_kyrandia_gold->value == 1 ? '' : 's',
-      ]);
+      $currentHits = $profile->field_kyrandia_hit_points->value;
+      $maxHits = $profile->field_kyrandia_max_hit_points->value;
+      $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('HITCTR'), $currentHits, $maxHits);
+      $this->sndutl($actingPlayer, 'is checking %s health.', $results);
     }
-    return $result;
   }
 
 }

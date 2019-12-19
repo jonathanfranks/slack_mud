@@ -20,15 +20,14 @@ class Inventory extends MudCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     if (count($actingPlayer->field_inventory)) {
-      $results = $this->gameHandler->playerInventoryString($actingPlayer);
-      $result = t('You have :results.', [':results' => $results]);
+      $inv = $this->gameHandler->playerInventoryString($actingPlayer);
+      $results[$actingPlayer->id()][] = t('You have :results.', [':results' => $results]);
     }
     else {
-      $result = t('You are not carrying anything.');
+      $results[$actingPlayer->id()][] = t('You are not carrying anything.');
     }
-    return $result;
   }
 
 }

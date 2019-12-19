@@ -20,8 +20,7 @@ class Marry extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
 
@@ -33,13 +32,17 @@ class Marry extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       if ($otherPlayer = $this->gameHandler->locationHasPlayer($target, $loc, FALSE, $actingPlayer)) {
         if ($otherPlayer->id() == $actingPlayer->id()) {
           // Can't marry self.
-          $result = $this->gameHandler->getMessage('MARRY2');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MARRY2');
+          $othersMessage = sprintf($this->gameHandler->getMessage('MARRY3'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
         else {
           if ($profile->field_kyrandia_married_to->target_id) {
             // Already married.
             $spouse = $profile->field_kyrandia_married_to->entity->field_display_name->value;
-            $result = sprintf($this->gameHandler->getMessage('MARRY0'), $spouse);
+            $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('MARRY0'), $spouse);
+            $othersMessage = sprintf($this->gameHandler->getMessage('MARRY1'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
           else {
             // Set acting spouse.
@@ -49,19 +52,21 @@ class Marry extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
             $otherProfile = $this->gameHandler->getKyrandiaProfile($otherPlayer);
             $otherProfile->field_kyrandia_married_to = $actingPlayer;
             $otherProfile->save();
-            $result = sprintf($this->gameHandler->getMessage('MARRY4'), $otherPlayer->field_display_name->value);
+            $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('MARRY4'), $otherPlayer->field_display_name->value);
+            $results[$otherPlayer->id()][] = sprintf($this->gameHandler->getMessage('MARRY5'), $actingPlayer->field_display_name->value, $this->gameHandler->hisHer($profile));
+            $othersMessage = sprintf($this->gameHandler->getMessage('MARRY6'), $actingPlayer->field_display_name->value, $this->gameHandler->hisHer($profile), $otherPlayer->field_display_name->value);
+            $exclude = [$otherPlayer];
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results, $exclude);
           }
         }
       }
       else {
         // Player isn't here.
-        $result = $this->gameHandler->getMessage('MARRY7');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MARRY7');
+        $othersMessage = sprintf($this->gameHandler->getMessage('MARRY8'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
 }

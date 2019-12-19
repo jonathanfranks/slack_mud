@@ -20,8 +20,7 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $game = $actingPlayer->field_game->entity;
@@ -30,14 +29,14 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $currentTempleChantCount = $this->gameHandler->getInstanceSetting($game, 'currentTempleChantCount', 0);
       if ($currentTempleChantCount == 0) {
         // First time chanting.
-        $result[$actingPlayer->id()][] = t('The altar begins to glow dimly.');
+        $results[$actingPlayer->id()][] = t('The altar begins to glow dimly.');
         $othersMessage = t('The altar begins to glow dimly.');
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
       else {
-        $result[$actingPlayer->id()][] = t('The altar begins to glow even brighter!');
+        $results[$actingPlayer->id()][] = t('The altar begins to glow even brighter!');
         $othersMessage = t('The altar begins to glow even brighter!');
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
       if ($currentTempleChantCount < 5) {
         $currentTempleChantCount++;
@@ -45,17 +44,16 @@ class Chant extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $this->gameHandler->saveInstanceSetting($game, 'currentTempleChantCount', $currentTempleChantCount);
     }
     elseif ($commandText == 'chant opensesame' && $loc->getTitle() == 'Location 185') {
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM03');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('WALM03');
       $othersMessage = $this->gameHandler->getMessage('WALM04');
-      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       $this->gameHandler->saveInstanceSetting($game, 'opensesame', TRUE);
       $profile->field_kyrandia_open_sesame = TRUE;
       $profile->save();
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
 }

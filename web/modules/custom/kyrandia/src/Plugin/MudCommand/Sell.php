@@ -21,8 +21,7 @@ class Sell extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 8') {
@@ -54,30 +53,35 @@ class Sell extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
           if (array_key_exists($item->getTitle(), $values)) {
             // Gem is on the menu.
             $price = $values[$item->getTitle()];
-            $result = sprintf($this->gameHandler->getMessage('TRDM00'), $price);
+            $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('TRDM00'), $price);
+            $othersMessage = sprintf($this->gameHandler->getMessage('TRDM01'), $actingPlayer->field_display_name->value, $target, $price);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+
             $profile->field_kyrandia_gold->value += $price;
             $profile->save();
             $this->gameHandler->takeItemFromPlayer($actingPlayer, $item->getTitle());
           }
           elseif ($item->getTitle() == 'kyragem') {
-            $result = $this->gameHandler->getMessage('TRDM02');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRDM02');
+            $othersMessage = sprintf($this->gameHandler->getMessage('TRDM03'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
             $this->gameHandler->takeItemFromPlayer($actingPlayer, $item->getTitle());
             $this->gameHandler->giveItemToPlayer($actingPlayer, 'soulstone');
           }
           else {
             // Doesn't want it.
-            $result = $this->gameHandler->getMessage('TRDM04');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRDM04');
+            $othersMessage = sprintf($this->gameHandler->getMessage('TRDM03'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
         }
         else {
-          $result = $this->gameHandler->getMessage('TRDM05');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRDM05');
+          $othersMessage = sprintf($this->gameHandler->getMessage('TRDM03'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
 }

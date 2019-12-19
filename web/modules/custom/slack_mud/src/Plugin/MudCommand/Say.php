@@ -20,7 +20,7 @@ class Say extends MudCommandPluginBase implements MudCommandPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // @TODO Handle saying for multiplayer.
     $result = t('You said it!');
     return $result;

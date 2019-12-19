@@ -20,15 +20,14 @@ class Get extends MudCommandPluginBase implements MudCommandPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $foundSomething = FALSE;
-    $result = '';
     $loc = $actingPlayer->field_location->entity;
     $item = $this->gameHandler->locationHasItem($loc, $commandText, TRUE);
     if ($item) {
       if ($item->field_can_pick_up->value) {
         $this->gameHandler->giveItemToPlayer($actingPlayer, $item->getTitle());
-        $result = 'You picked up the ' . $item->getTitle();
+        $results[$actingPlayer->id()][] = 'You picked up the ' . $item->getTitle();
         $foundSomething = TRUE;
       }
       else {
@@ -44,7 +43,7 @@ class Get extends MudCommandPluginBase implements MudCommandPluginInterface {
       if (count($words) > 1) {
         $target = $words[1];
         $where = $loc->field_object_location->value;
-        $result = t("Sorry, there is no :target :where.",
+        $results[$actingPlayer->id()][] = t("Sorry, there is no :target :where.",
           [
             ':target' => $target,
             ':where' => $where,
@@ -52,10 +51,9 @@ class Get extends MudCommandPluginBase implements MudCommandPluginInterface {
         );
       }
       else {
-        $result = t('What are you talking about?');
+        $results[$actingPlayer->id()][] = t('What are you talking about?');
       }
     }
-    return $result;
   }
 
 }

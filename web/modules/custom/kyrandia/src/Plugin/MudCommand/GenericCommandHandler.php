@@ -24,7 +24,7 @@ class GenericCommandHandler extends KyrandiaCommandPluginBase implements MudComm
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players say a command at the temple to get to level 3.
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;

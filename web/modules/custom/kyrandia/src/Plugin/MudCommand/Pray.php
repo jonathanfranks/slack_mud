@@ -20,29 +20,32 @@ class Pray extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Offers hints at silver altar and temple, otherwise just a nothing action.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 24') {
       // Player is at the silver altar.
-      $result = $this->gameHandler->getMessage('SAPRAY');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SAPRAY');
+      $this->sndutl($actingPlayer, 'praying to the Goddess Tashanna.', $results);
     }
     elseif ($loc->getTitle() == 'Location 7') {
       // In the temple.
-      $result = $this->gameHandler->getMessage('TMPRAY');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TMPRAY');
+      $this->sndutl($actingPlayer, 'praying to the Goddess Tashanna.', $results);
     }
     elseif ($loc->getTitle() == 'Location 27') {
       // At the rock. Player only has to pray once for the mists to come.
-      $result = "Your prayers are heard.\n***\nThe mists around the rock begin to swirl magically!\n";
+      $results[$actingPlayer->id()][] = "Your prayers are heard.";
+      $results[$actingPlayer->id()][] = "***\nThe mists around the rock begin to swirl magically!\n";
+      $othersMessage = "***\nThe mists around the rock begin to swirl magically!\n";
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       $game = $actingPlayer->field_game->entity;
       $this->gameHandler->saveInstanceSetting($game, 'currentRockPrayCount', 1);
     }
-    if (!$result) {
-      $result = $this->gameHandler->getMessage('PRAYER');
+    if (!$results) {
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('PRAYER');
+      $this->sndutl($actingPlayer, 'praying piously.', $results);
     }
-    return $result;
   }
 
 }

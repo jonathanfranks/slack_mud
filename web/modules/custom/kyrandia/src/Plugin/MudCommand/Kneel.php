@@ -20,10 +20,9 @@ class Kneel extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players can kneel at the willow tree at location 0 to go from level 1 to
     // level 2.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 0') {
@@ -31,16 +30,15 @@ class Kneel extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '1') {
         $this->gameHandler->advanceLevel($profile, 2);
-        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage("LVL200");
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage("LVL200");
         $othersMessage = sprintf($this->gameHandler->getMessage('GETLVL'), $actingPlayer->field_display_name->value);
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         $this->gameHandler->giveSpellToPlayer($actingPlayer, 'smokey');
       }
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'You kneel.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'You kneel.';
     }
-    return $result;
   }
 
 }

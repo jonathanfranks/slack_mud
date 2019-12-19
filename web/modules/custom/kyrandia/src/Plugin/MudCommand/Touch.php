@@ -21,7 +21,7 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);

@@ -20,18 +20,16 @@ class Gold extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $loc = $actingPlayer->field_location->entity;
     $gold = $profile->field_kyrandia_gold->value;
-    $result[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('GLDCNT'), $gold, $gold == 1 ? '' : 's');
+    $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('GLDCNT'), $gold, $gold == 1 ? '' : 's');
     $othersMessage = t(':actor is counting :possessive gold.', [
       ':actor' => $actingPlayer->field_display_name->value,
       ':possessive' => $profile->field_kyrandia_is_female->value ? 'her' : 'his',
     ]);
-    $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-    return $result;
+    $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
   }
 
 }

@@ -20,9 +20,8 @@ class Glory extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players say a command at the temple to get to level 3.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
@@ -31,15 +30,14 @@ class Glory extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $level = $profile->field_kyrandia_level->entity;
       if ($level->getName() == '2') {
         $this->gameHandler->advanceLevel($profile, 3);
-        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage("LVL300");
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage("LVL300");
         $othersMessage = sprintf($this->gameHandler->getMessage('GETLVL'), $actingPlayer->field_display_name->value);
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
+    if (!$results) {
+      $result[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
 }

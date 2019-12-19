@@ -20,23 +20,22 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players drop things into the stump at Loc 18 to reach level 6.
-    $result = [];
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
     if (strpos($commandText, 'statue') !== FALSE && $loc->getTitle() == 'Location 181') {
-      $result[$actingPlayer->id()][] = $this->statue();
+      $results[$actingPlayer->id()][] = $this->statue();
     }
     elseif (strpos($commandText, 'pool') !== FALSE && $loc->getTitle() == 'Location 182') {
-      $result[$actingPlayer->id()][] = $this->reflectingPool();
+      $results[$actingPlayer->id()][] = $this->reflectingPool();
     }
     elseif (strpos($commandText, 'symbols') !== FALSE && $loc->getTitle() == 'Location 183') {
-      $result[$actingPlayer->id()][] = $this->pantheonSymbols();
+      $results[$actingPlayer->id()][] = $this->pantheonSymbols();
     }
     elseif (strpos($commandText, 'pillars') !== FALSE && $loc->getTitle() == 'Location 183') {
-      $result[$actingPlayer->id()][] = $this->pantheonSymbols();
+      $results[$actingPlayer->id()][] = $this->pantheonSymbols();
     }
     else {
       // Not a special look. Handle this like a regular look.
@@ -44,7 +43,7 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $pluginManager = \Drupal::service('plugin.manager.mud_command');
       /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
       $plugin = $pluginManager->createInstance('look');
-      $result = $plugin->perform($commandText, $actingPlayer);
+      $plugin->perform($commandText, $actingPlayer, $results);
 
       $words = explode(' ', $commandText);
       if (count($words) > 1) {
@@ -52,34 +51,30 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         $target = $words[1];
         if ($target == 'brief') {
           $briefDesc = $loc->field_brief_description->value;
-          $result[$actingPlayer->id()][0] = sprintf($this->gameHandler->getMessage('LOOKER5'), $briefDesc);
+          $results[$actingPlayer->id()][0] = sprintf($this->gameHandler->getMessage('LOOKER5'), $briefDesc);
           $othersMessage = t(':actor is glancing around briefly!', [
             ':actor' => $actingPlayer->field_display_name->value,
           ]);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
         elseif ($target == 'spellbook') {
-          /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
-          $pluginManager = \Drupal::service('plugin.manager.mud_command');
-          /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
-          $plugin = $pluginManager->createInstance('kyrandia_spellbook');
-          $result = $plugin->perform($commandText, $actingPlayer);
+          $this->performAnotherAction('spellbook', $actingPlayer, $results);
         }
         elseif ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, FALSE)) {
           $profile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
           // Override the look description if the target player is in a
           // different form.
           if ($profile->field_kyrandia_invisible->value) {
-            $result[$actingPlayer->id()][0] = $this->gameHandler->getMessage('INVDES');
+            $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('INVDES');
           }
           elseif ($profile->field_kyrandia_willowisp->value) {
-            $result[$actingPlayer->id()][0] = $this->gameHandler->getMessage('WILDES');
+            $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('WILDES');
           }
           elseif ($profile->field_kyrandia_pegasus->value) {
-            $result[$actingPlayer->id()][0] = $this->gameHandler->getMessage('PEGDES');
+            $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('PEGDES');
           }
           elseif ($profile->field_kyrandia_pseudodragon->value) {
-            $result[$actingPlayer->id()][0] = $this->gameHandler->getMessage('PDRDES');
+            $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('PDRDES');
           }
           else {
             $displayName = $targetPlayer->field_display_name->value;
@@ -91,20 +86,20 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
               $targetInventory = t('nothing');
             }
             $desc = sprintf($genderDescription, $displayName) . ' ' . $targetInventory . '.';
-            $result[$actingPlayer->id()][0] = $desc;
+            $results[$actingPlayer->id()][0] = $desc;
           }
-          $result[$targetPlayer->id()][] = sprintf($this->gameHandler->getMessage('LOOKER3'), $actingPlayer->field_display_name->value);
+          $results[$targetPlayer->id()][] = sprintf($this->gameHandler->getMessage('LOOKER3'), $actingPlayer->field_display_name->value);
           $othersMessage = sprintf($this->gameHandler->getMessage('LOOKER4'), $actingPlayer->field_display_name->value, $targetPlayer->field_display_name->value);
           $exceptPlayers = [$targetPlayer];
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result, $exceptPlayers);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results, $exceptPlayers);
         }
         elseif ($item = $this->gameHandler->locationHasItem($loc, $commandText, FALSE)) {
           $othersMessage = sprintf($this->gameHandler->getMessage('LOOKER1'), $actingPlayer->field_display_name->value, $target, $loc->field_object_location->value);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
         elseif ($item = $this->gameHandler->playerHasItem($actingPlayer, $target, FALSE)) {
           $othersMessage = sprintf($this->gameHandler->getMessage('LOOKER2'), $actingPlayer->field_display_name->value, $profile->field_kyrandia_is_female->value ? 'her' : 'his', $target);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
       else {
@@ -113,13 +108,12 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         $othersMessage = t(':actor is carefully inspecting the surroundings.', [
           ':actor' => $actingPlayer->field_display_name->value,
         ]);
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
   /**

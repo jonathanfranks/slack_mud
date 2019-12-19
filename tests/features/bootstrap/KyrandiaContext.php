@@ -173,6 +173,74 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Then :player should be blessed
+   */
+  public function assertBlessed($player) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if (!$profile->field_kyrandia_blessed->value) {
+      throw new \Exception(sprintf('Player %s should be blessed but is not.', $playerNode));
+    }
+  }
+
+  /**
+   * @Then :player should not be blessed
+   */
+  public function assertNotBlessed($player) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if ($profile->field_kyrandia_blessed->value) {
+      throw new \Exception(sprintf('Player %s should not be blessed but is.', $playerNode));
+    }
+  }
+
+  /**
+   * @Then :player should have :spell memorized
+   */
+  public function assertMemorized($player, $spell) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    if (!$this->gameHandler->playerMemorizedSpell($playerNode, $spell)) {
+      throw new \Exception(sprintf('Player %s does not have %s memorized.', $player, $spell));
+    }
+  }
+
+  /**
+   * @Then :player should not have :spell memorized
+   */
+  public function assertNotMemorized($player, $spell) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    if ($this->gameHandler->playerMemorizedSpell($playerNode, $spell)) {
+      throw new \Exception(sprintf('Player %s has %s memorized.', $player, $spell));
+    }
+  }
+
+  /**
+   * @Then :player should have :hits hit points
+   */
+  public function assertHitPoints($player, $hits) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if ($profile->field_kyrandia_hit_points->value != $hits) {
+      throw new \Exception(sprintf('Player %s should have %s hit points, but has %s.', $player, $hits, $profile->field_kyrandia_hit_points->value));
+    }
+  }
+
+  /**
    * @Then :player should be married to :spouse
    */
   public function assertMarriedTo($player, $spouse) {
@@ -222,6 +290,123 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
       $current = $this->gameHandler->getInstanceSetting($game, 'currentTempleChantCount', 0);
       if ($count != $current) {
         throw new \Exception(sprintf('The temple chant count is supposed to be %s but is currently %s.', $count, $current));
+      }
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Given the current rock pray count is set to :count
+   */
+  public function setCurrentRockPrayCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $this->gameHandler->saveInstanceSetting($game, 'currentRockPrayCount', $count);
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Then the current rock pray count should be :count
+   */
+  public function getCurrentRockPrayCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $current = $this->gameHandler->getInstanceSetting($game, 'currentRockPrayCount', 0);
+      if ($count != $current) {
+        throw new \Exception(sprintf('The rock pray count is supposed to be %s but is currently %s.', $count, $current));
+      }
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Given the current pinecone count is set to :count
+   */
+  public function setCurrentPineconeCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $this->gameHandler->saveInstanceSetting($game, 'fountainPineconeCount', $count);
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Then the current pinecone count should be :count
+   */
+  public function getCurrentPineconeCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $current = $this->gameHandler->getInstanceSetting($game, 'fountainPineconeCount', 0);
+      if ($count != $current) {
+        throw new \Exception(sprintf('The pinecone count is supposed to be %s but is currently %s.', $count, $current));
+      }
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Given the current shard count is set to :count
+   */
+  public function setCurrentShardCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $this->gameHandler->saveInstanceSetting($game, 'fountainShardCount', $count);
+    }
+    else {
+      throw new \Exception(sprintf('No game called %s.', 'kyrandia'));
+    }
+  }
+
+  /**
+   * @Then the current shard count should be :count
+   */
+  public function getCurrentShardCountIs($count) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'game')
+      ->condition('title', 'kyrandia');
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $game = Node::load($id);
+      $current = $this->gameHandler->getInstanceSetting($game, 'fountainShardCount', 0);
+      if ($count != $current) {
+        throw new \Exception(sprintf('The shard count is supposed to be %s but is currently %s.', $count, $current));
       }
     }
     else {

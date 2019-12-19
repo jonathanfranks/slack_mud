@@ -20,53 +20,51 @@ class Help extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $words = explode(' ', $commandText);
     if (count($words) == 1) {
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPMSG');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPMSG');
     }
     else {
       $topic = $words[1];
       switch ($topic) {
         case 'commands':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPCOM');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPCOM');
           break;
 
         case 'fantasy':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPFAN');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPFAN');
           break;
 
         case 'gold':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPGOL');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPGOL');
           break;
 
         case 'hits':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPHIT');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPHIT');
           break;
 
         case 'levels':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPLEV');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPLEV');
           break;
 
         case 'spells':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPSPE');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPSPE');
           break;
 
         case 'winning':
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPWIN');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HLPWIN');
           break;
 
         default:
-          $result[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('NOHELP'), $topic);
+          $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('NOHELP'), $topic);
           break;
       }
     }
 
-    if (!$result) {
-      $result = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
 }

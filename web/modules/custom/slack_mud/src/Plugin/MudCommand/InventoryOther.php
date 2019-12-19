@@ -22,12 +22,12 @@ class InventoryOther extends MudCommandPluginBase implements MudCommandPluginInt
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $result = $this->gameHandler->playerInventoryString($actingPlayer);
     if (!$result) {
       $result = 'nothing';
     }
-    return $result;
+    $results[$actingPlayer->id()][] = $result;
   }
 
 }

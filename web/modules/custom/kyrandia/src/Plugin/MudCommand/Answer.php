@@ -20,19 +20,17 @@ class Answer extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 285') {
-      $this->time($commandText, $actingPlayer, $result);
+      $this->time($commandText, $actingPlayer, $results);
     }
     elseif ($loc->getTitle() == 'Location 302') {
-      $this->winGame($commandText, $actingPlayer, $loc, $result);
+      $this->winGame($commandText, $actingPlayer, $loc, $results);
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
   /**

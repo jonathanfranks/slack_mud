@@ -21,16 +21,18 @@ class Say extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 183' && $commandText == 'say legends pass and time goes by but true love will never die') {
       if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'key')) {
-        $result = $this->gameHandler->getMessage('PANM00');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('PANM00');
+        $othersMessage = sprintf($this->gameHandler->getMessage('PANM01'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
       else {
-        $result = $this->gameHandler->getMessage('PANM02');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('PANM02');
+        $othersMessage = sprintf($this->gameHandler->getMessage('PANM01'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
     else {
@@ -39,12 +41,8 @@ class Say extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       $pluginManager = \Drupal::service('plugin.manager.mud_command');
       /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
       $plugin = $pluginManager->createInstance('say');
-      $result = $plugin->perform($commandText, $actingPlayer);
+      $plugin->perform($commandText, $actingPlayer, $results);
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
 }

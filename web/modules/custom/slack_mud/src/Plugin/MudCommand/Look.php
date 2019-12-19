@@ -3,7 +3,6 @@
 namespace Drupal\slack_mud\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
-use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
 
 /**
@@ -21,15 +20,13 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     if ($commandText == 'look') {
-      $result = $this->lookLocation($actingPlayer);
+      $this->lookLocation($actingPlayer, $results);
     }
     elseif (strpos($commandText, 'look ') !== FALSE) {
-      $result[$actingPlayer->id()][] = $this->lookTarget($commandText, $actingPlayer);
+      $this->lookTarget($commandText, $actingPlayer, $results);
     }
-    return $result;
   }
 
   /**
@@ -37,20 +34,14 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
    *
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The current player node.
-   *
-   * @return array
-   *   The response.
+   * @param array $results
+   *   The results array.
    */
-  protected function lookLocation(NodeInterface $actingPlayer) {
-    $messages = [];
+  protected function lookLocation(NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
-    $messages[] = $loc->body->value;
-    $messages[] = $this->seeOtherPlayersInLocation($actingPlayer, $loc, $messages);
-    $messages[] = $this->seeItemsInLocation($loc);
-    $result = [
-      $actingPlayer->id() => $messages,
-    ];
-    return $result;
+    $results[$actingPlayer->id()][] = $loc->body->value;
+    $results[$actingPlayer->id()][] = $this->seeOtherPlayersInLocation($actingPlayer, $loc);
+    $results[$actingPlayer->id()][] = $this->seeItemsInLocation($loc);
   }
 
   /**
@@ -58,13 +49,12 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
    *
    * @param string $messageText
    *   The message from Slack.
-   * @param \Drupal\node\NodeInterface $player
+   * @param \Drupal\node\NodeInterface $actingPlayer
    *   The current player.
-   *
-   * @return string
-   *   The result.
+   * @param array $results
+   *   The results array.
    */
-  protected function lookTarget(string $messageText, NodeInterface $player) {
+  protected function lookTarget(string $messageText, NodeInterface $actingPlayer, array &$results) {
     // Player is looking AT something.
     // Remove the AT if there is one.
     $target = str_replace(' at ', '', $messageText);
@@ -75,8 +65,8 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
 
     $foundSomething = FALSE;
 
-    $loc = $player->field_location->entity;
-    $slackUsername = $player->field_slack_user_name->value;
+    $loc = $actingPlayer->field_location->entity;
+    $slackUsername = $actingPlayer->field_slack_user_name->value;
     // Allow players to look at themselves.
     $otherPlayers = $this->gameHandler->otherPlayersInLocation($loc);
     foreach ($otherPlayers as $otherPlayer) {
@@ -84,12 +74,8 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
       if (strpos($otherPlayerDisplayName, $target) === 0) {
         // Other player's name starts with the string the user
         // typed.
-        /** @var \Drupal\slack_mud\Event\LookAtPlayerEvent $mudEvent */
-        $mudEvent = new LookAtPlayerEvent($player, $otherPlayer);
-        $mudEvent = $this->eventDispatcher->dispatch(LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT, $mudEvent);
-        if ($response = $mudEvent->getResponse()) {
-          return $response;
-        }
+        $results[$actingPlayer->id()][] = $otherPlayer->body->value;
+        $foundSomething = TRUE;
       }
     }
 
@@ -101,26 +87,26 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
         if (strpos($itemName, $target) === 0) {
           // Other item's name starts with the string the user
           // typed.
-          $response = $item->entity->body->value;
-          return $response;
+          $results[$actingPlayer->id()][] = $item->entity->body->value;
+          $foundSomething = TRUE;
         }
       }
     }
 
     if (!$foundSomething) {
       // Finally, the items in the player's inventory.
-      foreach ($player->field_inventory as $item) {
+      foreach ($actingPlayer->field_inventory as $item) {
         $itemName = strtolower(trim($item->entity->getTitle()));
         if (strpos($itemName, $target) === 0) {
           // Other item's name starts with the string the user
           // typed.
-          $desc = $item->entity->body->value;
-          return $desc;
+          $results[$actingPlayer->id()][] = $item->entity->body->value;
+          $foundSomething = TRUE;
         }
       }
     }
     // Didn't find anything.
-    return t("There's nothing like that here.");
+    $results[$actingPlayer->id()][] = t("There's nothing like that here.");
   }
 
   /**

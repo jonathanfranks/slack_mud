@@ -34,7 +34,7 @@ class PlayerTargetEvent extends Event {
   protected $response;
 
   /**
-   * LookAtPlayer constructor.
+   * PlayerTargetEvent constructor.
    *
    * @param \Drupal\node\NodeInterface $acting_player
    *   The player performing the action.

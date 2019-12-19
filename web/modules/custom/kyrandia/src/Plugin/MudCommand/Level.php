@@ -20,20 +20,15 @@ class Level extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    // Players can kneel at the willow tree at location 0 to go from level 1 to
-    // level 2.
-    $result = NULL;
-    $loc = $actingPlayer->field_location->entity;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
-      $result = t('You are currently level :level, :title.',
+      $results[$actingPlayer->id()][] = t('You are currently level :level, :title.',
         [
           ':level' => $profile->field_kyrandia_level->entity->getName(),
           ':title' => $profile->field_kyrandia_level->entity->description->value,
         ]);
     }
-    return $result;
   }
 
 }

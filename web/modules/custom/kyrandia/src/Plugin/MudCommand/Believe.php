@@ -20,17 +20,16 @@ class Believe extends KyrandiaCommandPluginBase implements MudCommandPluginInter
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 257') {
       if ($commandText == 'believe in magic') {
         $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         if ($profile->field_kyrandia_level->entity->getName() == '20') {
           if ($this->gameHandler->advanceLevel($profile, 21)) {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL21');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL21');
             $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
         }
       }
@@ -40,17 +39,16 @@ class Believe extends KyrandiaCommandPluginBase implements MudCommandPluginInter
         $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
         if ($profile->field_kyrandia_level->entity->getName() == '23') {
           if ($this->gameHandler->advanceLevel($profile, 24)) {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL24');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL24');
             $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
         }
       }
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
 }

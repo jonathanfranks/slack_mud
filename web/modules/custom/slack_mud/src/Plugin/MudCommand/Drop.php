@@ -20,7 +20,7 @@ class Drop extends MudCommandPluginBase implements MudCommandPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Now remove the DROP and we'll see who or what they're taking.
     $target = str_replace('drop', '', $commandText);
     $target = trim($target);
@@ -32,15 +32,14 @@ class Drop extends MudCommandPluginBase implements MudCommandPluginInterface {
     if ($item) {
       // Player has the item.
       $this->gameHandler->placeItemInLocation($loc, $item->getTitle());
-      $result[$actingPlayer->id()][] = t('You dropped the :item.', [':item' => $item->getTitle()]);
+      $results[$actingPlayer->id()][] = t('You dropped the :item.', [':item' => $item->getTitle()]);
     }
     else {
-      $result[$actingPlayer->id()][] = t("You don't have :article :target.", [
+      $results[$actingPlayer->id()][] = t("You don't have :article :target.", [
         ':article' => $article,
         ':target' => $target,
       ]);
     }
-    return $result;
   }
 
 }

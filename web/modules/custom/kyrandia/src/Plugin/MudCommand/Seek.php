@@ -20,8 +20,7 @@ class Seek extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 280') {
       if ($commandText == 'seek truth') {
@@ -30,28 +29,19 @@ class Seek extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
           $this->gameHandler->advanceLevel($profile, 18);
           // Roughly 50% chance that player makes it or dies.
           $game = $actingPlayer->field_game->entity;
-          // Check the forceRandomNumber setting for test values.
-          $random = $this->gameHandler->getInstanceSetting($game, 'forceRandomNumber', NULL);
-          if ($random == NULL) {
-            // Nothing being forced. Generate the real number.
-            $random = rand(0, 100);
-          }
+          $random = $this->generateRandomNumber($game, 0, 100);
           if ($random < 50) {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRUM01');
-            $this->gameHandler->damagePlayer($actingPlayer, 100, $result);
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRUM01');
+            $this->gameHandler->damagePlayer($actingPlayer, 100, $results);
           }
           else {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRUM02');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRUM02');
             $othersMessage = sprintf($this->gameHandler->getMessage('TRUM03'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
         }
       }
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = 'Nothing happens.';
-    }
-    return $result;
   }
 
 }

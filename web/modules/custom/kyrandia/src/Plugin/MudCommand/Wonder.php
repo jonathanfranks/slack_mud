@@ -20,7 +20,7 @@ class Wonder extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $result = [];
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 264') {

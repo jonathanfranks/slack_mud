@@ -20,12 +20,11 @@ class Spellbook extends KyrandiaCommandPluginBase implements MudCommandPluginInt
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
       if (count($profile->field_kyrandia_spellbook) == 0) {
-        $result[$actingPlayer->id()][] = t('You currently have no spells in your spellbook.');
+        $results[$actingPlayer->id()][] = t('You currently have no spells in your spellbook.');
       }
       else {
         $spells = [];
@@ -33,10 +32,9 @@ class Spellbook extends KyrandiaCommandPluginBase implements MudCommandPluginInt
           $spells[] = $spell->entity->getName();
         }
         $spellList = $this->wordGrammar->getWordList($spells);
-        $result[$actingPlayer->id()][] = t('Your spellbook currently contains :spells.', [':spells' => $spellList]);
+        $results[$actingPlayer->id()][] = t('Your spellbook currently contains :spells.', [':spells' => $spellList]);
       }
     }
-    return $result;
   }
 
 }

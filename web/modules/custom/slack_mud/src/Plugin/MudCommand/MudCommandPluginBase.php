@@ -3,6 +3,8 @@
 namespace Drupal\slack_mud\Plugin\MudCommand;
 
 use Drupal\Core\Plugin\PluginBase;
+use Drupal\node\NodeInterface;
+use Drupal\slack_mud\Event\CommandEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Drupal\slack_mud\Service\MudGameHandlerServiceInterface;
 use Drupal\word_grammar\Service\WordGrammarInterface;
@@ -50,6 +52,8 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    *   The event dispatcher.
    * @param \Drupal\word_grammar\Service\WordGrammarInterface $word_grammar
    *   The indefinite article service.
+   * @param \Drupal\slack_mud\Service\MudGameHandlerServiceInterface $game_handler
+   *   The game handler.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, WordGrammarInterface $word_grammar, MudGameHandlerServiceInterface $game_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -80,8 +84,25 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
       $plugin_definition,
       $container->get('event_dispatcher'),
       $container->get('word_grammar_service'),
-      $container->get('slack_mud.game_handler')
+      $container->get('slack_mud.game_handler'),
+      $container->get('plugin.manager.mud_command')
     );
+  }
+
+  /**
+   * Performs another action and adds it to the current results.
+   *
+   * @param string $commandText
+   *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param array $results
+   *   The results array.
+   */
+  protected function performAnotherAction($commandText, NodeInterface $actingPlayer, array &$results) {
+    $mudEvent = new CommandEvent($actingPlayer, $commandText, $results);
+    $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
+    $results = $mudEvent->getResponse();
   }
 
 }

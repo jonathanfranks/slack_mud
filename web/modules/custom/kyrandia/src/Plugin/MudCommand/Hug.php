@@ -20,7 +20,7 @@ class Hug extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $result = NULL;
     if (!$result) {
       $result = 'Nothing happens.';

@@ -20,32 +20,26 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $roseLocations = [
       'Location 12',
       'Location 32',
       'Location 36',
     ];
     if (in_array($loc->getTitle(), $roseLocations)) {
-      $result = $this->rose($commandText, $actingPlayer);
+      $this->rose($commandText, $actingPlayer, $results);
     }
     elseif ($loc->getTitle() == 'Location 14') {
       // @TODO Handle verb synonyms.
-      $result = $this->pines($commandText, $actingPlayer);
+      $this->pines($commandText, $actingPlayer, $results);
     }
     elseif ($loc->gettitle() == 'Location 20') {
-      $result = $this->rubies($commandText, $actingPlayer);
+      $this->rubies($commandText, $actingPlayer, $results);
     }
     elseif ($loc->gettitle() == 'Location 199') {
-      $result = $this->tulips($commandText, $actingPlayer);
+      $this->tulips($commandText, $actingPlayer, $results);
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
   /**
@@ -55,29 +49,29 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   Command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param array $results
+   *   The results array.
    */
-  protected function rose($commandText, NodeInterface $actingPlayer) {
-    $result = '';
+  protected function rose($commandText, NodeInterface $actingPlayer, array &$results) {
     // We're looking for 'pick rose'.
     $words = explode(' ', $commandText);
     $synonyms = [
       'rose',
     ];
     $synonymMatch = array_intersect($synonyms, $words);
+    $loc = $actingPlayer->field_location->entity;
     if ($synonymMatch) {
       if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'rose')) {
-        $result = $this->gameHandler->getMessage('GROSE1');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('GROSE1');
+        $othersMessage = sprintf($this->gameHandler->getMessage('GROSE2'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
       else {
-        $result = $this->gameHandler->getMessage('GROSE3');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('GROSE3');
+        $othersMessage = sprintf($this->gameHandler->getMessage('GROSE4'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    return $result;
   }
 
   /**
@@ -87,14 +81,10 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param array $results
+   *   The results array.
    */
-  protected function pines($commandText, NodeInterface $actingPlayer) {
-    $result = '';
+  protected function pines($commandText, NodeInterface $actingPlayer, array &$results) {
     // We're looking for 'pick pinecone'.
     $words = explode(' ', $commandText);
     $synonyms = [
@@ -103,20 +93,20 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
       // Random chance to grab one.
-      $chance = rand(0, 100);
-      if ($chance < 40) {
-        if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'pinecone')) {
-          $result = $this->gameHandler->getMessage('PINEC0');
-        }
-        else {
-          $result = $this->gameHandler->getMessage('PINEC2');
-        }
+      $game = $actingPlayer->field_game->entity;
+      $loc = $actingPlayer->field_location->entity;
+      $chance = $this->generateRandomNumber($game, 0, 100);
+      if ($chance < 40 && $this->gameHandler->giveItemToPlayer($actingPlayer, 'pinecone')) {
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('PINEC0');
+        $othersMessage = sprintf($this->gameHandler->getMessage('PINEC1'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
       else {
-        $result = $this->gameHandler->getMessage('PINEC2');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('PINEC2');
+        $othersMessage = sprintf($this->gameHandler->getMessage('PINEC3'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    return $result;
   }
 
   /**
@@ -126,37 +116,33 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param array $results
+   *   The results array.
    */
-  protected function rubies($commandText, NodeInterface $actingPlayer) {
-    $result = '';
+  protected function rubies($commandText, NodeInterface $actingPlayer, array &$results) {
     // We're looking for 'pick ruby'.
     $words = explode(' ', $commandText);
     $synonyms = [
       'ruby',
     ];
     $synonymMatch = array_intersect($synonyms, $words);
+    $loc = $actingPlayer->field_location->entity;
     if ($synonymMatch) {
       // Random chance to grab one.
-      $chance = rand(0, 100);
-      if ($chance < 20) {
-        if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'ruby')) {
-          $result = $this->gameHandler->getMessage('RUBY00');
-        }
+      $game = $actingPlayer->field_game->entity;
+      $chance = $this->generateRandomNumber($game, 0, 100);
+      if ($chance < 20 && $this->gameHandler->giveItemToPlayer($actingPlayer, 'ruby')) {
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('RUBY00');
+        $othersMessage = sprintf($this->gameHandler->getMessage('RUBY01'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
-      if (!$result) {
-        $result = $this->gameHandler->damagePlayer($actingPlayer, 8, $result);
-        if (!$result) {
-          // Damage didn't kill the player.
-          $result = $this->gameHandler->getMessage('RUBY02');
-        }
+      else {
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('RUBY02');
+        $othersMessage = sprintf($this->gameHandler->getMessage('RUBY03'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+        $this->gameHandler->damagePlayer($actingPlayer, 8, $results);
       }
     }
-    return $result;
   }
 
   /**
@@ -166,14 +152,10 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param array $results
+   *   The results array.
    */
-  protected function tulips($commandText, NodeInterface $actingPlayer) {
-    $result = '';
+  protected function tulips($commandText, NodeInterface $actingPlayer, array &$results) {
     // We're looking for 'pick tulip'.
     $words = explode(' ', $commandText);
     $synonyms = [
@@ -181,14 +163,18 @@ class Pick extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
     ];
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
+      $loc = $actingPlayer->field_location->entity;
       if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'tulip')) {
-        $result = $this->gameHandler->getMessage('TULM00');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TULM00');
+        $othersMessage = sprintf($this->gameHandler->getMessage('TULM01'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
       else {
-        $result = $this->gameHandler->getMessage('TULM02');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TULM02');
+        $othersMessage = sprintf($this->gameHandler->getMessage('TULM01'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    return $result;
   }
 
 }

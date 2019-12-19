@@ -148,11 +148,7 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
     $result[$player->id()][] = $this->getMessage('DIEMSG');
     $othersMessage = sprintf($this->getMessage('KILLED'), $player->field_display_name->value);
     $this->sendMessageToOthersInLocation($player, $loc, $othersMessage, $result);
-    $this->movePlayer($player, 'Location 0');
-    $newLoc = $player->field_location->entity;
-    $msg = t('appeared in a holy light');
-    $entranceMessage = sprintf("***\n%s has just %s!\n", $player->field_display_name->value, $msg);
-    $this->sendMessageToOthersInLocation($player, $newLoc, $entranceMessage, $result);
+    $this->movePlayer($player, 'Location 0', $result, NULL, 'appeared in a holy light');
   }
 
   /**
@@ -267,6 +263,34 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
       ':actor' => $actingPlayer->field_display_name->value,
     ]);
     $this->sendMessageToOthersInLocation($actingPlayer, $location, $othersMessage, $result);
+  }
+
+  /**
+   * Returns his or her from given player.
+   *
+   * @param \Drupal\node\NodeInterface $profile
+   *   The Kyrandia player profile.
+   *
+   * @return string
+   *   His or Her depending on the profile female field.
+   */
+  public function hisHer(NodeInterface $profile) {
+    $hisHer = $profile->field_kyrandia_is_female->value ? 'her' : 'his';
+    return $hisHer;
+  }
+
+  /**
+   * Returns he or she from given player.
+   *
+   * @param \Drupal\node\NodeInterface $profile
+   *   The Kyrandia player profile.
+   *
+   * @return string
+   *   He or she depending on the profile female field.
+   */
+  public function heShe(NodeInterface $profile) {
+    $hisHer = $profile->field_kyrandia_is_female->value ? 'she' : 'he';
+    return $hisHer;
   }
 
 }

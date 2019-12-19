@@ -72,10 +72,13 @@ class CommandEvent extends Event {
    *   The player performing the action.
    * @param string $command_string
    *   Command text entered in full, including targets or modifiers.
+   * @param array $results
+   *   The results array.
    */
-  public function __construct(NodeInterface $acting_player, $command_string) {
+  public function __construct(NodeInterface $acting_player, $command_string, array &$results = []) {
     $this->actingPlayer = $acting_player;
     $this->commandString = $command_string;
+    $this->response = $results;
   }
 
   /**

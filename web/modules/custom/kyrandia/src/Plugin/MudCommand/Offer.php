@@ -20,41 +20,34 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players offer their birthstones, in order, at the silver altar to reach
     // level 4. Item is removed from player's inventory whether correct or not.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     // The 'to' gets stripped out.
     if ($loc->getTitle() == 'Location 24' && $profile->field_kyrandia_level->entity->getName() == '3') {
       // Player is at the silver altar.
-      $result = $this->silverAltar($commandText, $actingPlayer, $profile);
+      $this->silverAltar($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 101' && $profile->field_kyrandia_level->entity->getName() == '6') {
       // Player is at the hidden shrine.
-      $result = $this->hiddenShrine($commandText, $actingPlayer, $profile);
+      $this->hiddenShrine($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 7') {
       // Player is in the temple. We handle offering gold here.
-      $result = $this->temple($commandText, $profile);
+      $this->temple($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 10') {
       // Offering at the healer shop.
-      $result = $this->healer($commandText, $actingPlayer, $profile);
+      $this->healer($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 38') {
       // Blessing at the fountain.
-      // We're looking for 'offer true love to tashanna', but the 'to' is
-      // stripped out.
-      if ($commandText == 'offer true love tashanna') {
-        $profile->field_kyrandia_blessed = TRUE;
-        $profile->save();
-        $result = 'The Goddess blesses you.';
-      }
+      $this->fountain($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 213') {
-      $result = $this->sunshineKyragem($commandText, $actingPlayer);
+      $this->sunshineKyragem($commandText, $actingPlayer, $results);
     }
     elseif ($loc->getTitle() == 'Location 255') {
       $words = explode(' ', $commandText);
@@ -94,10 +87,6 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         }
       }
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = "You can't do that here.";
-    }
-    return $result;
   }
 
   /**
@@ -115,7 +104,7 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function silverAltar($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
+  protected function silverAltar($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     if (count($profile->field_kyrandia_birth_stones)) {
       // The next birthstone will always be in slot 0, since we remove them
@@ -133,16 +122,16 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         if ($item->getTitle() == $firstBirthstoneName) {
           if ($lastBirthstone) {
             // Last one! Player gets a level and a spell.
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM0');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM0');
             $othersMessage = sprintf($this->gameHandler->getMessage('SILVM1'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
             $this->gameHandler->advanceLevel($profile, 4);
             $this->gameHandler->giveSpellToPlayer($actingPlayer, 'hotseat');
           }
           else {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM2');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM2');
             $othersMessage = sprintf($this->gameHandler->getMessage('SILVM3'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
             // Remove birthstone from player's profile.
             $profile->field_kyrandia_birth_stones[0] = NULL;
             $profile->save();
@@ -150,19 +139,18 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
         }
         else {
           // Not the next birthstone.
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM4');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SILVM4');
           $othersMessage = sprintf($this->gameHandler->getMessage('SILVM3'), $actingPlayer->field_display_name->value);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
       else {
         // Player doesn't actually have it.
-        $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRDM05');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('TRDM05');
         $othersMessage = sprintf($this->gameHandler->getMessage('SILVM5'), $actingPlayer->field_display_name->value);
-        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    return $result;
   }
 
   /**
@@ -192,14 +180,12 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    *   The player.
    * @param \Drupal\node\NodeInterface $profile
    *   The user's Kyrandia profile.
-   *
-   * @return string|null
-   *   The result of this action.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function hiddenShrine($commandText, NodeInterface $actingPlayer, NodeInterface $profile) {
-    $result = [];
+  protected function hiddenShrine($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
     // We're looking for:
     // "offer heart and soul to tashanna".
     // We really just want heart, then soul, then tashanna.
@@ -210,12 +196,11 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     if ($indexHeart < $indexSoul && $indexSoul < $indexTashanna) {
       $loc = $actingPlayer->field_location->entity;
       $this->gameHandler->advanceLevel($profile, 7);
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HNSYOU');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HNSYOU');
       $othersMessage = sprintf($this->gameHandler->getMessage('HNSOTH'), $actingPlayer->field_display_name->value);
-      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       $this->gameHandler->giveSpellToPlayer($actingPlayer, 'weewillo');
     }
-    return $result;
   }
 
   /**
@@ -223,16 +208,18 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    *
    * @param string $commandText
    *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
    * @param \Drupal\node\NodeInterface $profile
    *   The player's Kyrandia profile.
-   *
-   * @return string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function temple($commandText, NodeInterface $profile) {
+  protected function temple($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
     if (strpos($commandText, 'gold') !== FALSE) {
+      $loc = $actingPlayer->field_location->entity;
       // Assume this is offer # gold.
       $words = explode(' ', $commandText);
       if (count($words) > 2) {
@@ -241,20 +228,22 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
           if ($offeringGold > 0) {
             $playerGold = $profile->field_kyrandia_gold->value;
             if ($playerGold >= $offeringGold) {
-              $result = $this->gameHandler->getMessage('NOGTCR');
+              $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('NOGTCR');
+              $othersMessage = sprintf($this->gameHandler->getMessage('OGETCR'), $actingPlayer->field_display_name->value);
+              $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
               $playerGold = $playerGold - $offeringGold;
               $profile->field_kyrandia_gold = $playerGold;
               $profile->save();
             }
             else {
               // Player doesn't have enough.
-              $result = $this->gameHandler->getMessage('CHEAPO');
+              $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('CHEAPO');
+              $this->sndutl($actingPlayer, 'looking somewhat cheap.', $results);
             }
           }
         }
       }
     }
-    return $result;
   }
 
   /**
@@ -328,6 +317,30 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $result[$actingPlayer->id()][] = "For some reason, nothing happens at all!";
     }
     return $result;
+  }
+
+  /**
+   * Get blessing at the fountain.
+   *
+   * @param string $commandText
+   *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param \Drupal\node\NodeInterface $profile
+   *   The profile.
+   * @param array $results
+   *   The results array.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function fountain($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
+    // We're looking for 'offer true love to tashanna', but the 'to' is
+    // stripped out.
+    if ($commandText == 'offer true love tashanna') {
+      $profile->field_kyrandia_blessed = TRUE;
+      $profile->save();
+      $results[$actingPlayer->id()][] = 'The Goddess blesses you.';
+    }
   }
 
 }

@@ -20,24 +20,17 @@ class Count extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = [];
-
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $words = explode(' ', $commandText);
     if (count($words) == 1) {
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('COUNTR1');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('COUNTR1');
     }
     elseif ($words[1] == 'gold') {
-      /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
-      $pluginManager = \Drupal::service('plugin.manager.mud_command');
-      /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
-      $plugin = $pluginManager->createInstance('kyrandia_gold');
-      $result = $plugin->perform($commandText, $actingPlayer);
+      $this->performAnotherAction('gold', $actingPlayer, $results);
     }
     else {
-      $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('COUNTR2');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('COUNTR2');
     }
-    return $result;
   }
 
 }

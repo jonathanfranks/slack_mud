@@ -20,16 +20,11 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
     if ($loc->getTitle() == 'Location 282') {
-      $result = $this->chasm($commandText, $actingPlayer);
+      $this->chasm($commandText, $actingPlayer, $results);
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
   /**
@@ -39,14 +34,12 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function chasm($commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  protected function chasm($commandText, NodeInterface $actingPlayer, array &$results) {
     // We're looking for "jump chasm" or "jump across chasm".
     $words = explode(' ', $commandText);
     $loc = $actingPlayer->field_location->entity;
@@ -57,13 +50,13 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         $userIsProtected = $profile->field_kyrandia_protection_other->value;
         if ($userIsProtected) {
           if ($this->gameHandler->advanceLevel($profile, 13)) {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM01');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM01');
             $othersMessage = sprintf($this->gameHandler->getMessage('BODM02'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
           }
           if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'broach')) {
             // Can't give the item to the player - max item limit.
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM03');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM03');
             $this->gameHandler->removeFirstItem($actingPlayer);
             // Then give the broach again.
             $this->gameHandler->giveItemToPlayer($actingPlayer, 'broach');
@@ -71,14 +64,13 @@ class Jump extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         }
         else {
           // User isn't protected. Death.
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM04');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('BODM04');
           $othersMessage = sprintf($this->gameHandler->getMessage('BODM05'), $actingPlayer->field_display_name->value);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-          $this->gameHandler->damagePlayer($actingPlayer, 100, $result);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+          $this->gameHandler->damagePlayer($actingPlayer, 100, $results);
         }
       }
     }
-    return $result;
   }
 
 }

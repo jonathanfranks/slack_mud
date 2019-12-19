@@ -31,9 +31,8 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players say a command at the temple to get to level 3.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
 
@@ -42,8 +41,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     $target = '';
     if (count($words) == 1) {
       // Player only typed "cast".
-      $result = $this->gameHandler->getMessage('OBJM07');
-      return $result;
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM07');
     }
     if (count($words) > 1) {
       // Spell is the second word. "cast zennyra".
@@ -58,17 +56,17 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     if ($spellName == 'zennyra' && $loc->getTitle() == 'Location 213') {
       // Casting zennyra (not a real spell) at the altar of sunshine gives a
       // message.
-      $result = $this->gameHandler->getMessage('SUNM02');
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SUNM02');
     }
 
     // Cast a spell.
     if ($spell = $this->gameHandler->playerMemorizedSpell($actingPlayer, $spellName)) {
       $spellLevel = intval($spell->field_kyrandia_minimum_level->value);
       if ($spellLevel > intval($profile->field_kyrandia_level->entity->getName())) {
-        $result = $this->gameHandler->getMessage('KSPM10');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('KSPM10');
       }
       elseif ($spellLevel > $profile->field_kyrandia_spell_points->value) {
-        $result = $this->gameHandler->getMessage('KSPM10');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('KSPM10');
       }
       else {
         // Player can cast spell.
@@ -78,21 +76,20 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
               // Casting zapher at the tulip at the altar of sunshine gives
               // player a wand.
               if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'wand')) {
-                $result = $this->gameHandler->getMessage('SUNM00');
+                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SUNM00');
               }
             }
             break;
         }
         // Do spell.
-        $result = $this->spellHandler($commandText, $actingPlayer);
+        $this->spellHandler($commandText, $actingPlayer, $results);
         // Remove spell points.
         $this->gameHandler->playerMemorizedSpell($actingPlayer, $spellName, TRUE);
       }
     }
-    if (!$result) {
-      $result = $this->gameHandler->getMessage('NOTMEM');
+    if (!$results) {
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('NOTMEM');
     }
-    return $result;
   }
 
   /**
@@ -102,8 +99,12 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player casting the spell.
+   * @param array $results
+   *   The results array.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function spellHandler($commandText, NodeInterface $actingPlayer) {
+  protected function spellHandler($commandText, NodeInterface $actingPlayer, array &$results) {
     // @TODO Be more efficient with this. We're doing the same things over and
     // over again and we could probably be much more efficient with this.
     $words = explode(' ', $commandText);
@@ -200,15 +201,15 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         switch ($castingSpellName) {
           case 'abbracada':
             $this->charm($actingPlayer, 'OBJPRO', 8);
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SPM000');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SPM000');
             $othersMessage = sprintf($this->gameHandler->getMessage('SPM001'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-            return $result;
+            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+            break;
 
           case 'allbettoo':
             $this->gameHandler->healPlayer($actingPlayer, 4 * $playerLevel);
-            $result = $this->gameHandler->getMessage('SPM002');
-            return $result;
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SPM002');
+            break;
 
           case 'blowitawa':
             $loc = $actingPlayer->field_location->entity;
@@ -219,18 +220,16 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
                 count($targetPlayer->field_inventory) == 0) {
                 // Charmed or not carrying anything.
-                $result = $this->gameHandler->getMessage('SNW000');
-                return $result;
+                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SNW000');
               }
               else {
                 // Vaporize target's first held object.
                 $item0Name = $targetPlayer->field_inventory[0]->entity->getTitle();
                 $this->gameHandler->takeItemFromPlayer($targetPlayer, $item0Name);
-                $result = sprintf($this->gameHandler->getMessage('SPM004'), $targetPlayerName, $item0Name);
-                return $result;
+                $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('SPM004'), $targetPlayerName, $item0Name);
               }
             }
-            return NULL;
+            break;
 
           case 'blowoutma':
             $loc = $actingPlayer->field_location->entity;
@@ -241,19 +240,17 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
                 count($targetPlayer->field_inventory) == 0) {
                 // Charmed or not carrying anything.
-                $result = $this->gameHandler->getMessage('SNW000');
-                return $result;
+                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SNW000');
               }
               else {
                 // Vaporize target's entire inventory.
                 $targetPlayer->field_inventory = NULL;
                 $targetPlayer->save();
                 $hisHer = $targetProfile->field_kyrandia_is_female->value ? 'her' : 'his';
-                $result = sprintf($this->gameHandler->getMessage('SPM007'), $targetPlayerName, $hisHer);
-                return $result;
+                $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('SPM007'), $targetPlayerName, $hisHer);
               }
             }
-            return NULL;
+            break;
 
           case 'bookworm':
             $loc = $actingPlayer->field_location->entity;
@@ -262,8 +259,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
               $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
               $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
-                $result = $this->gameHandler->getMessage('S05M00');
-                return $result;
+                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S05M00');
               }
               else {
                 // Player needs a moonstone.
@@ -271,17 +267,17 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
                   $targetProfile->field_kyrandia_memorized_spells = NULL;
                   $targetProfile->field_kyrandia_spellbook = NULL;
                   $targetProfile->save();
-                  $result = sprintf($this->gameHandler->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
-                  return $result;
+                  $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
                 }
                 else {
-                  $result = $this->gameHandler->getMessage('MISS00');
-                  return $result;
+                  $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MISS00');
                 }
               }
             }
+            break;
+
           case 'burnup':
-            $result = $this->gameHandler->getMessage('S06M00');
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S06M00');
             $loc = $actingPlayer->field_location->entity;
             $slackUsername = $actingPlayer->field_slack_user_name->value;
             $result = $this->masshitr($actingPlayer, 10, 'FIRPRO', 1, 'S66M0', 'MERCYU');
@@ -290,15 +286,15 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             //            foreach ($otherPlayers as $otherPlayer) {
             //              $target = $otherPlayer->field_display_name->value;
             //            }
-            return $result;
+            break;
 
           case 'zapher':
-            $result = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0', 'MERCYA');
-            return $result;
+            $results[$actingPlayer->id()][] = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0', 'MERCYA');
+            break;
+
         }
       }
     }
-    return NULL;
   }
 
   /**

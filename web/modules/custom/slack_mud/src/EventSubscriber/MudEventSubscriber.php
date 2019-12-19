@@ -3,7 +3,6 @@
 namespace Drupal\slack_mud\EventSubscriber;
 
 use Drupal\slack_mud\Event\CommandEvent;
-use Drupal\slack_mud\Event\LookAtPlayerEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -15,27 +14,11 @@ class MudEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[LookAtPlayerEvent::LOOK_AT_PLAYER_EVENT] = [
-      'onLookAtPlayer',
-      800,
-    ];
     $events[CommandEvent::COMMAND_EVENT] = [
       'onCommand',
       600,
     ];
     return $events;
-  }
-
-  /**
-   * Subscriber for the MudEvent LookAtPlayer event.
-   *
-   * @param \Drupal\slack_mud\Event\LookAtPlayerEvent $event
-   *   The LookAtPlayer event.
-   */
-  public function onLookAtPlayer(LookAtPlayerEvent $event) {
-    $targetPlayer = $event->getTargetPlayer();
-    $desc = $targetPlayer->body->value;
-    $event->setResponse(strip_tags($desc));
   }
 
   /**
@@ -50,7 +33,7 @@ class MudEventSubscriber implements EventSubscriberInterface {
     // If the event is set for stopPropagation, don't process it here.
     // It's already been handled in another place.
     if (!$event->isStopPropagation()) {
-      $result = NULL;
+      $results = $event->getResponse();
       $actingPlayer = $event->getActingPlayer();
       if ($actingPlayer) {
         // @TODO What about command plugins?
@@ -98,15 +81,15 @@ class MudEventSubscriber implements EventSubscriberInterface {
         // Now that we've had another chance to load a plugin, see if we can
         // perform the action.
         if ($plugin) {
-          $result = $plugin->perform($command, $actingPlayer);
+          $plugin->perform($command, $actingPlayer, $results);
         }
       }
-      if (!$result) {
+      if (!$results) {
         // Nothing processed a result. Treat it as an invalid command.
-        $result[$actingPlayer->id()][] = t("You can't do that here.");
+        $results[$actingPlayer->id()][] = t("You can't do that here.");
       }
-      if ($result) {
-        $event->setResponse($result);
+      if ($results) {
+        $event->setResponse($results);
       }
     }
   }

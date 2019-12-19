@@ -19,9 +19,6 @@ interface MudCommandPluginInterface extends PluginInspectionInterface, Container
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player performing the action.
    * @param array $results
-   *   The results array that the command plugin adds to or modifies.
-   *
-   * @return array
    *   Response array where the player node ID is the key and the value is an
    *   array of the response messages to return to that player. Multiple players
    *   may receive responses. Example:
@@ -34,6 +31,8 @@ interface MudCommandPluginInterface extends PluginInspectionInterface, Container
    *         'Jack is looking around.',
    *       ],
    *     ]
+   *   A command may add to the results array or modify existing elements in the
+   *   array.
    */
   public function perform($commandText, NodeInterface $actingPlayer, array &$results);
 

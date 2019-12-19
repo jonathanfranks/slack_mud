@@ -133,11 +133,13 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   public function locationHasPlayer($target, NodeInterface $location, $excludeActingPlayer, NodeInterface $actingPlayer = NULL) {
     if ($excludeActingPlayer) {
       $slackUsername = $actingPlayer->field_slack_user_name->value;
+      $actor = $actingPlayer;
     }
     else {
       $slackUsername = NULL;
+      $actor = NULL;
     }
-    $otherPlayers = $this->otherPlayersInLocation($location, $actingPlayer);
+    $otherPlayers = $this->otherPlayersInLocation($location, $actor);
     foreach ($otherPlayers as $otherPlayer) {
       $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
       if (strpos($otherPlayerDisplayName, $target) === 0) {
@@ -213,8 +215,10 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
    */
   public function locationHasItem(NodeInterface $location, $commandText, $removeItem = FALSE) {
     $words = explode(' ', $commandText);
-    // Assume first word is always the verb.
-    $verb = array_shift($words);
+    if (count($words) > 1) {
+      // If there's more than one word, assume first word is always the verb.
+      $verb = array_shift($words);
+    }
     foreach ($location->field_visible_items as $delta => $item) {
       // Item names have to be exact matches.
       // Any of the other words could target an item in the room.

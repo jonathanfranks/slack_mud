@@ -20,21 +20,19 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     // Players can dig in the brook to randomly find gold.
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 12') {
-      $result = $this->brook($commandText, $profile);
+      $results[$actingPlayer->id()][] = $this->brook($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 189') {
-      $result = $this->sand($commandText, $profile);
+      $results[$actingPlayer->id()][] = $this->sand($commandText, $actingPlayer, $profile, $results);
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
   /**
@@ -42,15 +40,16 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
    *
    * @param string $commandText
    *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
    * @param \Drupal\node\NodeInterface $profile
    *   The player profile.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function brook($commandText, NodeInterface $profile) {
+  protected function brook($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
     $words = explode(' ', $commandText);
     $synonyms = [
       'gold',
@@ -62,18 +61,19 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
     if ($synonymMatch) {
       // Player has to have less than 101 gold and random number has to be
       // less than 10.
-      $digGold = rand(2, 102);
+      $game = $actingPlayer->field_game->entity;
+      $digGold = $this->generateRandomNumber($game, 2, 102);
       $playerGold = $profile->field_kyrandia_gold->value;
       if ($digGold < 10 && $playerGold < 101) {
-        $result = sprintf($this->gameHandler->getMessage('FNDGOL'), $digGold);
+        $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('FNDGOL'), $digGold);
         $profile->field_kyrandia_gold->value += $digGold;
         $profile->save();
       }
       else {
-        $result = $this->gameHandler->getMessage('NOFNDG');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('NOFNDG');
       }
+      $this->sndutl($actingPlayer, 'searching the brook for something.', $results);
     }
-    return $result;
   }
 
   /**
@@ -81,35 +81,37 @@ class Dig extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
    *
    * @param string $commandText
    *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
    * @param \Drupal\node\NodeInterface $profile
    *   The player profile.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function sand($commandText, NodeInterface $profile) {
+  protected function sand($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
     $words = explode(' ', $commandText);
     $synonyms = [
       'sand',
     ];
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
-      // Player has to have less than 101 gold and random number has to be
-      // less than 10.
-      $digGold = rand(0, 100);
+      $game = $actingPlayer->field_game->entity;
+      $digGold = $this->generateRandomNumber($game, 0, 100);
       $playerGold = $profile->field_kyrandia_gold->value;
       if ($digGold < 10) {
-        $result = $this->gameHandler->getMessage('SANM00');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SANM00');
         $profile->field_kyrandia_gold->value += 1;
         $profile->save();
       }
       else {
-        $result = $this->gameHandler->getMessage('SANM02');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SANM02');
       }
+      $loc = $actingPlayer->field_location->entity;
+      $othersMessage = sprintf($this->gameHandler->getMessage('SANM01'), $actingPlayer->field_display_name->value);
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
     }
-    return $result;
   }
 
 }

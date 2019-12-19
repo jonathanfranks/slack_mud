@@ -6,6 +6,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\Event\CommandEvent;
+use Drupal\slack_mud\Service\MudGameHandlerServiceInterface;
 
 /**
  * Defines application features from the specific context.
@@ -13,11 +14,11 @@ use Drupal\slack_mud\Event\CommandEvent;
 class D8SlackContext implements Context, SnippetAcceptingContext {
 
   /**
-   * The results from the latest command that was executed.
+   * The game handler service.
    *
-   * @var array
+   * @var \Drupal\slack_mud\Service\MudGameHandlerServiceInterface
    */
-  protected $results;
+  protected $gameHandler;
 
   /**
    * Initializes context.
@@ -27,7 +28,17 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
    * context constructor through behat.yml.
    */
   public function __construct() {
+    /** @var MudGameHandlerServiceInterface $gameHandler */
+    $gameHandler = \Drupal::getContainer()->get('slack_mud.game_handler');
+    $this->gameHandler = $gameHandler;
   }
+
+  /**
+   * The results from the latest command that was executed.
+   *
+   * @var array
+   */
+  protected $results;
 
   /**
    * @When :player performs :command
@@ -72,7 +83,7 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
       throw new \Exception('No result from last command.');
     }
     if (!$playerNode) {
-      throw new \Exception('No result from last command.');
+      throw new \Exception(sprintf('No player named %s exists.', $player));
     }
     if (!array_key_exists($playerNode->id(), $this->results)) {
       throw new \Exception('No results for specified player.');
@@ -124,6 +135,38 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
       $playerNode = Node::load($id);
     }
     return $playerNode;
+  }
+
+  /**
+   * @Then :item item should be in :location
+   */
+  public function assertItemInLocation($item, $location) {
+    $locationNode = $this->gameHandler->getLocationByName($location);
+    if (!$this->gameHandler->locationHasItem($locationNode, $item, FALSE)) {
+      throw new \Exception(sprintf('Location %s does not have %s.', $location, $item));
+    }
+  }
+
+  /**
+   * Removes all instances of given item from given location.
+   *
+   * @Given :location has no :item
+   */
+  public function removeItemFromLocation($location, $item) {
+    $locationNode = $this->gameHandler->getLocationByName($location);
+    do {
+      $itemNode = $this->gameHandler->locationHasItem($locationNode, $item, TRUE);
+    } while ($itemNode);
+  }
+
+  /**
+   * @Then :item item should not be in :location
+   */
+  public function assertItemNotInLocation($item, $location) {
+    $locationNode = $this->gameHandler->getLocationByName($location);
+    if ($this->gameHandler->locationHasItem($locationNode, $item, FALSE)) {
+      throw new \Exception(sprintf('Location %s has %s but should not.', $location, $item));
+    }
   }
 
   /**

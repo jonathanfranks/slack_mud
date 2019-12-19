@@ -20,10 +20,8 @@ class Drink extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
   /**
    * {@inheritdoc}
    */
-  public function perform($commandText, NodeInterface $actingPlayer) {
-    $result = NULL;
+  public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $drinkableLocations = [
       'Location 12',
       'Location 32',
@@ -38,13 +36,14 @@ class Drink extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       ];
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
-        $result = $this->gameHandler->getMessage('DRINK0');
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('DRINK0');
+        $othersMessage = sprintf($this->gameHandler->getMessage('DRINK1'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
+    if (!$results) {
+      $results[$actingPlayer->id()][] = 'Nothing happens.';
     }
-    return $result;
   }
 
 }
