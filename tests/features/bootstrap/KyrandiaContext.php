@@ -241,6 +241,33 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Then :player has :spells spell points
+   */
+  public function setSpellPoints($player, $spells) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    $profile->field_kyrandia_spell_points = $spells;
+    $profile->save();
+  }
+
+  /**
+   * @Then :player should have :spells spell points
+   */
+  public function assertSpellPoints($player, $spells) {
+    $playerNode = $this->getPlayerByName($player);
+    if (!$playerNode) {
+      throw new \Exception(sprintf('No player called %s.', $player));
+    }
+    $profile = $this->gameHandler->getKyrandiaProfile($playerNode);
+    if ($profile->field_kyrandia_spell_points->value != $spells) {
+      throw new \Exception(sprintf('Player %s should have %s spell points, but has %s.', $player, $spells, $profile->field_kyrandia_spell_points->value));
+    }
+  }
+
+  /**
    * @Then :player should be married to :spouse
    */
   public function assertMarriedTo($player, $spouse) {

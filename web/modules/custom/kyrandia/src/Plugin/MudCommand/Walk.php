@@ -21,9 +21,7 @@ class Walk extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 19') {
       $words = explode(' ', $commandText);
       $synonyms = [
@@ -32,16 +30,11 @@ class Walk extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
       $synonymMatch = array_intersect($synonyms, $words);
       if ($synonymMatch) {
         // If player walks through thicket, they are damaged for 10 hp.
-        $damage = $this->gameHandler->damagePlayer($actingPlayer, 10, $result);
-        if (!$damage) {
-          $result = t("Ouch!");
-        }
+        $this->gameHandler->damagePlayer($actingPlayer, 10, $results);
+        $results[$actingPlayer->id()][] = t("...Ouch!\n");
+        $this->sndutl($actingPlayer, "burning in the flaming thicket!", $results);
       }
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
 }

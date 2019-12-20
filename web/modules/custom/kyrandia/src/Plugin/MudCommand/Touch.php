@@ -22,11 +22,9 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
-    $result = NULL;
     $loc = $actingPlayer->field_location->entity;
-    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($loc->getTitle() == 'Location 188') {
-      $result = $this->mistyRuins($actingPlayer, $commandText);
+      $this->mistyRuins($actingPlayer, $commandText, $results);
     }
     elseif ($loc->getTitle() == 'Location 34') {
       // Druid's circle.
@@ -44,20 +42,21 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
             'frythes',
             'hotflas',
           ];
-          $randomSpellKey = array_rand($spells);
+          $game = $actingPlayer->field_game->entity;
+          $randomSpellKey = $this->generateRandomNumber($game, 0, count($spells) - 1);
           $spell = $spells[$randomSpellKey];
           $this->gameHandler->giveSpellToPlayer($actingPlayer, $spell);
-          $result = $this->gameHandler->getMessage('DRUID0');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('DRUID0');
+          $othersMessage = sprintf($this->gameHandler->getMessage('DRUID1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
         else {
-          $result = $this->gameHandler->getMessage('DRUID2');
+          $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('DRUID2');
+          $othersMessage = sprintf($this->gameHandler->getMessage('DRUID1'), $actingPlayer->field_display_name->value);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
       }
     }
-    if (!$result) {
-      $result = 'Nothing happens.';
-    }
-    return $result;
   }
 
   /**
@@ -67,14 +66,12 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    *   The acting player.
    * @param string $commandText
    *   The command text.
-   *
-   * @return string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function mistyRuins(NodeInterface $actingPlayer, $commandText) {
-    $result = NULL;
+  protected function mistyRuins(NodeInterface $actingPlayer, $commandText, array &$results) {
     // Touch orb in misty ruins (188) teleports to druid's circle (34).
     // We're looking for 'touch orb'.
     $words = explode(' ', $commandText);
@@ -83,24 +80,15 @@ class Touch extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
     ];
     $synonymMatch = array_intersect($synonyms, $words);
     if ($synonymMatch) {
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'location')
-        ->condition('field_game.entity.title', 'kyrandia')
-        ->condition('title', 'Location 34');
-      $ids = $query->execute();
-      if ($ids) {
-        $id = reset($ids);
-        $actingPlayer->field_location = $id;
-        $actingPlayer->save();
-        $result = $this->gameHandler->getMessage('MISM00') . "\n";
+      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MISM00');
+      $this->gameHandler->movePlayer($actingPlayer, 'Location 34', $results, 'vanished in a bright blue flash', 'appeared in a bright blue flash');
 
-        // The result is LOOKing at the new location.
-        $mudEvent = new CommandEvent($actingPlayer, 'look');
-        $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
-        $result .= $mudEvent->getResponse();
-      }
+      // The result is LOOKing at the new location.
+      /** @var \Drupal\slack_mud\Event\CommandEvent $mudEvent */
+      $mudEvent = new CommandEvent($actingPlayer, 'look', $results);
+      $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
+      $results = $mudEvent->getResponse();
     }
-    return $result;
   }
 
 }

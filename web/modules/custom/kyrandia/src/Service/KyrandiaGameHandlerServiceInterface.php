@@ -3,13 +3,14 @@
 namespace Drupal\kyrandia\Service;
 
 use Drupal\node\NodeInterface;
+use Drupal\slack_mud\Service\MudGameHandlerServiceInterface;
 
 /**
  * Service that handles the game for the command plugins for Kyrandia.
  *
  * @package Drupal\kyrandia\Service
  */
-interface KyrandiaGameHandlerServiceInterface {
+interface KyrandiaGameHandlerServiceInterface extends MudGameHandlerServiceInterface {
 
   /**
    * Gets the Kyrandia profile node for the given player node.
@@ -195,6 +196,17 @@ interface KyrandiaGameHandlerServiceInterface {
    *   The result array.
    */
   public function targetNonExistantItem(NodeInterface $actingPlayer, array &$result);
+
+  /**
+   * Returns he or she from given player.
+   *
+   * @param \Drupal\node\NodeInterface $profile
+   *   The Kyrandia player profile.
+   *
+   * @return string
+   *   He or She depending on the profile female field.
+   */
+  public function heShe(NodeInterface $profile);
 
   /**
    * Returns his or her from given player.

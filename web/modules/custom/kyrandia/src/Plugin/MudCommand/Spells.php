@@ -21,10 +21,8 @@ class Spells extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
-    $result = NULL;
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     if ($profile) {
-      $spellList = '';
       if (count($profile->field_kyrandia_memorized_spells) == 0) {
         $spellList = 'no spells';
       }
@@ -39,14 +37,13 @@ class Spells extends KyrandiaCommandPluginBase implements MudCommandPluginInterf
       $levelTerm = $profile->field_kyrandia_level->entity;
       $level = $levelTerm->getName();
       $levelName = $levelTerm->getDescription();
-      $result = t("You currently have :spellList memorized, and :spellPoints spell points of energy. You are at level :level, titled \":levelName\".", [
+      $results[$actingPlayer->id()][] = t("You currently have :spellList memorized, and :spellPoints spell points of energy. You are at level :level, titled \":levelName\".", [
         ':spellList' => $spellList,
         ':spellPoints' => $spellPoints,
         ':level' => $level,
         ':levelName' => $levelName,
       ]);
     }
-    return $result;
   }
 
 }

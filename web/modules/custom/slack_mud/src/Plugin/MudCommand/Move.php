@@ -3,10 +3,7 @@
 namespace Drupal\slack_mud\Plugin\MudCommand;
 
 use Drupal\node\NodeInterface;
-use Drupal\slack_mud\Event\CommandEvent;
 use Drupal\slack_mud\MudCommandPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Defines Move command plugin implementation.
@@ -89,7 +86,7 @@ class Move extends MudCommandPluginBase implements MudCommandPluginInterface {
         $this->gameHandler->movePlayer($actingPlayer, $nextLoc->getTitle(), $results, $exitMessage, $entranceMessage);
 
         // The result for the acting player is LOOKing at the new location.
-        $this->performAnotherAction($commandText, $actingPlayer, $results);
+        $this->performAnotherAction('look', $actingPlayer, $results);
         $foundExit = TRUE;
         break;
       }

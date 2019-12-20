@@ -1093,3 +1093,100 @@ spellbook for a moment!
     And Flo should see "***\nJoe and the gem cutter move off by themselves for a few minutes.\n"
     And Joe should not have kyragem in inventory
     And Joe should have soulstone in inventory
+
+  @touch @mistyruins
+  Scenario: Touch the orb at the misty ruins
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 188   | dagger          | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 188   | wand            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 34    | wand            | 1            | Moe                | Moe                   |
+
+    When Joe performs "touch orb"
+    Then Joe should see "...As you touch the orb, you are suddenly pulled through a magical portal...\n"
+    And Flo should see "***\nJoe has just vanished in a bright blue flash!\n"
+    And Moe should see "***\nJoe has just appeared in a bright blue flash!\n"
+    And Joe should be in "Location 34"
+    And Joe should see "You're in the Druid's Circle. This unparalleled spectacle of enchantment is totally awe-inspiring, and your soul is filled with wonder. Three silver rings, encompassing the entire area, magically float in the air, stacked upon each other. They are surrounded by a wide circle of the largest and most majestic oak trees you have ever laid eyes upon. In the center of this dazzling vortex is a brightly glowing orb of pure light, whose brilliance is almost blinding. You can feel the powerful presence of the goddess Tashanna radiating throughout all of this mystical and holy sphere. Dark forest lies in all directions."
+
+  @touch @druidscircle
+  Scenario: Touch the orb with the sceptre at the druid's circle
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 34    | sceptre         | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 34    | wand            | 1            | Flo                | Flo                   |
+    And Joe should not have the spell "chillou"
+    And the Kyrandia random number will generate 0
+    When Joe performs "touch orb with sceptre"
+    Then Joe should have the spell "chillou"
+    And Joe should see "...As you touch the scepter to the orb of light, it vanishes in a flash!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe is doing something mysterious with the orb of light!\n"
+
+  @touch @druidscircle
+  Scenario: Touch the orb with the sceptre at the druid's circle
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 34    | sceptre         | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 34    | wand            | 1            | Flo                | Flo                   |
+    And Joe should not have the spell "freezuu"
+    And the Kyrandia random number will generate 1
+    When Joe performs "touch orb with sceptre"
+    Then Joe should have the spell "freezuu"
+    And Joe should see "...As you touch the scepter to the orb of light, it vanishes in a flash!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe is doing something mysterious with the orb of light!\n"
+
+  @touch @druidscircle
+  Scenario: Touch the orb with the sceptre at the druid's circle
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 34    | sceptre         | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 34    | wand            | 1            | Flo                | Flo                   |
+    And Joe should not have the spell "frostie"
+    And the Kyrandia random number will generate 2
+    When Joe performs "touch orb with sceptre"
+    Then Joe should have the spell "frostie"
+    And Joe should see "...As you touch the scepter to the orb of light, it vanishes in a flash!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe is doing something mysterious with the orb of light!\n"
+
+  @touch @druidscircle
+  Scenario: Touch the orb with the sceptre at the druid's circle
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 34    | sceptre         | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 34    | wand            | 1            | Flo                | Flo                   |
+    And Joe should not have the spell "frythes"
+    And the Kyrandia random number will generate 3
+    When Joe performs "touch orb with sceptre"
+    Then Joe should have the spell "frythes"
+    And Joe should see "...As you touch the scepter to the orb of light, it vanishes in a flash!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe is doing something mysterious with the orb of light!\n"
+
+  @touch @druidscircle
+  Scenario: Touch the orb with the sceptre at the druid's circle
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 34    | sceptre         | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 34    | wand            | 1            | Flo                | Flo                   |
+    And Joe should not have the spell "hotflas"
+    And the Kyrandia random number will generate 4
+    When Joe performs "touch orb with sceptre"
+    Then Joe should have the spell "hotflas"
+    And Joe should see "...As you touch the scepter to the orb of light, it vanishes in a flash!\n***\nA spell has been added to your spellbook!\n"
+    And Flo should see "***\nJoe is doing something mysterious with the orb of light!\n"
+
+  @walk @thicket
+  Scenario: Walk through the flaming thicket
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 19    | sceptre         | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 19    | wand            | 1            | Flo                | Flo                   |
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold |
+      | kyrandia_profile_Joe | Joe          | 0                        | 10                   | 1                   |
+
+    And Joe should have 40 hit points
+    When Joe performs "walk through thicket"
+    Then Joe should see "...Ouch!\n"
+    And Flo should see "***\nJoe is burning in the flaming thicket!\n"
+    And Joe should have 30 hit points

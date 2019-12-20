@@ -50,42 +50,10 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $this->sunshineKyragem($commandText, $actingPlayer, $results);
     }
     elseif ($loc->getTitle() == 'Location 255') {
-      $words = explode(' ', $commandText);
-      if (in_array('love', $words)) {
-        if ($profile->field_kyrandia_level->entity->getName() == '21') {
-          if ($this->gameHandler->advanceLevel($profile, 22)) {
-            $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('LEVL22');
-            $othersMessage = sprintf($this->gameHandler->getMessage('LVL9M1'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-          }
-        }
-      }
+      $this->hallOfHearts($commandText, $actingPlayer, $profile, $results);
     }
     elseif ($loc->getTitle() == 'Location 288') {
-      if ($profile->field_kyrandia_level->entity->getName() == 14) {
-        $words = explode(' ', $commandText);
-        if ($profile->field_kyrandia_married_to->entity) {
-          // We're looking for "offer heart to [spouse]".
-          $spouse = $profile->field_kyrandia_married_to->entity;
-          $spouseName = strtolower($spouse->field_display_name->value);
-          $heartPos = array_search('heart', $words);
-          $spousePos = array_search($spouseName, $words);
-          if ($heartPos !== FALSE && $spousePos !== FALSE && $heartPos < $spousePos) {
-            if ($this->gameHandler->advanceLevel($profile, 15)) {
-              $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HEAR01');
-              $othersMessage = sprintf($this->gameHandler->getMessage('HEAR02'), $actingPlayer->field_display_name->value);
-              $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
-              if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'locket')) {
-                $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('HEAR03');
-                // Couldn't give - item limits?
-                $this->gameHandler->removeFirstItem($actingPlayer);
-                // Remove first item and give again.
-                $this->gameHandler->giveItemToPlayer($actingPlayer, 'locket');
-              }
-            }
-          }
-        }
-      }
+      $this->chamberOfTheHeart($commandText, $actingPlayer, $profile, $results);
     }
   }
 
@@ -98,9 +66,8 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    *   The player acting.
    * @param \Drupal\node\NodeInterface $profile
    *   The player's Kyrandia profile.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -292,31 +259,22 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
    *   The command text.
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
-   *
-   * @return string
-   *   The result.
+   * @param array $results
+   *   The results array.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  protected function sunshineKyragem(string $commandText, NodeInterface $actingPlayer) {
-    $result = [];
+  protected function sunshineKyragem(string $commandText, NodeInterface $actingPlayer, array &$results) {
     $words = explode(' ', $commandText);
     $itemPos = array_search('kyragem', $words);
     if ($itemPos !== FALSE) {
       $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
       if ($profile->field_kyrandia_level->entity->getName() == '11' && $this->gameHandler->playerHasItem($actingPlayer, 'kyragem')) {
         if ($this->gameHandler->advanceLevel($profile, 12)) {
-          $loc = $actingPlayer->field_location->entity;
-          $result[$actingPlayer->id()][] = $this->gameHandler->getMessage('SUNM03');
-          $othersMessage = sprintf($this->gameHandler->getMessage('SUNM04'), $actingPlayer->field_display_name->value);
-          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+          $this->msgutl2($actingPlayer, 'SUNM03', 'SUNM04', $results);
         }
       }
     }
-    if (!$result) {
-      $result[$actingPlayer->id()][] = "For some reason, nothing happens at all!";
-    }
-    return $result;
   }
 
   /**
@@ -340,6 +298,70 @@ class Offer extends KyrandiaCommandPluginBase implements MudCommandPluginInterfa
       $profile->field_kyrandia_blessed = TRUE;
       $profile->save();
       $results[$actingPlayer->id()][] = 'The Goddess blesses you.';
+    }
+  }
+
+  /**
+   * Offer heart to spouse in chamber of the heart for level 15.
+   *
+   * @param string $commandText
+   *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param \Drupal\node\NodeInterface $profile
+   *   The Kyrandia profile of the actor.
+   * @param array $results
+   *   The results array.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function chamberOfTheHeart($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
+    if ($profile->field_kyrandia_level->entity->getName() == 14) {
+      $words = explode(' ', $commandText);
+      if ($profile->field_kyrandia_married_to->entity) {
+        // We're looking for "offer heart to [spouse]".
+        $spouse = $profile->field_kyrandia_married_to->entity;
+        $spouseName = strtolower($spouse->field_display_name->value);
+        $heartPos = array_search('heart', $words);
+        $spousePos = array_search($spouseName, $words);
+        if ($heartPos !== FALSE && $spousePos !== FALSE && $heartPos < $spousePos) {
+          if ($this->gameHandler->advanceLevel($profile, 15)) {
+            $this->msgutl2($actingPlayer, 'HEAR01', 'HEAR02', $results);
+            if (!$this->gameHandler->giveItemToPlayer($actingPlayer, 'locket')) {
+              $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HEAR03');
+              // Couldn't give - item limits?
+              $this->gameHandler->removeFirstItem($actingPlayer);
+              // Remove first item and give again.
+              $this->gameHandler->giveItemToPlayer($actingPlayer, 'locket');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Offer love in hall of hearts for level 22.
+   *
+   * @param string $commandText
+   *   The command text.
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param \Drupal\node\NodeInterface $profile
+   *   The actor's Kyrandia profile.
+   * @param array $results
+   *   The results array.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function hallOfHearts($commandText, NodeInterface $actingPlayer, NodeInterface $profile, array &$results) {
+    $words = explode(' ', $commandText);
+    if (in_array('love', $words)) {
+      if ($profile->field_kyrandia_level->entity->getName() == '21') {
+        if ($this->gameHandler->advanceLevel($profile, 22)) {
+          $this->msgutl2($actingPlayer, 'LEVL22', 'LVL9M1', $results);
+        }
+      }
     }
   }
 

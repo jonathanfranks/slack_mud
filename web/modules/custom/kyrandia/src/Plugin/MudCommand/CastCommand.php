@@ -26,6 +26,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     'LIGPRO' => 'field_kyrandia_prot_lightning',
     'OBJPRO' => 'field_kyrandia_protection_other',
     'FIRPRO' => 'field_kyrandia_protection_fire',
+    'ICEPRO' => 'field_kyrandia_protection_ice',
   ];
 
   /**
@@ -41,7 +42,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     $target = '';
     if (count($words) == 1) {
       // Player only typed "cast".
-      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('OBJM07');
+      $this->youmsg($actingPlayer, 'OBJM07', $results);
     }
     if (count($words) > 1) {
       // Spell is the second word. "cast zennyra".
@@ -63,10 +64,12 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     if ($spell = $this->gameHandler->playerMemorizedSpell($actingPlayer, $spellName)) {
       $spellLevel = intval($spell->field_kyrandia_minimum_level->value);
       if ($spellLevel > intval($profile->field_kyrandia_level->entity->getName())) {
-        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('KSPM10');
+        $this->youmsg($actingPlayer, 'KSPM10', $results);
+        $this->sndutl($actingPlayer, 'mouthing off.', $results);
       }
       elseif ($spellLevel > $profile->field_kyrandia_spell_points->value) {
-        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('KSPM10');
+        $this->youmsg($actingPlayer, 'KSPM10', $results);
+        $this->sndutl($actingPlayer, 'waving %s arms.', $results);
       }
       else {
         // Player can cast spell.
@@ -76,7 +79,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
               // Casting zapher at the tulip at the altar of sunshine gives
               // player a wand.
               if ($this->gameHandler->giveItemToPlayer($actingPlayer, 'wand')) {
-                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SUNM00');
+                $this->msgutl2($actingPlayer, 'SUNM00', 'SUNM01', $results);
               }
             }
             break;
@@ -88,7 +91,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
       }
     }
     if (!$results) {
-      $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('NOTMEM');
+      $this->msgutl2($actingPlayer, 'NOTMEM', 'SPFAIL', $results);
     }
   }
 
@@ -288,8 +291,44 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             //            }
             break;
 
+          case 'fpandl':
+            $this->striker($actingPlayer, $target, 4, 'FIRPRO', 0, 'S17M0', $results);
+            break;
+
+          case 'frostie':
+            $this->striker($actingPlayer, $target, 16, 'ICEPRO', 1, 'S19M0', $results);
+            break;
+
+          case 'frythes':
+            $this->striker($actingPlayer, $target, 22, 'FIRPRO', 1, 'S21M0', $results);
+            break;
+
+          case 'gotcha':
+            $this->striker($actingPlayer, $target, 18, 'LIGPRO', 2, 'S22M0', $results);
+            break;
+
+          case 'holyshe':
+            $this->striker($actingPlayer, $target, 24, 'LIGPRO', 2, 'S29M0', $results);
+            break;
+
+          case 'hotkiss':
+            $this->striker($actingPlayer, $target, 10, 'FIRPRO', 1, 'S32M0', $results);
+            break;
+
+          case 'koolit':
+            $this->striker($actingPlayer, $target, 6, 'ICEPRO', 0, 'S40M0', $results);
+            break;
+
+          case 'pocus':
+            $this->striker($actingPlayer, $target, 2, 'OBJPRO', 0, 'S48M0', $results);
+            break;
+
+          case 'snowjob':
+            $this->striker($actingPlayer, $target, 20, 'ICEPRO', 2, 'S54M0', $results);
+            break;
+
           case 'zapher':
-            $results[$actingPlayer->id()][] = $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0', 'MERCYA');
+            $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0', $results);
             break;
 
         }
@@ -321,15 +360,13 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
    *     3 - The message the acting player sees if target is damaged.
    *     4 - The message the target sees if they are damaged.
    *     5 - The message other players see if the target is damaged.
-   *
-   * @return string
-   *   The result.
-   *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @param array $results
+   *   The results array.
    */
-  protected function striker(NodeInterface $actingPlayer, $targetPlayerName, $damage, $protectionType, $mercyLevel, $msg) {
+  protected function striker(NodeInterface $actingPlayer, $targetPlayerName, $damage, $protectionType, $mercyLevel, $msg, array &$results) {
     // Target must be present.
     $loc = $actingPlayer->field_location->entity;
+    $actingPlayerName = $actingPlayer->field_display_name->value;
     if ($targetPlayer = $this->gameHandler->locationHasPlayer($targetPlayerName, $loc, TRUE, $actingPlayer)) {
       // Get the target player's real display name with capitalization and
       // everything.
@@ -339,25 +376,30 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
       // Check if player is charmed with protection.
       $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
       if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
-        $message = $msg . '0';
-        $result = sprintf($this->gameHandler->getMessage($message), $targetPlayerName);
+        $actorMessage = sprintf($this->gameHandler->getMessage($msg . '0'), $targetPlayerName);
+        $targetMessage = sprintf($this->gameHandler->getMessage($msg . '1'), $actingPlayerName);
+        $othersMessage = sprintf($this->gameHandler->getMessage($msg . '2'), $actingPlayerName, $targetPlayerName, $this->gameHandler->heShe($targetProfile));
       }
       elseif (intval($targetProfile->field_kyrandia_level->entity->getName()) <= $mercyLevel) {
-        $result = sprintf($this->gameHandler->getMessage('MERCYA'), $targetPlayerName);
+        $actorMessage = sprintf($this->gameHandler->getMessage('MERCYA'), $targetPlayerName);
+        $targetMessage = sprintf($this->gameHandler->getMessage('MERCYB'), $actingPlayerName);
+        $othersMessage = sprintf($this->gameHandler->getMessage('MERCYC'), $actingPlayerName, $targetPlayerName, $this->gameHandler->heShe($targetProfile));
       }
       else {
         // Target isn't protected or too low level. Damage!
-        $message = $msg . '3';
-        $results = [];
-        $results[] = sprintf($this->gameHandler->getMessage($message), $targetPlayerName);
-        $damageResult = $this->gameHandler->damagePlayer($targetPlayer, $damage, $result);
-        $result = implode("\n", $results);
+        $actorMessage = sprintf($this->gameHandler->getMessage($msg . '3'), $targetPlayerName);
+        $targetMessage = sprintf($this->gameHandler->getMessage($msg . '4'), $actingPlayerName, $damage);
+        $othersMessage = sprintf($this->gameHandler->getMessage($msg . '5'), $actingPlayerName, $targetPlayerName, $this->gameHandler->heShe($targetProfile));
+        $this->gameHandler->damagePlayer($targetPlayer, $damage, $results);
       }
+      $results[$actingPlayer->id()][] = $actorMessage;
+      $results[$targetPlayer->id()][] = $targetMessage;
+      $exceptTarget = [$targetPlayer];
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results, $exceptTarget);
     }
     else {
-      $result = "...Something is missing and the spell fails!";
+      $results[$actingPlayer->id()][] = "...Something is missing and the spell fails!";
     }
-    return $result;
   }
 
   /**

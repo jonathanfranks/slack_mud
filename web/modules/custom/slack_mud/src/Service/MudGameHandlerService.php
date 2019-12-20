@@ -170,11 +170,11 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function movePlayer(NodeInterface $player, $locationName, array &$result, $exitMessage, $entranceMessage) {
+  public function movePlayer(NodeInterface $player, $locationName, array &$results, $exitMessage, $entranceMessage) {
     $originalLocation = $player->field_location->entity;
     if ($exitMessage) {
       $exit = sprintf("***\n%s has just %s!\n", $player->field_display_name->value, $exitMessage);
-      $this->sendMessageToOthersInLocation($player, $originalLocation, $exit, $result);
+      $this->sendMessageToOthersInLocation($player, $originalLocation, $exit, $results);
     }
     $gameId = $player->field_game->target_id;
     $query = \Drupal::entityQuery('node')
@@ -189,7 +189,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
       $player->save();
       if ($entranceMessage) {
         $entrance = sprintf("***\n%s has just %s!\n", $player->field_display_name->value, $entranceMessage);
-        $this->sendMessageToOthersInLocation($player, $newLocation, $entrance, $result);
+        $this->sendMessageToOthersInLocation($player, $newLocation, $entrance, $results);
       }
       return TRUE;
     }

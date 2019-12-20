@@ -3,6 +3,7 @@
 namespace Drupal\kyrandia\Plugin\MudCommand;
 
 use Drupal\kyrandia\Service\KyrandiaGameHandlerServiceInterface;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Drupal\slack_mud\Plugin\MudCommand\MudCommandPluginBase;
@@ -52,9 +53,55 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
   }
 
   /**
+   * Send a message to the acting player.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param string $actorMessage
+   *   Message going to the actor.
+   * @param array $result
+   *   The results array.
+   */
+  protected function youmsg(NodeInterface $actingPlayer, $actorMessage, array &$result) {
+    $result[$actingPlayer->id()][] = $this->gameHandler->getMessage($actorMessage);
+  }
+
+  /**
+   * Send a message to two groups.
+   *
+   * This sends to the actor and players in the actor's location.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param string $actorMessage
+   *   Message going to the actor.
+   * @param string $otherMessage
+   *   Message going to everyone else in the location.
+   * @param array $result
+   *   The results array.
+   */
+  protected function msgutl2(NodeInterface $actingPlayer, $actorMessage, $otherMessage, array &$result) {
+    $result[$actingPlayer->id()][] = $this->gameHandler->getMessage($actorMessage);
+    $loc = $actingPlayer->field_location->entity;
+    $othersMessage = sprintf($this->gameHandler->getMessage($otherMessage), $actingPlayer->field_display_name->value);
+    $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $result);
+  }
+
+  /**
    * Send to others in location with specific text format.
    *
-   * This method is ported by namem from original source code.
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The acting player.
+   * @param string $message
+   *   The message to send.
+   * @param array $results
+   *   The result array.
    */
   protected function sndutl(NodeInterface $actingPlayer, $message, array &$results) {
     $loc = $actingPlayer->field_location->entity;
@@ -80,7 +127,7 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    */
   protected function generateRandomNumber(NodeInterface $game, $min, $max) {
     $random = $this->gameHandler->getInstanceSetting($game, 'forceRandomNumber', NULL);
-    if ($random == NULL) {
+    if ($random === NULL) {
       // Nothing being forced. Generate the real number.
       $random = rand(0, 100);
     }
