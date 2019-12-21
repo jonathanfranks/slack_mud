@@ -649,3 +649,204 @@ Feature: Spells
     A bolt of blue lightening flashes from Joe striking Flo's spellbook.
 
     """
+
+  @burnup
+  Scenario: Casting spell burnup at valid player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | moonstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | burnup                   |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | weewillo                 |
+      | kyrandia_profile_Moe | Moe          | 1                        | 25                   | 101                 | weewillo                 |
+
+    When Joe performs "learn burnup"
+    And Joe performs "cast burnup"
+    Then Joe should see "...A ball of fire erupts from your hands and culminates in a fiery\nexplosion!\n"
+    And Flo should see "***\nA ball of fire erupts from Joe's hands and culminates in a fiery explosion!\n"
+    And Moe should see "***\nA ball of fire erupts from Joe's hands and culminates in a fiery explosion!\n"
+    And Flo should see "***\nYou have been hit by the fire!\n"
+    And Moe should see "***\nYou have been hit by the fire!\n"
+    And Flo should see "***\nMoe has been hit by the fire.\n"
+    And Moe should see "***\nFlo has been hit by the fire.\n"
+    And Flo should not see "***\nJoe has been hit by the fire.\n"
+    And Moe should not see "***\nJoe has been hit by the fire.\n"
+    And Joe should have 100 hit points
+    And Flo should have 90 hit points
+    And Moe should have 90 hit points
+
+  @burnup @protected
+  Scenario: Casting spell burnup at a valid and a protected player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | moonstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+      | Bo    | kyrandia   | Location 213   | rose            | 1            | Bo                 | Bo                    |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_fire |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | burnup                   | 0                              |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | weewillo                 | 8                              |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | weewillo                 | 0                              |
+
+    When Joe performs "learn burnup"
+    And Joe performs "cast burnup"
+    Then Joe should see "...A ball of fire erupts from your hands and culminates in a fiery\nexplosion!\n"
+    And Flo should see "***\nA ball of fire erupts from Joe's hands and culminates in a fiery explosion!\n"
+    And Moe should see "***\nA ball of fire erupts from Joe's hands and culminates in a fiery explosion!\n"
+    And Flo should not see "***\nYou have been hit by the fire!\n"
+    But Flo should see "***\nThe explosion seems to have no effect on you.\n"
+    But Flo should see "***\nMoe has been hit by the fire.\n"
+    But Flo should not see "***\nJoe has been hit by the fire.\n"
+    And Flo should have 100 hit points
+    And Joe should have 100 hit points
+
+    And Moe should see "***\nYou have been hit by the fire!\n"
+    And Moe should have 90 hit points
+
+    And Bo should see "***\nYou are mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Moe should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Joe should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Flo should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Bo should not see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Bo should have 4 hit points
+
+
+  @chillou @nopearl
+  Scenario: Casting spell chillou at valid player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | moonstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | chillou                  |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | weewillo                 |
+      | kyrandia_profile_Moe | Moe          | 1                        | 25                   | 101                 | weewillo                 |
+
+    When Joe performs "learn chillou"
+    And Joe performs "cast chillou"
+
+    And Joe should see "...You concentrate on the spell and start to cast it.  The power of the spell\nbuilds but suddenly fizzles out as though something were still missing.\n"
+    And Flo should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+    And Moe should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+
+  @chillou
+  Scenario: Casting spell chillou at valid player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | chillou                  |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | weewillo                 |
+      | kyrandia_profile_Moe | Moe          | 1                        | 25                   | 101                 | weewillo                 |
+
+    When Joe performs "learn chillou"
+    And Joe performs "cast chillou"
+
+    Then Joe should see "...As the last word of this spell leaves your lips, the room starts to darken\nas a terrible storm approaches.\n"
+    And Flo should see "***\nAs the final words of a spell leave the lips of Joe, the room starts to darken\nas a terrible storm approaches.\n"
+    And Moe should see "***\nAs the final words of a spell leave the lips of Joe, the room starts to darken\nas a terrible storm approaches.\n"
+
+    And Moe should see "***\nLarge chunks of ice fly at you from the storm, striking you in several vital\nareas causing you 30 points of damage.\n"
+    And Moe should see "***\nLarge chunks of ice flying from the storm strike Flo in several vital areas\ncausing a great deal of damage.\n"
+    And Moe should see "***\nLarge chunks of ice flying from the storm strike Joe in several vital areas\ncausing a great deal of damage.\n"
+
+    And Flo should see "***\nLarge chunks of ice fly at you from the storm, striking you in several vital\nareas causing you 30 points of damage.\n"
+    And Flo should see "***\nLarge chunks of ice flying from the storm strike Moe in several vital areas\ncausing a great deal of damage.\n"
+    And Flo should see "***\nLarge chunks of ice flying from the storm strike Joe in several vital areas\ncausing a great deal of damage.\n"
+
+    And Joe should see "***\nLarge chunks of ice fly at you from the storm, striking you in several vital\nareas causing you 30 points of damage.\n"
+    And Joe should see "***\nLarge chunks of ice flying from the storm strike Moe in several vital areas\ncausing a great deal of damage.\n"
+    And Joe should see "***\nLarge chunks of ice flying from the storm strike Flo in several vital areas\ncausing a great deal of damage.\n"
+
+    And Joe should have 70 hit points
+    And Flo should have 70 hit points
+    And Moe should have 70 hit points
+
+  @chillou @protected
+  Scenario: Casting spell chillou at a valid and a protected player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+      | Bo    | kyrandia   | Location 213   | rose            | 1            | Bo                 | Bo                    |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | chillou                  | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | weewillo                 | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | weewillo                 | 0                             |
+
+    When Joe performs "learn chillou"
+    And Joe performs "cast chillou"
+    Then Joe should see "...As the last word of this spell leaves your lips, the room starts to darken\nas a terrible storm approaches.\n"
+    And Flo should see "***\nAs the final words of a spell leave the lips of Joe, the room starts to darken\nas a terrible storm approaches.\n"
+    And Moe should see "***\nAs the final words of a spell leave the lips of Joe, the room starts to darken\nas a terrible storm approaches.\n"
+
+    And Flo should not see "***\nLarge chunks of ice fly at you from the storm, striking you in several vital\nareas causing you 30 points of damage.\n"
+    But Flo should see "***\nLarge chunks of ice flying from the storm at you are magically destroyed\nwithout causing you any harm.\n"
+    And Flo should see "***\nLarge chunks of ice flying from the storm strike Moe in several vital areas\ncausing a great deal of damage.\n"
+    And Flo should see "***\nLarge chunks of ice flying from the storm strike Joe in several vital areas\ncausing a great deal of damage.\n"
+    And Flo should have 100 hit points
+
+    And Joe should have 70 hit points
+
+    And Moe should have 70 hit points
+
+    And Bo should see "***\nYou are mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Moe should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Joe should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Flo should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Bo should not see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Bo should have 4 hit points
+
+  @whereami
+  Scenario: Casting spell whereami
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+      | Bo    | kyrandia   | Location 213   | rose            | 1            | Bo                 | Bo                    |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | whereami                 | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | weewillo                 | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | weewillo                 | 0                             |
+
+    When Joe performs "learn whereami"
+    And Joe performs "cast whereami"
+    Then Joe should see "...You cast this tedious spell and realize your located at coordinate 213.\n"
+    And Flo should see "***\nJoe is casting a spell to help get his bearings straight.\n"

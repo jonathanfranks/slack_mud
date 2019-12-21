@@ -27,6 +27,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     'OBJPRO' => 'field_kyrandia_protection_other',
     'FIRPRO' => 'field_kyrandia_protection_fire',
     'ICEPRO' => 'field_kyrandia_protection_ice',
+    'CINVIS' => 'field_kyrandia_cinvis',
   ];
 
   /**
@@ -263,23 +264,72 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'burnup':
-            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S06M00');
-            $loc = $actingPlayer->field_location->entity;
-            $slackUsername = $actingPlayer->field_slack_user_name->value;
-            $result = $this->masshitr($actingPlayer, 10, 'FIRPRO', 1, 'S66M0', 'MERCYU');
-            //S06M02,S06M03,S06M04,0,1)
-            //            $otherPlayers = $this->otherPlayersInLocation($slackUsername, $loc);
-            //            foreach ($otherPlayers as $otherPlayer) {
-            //              $target = $otherPlayer->field_display_name->value;
-            //            }
+            $this->msgutl2($actingPlayer, 'S06M00', 'S06M01', $results);
+            $this->masshitr($actingPlayer, 10, 'FIRPRO', 'S06M02', 'S06M03', 'S06M04', 0, 1, $results);
+            break;
+
+          case 'cadabra':
+            $this->charm($actingPlayer, 'CINVIS', 8);
+            $this->msgutl2($actingPlayer, 'S07M00', 'S07M01', $results);
+            break;
+
+          case 'cantcmeha':
+            break;
+
+          case 'canthur':
+            $this->charm($actingPlayer, 'FIRPRO', 4);
+            $this->charm($actingPlayer, 'ICEPRO', 4);
+            $this->charm($actingPlayer, 'LIGPRO', 4);
+            $this->charm($actingPlayer, 'OBJPRO', 4);
+            $this->msgutl2($actingPlayer, 'S09M00', 'S09M01', $results);
+            break;
+
+          case 'chillou':
+            if ($this->gameHandler->playerHasItem($actingPlayer, 'pearl', TRUE)) {
+              $this->msgutl2($actingPlayer, 'S10M00', 'S10M01', $results);
+              $this->masshitr($actingPlayer, 30, 'ICEPRO', 'S10M02', 'S10M03', 'S10M04', 1, 3, $results);
+            }
+            else {
+              $this->msgutl2($actingPlayer, 'MISS00', 'MISS01', $results);
+            }
+            break;
+
+          case 'clutzopho':
+            break;
+
+          case 'cuseme':
+            break;
+
+          case 'dumdum':
+            break;
+
+          case 'feeluck':
+            break;
+
+          case 'firstai':
+            $this->msgutl2($actingPlayer, 'S15M00', 'S15M01', $results);
+            $this->gameHandler->healPlayer($actingPlayer, 25);
+            break;
+
+          case 'flyaway':
             break;
 
           case 'fpandl':
             $this->striker($actingPlayer, $target, 4, 'FIRPRO', 0, 'S17M0', $results);
             break;
 
+          case 'freezuu':
+            $this->msgutl2($actingPlayer, 'S18M00', 'S18M01', $results);
+            $this->masshitr($actingPlayer, 26, 'ICEPRO', 'S18M02', 'S18M03', 'S18M04', 0, 2, $results);
+            break;
+
           case 'frostie':
             $this->striker($actingPlayer, $target, 16, 'ICEPRO', 1, 'S19M0', $results);
+            break;
+
+          case 'frozenu':
+            $this->msgutl2($actingPlayer, 'S20M00', 'S20M01', $results);
+            $this->masshitr($actingPlayer, 12, 'ICEPRO', 'S20M02', 'S20M03', 'S20M04', 0, 1, $results);
             break;
 
           case 'frythes':
@@ -290,30 +340,208 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             $this->striker($actingPlayer, $target, 18, 'LIGPRO', 2, 'S22M0', $results);
             break;
 
+          case 'goto':
+            break;
+
+
+          case 'gringri':
+            break;
+
+          case 'handsof':
+            $this->charm($actingPlayer, 'OBJPRO', 4);
+            $this->msgutl2($actingPlayer, 'S25M00', 'S25M01', $results);
+            break;
+
+          case 'heater':
+            $this->charm($actingPlayer, 'ICEPRO', 16);
+            $this->msgutl2($actingPlayer, 'S26M00', 'S26M01', $results);
+            break;
+
+          case 'hehhehh':
+            if ($this->gameHandler->playerHasItem($actingPlayer, 'opal', TRUE)) {
+              $results[$actingPlayer->id()][] = '...Your opal suddenly disappears!***\n';
+              $this->msgutl2($actingPlayer, 'S27M00', 'S27M01', $results);
+              $this->masshitr($actingPlayer, 32, 'LIGPRO', 'S27M02', 'S27M03', 'S27M04', 1, 2, $results);
+            }
+            else {
+              $this->msgutl2($actingPlayer, 'MISS00', 'MISS01', $results);
+            }
+            break;
+
+          case 'hocus':
+            break;
+
           case 'holyshe':
             $this->striker($actingPlayer, $target, 24, 'LIGPRO', 2, 'S29M0', $results);
+            break;
+
+          case 'hotflas':
+            $this->msgutl2($actingPlayer, 'S30M00', 'S30M01', $results);
+            $this->masshitr($actingPlayer, 16, 'LIGPRO', 'S30M02', 'S30M03', 'S30M04', 0, 2, $results);
+            break;
+
+          case 'hotfoot':
+            $this->msgutl2($actingPlayer, 'S31M00', 'S31M01', $results);
+            $this->masshitr($actingPlayer, 22, 'ICEPRO', 'S31M02', 'S31M03', 'S31M04', 0, 2, $results);
             break;
 
           case 'hotkiss':
             $this->striker($actingPlayer, $target, 10, 'FIRPRO', 1, 'S32M0', $results);
             break;
 
+          case 'hotseat':
+            $this->charm($actingPlayer, 'ICEPRO', 6);
+            $this->msgutl2($actingPlayer, 'S33M00', 'S33M01', $results);
+            break;
+
+          case 'howru':
+            break;
+
+          case 'hydrant':
+            $this->charm($actingPlayer, 'FIRPRO', 16);
+            $this->msgutl2($actingPlayer, 'S35M00', 'S35M01', $results);
+            break;
+
+          case 'ibebad':
+            break;
+
+          case 'icedtea':
+            $this->msgutl2($actingPlayer, 'S37M00', 'S37M01', $results);
+            $this->masshitr($actingPlayer, 20, 'ICEPRO', 'S37M02', 'S37M03', 'S37M04', 1, 2, $results);
+            break;
+
+          case 'icutwo':
+            $this->charm($actingPlayer, 'CINVIS', 16);
+            $this->msgutl2($actingPlayer, 'S38M00', 'S38M01', $results);
+            break;
+
+          case 'iseeyou':
+            $this->charm($actingPlayer, 'CINVIS', 8);
+            $this->msgutl2($actingPlayer, 'S39M00', 'S39M01', $results);
+            break;
+
           case 'koolit':
             $this->striker($actingPlayer, $target, 6, 'ICEPRO', 0, 'S40M0', $results);
+            break;
+
+          case 'makemyd':
+            $this->charm($actingPlayer, 'OBJPRO', 6);
+            $this->msgutl2($actingPlayer, 'S41M00', 'S41M01', $results);
+            break;
+
+          case 'mower':
+            break;
+
+          case 'noouch':
+            $this->msgutl2($actingPlayer, 'S43M00', 'S43M01', $results);
+            $this->gameHandler->healPlayer($actingPlayer, 4);
+            break;
+
+          case 'nosey':
+            break;
+
+          case 'peekabo':
+            break;
+
+          case 'peepint':
+            break;
+
+          case 'pickpoc':
             break;
 
           case 'pocus':
             $this->striker($actingPlayer, $target, 2, 'OBJPRO', 0, 'S48M0', $results);
             break;
 
+          case 'polarba':
+            $this->charm($actingPlayer, 'ICEPRO', 20);
+            $this->msgutl2($actingPlayer, 'S49M00', 'S49M01', $results);
+            break;
+
+          case 'sapspel':
+            break;
+
+          case 'saywhat':
+            break;
+
+          case 'screwem':
+            $this->msgutl2($actingPlayer, 'S52M00', 'S52M01', $results);
+            $this->masshitr($actingPlayer, 26, 'ICEPRO', 'S52M02', 'S52M03', 'S52M04', 1, 2, $results);
+            break;
+
+          case 'smokey':
+            $this->charm($actingPlayer, 'FIRPRO', 6);
+            $this->msgutl2($actingPlayer, 'S53M00', 'S53M01', $results);
+            break;
+
           case 'snowjob':
             $this->striker($actingPlayer, $target, 20, 'ICEPRO', 2, 'S54M0', $results);
+            break;
+
+          case 'sunglass':
+            $this->charm($actingPlayer, 'LIGPRO', 6);
+            $this->msgutl2($actingPlayer, 'S55M00', 'S55M01', $results);
+            break;
+
+          case 'surgless':
+            $this->charm($actingPlayer, 'LIGPRO', 20);
+            $this->msgutl2($actingPlayer, 'S56M00', 'S56M01', $results);
+            break;
+
+          case 'takethat':
+            break;
+
+          case 'thedoc':
+            $this->msgutl2($actingPlayer, 'S58M00', 'S58M01', $results);
+            $this->gameHandler->healPlayer($actingPlayer, 12);
+            break;
+
+          case 'tiltowait':
+            break;
+
+          case 'tinting':
+            $this->charm($actingPlayer, 'LIGPRO', 16);
+            $this->msgutl2($actingPlayer, 'S60M00', 'S60M01', $results);
+            break;
+
+          case 'toastem':
+            if ($this->gameHandler->playerHasItem($actingPlayer, 'diamond', TRUE)) {
+              $results[$actingPlayer->id()][] = $this->youmsg($actingPlayer, 'KSPM08', $results);
+              $this->msgutl2($actingPlayer, 'S61M00', 'S61M01', $results);
+              $this->masshitr($actingPlayer, 32, 'FIRPRO', 'S61M02', 'S61M03', 'S61M04', 0, 2, $results);
+            }
+            else {
+              $this->msgutl2($actingPlayer, 'MISS00', 'MISS01', $results);
+            }
+            break;
+
+          case 'weewillo':
+            break;
+
+          case 'whereami':
+            $locationName = $actingPlayer->field_location->entity->getTitle();
+            // All locations are imported as "Location XX", so let's remove
+            // "Location " so we just get the number.
+            $locationName = str_replace('Location ', '', $locationName);
+            $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('S63M00'), $locationName);
+            $othersMessage = sprintf($this->gameHandler->getMessage('S63M01'), $actingPlayer->field_display_name->value, $this->gameHandler->hisHer($actingProfile));
+            $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
+            break;
+
+          case 'whopper':
+            $this->charm($actingPlayer, 'FIRPRO', 20);
+            $this->msgutl2($actingPlayer, 'S64M00', 'S64M01', $results);
+            break;
+
+          case 'whoub':
             break;
 
           case 'zapher':
             $this->striker($actingPlayer, $target, 8, 'LIGPRO', 1, 'S66M0', $results);
             break;
 
+          case 'zelastone':
+            break;
         }
       }
     }
@@ -449,6 +677,8 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
   /**
    * Mass hit users.
    *
+   * This function is ported from original source code.
+   *
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player casting the spell.
    * @param int $damage
@@ -466,10 +696,30 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
    * @param int $mercyLevel
    *   The level the target has to be to be affected by the spell at all
    *   (mercy rule).
-   *
    */
-  private function masshitr(NodeInterface $actingPlayer, $damage, $protectionType, $hitMessage, $otherMessage, $protectedMessage, $hitsSelf, $mercyLevel) {
-
+  private function masshitr(NodeInterface $actingPlayer, $damage, $protectionType, $hitMessage, $otherMessage, $protectedMessage, $hitsSelf, $mercyLevel, array &$results) {
+    $loc = $actingPlayer->field_location->entity;
+    // If hits self, then we don't exclude the caster.
+    $selfPlayer = $hitsSelf ? NULL : $actingPlayer;
+    $others = $this->gameHandler->otherPlayersInLocation($loc, $selfPlayer);
+    foreach ($others as $otherPlayer) {
+      $protectionFieldName = array_key_exists($protectionType, $this->protections) ? $this->protections[$protectionType] : NULL;
+      $otherProfile = $this->gameHandler->getKyrandiaProfile($otherPlayer);
+      if ($protectionFieldName && $otherProfile->{$protectionFieldName}->value) {
+        $results[$otherPlayer->id()][] = sprintf($this->gameHandler->getMessage($protectedMessage), $otherPlayer->field_display_name->value);
+      }
+      elseif (intval($otherProfile->field_kyrandia_level->entity->getName()) <= $mercyLevel) {
+        $results[$otherPlayer->id()][] = $this->gameHandler->getMessage('MERCYU');
+        $messageForOthers = sprintf($this->gameHandler->getMessage('MERCYO'), $otherPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($otherPlayer, $loc, $messageForOthers, $results);
+      }
+      else {
+        $results[$otherPlayer->id()][] = $this->gameHandler->getMessage($hitMessage);
+        $messageForOthers = sprintf($this->gameHandler->getMessage($otherMessage), $otherPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($otherPlayer, $loc, $messageForOthers, $results);
+        $this->gameHandler->damagePlayer($otherPlayer, $damage, $results);
+      }
+    }
   }
 
 }
