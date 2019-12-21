@@ -140,6 +140,26 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
   }
 
   /**
+   * Send message to closely located rooms.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The acting player.
+   * @param string $message
+   *   The message to send.
+   * @param array $results
+   *   The result array.
+   */
+  protected function sndnear(NodeInterface $actingPlayer, $message, array &$results) {
+    $loc = $actingPlayer->field_location->entity;
+    foreach ($loc->field_exits as $exit) {
+      $nextLoc = $exit->entity;
+      $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $nextLoc, $message, $results);
+    }
+  }
+
+  /**
    * Handles random number generation with forced number instance settings.
    *
    * Mostly, the forced number settings are for testing.

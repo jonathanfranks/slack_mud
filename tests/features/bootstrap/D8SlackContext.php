@@ -110,27 +110,24 @@ class D8SlackContext implements Context, SnippetAcceptingContext {
    */
   public function shouldNotSee($player, $expected) {
     $playerNode = $this->getPlayerByName($player);
-    if (!$this->results) {
-      throw new \Exception('No result from last command.');
-    }
     if (!$playerNode) {
       throw new \Exception(sprintf('No player named %s exists.', $player));
     }
-    if (!array_key_exists($playerNode->id(), $this->results)) {
-      throw new \Exception('No results for specified player.');
-    }
 
     $found = FALSE;
-    // There are problems specifying regular expressions like newlines in the
-    // steps, so let's just convert them to text.
-    foreach ($this->results[$playerNode->id()] as $result) {
-      $modifiedResult = $this->fixString($result);
-      if ($modifiedResult == $expected) {
-        $found = TRUE;
-        break;
+    // If there aren't any results for that player, then they don't have the
+    // expected message.
+    if (array_key_exists($playerNode->id(), $this->results)) {
+      // There are problems specifying regular expressions like newlines in the
+      // steps, so let's just convert them to text.
+      foreach ($this->results[$playerNode->id()] as $result) {
+        $modifiedResult = $this->fixString($result);
+        if ($modifiedResult == $expected) {
+          $found = TRUE;
+          break;
+        }
       }
     }
-
     if ($found) {
       throw new \Exception('Expected message was found for specified player but should not have been.');
     }

@@ -36,12 +36,27 @@ class Say extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
       }
     }
     else {
-      // Not a special say. Handle this like a regular say.
-      /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
-      $pluginManager = \Drupal::service('plugin.manager.mud_command');
-      /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
-      $plugin = $pluginManager->createInstance('say');
-      $plugin->perform($commandText, $actingPlayer, $results);
+      $words = explode(' ', $commandText);
+      if (count($words) == 1) {
+        // Just "say", no words or anything.
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('HUH');
+        $this->sndutl($actingPlayer, 'opening %s mouth speechlessly.', $results);
+      }
+      else {
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SAIDIT');
+        // Take first word as the verb.
+        $verb = array_shift($words);
+        // The sentence is the rest of the command text.
+        $sentence = implode(' ', $words);
+        // We handle line breaks differently and we break things up as different
+        // elements in the array. We'll handle this by constructing the output
+        // on one line.
+        $othersMessage = sprintf($this->gameHandler->getMessage('SPEAK1'), $actingPlayer->field_display_name->value, $verb) .
+        sprintf($this->gameHandler->getMessage('SPEAK2'), $sentence);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+        $nearbyMessage = $this->gameHandler->getMessage('SPEAK3');
+        $this->sndnear($actingPlayer, $nearbyMessage, $results);
+      }
     }
   }
 
