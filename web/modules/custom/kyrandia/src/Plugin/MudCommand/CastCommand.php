@@ -204,32 +204,35 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         switch ($castingSpellName) {
           case 'abbracada':
             $this->charm($actingPlayer, 'OBJPRO', 8);
-            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SPM000');
-            $othersMessage = sprintf($this->gameHandler->getMessage('SPM001'), $actingPlayer->field_display_name->value);
-            $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+            $this->msgutl2($actingPlayer, 'SPM000', 'SPM001', $results);
             break;
 
           case 'allbettoo':
             $this->gameHandler->healPlayer($actingPlayer, 4 * $playerLevel);
-            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SPM002');
+            $this->msgutl2($actingPlayer, 'SPM002', 'SPM003', $results);
             break;
 
           case 'blowitawa':
             $loc = $actingPlayer->field_location->entity;
             if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $actingPlayerName = $actingPlayer->field_display_name->value;
               $targetPlayerName = $targetPlayer->field_display_name->value;
               $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
               $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
               if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
                 count($targetPlayer->field_inventory) == 0) {
                 // Charmed or not carrying anything.
-                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('SNW000');
+                $this->msgutl3($actingPlayer, 'SNW000', $targetPlayer, 'SNW001', 'SNW002', $results);
               }
               else {
                 // Vaporize target's first held object.
                 $item0Name = $targetPlayer->field_inventory[0]->entity->getTitle();
                 $this->gameHandler->takeItemFromPlayer($targetPlayer, $item0Name);
                 $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('SPM004'), $targetPlayerName, $item0Name);
+                $results[$targetPlayer->id()][] = sprintf($this->gameHandler->getMessage('SPM005'), $actingPlayerName, $item0Name);
+                $except = [$targetPlayer];
+                $othersMessage = sprintf($this->gameHandler->getMessage('SPM006'), $actingPlayerName, $targetPlayerName, $this->gameHandler->hisHer($targetProfile), $item0Name);
+                $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results, $except);
               }
             }
             break;
@@ -256,27 +259,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'bookworm':
-            $loc = $actingPlayer->field_location->entity;
-            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
-              $targetPlayerName = $targetPlayer->field_display_name->value;
-              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
-              $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
-              if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
-                $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S05M00');
-              }
-              else {
-                // Player needs a moonstone.
-                if ($this->gameHandler->playerHasItem($actingPlayer, 'moonstone', TRUE)) {
-                  $targetProfile->field_kyrandia_memorized_spells = NULL;
-                  $targetProfile->field_kyrandia_spellbook = NULL;
-                  $targetProfile->save();
-                  $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
-                }
-                else {
-                  $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('MISS00');
-                }
-              }
-            }
+            $this->spl005($actingPlayer, $target, $results);
             break;
 
           case 'burnup':
@@ -420,6 +403,46 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     if ($protectionFieldName) {
       $profile->{$protectionFieldName}->value = $protection;
       $profile->save();
+    }
+  }
+
+  /**
+   * Spell bookworm - zap other's spell book.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The caster.
+   * @param string $target
+   *   The target player name.
+   * @param array $results
+   *   The results array.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function spl005(NodeInterface $actingPlayer, $target, array &$results) {
+    $loc = $actingPlayer->field_location->entity;
+    if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+      $targetPlayerName = $targetPlayer->field_display_name->value;
+      $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
+      $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
+      if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
+        $this->msgutl3($actingPlayer, 'S05M00', $targetPlayer, 'S05M01', 'S05M02', $results);
+      }
+      else {
+        // Player needs a moonstone.
+        if ($this->gameHandler->playerHasItem($actingPlayer, 'moonstone', TRUE)) {
+          $targetProfile->field_kyrandia_memorized_spells = NULL;
+          $targetProfile->field_kyrandia_spellbook = NULL;
+          $targetProfile->save();
+          $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('S05M03'), $targetPlayerName, $targetPlayerName);
+          $results[$targetPlayer->id()][] = sprintf($this->gameHandler->getMessage('S05M04'), $actingPlayer->field_display_name->value, $actingPlayer->field_display_name->value);
+          $except = [$targetPlayer];
+          $othersMessage = sprintf($this->gameHandler->getMessage('S05M05'), $actingPlayer->field_display_name->value, $actingPlayer->field_display_name->value, $targetPlayerName);
+          $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results, $except);
+        }
+        else {
+          $this->msgutl2($actingPlayer, 'MISS00', 'MISS01', $results);
+        }
+      }
     }
   }
 

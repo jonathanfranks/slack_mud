@@ -371,8 +371,8 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook | field_kyrandia_protection_fire |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | frythes                  | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher                   | 8                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | frythes                  | 0                              |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher                   | 8                              |
 
     When Joe performs "learn frythes"
     And Joe performs "cast frythes flo"
@@ -434,7 +434,7 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook | field_kyrandia_prot_lightning |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | gotcha                  | 0                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | gotcha                   | 0                             |
       | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher                   | 8                             |
 
     When Joe performs "learn gotcha"
@@ -455,7 +455,7 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | gotcha                  |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | gotcha                   |
       | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 101                 | zapher                   |
 
     When Joe performs "learn gotcha"
@@ -476,7 +476,7 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | gotcha                  |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | gotcha                   |
       | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher                   |
 
     When Joe performs "learn gotcha"
@@ -484,3 +484,168 @@ Feature: Spells
     Then Joe should see "...A powerful bolt of lightning flies from your finger striking Flo.\n"
     And Flo should see "***\nA powerful bolt of lightning flies from Joe's finger striking you for 18\ndamage.\n"
     And Moe should see "***\nA powerful bolt of lightning flies from Joe's finger striking Flo\nand she takes some damage.\n"
+
+  @blowitawa @protection
+  Scenario: Casting spell blowitawa at protected player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | tulip           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | blowitawa                | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher                   | 8                               |
+
+    When Joe performs "learn blowitawa"
+    And Joe performs "cast blowitawa flo"
+    Then Joe should see "...You cast the spell with accuracy, but for some mysterious reason, the\nspell is deflected from hitting your target!\n"
+    And Flo should see "***\nJoe attempts to cast a spell at you, but it is mystically dispelled by\nyour protection!\n"
+    And Moe should see "***\nJoe casts a spell at Flo, but it is mysteriously deflected!\n"
+    And Flo should have rose in inventory
+
+  @blowitawa @legit
+  Scenario: Casting spell blowitawa at valid player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | tulip           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | blowitawa                |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher                   |
+
+    When Joe performs "learn blowitawa"
+    And Joe performs "cast blowitawa flo"
+    Then Joe should see "...You cast the spell, and a mystical beam of orange light flies from your\nfingers, disintegrating Flo's rose!\n"
+    And Flo should see "***\nA mystical beam of orange light flies from Joe's fingers, disintegrating\nyou rose!\n"
+    And Moe should see "***\nA mystical beam of orange light flies from Joe's fingers at Flo,\ndisintegrating her rose!\n"
+    And Flo should not have rose in inventory
+
+  @bookworm @protected
+  Scenario: Casting spell bookworm at protected player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | moonstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook                   | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | bookworm                                   | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher,bookworm,frythes,tiltowait,weewillo | 8                               |
+
+    And Flo performs "learn zapher"
+    And Flo performs "learn bookworm"
+    And Flo performs "learn tiltowait"
+
+    When Joe performs "learn bookworm"
+    And Joe performs "cast bookworm flo"
+    Then Flo should have zapher memorized
+    And Flo should have bookworm memorized
+    And Flo should have tiltowait memorized
+    And Flo should have the spell zapher
+    And Flo should have the spell bookworm
+    And Flo should have the spell tiltowait
+    And Joe should see "...A bolt of bright blue lightening flies from your fingers but is magically\ndispelled.\n"
+    And Flo should see "***\nA bolt of bright blue lightening flies from Joe's fingers but is magically\ndispelled from affecting you.\n"
+    And Moe should see "***\nA bolt of bright blue lightening flies from Joe's fingers at Flo but is\nmagically dispelled.\n"
+
+  @bookworm @nocomponent
+  Scenario: Casting spell bookworm at valid player without moonstone
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | garnet          | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook                   |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | bookworm                                   |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher,bookworm,frythes,tiltowait,weewillo |
+
+    And Flo performs "learn zapher"
+    And Flo performs "learn bookworm"
+    And Flo performs "learn tiltowait"
+
+    When Joe performs "learn bookworm"
+    And Joe performs "cast bookworm flo"
+    Then Flo should have zapher memorized
+    And Flo should have bookworm memorized
+    And Flo should have tiltowait memorized
+    And Flo should have the spell zapher
+    And Flo should have the spell bookworm
+    And Flo should have the spell tiltowait
+    And Joe should see "...You concentrate on the spell and start to cast it.  The power of the spell\nbuilds but suddenly fizzles out as though something were still missing.\n"
+    And Flo should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+    And Moe should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+
+  @bookworm @legit
+  Scenario: Casting spell bookworm at valid player
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | moonstone       | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_gold | field_kyrandia_spellbook                   |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | 1                   | bookworm                                   |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | 101                 | zapher,bookworm,frythes,tiltowait,weewillo |
+
+    And Flo performs "learn zapher"
+    And Flo performs "learn bookworm"
+    And Flo performs "learn tiltowait"
+
+    When Joe performs "learn bookworm"
+    And Joe performs "cast bookworm flo"
+    Then Flo should not have zapher memorized
+    And Flo should not have bookworm memorized
+    And Flo should not have tiltowait memorized
+    And Flo should not have the spell zapher
+    And Flo should not have the spell bookworm
+    And Flo should not have the spell tiltowait
+
+    And Joe should see
+    """
+    ...Your moonstone suddenly starts to glow brightly.
+    ***
+    A bolt of blue lightening flies from the moonstone striking Flo's spellbook
+    in a brilliant flash.
+    ***
+    Flo's spellbook has been totally wiped clean.
+    ***
+    Your moonstone then suddenly vanishes.
+
+    """
+
+    And Flo should see
+    """
+    ***
+    Joe's moonstone starts to glow strangely.
+    ***
+    A bolt of blue lightening flashes from Joe striking your spellbook.
+
+    """
+
+    And Moe should see
+    """
+    ***
+    Joe's moonstone starts to glow strangely.
+    ***
+    A bolt of blue lightening flashes from Joe striking Flo's spellbook.
+
+    """

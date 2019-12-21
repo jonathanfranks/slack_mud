@@ -92,6 +92,35 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
   }
 
   /**
+   * Send a message to three groups.
+   *
+   * This sends to the actor, the target, and players in the actor's location.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The acting player.
+   * @param string $actorMessage
+   *   Message going to the actor.
+   * @param \Drupal\node\NodeInterface $targetPlayer
+   *   The target player.
+   * @param string $targetMessage
+   *   Message going to the target.
+   * @param string $otherMessage
+   *   Message going to everyone else in the location.
+   * @param array $results
+   *   The results array.
+   */
+  protected function msgutl3(NodeInterface $actingPlayer, $actorMessage, NodeInterface $targetPlayer, $targetMessage, $otherMessage, array &$results) {
+    $results[$actingPlayer->id()][] = $this->gameHandler->getMessage($actorMessage);
+    $results[$targetPlayer->id()][] = sprintf($this->gameHandler->getMessage($targetMessage), $actingPlayer->field_display_name->value);
+    $exceptPlayers = [$targetPlayer];
+    $loc = $actingPlayer->field_location->entity;
+    $othersMessage = sprintf($this->gameHandler->getMessage($otherMessage), $actingPlayer->field_display_name->value, $targetPlayer->field_display_name->value);
+    $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results, $exceptPlayers);
+  }
+
+  /**
    * Send to others in location with specific text format.
    *
    * This method is ported by name from original source code.
