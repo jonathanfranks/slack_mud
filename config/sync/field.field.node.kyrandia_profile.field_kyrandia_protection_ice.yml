@@ -1,0 +1,23 @@
+uuid: f200c1bc-03fd-43a2-a6cd-27148a6232cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_protection_ice
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_protection_ice
+field_name: field_kyrandia_protection_ice
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia protection ice'
+description: 'The level of ice protection charm this player has.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

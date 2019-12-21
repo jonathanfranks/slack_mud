@@ -1,0 +1,23 @@
+uuid: 0813e875-640b-427d-a28a-fc934e9defe6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_pegasus
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_pegasus
+field_name: field_kyrandia_pegasus
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia pegasus'
+description: 'Player is in pegasus form.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -5,8 +5,10 @@ dependencies:
   config:
     - field.field.node.kyrandia_profile.field_kyrandia_birth_stones
     - field.field.node.kyrandia_profile.field_kyrandia_blessed
+    - field.field.node.kyrandia_profile.field_kyrandia_cinvis
     - field.field.node.kyrandia_profile.field_kyrandia_gold
     - field.field.node.kyrandia_profile.field_kyrandia_hit_points
+    - field.field.node.kyrandia_profile.field_kyrandia_invisible
     - field.field.node.kyrandia_profile.field_kyrandia_is_female
     - field.field.node.kyrandia_profile.field_kyrandia_level
     - field.field.node.kyrandia_profile.field_kyrandia_married_to
@@ -14,12 +16,17 @@ dependencies:
     - field.field.node.kyrandia_profile.field_kyrandia_max_spell_points
     - field.field.node.kyrandia_profile.field_kyrandia_memorized_spells
     - field.field.node.kyrandia_profile.field_kyrandia_open_sesame
+    - field.field.node.kyrandia_profile.field_kyrandia_pegasus
     - field.field.node.kyrandia_profile.field_kyrandia_prot_lightning
+    - field.field.node.kyrandia_profile.field_kyrandia_protection_fire
+    - field.field.node.kyrandia_profile.field_kyrandia_protection_ice
     - field.field.node.kyrandia_profile.field_kyrandia_protection_other
+    - field.field.node.kyrandia_profile.field_kyrandia_pseudodragon
     - field.field.node.kyrandia_profile.field_kyrandia_shard_count
     - field.field.node.kyrandia_profile.field_kyrandia_spell_points
     - field.field.node.kyrandia_profile.field_kyrandia_spellbook
     - field.field.node.kyrandia_profile.field_kyrandia_stump_gem
+    - field.field.node.kyrandia_profile.field_kyrandia_willowisp
     - field.field.node.kyrandia_profile.field_player
     - node.type.kyrandia_profile
   module:
@@ -51,6 +58,13 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_kyrandia_cinvis:
+    weight: 146
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_kyrandia_gold:
     weight: 132
     settings:
@@ -64,6 +78,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_kyrandia_invisible:
+    weight: 141
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_kyrandia_is_female:
     weight: 137
@@ -120,8 +141,29 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_kyrandia_pegasus:
+    weight: 143
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_kyrandia_prot_lightning:
     weight: 139
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_protection_fire:
+    weight: 140
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_kyrandia_protection_ice:
+    weight: 145
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -133,6 +175,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_kyrandia_pseudodragon:
+    weight: 144
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_kyrandia_shard_count:
     weight: 134
@@ -163,6 +212,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_kyrandia_willowisp:
+    weight: 142
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_player:
     weight: 122

@@ -1,0 +1,23 @@
+uuid: 9bd21b89-13e8-44d8-87ef-c3e62b001679
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_cinvis
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_cinvis
+field_name: field_kyrandia_cinvis
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia see invisible'
+description: 'Kyrandia charm for seeing invisibility.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

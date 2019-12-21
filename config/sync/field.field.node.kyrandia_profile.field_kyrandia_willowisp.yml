@@ -1,0 +1,23 @@
+uuid: ee00ad76-ec11-4d4a-ad1b-ca11cc9d08d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_willowisp
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_willowisp
+field_name: field_kyrandia_willowisp
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia willowisp'
+description: 'Player is in willowisp form.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

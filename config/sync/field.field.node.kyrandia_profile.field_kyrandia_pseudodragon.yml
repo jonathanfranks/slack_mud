@@ -1,0 +1,23 @@
+uuid: 52abaf9d-ed9e-483a-84e0-9c2874e15825
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_pseudodragon
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_pseudodragon
+field_name: field_kyrandia_pseudodragon
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia pseudodragon'
+description: 'Player is in pseudodragon form.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,23 @@
+uuid: fff29730-5b33-4c3b-91f9-982c35fef331
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_invisible
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_invisible
+field_name: field_kyrandia_invisible
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia invisible'
+description: 'Player is invisible.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

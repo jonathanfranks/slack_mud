@@ -1,0 +1,25 @@
+uuid: 0935a294-26e8-404b-bc57-18e434103fcd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_protection_fire
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_protection_fire
+field_name: field_kyrandia_protection_fire
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia protection fire'
+description: 'The level of fire protection charm this player has.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

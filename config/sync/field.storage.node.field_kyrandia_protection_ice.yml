@@ -1,0 +1,20 @@
+uuid: 49bdd3f9-7211-4f9b-9f57-249d0f5192e2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_kyrandia_protection_ice
+field_name: field_kyrandia_protection_ice
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
