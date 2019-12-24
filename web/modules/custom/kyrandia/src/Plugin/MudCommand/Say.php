@@ -35,6 +35,17 @@ class Say extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
         $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
       }
     }
+    elseif ($loc->getTitle() == 'Location 7' && $commandText == 'say glory be tashanna') {
+      // The "to" is filtered out.
+      $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+      $level = $profile->field_kyrandia_level->entity;
+      if ($level->getName() == '2') {
+        $this->gameHandler->advanceLevel($profile, 3);
+        $results[$actingPlayer->id()][] = $this->gameHandler->getMessage("LVL300");
+        $othersMessage = sprintf($this->gameHandler->getMessage('GETLVL'), $actingPlayer->field_display_name->value);
+        $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
+      }
+    }
     else {
       $words = explode(' ', $commandText);
       if (count($words) == 1) {

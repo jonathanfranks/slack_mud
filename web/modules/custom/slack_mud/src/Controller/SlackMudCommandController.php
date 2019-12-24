@@ -86,6 +86,8 @@ class SlackMudCommandController extends ControllerBase {
             'title' => $game . '_' . $userName,
             'field_slack_user_name' => $command['user_id'],
             'field_display_name' => $userName,
+            'field_display_name_default' => $userName,
+            'field_target_name' => $userName,
             'field_location' => $gameNode->field_starting_location->entity->id(),
             'field_game' => $gameNid,
             'field_active' => TRUE,

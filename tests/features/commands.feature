@@ -1107,7 +1107,7 @@ spellbook for a moment!
     And Flo should see "***\nJoe has just vanished in a bright blue flash!\n"
     And Moe should see "***\nJoe has just appeared in a bright blue flash!\n"
     And Joe should be in "Location 34"
-    And Joe should see "You're in the Druid's Circle. This unparalleled spectacle of enchantment is totally awe-inspiring, and your soul is filled with wonder. Three silver rings, encompassing the entire area, magically float in the air, stacked upon each other. They are surrounded by a wide circle of the largest and most majestic oak trees you have ever laid eyes upon. In the center of this dazzling vortex is a brightly glowing orb of pure light, whose brilliance is almost blinding. You can feel the powerful presence of the goddess Tashanna radiating throughout all of this mystical and holy sphere. Dark forest lies in all directions."
+    And Joe should see "...You're in the Druid's Circle. This unparalleled spectacle of enchantment is totally awe-inspiring, and your soul is filled with wonder. Three silver rings, encompassing the entire area, magically float in the air, stacked upon each other. They are surrounded by a wide circle of the largest and most majestic oak trees you have ever laid eyes upon. In the center of this dazzling vortex is a brightly glowing orb of pure light, whose brilliance is almost blinding. You can feel the powerful presence of the goddess Tashanna radiating throughout all of this mystical and holy sphere. Dark forest lies in all directions."
 
   @touch @druidscircle
   Scenario: Touch the orb with the sceptre at the druid's circle

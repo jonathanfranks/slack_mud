@@ -55,13 +55,7 @@ class LocationGetDescription extends ProcessPluginBase {
       if (strpos($raw_row, '} T Kyrandia locations text') !== FALSE) {
         // Needs to end with that in order to be a valid location text.
         // There's at least one row with a {.. so check for which to do.
-        $separator = "";
-        if (strpos($raw_row, " {...") !== FALSE) {
-          $separator = " {...";
-        }
-        elseif (strpos($raw_row, " {..") !== FALSE) {
-          $separator = " {..";
-        }
+        $separator = " {";
         $split_row = explode($separator, $raw_row);
         $id = $split_row[0];
         $text = $split_row[1];

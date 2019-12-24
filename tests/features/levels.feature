@@ -28,7 +28,7 @@ Feature: Kyrandia level advancement
       | kyrandia_profile_Joe | Joe          | 0                        | 2                    |
 
     And "Joe" should be level 2
-    When "Joe" performs "glory be to tashanna"
+    When "Joe" performs "say glory be to tashanna"
     Then "Joe" should see '...As you praise the Goddess Tashanna, you feel yourself grow in power!\n***\nYou are now at level 3!\n'
     And "Flo" should see "***\nJoe seems to suddenly grow in strength and knowledge!\n"
     And "Joe" should be level 3

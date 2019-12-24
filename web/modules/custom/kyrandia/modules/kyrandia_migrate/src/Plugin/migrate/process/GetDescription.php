@@ -26,26 +26,17 @@ class GetDescription extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    $text = '';
-
     $contents = file_get_contents($this->configuration['message_file_path']);
     $contents = str_replace("\r\n\r\n\r\n", "\n\n\n", $contents);
     $raw_rows = explode("\n\n\n", $contents);
     $rows = [];
     foreach ($raw_rows as $raw_row) {
-      $row = [];
       if (strpos($raw_row, $this->configuration['trailing_text']) !== FALSE) {
         // Needs to end with that in order to be a valid location text.
         // There's at least one row with a {.. so check for which to do.
         $separator = "{";
-        if (strpos($raw_row, " {...") !== FALSE) {
-          $separator = " {...";
-        }
-        elseif (strpos($raw_row, " {..") !== FALSE) {
-          $separator = " {..";
-        }
         $split_row = explode($separator, $raw_row);
-        $id = $split_row[0];
+        $id = trim($split_row[0]);
         $text = $split_row[1];
         // Remove \r.
         $text = str_replace("\r", '', $text);

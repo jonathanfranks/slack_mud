@@ -101,6 +101,11 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
           $othersMessage = sprintf($this->gameHandler->getMessage('LOOKER2'), $actingPlayer->field_display_name->value, $profile->field_kyrandia_is_female->value ? 'her' : 'his', $target);
           $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $loc, $othersMessage, $results);
         }
+        else {
+          // Looking at a target where the target doesn't exist returns the room
+          // description in Kyrandia.
+          $results[$actingPlayer->id()][0] = $loc->body->value;
+        }
       }
       else {
         // Tell the other players in the room that actor is looking around.

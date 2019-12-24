@@ -857,8 +857,7 @@ Feature: Spells
         | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
         | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
         | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
-        | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
-        | Bo    | kyrandia   | Location 213   | rose            | 1            | Bo                 | Bo                    |
+        | Moe   | kyrandia   | Location 206   | rose            | 1            | Moe                | Moe                   |
 
       And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
       And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
@@ -872,5 +871,12 @@ Feature: Spells
       When Joe performs "learn weewillo"
       And Joe performs "cast weewillo"
 
-      Then Joe should see "...As you cast the spell, you are suddenly transformed into a willowisp with\nwings!\n"
-      And Flo should see "***\nJoe suddenly transforms into a willowisp with wings!\n"
+#      Then Joe should see "...As you cast the spell, you are suddenly transformed into a willowisp with\nwings!\n"
+#      And Flo should see "***\nJoe suddenly transforms into a willowisp with wings!\n"
+
+      When Joe performs "move south"
+#      And Flo should see "***\nSome willowisp has just moved off to the south!\n"
+#      And Moe should see "***\nSome willowisp has just appeared from the north!\n"
+
+      When Moe performs "look joe"
+      Then Moe should see "...You're in a golden forest. You are surrounded by tall, shimmering golden elm trees, their breathtaking golden branches and leaves scintillating in the sunlight. Although formed of solid gold, the trees still appear to be living in full bloom, swaying enchantingly in the gentle breezes of this wonderful paradise. A feeling of eternal love swells within your soul, as though this is the heaven you've always wished to spend your life in forever. The trees blocks most of your view with their sparkling beauty, but you can move off in any direction."

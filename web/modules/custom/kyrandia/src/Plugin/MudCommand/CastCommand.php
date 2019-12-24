@@ -520,11 +520,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             $othersMessage = sprintf($this->gameHandler->getMessage('S62M01'), $actingPlayer->field_display_name->value);
             $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
             // Changing body wipes all the other body flags.
-            $actingProfile->field_kyrandia_invisf = FALSE;
-            $actingProfile->field_kyrandia_pegasu = FALSE;
-            $actingProfile->field_kyrandia_pdragn = FALSE;
-            $actingProfile->field_kyrandia_willow = TRUE;
-            $actingPlayer->save();
+            $this->chgbod($actingPlayer, $actingProfile, 'Some willowisp', 'willowisp', 'WILLOW', 2);
             break;
 
           case 'whereami':
@@ -729,6 +725,59 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
         $this->gameHandler->damagePlayer($otherPlayer, $damage, $results);
       }
     }
+  }
+
+  /**
+   * Changes user description to match new form.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param \Drupal\node\NodeInterface $actingProfile
+   *   The player's Kyrandia profile.
+   * @param string $altName
+   *   The new display name.
+   * @param string $attackName
+   *   The new target name.
+   * @param string $flag
+   *   The flag to set.
+   * @param int $duration
+   *   The duration of the effect.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  protected function chgbod(NodeInterface $actingPlayer, NodeInterface $actingProfile, $altName, $attackName, $flag, $duration) {
+    $actingProfile->field_kyrandia_invisf = 0;
+    $actingProfile->field_kyrandia_pegasu = 0;
+    $actingProfile->field_kyrandia_pdragn = 0;
+    $actingProfile->field_kyrandia_willow = 0;
+    switch ($flag) {
+      case 'INVISF':
+        $actingProfile->field_kyrandia_invisf = $duration;
+        break;
+
+      case 'PEGASU}':
+        $actingProfile->field_kyrandia_pegasu = $duration;
+        break;
+
+      case 'PDRAGN':
+        $actingProfile->field_kyrandia_pdragn = $duration;
+        break;
+
+      case 'WILLOW':
+        $actingProfile->field_kyrandia_willow = $duration;
+        break;
+    }
+    $actingProfile->save();
+    if ($flag) {
+      $actingPlayer->field_display_name = $altName;
+      $actingPlayer->field_target_name = $attackName;
+    }
+    else {
+      // No flag, reset.
+      $actingPlayer->field_display_name = $actingPlayer->field_display_name_default->value;
+      $actingPlayer->field_target_name = $actingPlayer->field_display_name_default->value;
+    }
+    $actingPlayer->save();
   }
 
 }
