@@ -850,3 +850,27 @@ Feature: Spells
     And Joe performs "cast whereami"
     Then Joe should see "...You cast this tedious spell and realize your located at coordinate 213.\n"
     And Flo should see "***\nJoe is casting a spell to help get his bearings straight.\n"
+
+    @weewillo @willowsip
+    Scenario: Casting weewillo, willowisp shape
+      Given player content:
+        | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+        | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
+        | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+        | Moe   | kyrandia   | Location 213   | rose            | 1            | Moe                | Moe                   |
+        | Bo    | kyrandia   | Location 213   | rose            | 1            | Bo                 | Bo                    |
+
+      And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+      And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+      And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+      And kyrandia_profile content:
+        | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+        | kyrandia_profile_Joe | Joe          | 0                        | 25                   | weewillo                 | 0                             |
+        | kyrandia_profile_Flo | Flo          | 1                        | 25                   | weewillo                 | 8                             |
+        | kyrandia_profile_Moe | Moe          | 0                        | 25                   | weewillo                 | 0                             |
+
+      When Joe performs "learn weewillo"
+      And Joe performs "cast weewillo"
+
+      Then Joe should see "...As you cast the spell, you are suddenly transformed into a willowisp with\nwings!\n"
+      And Flo should see "***\nJoe suddenly transforms into a willowisp with wings!\n"

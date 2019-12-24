@@ -1,0 +1,23 @@
+uuid: 95266452-7b34-45c9-8cc1-695bacfa3f95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_willow
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_willow
+field_name: field_kyrandia_willow
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia willow'
+description: 'Duration of Kyrandia player in willowisp form.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

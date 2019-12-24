@@ -1,0 +1,23 @@
+uuid: ea008e5e-78b2-4553-819b-92d6132141b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_pegasu
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_pegasu
+field_name: field_kyrandia_pegasu
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia pegasus'
+description: 'Duration Kyrandia player is a pegasus.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -121,19 +121,25 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 $mudEvent = new CommandEvent($actingPlayer, $messageText);
                 $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
                 $response = $mudEvent->getResponse();
-                if (!$response) {
-                  // If the command event didn't return any response, then
-                  // you can't do that here.
-                  $response = t("You can't do that here.");
+                $playerNids = array_keys($response);
+                $playerNodes = Node::loadMultiple($playerNids);
+                $slackNames = [];
+                foreach ($playerNodes as $playerNode) {
+                  if ($slackName = $playerNode->field_slack_user_name->value) {
+                    $slackNames[$playerNode->id()] = $slackName;
+                  }
                 }
-                $channel = $eventCallback['user'];
-                $this->slack->slackApi('chat.postMessage', 'POST', [
-                  'channel' => $channel,
-                  'text' => strip_tags($response),
-                  'as_user' => TRUE,
-                ]);
+                foreach ($response as $key => $items) {
+                  foreach ($items as $item) {
+                    $channel = $slackNames[$key];
+                    $this->slack->slackApi('chat.postMessage', 'POST', [
+                      'channel' => $channel,
+                      'text' => strip_tags($item),
+                      'as_user' => TRUE,
+                    ]);
+                  }
+                }
               }
-
             }
             $event->setResponse(new Response('', 200));
           }

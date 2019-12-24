@@ -1,14 +1,16 @@
-uuid: b823ccf4-a271-4ba2-a9de-d75197347c3f
+uuid: ebe9729f-816d-467f-bb42-30521bf2d0f6
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_pseudodragon
-field_name: field_kyrandia_pseudodragon
+id: node.field_kyrandia_willow
+field_name: field_kyrandia_willow
 entity_type: node
-type: boolean
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

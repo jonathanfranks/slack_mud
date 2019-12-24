@@ -516,6 +516,15 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'weewillo':
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S62M00');
+            $othersMessage = sprintf($this->gameHandler->getMessage('S62M01'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
+            // Changing body wipes all the other body flags.
+            $actingProfile->field_kyrandia_invisf = FALSE;
+            $actingProfile->field_kyrandia_pegasu = FALSE;
+            $actingProfile->field_kyrandia_pdragn = FALSE;
+            $actingProfile->field_kyrandia_willow = TRUE;
+            $actingPlayer->save();
             break;
 
           case 'whereami':

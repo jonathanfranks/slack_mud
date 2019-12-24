@@ -64,16 +64,16 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
           $profile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
           // Override the look description if the target player is in a
           // different form.
-          if ($profile->field_kyrandia_invisible->value) {
+          if ($profile->field_kyrandia_invisf->value) {
             $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('INVDES');
           }
-          elseif ($profile->field_kyrandia_willowisp->value) {
+          elseif ($profile->field_kyrandia_willow->value) {
             $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('WILDES');
           }
-          elseif ($profile->field_kyrandia_pegasus->value) {
+          elseif ($profile->field_kyrandia_pegasu->value) {
             $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('PEGDES');
           }
-          elseif ($profile->field_kyrandia_pseudodragon->value) {
+          elseif ($profile->field_kyrandia_pdragn->value) {
             $results[$actingPlayer->id()][0] = $this->gameHandler->getMessage('PDRDES');
           }
           else {

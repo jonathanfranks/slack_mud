@@ -92,8 +92,8 @@ Feature: Kyrandia commands not specific to locations
       | Flo   | kyrandia   | Janet's Void   | ruby,diamond    | 1            | Flo                | Flo                   |
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
-      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_invisible |
-      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                        |
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_invisf |
+      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                     |
     When "Joe" performs "look flo"
     Then "Joe" should see "...The force is unseen!\n"
     And "Flo" should see "***\nJoe is looking at you carefully.\n"
@@ -109,8 +109,8 @@ Feature: Kyrandia commands not specific to locations
       | Flo   | kyrandia   | Janet's Void   | ruby,diamond    | 1            | Flo                | Flo                   |
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
-      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_willowisp |
-      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                        |
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_willow |
+      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                     |
     When "Joe" performs "look flo"
     Then "Joe" should see "...The willowisp quickly flies from your direct vision.\n"
     And "Flo" should see "***\nJoe is looking at you carefully.\n"
@@ -126,8 +126,8 @@ Feature: Kyrandia commands not specific to locations
       | Flo   | kyrandia   | Janet's Void   | ruby,diamond    | 1            | Flo                | Flo                   |
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
-      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_pegasus |
-      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                        |
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_pegasu |
+      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                     |
     When "Joe" performs "look flo"
     Then "Joe" should see "...The pegasus is a wonderful creature, but it moves quickly away from your\ndirect vision.\n"
     And "Flo" should see "***\nJoe is looking at you carefully.\n"
@@ -143,8 +143,8 @@ Feature: Kyrandia commands not specific to locations
       | Flo   | kyrandia   | Janet's Void   | ruby,diamond    | 1            | Flo                | Flo                   |
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
-      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_pseudodragon |
-      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                        |
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_pdragn |
+      | kyrandia_profile_Flo | Flo          | 1                        | 1                    | 1                     |
     When "Joe" performs "look flo"
     Then "Joe" should see "...The pseudo dragon is so ugly, that you turn your head immediately.\n"
     And "Flo" should see "***\nJoe is looking at you carefully.\n"

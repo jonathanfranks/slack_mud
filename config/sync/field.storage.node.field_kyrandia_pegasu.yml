@@ -1,14 +1,16 @@
-uuid: c402b175-4d78-4a03-b730-1d7e81b5a727
+uuid: 489ec1fb-f6db-43ed-866f-41a4f2da5d7e
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_pegasus
-field_name: field_kyrandia_pegasus
+id: node.field_kyrandia_pegasu
+field_name: field_kyrandia_pegasu
 entity_type: node
-type: boolean
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

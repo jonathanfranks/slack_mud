@@ -1,14 +1,16 @@
-uuid: e2214286-a481-4d33-9f68-70c4e2d4749e
+uuid: 78395cb6-596b-4ba1-b466-f8fb697ff50f
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_willowisp
-field_name: field_kyrandia_willowisp
+id: node.field_kyrandia_invisf
+field_name: field_kyrandia_invisf
 entity_type: node
-type: boolean
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

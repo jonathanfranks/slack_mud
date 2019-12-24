@@ -1,14 +1,16 @@
-uuid: 9154e87d-7cf6-4ffc-88af-5c10b68060fd
+uuid: f97f5528-3334-4d19-abf5-6a48396aeb4d
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_kyrandia_invisible
-field_name: field_kyrandia_invisible
+id: node.field_kyrandia_pdragn
+field_name: field_kyrandia_pdragn
 entity_type: node
-type: boolean
-settings: {  }
+type: integer
+settings:
+  unsigned: false
+  size: normal
 module: core
 locked: false
 cardinality: 1

@@ -1,0 +1,23 @@
+uuid: b88d4a98-d940-410b-905f-2eaf486b08b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_kyrandia_pdragn
+    - node.type.kyrandia_profile
+id: node.kyrandia_profile.field_kyrandia_pdragn
+field_name: field_kyrandia_pdragn
+entity_type: node
+bundle: kyrandia_profile
+label: 'Kyrandia pseudodragon'
+description: 'Duration of Kyrandia player being a pseudodragon.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
