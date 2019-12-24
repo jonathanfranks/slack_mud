@@ -29,6 +29,14 @@ function respawn() {
  */
 function slack_mud_node_presave(EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player') {
+    if (!$entity->field_display_name_default->value && $entity->field_display_name->value) {
+      // If we're saving without a default display name, set it.
+      $entity->field_display_name_default = $entity->field_display_name->value;
+    }
+    if (!$entity->field_target_name->value && $entity->field_display_name->value) {
+      // If we're saving wihtout a target name, set it.
+      $entity->field_target_name = $entity->field_display_name->value;
+    }
     if ($entity->field_active->value) {
       // Get other active player nodes for the same Slack user.
       $query = \Drupal::entityQuery('node')

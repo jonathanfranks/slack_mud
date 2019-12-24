@@ -278,7 +278,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             $othersMessage = sprintf($this->gameHandler->getMessage('S08M01'), $actingPlayer->field_display_name->value);
             $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
             // Changing body wipes all the other body flags.
-            $this->chgbod($actingPlayer, $actingProfile, "Some Unseen Force","Unseen Force", 'INVISF', 2);
+            $this->chgbod($actingPlayer, $actingProfile, "Some Unseen Force", "Unseen Force", 'INVISF', 2);
             break;
 
           case 'canthur':
@@ -300,6 +300,29 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'clutzopho':
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $targetPlayerName = $targetPlayer->field_display_name->value;
+              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
+              $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
+              if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value ||
+                count($targetPlayer->field_inventory) == 0) {
+                // Charmed or not carrying anything.
+                $this->msgutl2($actingPlayer, 'S11M00', 'NOSUCC', $results);
+              }
+              else {
+                $this->msgutl3($actingPlayer, 'S11M02', $targetPlayer, 'S11M03', 'S11M04', $results);
+                foreach ($targetPlayer->field_inventory as $inventoryItemField) {
+                  // @TODO Max location objects.
+                  $invItem = $inventoryItemField->entity;
+                  $invItemName = $invItem->getTitle();
+                  $this->gameHandler->takeItemFromPlayer($targetPlayer, $invItemName);
+                  $this->gameHandler->placeItemInLocation($loc, $invItemName);
+                  $this->prfmsg($targetPlayer, 'S11M05', $invItemName, $results);
+                  $othersMessage = sprintf($this->gameHandler->getMessage('S11M06'), $targetPlayer->field_display_name->value, $this->gameHandler->hisHer($targetProfile), $invItemName);
+                  $this->gameHandler->sendMessageToOthersInLocation($targetPlayer, $loc, $othersMessage, $results);
+                }
+              }
+            }
             break;
 
           case 'cuseme':

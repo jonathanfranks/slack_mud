@@ -967,9 +967,9 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                 | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                 | 8                             |
-      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | flyaway                 | 0                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                  | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                  | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | flyaway                  | 0                             |
 
     When Joe performs "learn flyaway"
     And Joe performs "cast flyaway"
@@ -993,8 +993,8 @@ Feature: Spells
   Scenario: Casting flyaway, pegasus shape, flying
     Given player content:
       | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
-      | Joe   | kyrandia   | Location 22   | pearl           | 1            | Joe                | Joe                   |
-      | Flo   | kyrandia   | Location 22   | rose            | 1            | Flo                | Flo                   |
+      | Joe   | kyrandia   | Location 22    | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 22    | rose            | 1            | Flo                | Flo                   |
       | Moe   | kyrandia   | Location 189   | rose            | 1            | Moe                | Moe                   |
 
     And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
@@ -1002,9 +1002,9 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                 | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                 | 8                             |
-      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | flyaway                 | 0                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                  | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                  | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | flyaway                  | 0                             |
 
     When Joe performs "learn flyaway"
     And Joe performs "cast flyaway"
@@ -1045,8 +1045,8 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                 | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                 | 8                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                  | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                  | 8                             |
 
     When Joe performs "learn flyaway"
     And Joe performs "cast flyaway"
@@ -1069,9 +1069,9 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | gringri                 | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | gringri                 | 8                             |
-      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | gringri                 | 0                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | gringri                  | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | gringri                  | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | gringri                  | 0                             |
 
     When Joe performs "learn gringri"
     And Joe performs "cast gringri"
@@ -1102,8 +1102,8 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | gringri                 | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | gringri                 | 8                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | gringri                  | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | gringri                  | 8                             |
 
     When Joe performs "learn gringri"
     And Joe performs "cast gringri"
@@ -1126,9 +1126,9 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | cantcmeha                 | 0                             |
-      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                 | 8                             |
-      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                 | 0                             |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | cantcmeha                | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                | 0                             |
 
     When Joe performs "learn cantcmeha"
     And Joe performs "cast cantcmeha"
@@ -1147,3 +1147,99 @@ Feature: Spells
     When Moe performs "look unseen force"
     Then Moe should see "...The force is unseen!\n"
     And Joe should see "***\nMoe is looking at you carefully.\n"
+
+  @clutzopho
+  Scenario: Casting clutzopho
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | clutzopho                |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                |
+
+    When Joe performs "learn clutzopho"
+    And Joe performs "cast clutzopho flo"
+    Then Joe should see "...You successfully cast the spell and a yellow ball of light flies from your\nfingers.\n"
+    And Flo should see "***\nJoe successfully casts a spell and a yellow ball of light flies at you.\n"
+    And Moe should see "***\nJoe successfully casts a spell and a yellow ball of light flies at Flo.\n"
+    And Flo should see "***\nYou just dropped your rose.\n"
+    And Flo should see "***\nYou just dropped your garnet.\n"
+    And Flo should see "***\nYou just dropped your diamond.\n"
+    And Flo should see "***\nYou just dropped your wand.\n"
+    And Flo should see "***\nYou just dropped your key.\n"
+
+    And Flo should not have rose in inventory
+    And Flo should not have garnet in inventory
+    And Flo should not have diamond in inventory
+    And Flo should not have wand in inventory
+    And Flo should not have key in inventory
+
+    And Joe should see "***\nFlo has just dropped her rose.\n"
+    And Joe should see "***\nFlo has just dropped her garnet.\n"
+    And Joe should see "***\nFlo has just dropped her diamond.\n"
+    And Joe should see "***\nFlo has just dropped her wand.\n"
+    And Joe should see "***\nFlo has just dropped her key.\n"
+
+    And Moe should see "***\nFlo has just dropped her rose.\n"
+    And Moe should see "***\nFlo has just dropped her garnet.\n"
+    And Moe should see "***\nFlo has just dropped her diamond.\n"
+    And Moe should see "***\nFlo has just dropped her wand.\n"
+    And Moe should see "***\nFlo has just dropped her key.\n"
+
+  @clutzopho
+  Scenario: Casting clutzopho
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | clutzopho                | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                | 0                               |
+
+    When Joe performs "learn clutzopho"
+    And Joe performs "cast clutzopho flo"
+    Then Joe should not see "...You successfully cast the spell and a yellow ball of light flies from your\nfingers.\n"
+    And Flo should not see "***\nJoe successfully casts a spell and a yellow ball of light flies at you.\n"
+    And Moe should not see "***\nJoe successfully casts a spell and a yellow ball of light flies at Flo.\n"
+    And Flo should not see "***\nYou just dropped your rose.\n"
+    And Flo should not see "***\nYou just dropped your garnet.\n"
+    And Flo should not see "***\nYou just dropped your diamond.\n"
+    And Flo should not see "***\nYou just dropped your wand.\n"
+    And Flo should not see "***\nYou just dropped your key.\n"
+
+    And Flo should have rose in inventory
+    And Flo should have garnet in inventory
+    And Flo should have diamond in inventory
+    And Flo should have wand in inventory
+    And Flo should have key in inventory
+
+    And Joe should not see "***\nFlo has just dropped her rose.\n"
+    And Joe should not see "***\nFlo has just dropped her garnet.\n"
+    And Joe should not see "***\nFlo has just dropped her diamond.\n"
+    And Joe should not see "***\nFlo has just dropped her wand.\n"
+    And Joe should not see "***\nFlo has just dropped her key.\n"
+
+    And Moe should not see "***\nFlo has just dropped her rose.\n"
+    And Moe should not see "***\nFlo has just dropped her garnet.\n"
+    And Moe should not see "***\nFlo has just dropped her diamond.\n"
+    And Moe should not see "***\nFlo has just dropped her wand.\n"
+    And Moe should not see "***\nFlo has just dropped her key.\n"
+
+    And Joe should see "...You cast the spell accurately, unfortunately, for some mysterious reason\nthe spell does not work.\n"
+    And Flo should see "***\nJoe casts a spell, to no avail!\n"
+    And Moe should see "***\nJoe casts a spell, to no avail!\n"

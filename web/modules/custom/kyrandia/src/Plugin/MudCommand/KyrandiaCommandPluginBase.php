@@ -81,8 +81,8 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    * @param array $result
    *   The results array.
    */
-  protected function prfmsg(NodeInterface $actingPlayer, $actorMessage, array &$result) {
-    $result[$actingPlayer->id()][] = $this->gameHandler->getMessage($actorMessage);
+  protected function prfmsg(NodeInterface $actingPlayer, $actorMessage, $arg, array &$result) {
+    $result[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage($actorMessage), $arg);
   }
 
   /**
