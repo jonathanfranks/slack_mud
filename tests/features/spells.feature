@@ -989,7 +989,6 @@ Feature: Spells
     Then Moe should see "...The pegasus is a wonderful creature, but it moves quickly away from your\ndirect vision.\n"
     And Joe should see "***\nMoe is looking at you carefully.\n"
 
-
   @flyaway @pegasus @fly @chasm
   Scenario: Casting flyaway, pegasus shape, flying
     Given player content:
@@ -1113,3 +1112,38 @@ Feature: Spells
     Then Joe should see "...For some mysterious reason, you don't really feel like flying here.\n"
     And Flo should see "***\nSome psuedo dragon is attempting to fly, without much success.\n"
     And Joe should be in "Location 144"
+
+  @cantcmeha @invisible
+  Scenario: Casting cantcmeha, invisible shape
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 206   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | cantcmeha                 | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                 | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                 | 0                             |
+
+    When Joe performs "learn cantcmeha"
+    And Joe performs "cast cantcmeha"
+
+    Then Joe should see "...You see yourself fading away, and soon you are completely invisible!\n"
+    And Flo should see "***\nJoe fades away and becomes invisible!\n"
+
+    When Joe performs "move south"
+    And Flo should see "***\nSome Unseen Force has just moved off to the south!\n"
+    And Moe should see "***\nSome Unseen Force has just appeared from the north!\n"
+
+    When Moe performs "look joe"
+    Then Moe should see "...You're in a golden forest. You are surrounded by tall, shimmering golden elm trees, their breathtaking golden branches and leaves scintillating in the sunlight. Although formed of solid gold, the trees still appear to be living in full bloom, swaying enchantingly in the gentle breezes of this wonderful paradise. A feeling of eternal love swells within your soul, as though this is the heaven you've always wished to spend your life in forever. The trees blocks most of your view with their sparkling beauty, but you can move off in any direction."
+    And Moe should see "Some Unseen Force is here."
+
+    When Moe performs "look unseen force"
+    Then Moe should see "...The force is unseen!\n"
+    And Joe should see "***\nMoe is looking at you carefully.\n"

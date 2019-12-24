@@ -274,6 +274,11 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'cantcmeha':
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S08M00');
+            $othersMessage = sprintf($this->gameHandler->getMessage('S08M01'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
+            // Changing body wipes all the other body flags.
+            $this->chgbod($actingPlayer, $actingProfile, "Some Unseen Force","Unseen Force", 'INVISF', 2);
             break;
 
           case 'canthur':
