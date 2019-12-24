@@ -1190,3 +1190,17 @@ spellbook for a moment!
     Then Joe should see "...Ouch!\n"
     And Flo should see "***\nJoe is burning in the flaming thicket!\n"
     And Joe should have 30 hit points
+
+
+  @fly @nofly
+  Scenario: Casting weewillo, willowisp shape, flying
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 144   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 144   | rose            | 1            | Flo                | Flo                   |
+
+    When Joe performs "fly"
+
+    Then Joe should see "...Unfortunately, Tashanna did not grant humans with the power of flight.\n"
+    And Flo should see "***\nJoe is attempting to fly, without much success.\n"
+    And Joe should be in "Location 144"

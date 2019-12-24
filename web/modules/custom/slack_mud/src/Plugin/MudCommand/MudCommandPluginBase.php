@@ -2,6 +2,7 @@
 
 namespace Drupal\slack_mud\Plugin\MudCommand;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\Event\CommandEvent;
@@ -17,6 +18,20 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  * @package Drupal\slack_mud\Plugin\MudCommand
  */
 abstract class MudCommandPluginBase extends PluginBase implements MudCommandPluginInterface {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Node storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $nodeStorage;
 
   /**
    * The event dispatcher.
@@ -48,6 +63,8 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
    * @param \Drupal\word_grammar\Service\WordGrammarInterface $word_grammar
@@ -55,8 +72,10 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    * @param \Drupal\slack_mud\Service\MudGameHandlerServiceInterface $game_handler
    *   The game handler.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, WordGrammarInterface $word_grammar, MudGameHandlerServiceInterface $game_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EventDispatcherInterface $event_dispatcher, WordGrammarInterface $word_grammar, MudGameHandlerServiceInterface $game_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->entityTypeManager = $entity_type_manager;
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
     $this->eventDispatcher = $event_dispatcher;
     $this->wordGrammar = $word_grammar;
     $this->gameHandler = $game_handler;
@@ -82,6 +101,7 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('entity_type.manager'),
       $container->get('event_dispatcher'),
       $container->get('word_grammar_service'),
       $container->get('slack_mud.game_handler'),

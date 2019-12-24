@@ -45,6 +45,7 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
       $configuration,
       $plugin_id,
       $plugin_definition,
+      $container->get('entity_type.manager'),
       $container->get('event_dispatcher'),
       $container->get('word_grammar_service'),
       $container->get('kyrandia.game_handler'),
@@ -65,6 +66,22 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    *   The results array.
    */
   protected function youmsg(NodeInterface $actingPlayer, $actorMessage, array &$result) {
+    $result[$actingPlayer->id()][] = $this->gameHandler->getMessage($actorMessage);
+  }
+
+  /**
+   * Send a message to the acting player.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param string $actorMessage
+   *   Message going to the actor.
+   * @param array $result
+   *   The results array.
+   */
+  protected function prfmsg(NodeInterface $actingPlayer, $actorMessage, array &$result) {
     $result[$actingPlayer->id()][] = $this->gameHandler->getMessage($actorMessage);
   }
 

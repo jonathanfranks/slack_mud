@@ -21,11 +21,38 @@ class Fly extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
    * {@inheritdoc}
    */
   public function perform($commandText, NodeInterface $actingPlayer, array &$results) {
-    $result = NULL;
-    if (!$result) {
-      $result = 'Nothing happens.';
+    $loc = $actingPlayer->field_location->entity;
+    $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
+    if ($profile->field_kyrandia_willow->value) {
+      if ($loc->getTitle() == 'Location 179') {
+        $this->willof($actingPlayer, 180, $results);
+      }
+      elseif ($loc->getTitle() == 'Location 180') {
+        $this->willof($actingPlayer, 179, $results);
+      }
+      else {
+        $this->msgutl2($actingPlayer, 'UNOFLY', 'ATFLY1', $results);
+      }
     }
-    return $result;
+    else {
+      $this->msgutl2($actingPlayer, 'HUNFLY', 'ATFLY1', $results);
+    }
+  }
+
+  /**
+   * Willowisp flying routine.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param string $targetDestination
+   *   The new location name.
+   * @param array $results
+   *   The results array.
+   */
+  protected function willof(NodeInterface $actingPlayer, $targetDestination, array &$results) {
+    $this->prfmsg($actingPlayer, 'WILFLY', $results);
+    $newLocationTitle = 'Location ' . $targetDestination;
+    $this->gameHandler->movePlayer($actingPlayer, $newLocationTitle, $results, "gracefully flown across the chasm", "gracefully flown from across the chasm");
   }
 
 }

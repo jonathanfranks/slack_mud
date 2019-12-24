@@ -141,7 +141,7 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
     }
     $otherPlayers = $this->otherPlayersInLocation($location, $actor);
     foreach ($otherPlayers as $otherPlayer) {
-      $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_display_name->value));
+      $otherPlayerDisplayName = strtolower(trim($otherPlayer->field_target_name->value));
       if (strpos($otherPlayerDisplayName, $target) === 0) {
         // Other player's name starts with the string the user
         // typed.

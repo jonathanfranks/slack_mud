@@ -104,7 +104,13 @@ class Look extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         else {
           // Looking at a target where the target doesn't exist returns the room
           // description in Kyrandia.
-          $results[$actingPlayer->id()][0] = $loc->body->value;
+          $lookResults = [];
+          /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
+          $pluginManager = \Drupal::service('plugin.manager.mud_command');
+          /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
+          $plugin = $pluginManager->createInstance('look');
+          $plugin->perform('look', $actingPlayer, $lookResults);
+          $results[$actingPlayer->id()] = $lookResults[$actingPlayer->id()];
         }
       }
       else {
