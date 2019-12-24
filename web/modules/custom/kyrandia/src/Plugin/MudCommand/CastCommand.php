@@ -326,6 +326,16 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'cuseme':
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $targetPlayerName = $targetPlayer->field_display_name->value;
+              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
+              $spellpoints = $targetProfile->field_kyrandia_spell_points->value;
+              $results[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage('S12M00'), $targetPlayerName, $spellpoints);
+              $results[$targetPlayer->id()][] = sprintf($this->gameHandler->getMessage('S12M01'), $actingPlayer->field_display_name->value);
+              $othersMessage = sprintf($this->gameHandler->getMessage('S12M02'), $actingPlayer->field_display_name->value, $targetPlayer->field_display_name->value);
+              $exclude = [$targetPlayer];
+              $this->gameHandler->sendMessageToOthersInLocation($targetPlayer, $loc, $othersMessage, $results, $exclude);
+            }
             break;
 
           case 'dumdum':

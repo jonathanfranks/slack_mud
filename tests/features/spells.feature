@@ -1243,3 +1243,26 @@ Feature: Spells
     And Joe should see "...You cast the spell accurately, unfortunately, for some mysterious reason\nthe spell does not work.\n"
     And Flo should see "***\nJoe casts a spell, to no avail!\n"
     And Moe should see "***\nJoe casts a spell, to no avail!\n"
+
+  @cuseme
+  Scenario: Casting cuseme
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | cuseme                | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                | 0                               |
+
+    When Joe performs "learn cuseme"
+    And Joe performs "cast cuseme flo"
+    Then Joe should see "...As you finish the spell a white mist appears around Flo and the number 50\nappears in your mind.\n"
+    And Flo should see "***\nJoe casts a spell and a white mist appears around you for a brief moment.\n"
+    And Moe should see "***\nJoe has just cast a spell and a white mist appears around Flo for a brief\nmoment.\n"
