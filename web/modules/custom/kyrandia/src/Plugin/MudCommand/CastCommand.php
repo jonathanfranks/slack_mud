@@ -350,6 +350,11 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
 
 
           case 'gringri':
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S24M00');
+            $othersMessage = sprintf($this->gameHandler->getMessage('S24M01'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
+            // Changing body wipes all the other body flags.
+            $this->chgbod($actingPlayer, $actingProfile, "Some psuedo dragon", "psuedo dragon", 'PDRAGN', 2);
             break;
 
           case 'handsof':

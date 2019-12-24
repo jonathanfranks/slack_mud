@@ -45,6 +45,9 @@ class Fly extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
         $this->msgutl2($actingPlayer, 'UNOFLY', 'ATFLY1', $results);
       }
     }
+    elseif ($profile->field_kyrandia_pdragn->value) {
+      $this->msgutl2($actingPlayer, 'UNOFLY', 'ATFLY1', $results);
+    }
     else {
       $this->msgutl2($actingPlayer, 'HUNFLY', 'ATFLY1', $results);
     }
