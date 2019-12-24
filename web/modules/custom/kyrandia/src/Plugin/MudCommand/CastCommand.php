@@ -339,6 +339,20 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'dumdum':
+            if ($targetPlayer = $this->gameHandler->locationHasPlayer($target, $loc, TRUE, $actingPlayer)) {
+              $targetPlayerName = $targetPlayer->field_display_name->value;
+              $targetProfile = $this->gameHandler->getKyrandiaProfile($targetPlayer);
+              $protectionFieldName = array_key_exists('OBJPRO', $this->protections) ? $this->protections['OBJPRO'] : NULL;
+              if ($protectionFieldName && $targetProfile->{$protectionFieldName}->value) {
+                // Charmed.
+                $this->msgutl3($actingPlayer, 'S13M00', $targetPlayer, 'S13M01', 'S13M02', $results);
+              }
+              else {
+                $targetProfile->field_kyrandia_memorized_spells = NULL;
+                $targetProfile->save();
+                $this->msgutl3($actingPlayer, 'S13M03', $targetPlayer, 'S13M04', 'S13M05', $results);
+              }
+            }
             break;
 
           case 'feeluck':

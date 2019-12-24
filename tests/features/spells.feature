@@ -1257,7 +1257,7 @@ Feature: Spells
     And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_other |
-      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | cuseme                | 0                               |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | cuseme                   | 0                               |
       | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha                | 8                               |
       | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                | 0                               |
 
@@ -1266,3 +1266,75 @@ Feature: Spells
     Then Joe should see "...As you finish the spell a white mist appears around Flo and the number 50\nappears in your mind.\n"
     And Flo should see "***\nJoe casts a spell and a white mist appears around you for a brief moment.\n"
     And Moe should see "***\nJoe has just cast a spell and a white mist appears around Flo for a brief\nmoment.\n"
+
+  @dumdum
+  Scenario: Casting dumdum
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | dumdum                           |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        |
+
+    And Flo performs "learn weewillo"
+    And Flo performs "learn zapher"
+    And Flo performs "learn cantcmeha"
+    And Flo performs "learn zapher"
+    Then Flo should have weewillo memorized
+    And Flo should have zapher memorized
+    And Flo should have cantcmeha memorized
+
+    When Joe performs "learn dumdum"
+    And Joe performs "cast dumdum flo"
+    Then Joe should see "...You cast the spell and your opponent suddenly forgets all the spells\nthat they had memorized.\n"
+    And Flo should see "***\nJoe casts a spell at you and suddenly you have forgotten all the spells that\nyou had memorized.\n"
+    And Moe should see "***\nJoe casts a spell which leaves Flo scratching around for something that they\nhave forgotten.\n"
+    Then Flo should not have weewillo memorized
+    And Flo should not have zapher memorized
+    And Flo should not have cantcmeha memorized
+
+  @dumdum
+  Scenario: Casting dumdum on protected player
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 213   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | dumdum                           | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    And Flo performs "learn weewillo"
+    And Flo performs "learn zapher"
+    And Flo performs "learn cantcmeha"
+    And Flo performs "learn zapher"
+    Then Flo should have weewillo memorized
+    And Flo should have zapher memorized
+    And Flo should have cantcmeha memorized
+
+    When Joe performs "learn dumdum"
+    And Joe performs "cast dumdum flo"
+    Then Joe should not see "...You cast the spell and your opponent suddenly forgets all the spells\nthat they had memorized.\n"
+    And Flo should not see "***\nJoe casts a spell at you and suddenly you have forgotten all the spells that\nyou had memorized.\n"
+    And Moe should not see "***\nJoe casts a spell which leaves Flo scratching around for something that they\nhave forgotten.\n"
+    Then Flo should have weewillo memorized
+    And Flo should have zapher memorized
+    And Flo should have cantcmeha memorized
+
+    But Joe should see "...You cast the spell but it doesn't seem to have any effects.\n"
+    And Flo should see "***\nJoe casts a spell at you but it doesn't seem to have any effects.\n"
+    And Moe should see "***\nJoe casts a spell at Flo but it doesn't seem to have any effects.\n"
