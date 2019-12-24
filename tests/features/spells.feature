@@ -953,3 +953,106 @@ Feature: Spells
     Then Joe should see "...For some mysterious reason, you don't really feel like flying here.\n"
     And Flo should see "***\nSome willowisp is attempting to fly, without much success.\n"
     And Joe should be in "Location 144"
+
+  @flyaway @pegasus
+  Scenario: Casting flyaway, pegasus shape
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 213   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 213   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 206   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                 | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                 | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | flyaway                 | 0                             |
+
+    When Joe performs "learn flyaway"
+    And Joe performs "cast flyaway"
+
+    Then Joe should see "...Suddenly, you are transformed into a beautiful, white pegasus!\n"
+    And Flo should see "***\nJoe suddenly transforms into a beautiful, white pegasus!\n"
+
+    When Joe performs "move south"
+    And Flo should see "***\nSome pegasus has just moved off to the south!\n"
+    And Moe should see "***\nSome pegasus has just appeared from the north!\n"
+
+    When Moe performs "look joe"
+    Then Moe should see "...You're in a golden forest. You are surrounded by tall, shimmering golden elm trees, their breathtaking golden branches and leaves scintillating in the sunlight. Although formed of solid gold, the trees still appear to be living in full bloom, swaying enchantingly in the gentle breezes of this wonderful paradise. A feeling of eternal love swells within your soul, as though this is the heaven you've always wished to spend your life in forever. The trees blocks most of your view with their sparkling beauty, but you can move off in any direction."
+    And Moe should see "Some pegasus is here."
+
+    When Moe performs "look pegasus"
+    Then Moe should see "...The pegasus is a wonderful creature, but it moves quickly away from your\ndirect vision.\n"
+    And Joe should see "***\nMoe is looking at you carefully.\n"
+
+
+  @flyaway @pegasus @fly @chasm
+  Scenario: Casting flyaway, pegasus shape, flying
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 22   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 22   | rose            | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 189   | rose            | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                 | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                 | 8                             |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | flyaway                 | 0                             |
+
+    When Joe performs "learn flyaway"
+    And Joe performs "cast flyaway"
+    And Joe performs "fly"
+    Then Joe should see
+    """
+    ...As you majestically soar into the air, you feel yourself magically
+    propelled across the beautiful, sparkling sea...
+
+    """
+
+    And Flo should see "***\nSome pegasus has just majestically flown across the sea!\n"
+    And Moe should see "***\nSome pegasus has just majestically flown from across the sea!\n"
+
+    And Joe should be in "Location 189"
+
+    And Joe performs "fly"
+    Then Joe should see
+    """
+    ...As you majestically soar into the air, you feel yourself magically
+    propelled across the beautiful, sparkling sea...
+
+    """
+
+    And Moe should see "***\nSome pegasus has just majestically flown across the sea!\n"
+    And Flo should see "***\nSome pegasus has just majestically flown from across the sea!\n"
+
+    And Joe should be in "Location 22"
+
+  @flyaway @pegasus @fly @nofly
+  Scenario: Casting flyaway, pegasus shape, flying
+    Given player content:
+      | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 144   | pearl           | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 144   | rose            | 1            | Flo                | Flo                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook | field_kyrandia_protection_ice |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | flyaway                 | 0                             |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | flyaway                 | 8                             |
+
+    When Joe performs "learn flyaway"
+    And Joe performs "cast flyaway"
+    And Joe performs "fly"
+
+    Then Joe should see "...For some mysterious reason, you don't really feel like flying here.\n"
+    And Flo should see "***\nSome pegasus is attempting to fly, without much success.\n"
+    And Joe should be in "Location 144"

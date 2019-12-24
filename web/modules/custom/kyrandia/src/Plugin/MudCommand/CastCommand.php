@@ -312,6 +312,11 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
             break;
 
           case 'flyaway':
+            $results[$actingPlayer->id()][] = $this->gameHandler->getMessage('S16M00');
+            $othersMessage = sprintf($this->gameHandler->getMessage('S16M01'), $actingPlayer->field_display_name->value);
+            $this->gameHandler->sendMessageToOthersInLocation($actingProfile, $loc, $othersMessage, $results);
+            // Changing body wipes all the other body flags.
+            $this->chgbod($actingPlayer, $actingProfile, 'Some pegasus', 'pegasus', 'PEGASU', 2);
             break;
 
           case 'fpandl':
@@ -752,19 +757,19 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
     $actingProfile->field_kyrandia_willow = 0;
     switch ($flag) {
       case 'INVISF':
-        $actingProfile->field_kyrandia_invisf = $duration;
+        $actingProfile->field_kyrandia_invisf = 2 * $duration;
         break;
 
-      case 'PEGASU}':
-        $actingProfile->field_kyrandia_pegasu = $duration;
+      case 'PEGASU':
+        $actingProfile->field_kyrandia_pegasu = 2 * $duration;
         break;
 
       case 'PDRAGN':
-        $actingProfile->field_kyrandia_pdragn = $duration;
+        $actingProfile->field_kyrandia_pdragn = 2 * $duration;
         break;
 
       case 'WILLOW':
-        $actingProfile->field_kyrandia_willow = $duration;
+        $actingProfile->field_kyrandia_willow = 2 * $duration;
         break;
     }
     $actingProfile->save();

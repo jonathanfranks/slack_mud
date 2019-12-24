@@ -34,6 +34,17 @@ class Fly extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
         $this->msgutl2($actingPlayer, 'UNOFLY', 'ATFLY1', $results);
       }
     }
+    elseif ($profile->field_kyrandia_pegasu->value) {
+      if ($loc->getTitle() == 'Location 22') {
+        $this->pegasf($actingPlayer, 189, $results);
+      }
+      elseif ($loc->getTitle() == 'Location 189') {
+        $this->pegasf($actingPlayer, 22, $results);
+      }
+      else {
+        $this->msgutl2($actingPlayer, 'UNOFLY', 'ATFLY1', $results);
+      }
+    }
     else {
       $this->msgutl2($actingPlayer, 'HUNFLY', 'ATFLY1', $results);
     }
@@ -41,6 +52,8 @@ class Fly extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
 
   /**
    * Willowisp flying routine.
+   *
+   * This routine is ported by name from original source code.
    *
    * @param \Drupal\node\NodeInterface $actingPlayer
    *   The player.
@@ -53,6 +66,24 @@ class Fly extends KyrandiaCommandPluginBase implements MudCommandPluginInterface
     $this->prfmsg($actingPlayer, 'WILFLY', $results);
     $newLocationTitle = 'Location ' . $targetDestination;
     $this->gameHandler->movePlayer($actingPlayer, $newLocationTitle, $results, "gracefully flown across the chasm", "gracefully flown from across the chasm");
+  }
+
+  /**
+   * Willowisp flying routine.
+   *
+   * This routine is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $actingPlayer
+   *   The player.
+   * @param string $targetDestination
+   *   The new location name.
+   * @param array $results
+   *   The results array.
+   */
+  protected function pegasf(NodeInterface $actingPlayer, $targetDestination, array &$results) {
+    $this->prfmsg($actingPlayer, 'PEGFLY', $results);
+    $newLocationTitle = 'Location ' . $targetDestination;
+    $this->gameHandler->movePlayer($actingPlayer, $newLocationTitle, $results, "majestically flown across the sea", "majestically flown from across the sea");
   }
 
 }
