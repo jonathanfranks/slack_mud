@@ -64,6 +64,29 @@ class SlackActionEndpointController extends ControllerBase {
       );
 
     $package = json_decode($rawContent, TRUE);
+
+    $signingSecret = 'c5150acb88aea3f60e09c0afc7e4a727';
+    if (empty($_SERVER['HTTP_X_SLACK_SIGNATURE']) || empty($_SERVER['HTTP_X_SLACK_REQUEST_TIMESTAMP'])) {
+      header('HTTP/1.1 400 Bad Request', TRUE, 400);
+      exit;
+    }
+    else {
+      $version = explode("=", $_SERVER['HTTP_X_SLACK_SIGNATURE']);
+      $timestamp = $_SERVER['HTTP_X_SLACK_REQUEST_TIMESTAMP'];
+      if (abs(time() - $timestamp) > 60 * 5) {
+        // Repeat request? More than 5 minutes old. Ignore it.
+        header('HTTP/1.1 400 Bad Request', TRUE, 400);
+        exit;
+      }
+      $sig_basestring = "{$version[0]}:$timestamp:$rawContent";
+      $hash_signature = hash_hmac('sha256', $sig_basestring, $signingSecret);
+      if (!hash_equals($_SERVER['HTTP_X_SLACK_SIGNATURE'], "v0=$hash_signature")) {
+        header('HTTP/1.1 400 Bad Request', TRUE, 400);
+        exit;
+      }
+    }
+
+
     /** @var \Drupal\slack_incoming\Event\SlackEvent $slackEvent */
     $slackEvent = new SlackEvent($package);
     $slackEvent = $this->dispatcher->dispatch(SlackEvent::SLACK_EVENT, $slackEvent);

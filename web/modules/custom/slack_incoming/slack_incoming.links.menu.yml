@@ -1,0 +1,6 @@
+slack_incoming.slack_application_config_form:
+  title: 'Slack'
+  route_name: slack_incoming.slack_application_config_form
+  description: 'Configure Slack access tokens.'
+  parent: system.admin_config_services
+  weight: 99

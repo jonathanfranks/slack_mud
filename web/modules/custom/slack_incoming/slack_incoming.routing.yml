@@ -6,3 +6,13 @@ slack_incoming.event_endpoint:
   methods: [POST]
   requirements:
     _access: 'TRUE'
+
+slack_incoming.slack_application_config_form:
+  path: '/admin/config/services/slack_incoming'
+  defaults:
+    _form: '\Drupal\slack_incoming\Form\SlackApplicationConfigForm'
+    _title: 'SlackApplicationConfigForm'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
