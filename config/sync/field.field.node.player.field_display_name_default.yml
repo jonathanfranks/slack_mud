@@ -1,0 +1,19 @@
+uuid: 28eff0aa-ee7b-4d2e-9c44-e14524936fbd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_display_name_default
+    - node.type.player
+id: node.player.field_display_name_default
+field_name: field_display_name_default
+entity_type: node
+bundle: player
+label: 'Display name default'
+description: 'Default display name. This is the display name the player initially enters, and it retained here for when shape changing or some other effect changes the player''s active name.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

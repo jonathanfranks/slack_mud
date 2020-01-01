@@ -1,0 +1,19 @@
+uuid: 51de6eff-fe9e-4b12-9198-73245b413057
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_target_name
+    - node.type.player
+id: node.player.field_target_name
+field_name: field_target_name
+entity_type: node
+bundle: player
+label: 'Target name'
+description: 'The word that identifies this player as a target. Usually this is the same as the display name, but effects like shape changing can change this. It defaults to the display name.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
