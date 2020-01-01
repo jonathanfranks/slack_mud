@@ -45,6 +45,32 @@ class KyrandiaContext implements Context, SnippetAcceptingContext {
   }
 
   /**
+   * @Then :location should have :item
+   */
+  public function assertLocationHaveItem($location, $item) {
+    $locationNode = $this->gameHandler->getLocationByName($location);
+    if (!$locationNode) {
+      throw new \Exception(sprintf('Location %s does not exist.', $location));
+    }
+    if (!$this->gameHandler->locationHasItem($locationNode, $item)) {
+      throw new \Exception(sprintf('%s does not have the item %s.', $location, $item));
+    }
+  }
+
+  /**
+   * @Then :location should not have :item
+   */
+  public function assertLocationNotHaveItem($location, $item) {
+    $locationNode = $this->gameHandler->getLocationByName($location);
+    if (!$locationNode) {
+      throw new \Exception(sprintf('Location %s does not exist.', $location));
+    }
+    if ($this->gameHandler->locationHasItem($locationNode, $item)) {
+      throw new \Exception(sprintf('%s has the item %s.', $location, $item));
+    }
+  }
+
+  /**
    * @Then :player should have :gold gold
    */
   public function shouldHaveGold($player, $gold) {

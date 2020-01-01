@@ -219,4 +219,15 @@ interface KyrandiaGameHandlerServiceInterface extends MudGameHandlerServiceInter
    */
   public function hisHer(NodeInterface $profile);
 
+  /**
+   * Returns him or her from given player.
+   *
+   * @param \Drupal\node\NodeInterface $profile
+   *   The Kyrandia player profile.
+   *
+   * @return string
+   *   His or Her depending on the profile female field.
+   */
+  public function himHer(NodeInterface $profile);
+
 }

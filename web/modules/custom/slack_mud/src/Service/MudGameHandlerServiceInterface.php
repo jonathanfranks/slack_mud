@@ -26,6 +26,17 @@ interface MudGameHandlerServiceInterface {
   public function otherPlayersInLocation(NodeInterface $location, NodeInterface $actingPlayer = NULL);
 
   /**
+   * Returns all player nodes who are active in the specified game..
+   *
+   * @param \Drupal\node\NodeInterface $game
+   *   The game..
+   *
+   * @return array|\Drupal\Core\Entity\EntityInterface[]|\Drupal\node\Entity\Node[]
+   *   An array of players who are also in the same location.
+   */
+  public function allPlayersInGame(NodeInterface $game);
+
+  /**
    * Checks if the player has the specified item.
    *
    * @param \Drupal\node\NodeInterface $player
@@ -80,9 +91,22 @@ interface MudGameHandlerServiceInterface {
    *   The name of the location to load.
    *
    * @return \Drupal\node\NodeInterface
-   *   The player node.
+   *   The location node.
    */
   public function getLocationByName($locationName);
+
+  /**
+   * Returns a player node from the player display name.
+   *
+   * That player must be active in the game.
+   *
+   * @param string $playerName
+   *   The name of the player to load.
+   *
+   * @return \Drupal\node\NodeInterface
+   *   The player node.
+   */
+  public function getPlayerByName($playerName);
 
   /**
    * Puts the named item in the specified location.
@@ -115,6 +139,19 @@ interface MudGameHandlerServiceInterface {
    *   The targeted player.
    */
   public function locationHasPlayer($target, NodeInterface $location, $excludeActingPlayer, NodeInterface $actingPlayer = NULL);
+
+  /**
+   * Does the specified target player exist in the specified game?
+   *
+   * @param string $target
+   *   Partial player display name to look for.
+   * @param \Drupal\node\NodeInterface $game
+   *   Game node.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\node\Entity\Node|mixed|null
+   *   The targeted player.
+   */
+  public function gameHasPlayer($target, NodeInterface $game);
 
   /**
    * Moves a player to the specified location.

@@ -1338,3 +1338,827 @@ Feature: Spells
     But Joe should see "...You cast the spell but it doesn't seem to have any effects.\n"
     And Flo should see "***\nJoe casts a spell at you but it doesn't seem to have any effects.\n"
     And Moe should see "***\nJoe casts a spell at Flo but it doesn't seem to have any effects.\n"
+
+  @feeluck
+  Scenario: Casting feeluck
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 66    | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | feeluck                          | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+    And the Kyrandia random number will generate 66
+
+    When Joe performs "learn feeluck"
+    And Joe performs "cast feeluck"
+
+    Then Joe should see
+    """
+    ...Upon completing the required incantation, you are suddenly are blinded by
+    a brilliant flash of light.
+    ***
+    When the light dies out you notice...
+
+    """
+    And Flo should see "***\nJoe completes a spell incantation and is suddenly enclosed in a blinding flash\nof light.\n"
+    And Flo should see "***\nJoe has just vanished in a blue light!\n"
+    And Joe should be in "Location 66"
+    And Moe should see "***\nJoe has just appeared in a blue!\n"
+
+  @goto
+  Scenario: Casting goto without a target
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 66    | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | goto                             | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn goto"
+    And Joe performs "cast goto"
+
+    Then Joe should see "...WHAT?!\n"
+    And Flo should see "***\nJoe is failing at spellcasting.\n"
+
+  @goto
+  Scenario: Casting goto with an invalid target
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 66    | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | goto                             | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn goto"
+    And Joe performs "cast goto 300"
+
+    Then Joe should see "...You cast the spell successfully but the magical forces of the Goddess\nTashanna do not permit you to travel to that place!\n"
+    And Flo should see "***\nJoe casts a spell and looks as though he might be taking a trip but\nthe Goddess Tashanna does not permit it.\n"
+    And Joe should be in "Location 300"
+
+  @goto
+  Scenario: Casting goto with a valid target
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 66    | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | goto                             | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn goto"
+    And Joe performs "cast goto 66"
+
+    Then Joe should see "...You cast the spell successfully and a sudden dust cloud sucks you up!\n***\nYou feel as though you are traveling through time and space when suddenly\nthe cloud disappears...\n"
+    And Flo should see "***\nJoe casts a spell successfully and is suddenly engulfed in a dust cloud.\n"
+    And Flo should see "***\nJoe has just vanished in a red cloud!\n"
+    And Joe should be in "Location 66"
+    And Moe should see "***\nJoe has just appeared in a red cloud!\n"
+
+  @hocus
+  Scenario: Casting hocus without bloodstone
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 300   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | hocus                            | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn hocus"
+    And Joe performs "cast hocus flo"
+
+    Then Joe should see
+    """
+    ...You concentrate on the spell and start to cast it.  The power of the spell
+    builds but suddenly fizzles out as though something were still missing.
+
+    """
+    And Flo should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+    And Moe should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+
+  @hocus
+  Scenario: Casting hocus with bloodstone
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | bloodstone                   | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 300   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | hocus                            | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn hocus"
+    And Joe performs "cast hocus flo"
+
+    Then Joe should see
+    """
+    ...Suddenly your bloodstone starts to vibrate wildly.
+    ***
+    The bloodstone then mysteriously vanishes.
+    ***
+    Flo starts to shake violently in a fit of delusion.
+    ***
+    Flo's fit subsides and she looks quite defenseless.
+
+    """
+    And Flo should see
+    """
+    ***
+    Suddenly the bloodstone Joe is holding starts to vibrate wildly.
+    ***
+    The bloodstone then mysteriously vanishes.
+    ***
+    You suddenly start to feel very ill as though something has invaded your body.
+    ***
+    The feeling suddenly vanishes, leaving you feel completely defenseless.
+
+    """
+    And Moe should see
+    """
+    ***
+    Flo suddenly looks like she is having problems, controlling things.
+    ***
+    In the midst of the confusion, Flo suddenly looks very ill.
+    ***
+    Just as mysteriously as things started, things are now quite, but Flo looks
+    completely defenseless.
+
+    """
+    And Joe should not have bloodstone in inventory
+
+  @howru
+  Scenario: Casting howru
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | bloodstone                   | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 300   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | howru                            | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn howru"
+    And Joe performs "cast howru flo"
+    Then Joe should see "...As the spell is cast a silver ball appears by your target.\n***\nThe ball disappears and the number 100 appears in your mind.\n"
+    And Flo should see "***\nAs Joe casts a spell, a small silver ball appears by your head and then\ndisappears.\n"
+    And Moe should see "***\nAs Joe casts a spell, a small silver ball appears by Flo's head\nand then disappears.\n"
+
+  @ibebad
+  Scenario: Casting ibebad without sapphire
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | pearl                        | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 300   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | ibebad                           | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn ibebad"
+    And Joe performs "cast ibebad"
+
+    Then Joe should see
+    """
+    ...You concentrate on the spell and start to cast it.  The power of the spell
+    builds but suddenly fizzles out as though something were still missing.
+
+    """
+    And Flo should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+    And Moe should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+
+  @ibebad
+  Scenario: Casting ibebad with sapphire
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 300   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 300   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 300   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | ibebad                           | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    When Joe performs "learn ibebad"
+    And Joe performs "cast ibebad"
+
+    Then Joe should see
+    """
+    ...Upon completing the incantation of this spell, your sapphire starts to
+    glow in a dark shade of blue and starts to burn your hand with intolerable
+    pain.
+    ***
+    The gem suddenly vanishes and as you look at your hand you notice that it looks
+    perfectly ok.
+    ***
+    You have the feeling of being completely impenetrable.
+
+    """
+    And Flo should see
+    """
+    ***
+    One of Joe's possessions starts to glow in a dark shade of blue.
+    ***
+    Joe seems to be experiencing some sort of discomfort with one of his hands.
+    ***
+    Joe is looking like nothing can every hurt him again.
+
+    """
+    And Moe should see
+    """
+    ***
+    One of Joe's possessions starts to glow in a dark shade of blue.
+    ***
+    Joe seems to be experiencing some sort of discomfort with one of his hands.
+    ***
+    Joe is looking like nothing can every hurt him again.
+
+    """
+    And Joe should not have sapphire in inventory
+
+  @mower
+  Scenario: Casting mower
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | mower                            | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 25                   | cantcmeha                        | 0                               |
+
+    And Joe performs "drop sapphire"
+    And Flo performs "drop rose"
+    And Flo performs "drop garnet"
+    And Flo performs "drop diamond"
+
+    When Joe performs "learn mower"
+    And Joe performs "cast mower"
+    Then Joe should see "...You cast the spell!\n"
+    And Joe should see "***\nThe sapphire in the void vanishes!\n"
+    And Joe should see "***\nThe rose in the void vanishes!\n"
+    And Joe should see "***\nThe garnet in the void vanishes!\n"
+    And Joe should see "***\nThe diamond in the void vanishes!\n"
+    And Joe should see "***\nThe dragonstaff in the void vanishes!\n"
+    And Joe should see "***\nThe pearl in the void vanishes!\n"
+
+    And Flo should see "***\nThe sapphire in the void vanishes!\n"
+    And Flo should see "***\nThe rose in the void vanishes!\n"
+    And Flo should see "***\nThe garnet in the void vanishes!\n"
+    And Flo should see "***\nThe diamond in the void vanishes!\n"
+    And Flo should see "***\nThe dragonstaff in the void vanishes!\n"
+    And Flo should see "***\nThe pearl in the void vanishes!\n"
+
+  @takethat
+  Scenario: Casting takethat on protected target
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | takethat                         | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+    And Flo should have 50 spell points
+
+    When Joe performs "learn takethat"
+    And Joe performs "cast takethat flo"
+    Then Joe should see "...You cast the spell but a strange force prevents it from working.\n"
+    And Flo should see "***\nJoe casts a spell on you but a strange force prevents it from working.\n"
+    And Moe should see "***\nJoe casts a spell on Flo but a strange force prevents it from working.\n"
+    And Flo should have 50 spell points
+
+  @takethat
+  Scenario: Casting takethat on valid target
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | takethat                         |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        |
+    And Flo should have 50 spell points
+
+    When Joe performs "learn takethat"
+    And Joe performs "cast takethat flo"
+    Then Joe should see "...You cast the spell successfully, causing your target to lose some power.\n"
+    And Flo should see "***\nJoe casts a spell on you, draining you of some of your magical power.\n"
+    And Moe should see "***\nJoe casts a spell on Flo, draining some magical power.\n"
+    And Flo should have 42 spell points
+
+  @saywhat
+  Scenario: Casting saywhat on protected target
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | saywhat                          | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+    And Flo should have 50 spell points
+    And Flo performs "learn zapher"
+    And Flo performs "learn weewillo"
+    Then Flo should have zapher memorized
+    And flo should have weewillo memorized
+
+    When Joe performs "learn saywhat"
+    And Joe performs "cast saywhat flo"
+    Then Joe should see "...You cast the spell but it doesn't seem to have any effects.\n"
+    And Flo should see "***\nJoe casts a spell at you but it doesn't seem to have any effects.\n"
+    And Moe should see "***\nJoe casts a spell at Flo but it doesn't seem to have any effects.\n"
+    And Flo should have 50 spell points
+    And Flo should have zapher memorized
+    And Flo should have weewillo memorized
+
+  @saywhat
+  Scenario: Casting saywhat on valid target
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | saywhat                          |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        |
+    And Flo should have 50 spell points
+    And Flo performs "learn zapher"
+    And Flo performs "learn weewillo"
+    Then Flo should have zapher memorized
+    And flo should have weewillo memorized
+
+    When Joe performs "learn saywhat"
+    And Joe performs "cast saywhat flo"
+    Then Joe should see "...You cast the spell and your opponent forgets a spell.\n"
+    And Flo should see "***\nJoe casts a spell at you and suddenly you have forgotten something.\n"
+    And Moe should see "***\nJoe casts a spell at Flo and there are no visual effects.\n"
+    And Flo should have 50 spell points
+    And Flo should have zapher memorized
+    But Flo should not have weewillo memorized
+
+  @nosey
+  Scenario: Casting nosey on valid target
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   | rose                         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | nosey                            |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        |
+    And Flo should have 50 spell points
+    And Flo performs "learn zapher"
+    And Flo performs "learn smokey"
+    And Flo performs "learn weewillo"
+    Then Flo should have zapher memorized
+    And flo should have weewillo memorized
+
+    When Joe performs "learn nosey"
+    And Joe performs "cast nosey flo"
+    And Joe should see "...As you cast the spell you feel a strange sensation and realize that\nFlo has zapher, smokey, and weewillo memorized.\n"
+    And Flo should see "***\nJoe has just entered your mind and been able to read all your spells.\n"
+    And Moe should see "***\nJoe has just a spell that is playing mind games with Flo's head.\n"
+
+    When Joe performs "learn nosey"
+    And Joe performs "cast nosey moe"
+    And Joe should see "...As you cast the spell you feel a strange sensation and realize that\nMoe has no spells memorized.\n"
+    And Moe should see "***\nJoe has just entered your mind and been able to read all your spells.\n"
+    And Flo should see "***\nJoe has just a spell that is playing mind games with Moe's head.\n"
+
+  @peepint
+  Scenario: Casting peepint
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 212   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 66    | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 300   | rose                         | 1            | Moe                | Moe                   |
+      | Bo    | kyrandia   | Location 212   | rose                         | 1            | Bo                 | Bo                    |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | peepint                          | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+
+    When Joe performs "learn peepint"
+    And Joe performs "cast peepint"
+    Then Joe should see "...WHAT?!\n"
+
+    # Flo is protected.
+    When Joe performs "learn peepint"
+    And Joe performs "cast peepint flo"
+    Then Joe should see "...Mysteriously, it fails...\n"
+
+    # Theo isn't real.
+    When Joe performs "learn peepint"
+    And Joe performs "cast peepint theo"
+    Then Joe should see "...Mysteriously, it fails...\n"
+
+    When Joe performs "learn peepint"
+    And Joe performs "cast peepint moe"
+    Then Joe should see "...A vision enters your mind...\n\n"
+    And Joe should see "...You're in the royal kitchen. This rather large room was once used to prepare the great feasts and banquets for the Lady Kyra and her guests. Now, however, it lies barren and deserted, as if some horrible evil had vanquished the good magic that once thrived here. A strong odor of sulfur floats from the northern wall. The Hall of the Throne lies to the west."
+    And Joe should see "...The vision ends suddenly...\n"
+    And Moe should see "***\nYou suddenly get the feeling that you are being watched!\n"
+    And Bo should see "***\nJoe is concentrating in a mystical trance!\n"
+
+  @pickpoc
+  Scenario: Casting pickpoc
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Location 212   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Location 212   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Location 212   | bloodstone,moonstone         | 1            | Moe                | Moe                   |
+      | Bo    | kyrandia   | Location 212   |                              | 1            | Bo                 | Bo                    |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | pickpoc                          | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | cantcmeha,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+
+    When Joe performs "learn pickpoc"
+    And Joe performs "cast pickpoc flo"
+    Then Joe should see "...You cast the spell but some magical resistance prevents it from succeeding.\n"
+    And Flo should see "***\nJoe casts a spell and you feel something tugging at you without success.\n"
+    And Moe should see "***\nJoe casts a spell at Flo but some magical resistance prevents it from working.\n"
+
+    When Joe performs "learn pickpoc"
+    And Joe performs "cast pickpoc bo"
+    Then Joe should see "...You cast the spell but some magical resistance prevents it from succeeding.\n"
+    And Bo should see "***\nJoe casts a spell and you feel something tugging at you without success.\n"
+    And Moe should see "***\nJoe casts a spell at Bo but some magical resistance prevents it from working.\n"
+
+    When Joe performs "learn pickpoc"
+    And Joe performs "cast pickpoc moe"
+    Then Joe should see
+    """
+    ...The powers of the spell are released in lightning force.
+    ***
+    The bloodstone that Moe is holding just vanished!
+    ***
+    The bloodstone just magically appeared in your hands.
+
+    """
+    And Moe should see
+    """
+    ***
+    Joe just cast a spell.
+    ***
+    The bloodstone that you are holding just vanished into thin air.
+    ***
+    The bloodstone you just lost, magically appeared in Joe's hand.
+
+    """
+    And Flo should see
+    """
+    ***
+    Joe just cast a spell.
+    ***
+    The bloodstone that Moe is holding just vanished into thin air.
+    ***
+    The bloodstone just reappeared, magically in Joe's hand.
+
+    """
+    And Joe should have bloodstone in inventory
+    And Moe should not have bloodstone in inventory
+
+  @tiltowait
+  Scenario: Casting tiltowait without rose
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Bo    | kyrandia   | Janet's Void   |                              | 1            | Bo                 | Bo                    |
+      | Moe   | kyrandia   | Location 212   | bloodstone,moonstone         | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | tiltowait                        | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | tiltowait,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+
+    And "Janet's Void" should have dragonstaff
+    And "Janet's Void" should have pearl
+
+    When Joe performs "learn tiltowait"
+    And Joe performs "cast tiltowait"
+    Then Joe should see "...You concentrate on the spell and start to cast it.  The power of the spell\nbuilds but suddenly fizzles out as though something were still missing.\n"
+    And Flo should see "***\nJoe is concentrating on casting a spell that suddenly fizzles out as though\nsomething were still missing.\n"
+
+    When Flo performs "learn tiltowait"
+    And Flo performs "cast tiltowait"
+    Then Flo should see
+    """
+    ...You start to concentrate upon the words required to cast this powerful
+    spell.  Upon completing its words a silence falls upon everybody.
+    ***
+    A vision appears within your mind of the Goddess Tashanna, standing almighty
+    in her domain, snaring at you for what you have just unleased.
+    ***
+    You notice that the rose you were holding has just vanished.
+
+    """
+    And Flo should not have rose in inventory
+    And Joe should see "***\nFlo is in deep concentration while attempting to cast a spell.\n"
+    And Joe should see "***\nSuddenly, the ground begins to shake violently and a loud crackling noise is\nheard in the distance.\n"
+    And Flo should see "***\nSuddenly, the ground begins to shake violently and a loud crackling noise is\nheard in the distance.\n"
+    And Moe should see "***\nSuddenly, the ground begins to shake violently and a loud crackling noise is\nheard in the distance.\n"
+    And Bo should see "***\nSuddenly, the ground begins to shake violently and a loud crackling noise is\nheard in the distance.\n"
+    And Flo should see "***\nA gaping hole opens in the ground swallowing up any objects that may have been\nthere!\n"
+    And Joe should see "***\nA gaping hole opens in the ground swallowing up any objects that may have been\nthere!\n"
+
+    Then Bo should see "***\nYou are mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Bo should be in "Janet's Void"
+    And Joe should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+    And Flo should see "***\nBo is mystically protected by the mercy of the Goddess Tashanna!\n"
+
+    And Joe should see "***\nThe intensity of the earthquake bangs you around for what seems like an\neternity causing you 50 points of damage.\n"
+    And Joe should have 50 hit points
+    And Flo should see "***\nThe intensity of the earthquake bangs you around for what seems like an\neternity causing you 50 points of damage.\n"
+    And Flo should have 50 hit points
+
+    And Joe should see "***\nThe intensity of the earthquake bangs Flo around for what seems to be an\neternity causing her massive damage.\n"
+    And Flo should see "***\nThe intensity of the earthquake bangs Joe around for what seems to be an\neternity causing him massive damage.\n"
+
+    Then "Janet's Void" should not have dragonstaff
+    And "Janet's Void" should not have pearl
+
+  @whoub
+  Scenario: Casting whoub
+    Given location content:
+      | title        | body                    | field_visible_items | field_object_location |
+      | Janet's Void | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Janet's Void   |                              | 1            | Moe                | Moe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | whoub                            | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | tiltowait,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+
+    When Flo performs "learn weewillo"
+    And Flo performs "cast weewillo"
+
+    And Joe performs "learn whoub"
+    And Joe performs "cast whoub willowisp"
+    Then Joe should see "...A bright light surrounds the target for a second and a little voice\nwhispers to you that your friend is really Flo.\n"
+    And Flo should see "***\nJoe casts a spell which surrounds you in bright lights revealing your true\nidentity.\n"
+    And Moe should see "***\nJoe casts a spell which surrounds some willowisp in a bright light for a brief moment.\n"
+
+  @zelastone
+  Scenario: Casting zelastone
+    Given location content:
+      | title          | body                    | field_visible_items | field_object_location |
+      | Janet's Void   | You're in Janet's Void. | dragonstaff,pearl   | in the void           |
+      | Somewhere else | You're somewhere else.  | amethyst            | laying around         |
+    Given player content:
+      | title | field_game | field_location | field_inventory              | field_active | field_display_name | field_slack_user_name |
+      | Joe   | kyrandia   | Janet's Void   | sapphire                     | 1            | Joe                | Joe                   |
+      | Flo   | kyrandia   | Janet's Void   | rose,garnet,diamond,wand,key | 1            | Flo                | Flo                   |
+      | Moe   | kyrandia   | Somewhere else |                              | 1            | Moe                | Moe                   |
+      | Poe   | kyrandia   | Somewhere else |                              | 1            | Poe                | Poe                   |
+
+    And the "kyrandia_profile" "kyrandia_profile_Joe" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
+    And the "kyrandia_profile" "kyrandia_profile_Moe" content is deleted
+    And kyrandia_profile content:
+      | title                | field_player | field_kyrandia_is_female | field_kyrandia_level | field_kyrandia_spellbook         | field_kyrandia_protection_other |
+      | kyrandia_profile_Joe | Joe          | 0                        | 25                   | zelastone                        | 0                               |
+      | kyrandia_profile_Flo | Flo          | 1                        | 25                   | tiltowait,zapher,weewillo,smokey | 8                               |
+      | kyrandia_profile_Moe | Moe          | 0                        | 1                    | cantcmeha                        | 0                               |
+
+    And the Kyrandia random number will generate 30
+
+    When Joe performs "learn zelastone"
+    And Joe performs "cast zelastone"
+    Then Joe should see "...Mysteriously, it fails...\n"
+
+    When Joe performs "learn zelastone"
+    And Joe performs "cast zelastone bo"
+    Then Joe should see
+    """
+    ...You put all your concentration into cast this highly deadly spell.
+    ***
+    Suddenly from out of thin air appears a deadly Aerial Servant.
+    ***
+    Unable to complete its mission, it turns on you, viciously slashing at you
+    for what seems to be an eternity.
+    ***
+    It suddenly emits an ear piercing screech and vanishes, leaving you to your
+    misery.
+
+    """
+    And Flo should see
+    """
+    ***
+    Joe is putting all his concentration into casting a spell.
+    ***
+    Suddenly from out of thin air a Deadly Aerial Servant appears.
+    ***
+    The servant viciously starts to slash at Joe for what seems to be an eternity.
+    ***
+    The servant then suddenly emits an ear piercing screech and vanishes, leaving
+    Joe in a bloody mess.
+
+    """
+    And Joe should have 70 hit points
+
+    When Joe performs "learn zelastone"
+    And Joe performs "cast zelastone moe"
+    Then Joe should see
+    """
+    ...You put all your concentration into cast this highly deadly spell.
+    ***
+    Suddenly from out of thin air appears a Deadly Aerial Servant.  The servant
+    flies up to you bows and flies off to its target.
+    ***
+    A shiver runs down your spine as the servant vanishes from your sight.
+
+    """
+    And Flo should see
+    """
+    ***
+    Joe is putting all his concentration into casting a spell.
+    ***
+    Suddenly from out of thin air a Deadly Aerial Servant appears.  The servant
+    bows to the caster and then flies off to find its target.
+
+    """
+    And Moe should see
+    """
+    ***
+    Suddenly a large Aerial Servant appears from out of thin air.
+
+    """
+    And Moe should see
+    """
+    ***
+    The Aerial Servant shrieks at you in hatred and starts shredding you into
+    a bloody mess.
+    ***
+    The servant then vanishes as quickly as it came.
+
+    """
+    And Poe should see
+    """
+    ***
+    The Aerial Servant shrieks at Moe and starts tearing him into a bloody mess.
+    ***
+    The servant then vanishes as quickly as it came.
+
+    """
+
+    When Joe performs "learn zelastone"
+    And Joe performs "cast zelastone flo"
+    Then Flo should see
+    """
+    ***
+    Suddenly a large Aerial Servant appears from out of thin air.
+    ***
+    The servant shrieks at you but is instantly dispelled by a strange magical aura.
+
+    """
+    And Joe should see
+    """
+    ***
+    Suddenly a large Aerial Servant appears from out of thin air.
+    ***
+    The servant shrieks at Flo but is instantly dispelled by a strange magical aura.
+
+    """

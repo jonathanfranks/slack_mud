@@ -71,6 +71,9 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    *   The indefinite article service.
    * @param \Drupal\slack_mud\Service\MudGameHandlerServiceInterface $game_handler
    *   The game handler.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, EventDispatcherInterface $event_dispatcher, WordGrammarInterface $word_grammar, MudGameHandlerServiceInterface $game_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -95,6 +98,9 @@ abstract class MudCommandPluginBase extends PluginBase implements MudCommandPlug
    *
    * @return static
    *   Returns an instance of this plugin.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(

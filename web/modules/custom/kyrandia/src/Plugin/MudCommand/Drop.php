@@ -44,7 +44,9 @@ class Drop extends KyrandiaCommandPluginBase implements MudCommandPluginInterfac
         $pluginManager = \Drupal::service('plugin.manager.mud_command');
         /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
         $plugin = $pluginManager->createInstance('drop');
-        $result = $plugin->perform($commandText, $actingPlayer);
+        // Duplicate result array.
+        $result = [];
+        $plugin->perform($commandText, $actingPlayer, $result);
         // @TODO: Check max object locations for DROPIT1.
         if (array_key_exists(':item', $result[$actingPlayer->id()][0]->getArguments())) {
           // Player successfully dropped an item.

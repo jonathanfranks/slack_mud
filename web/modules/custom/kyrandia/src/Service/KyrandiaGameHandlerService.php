@@ -280,6 +280,20 @@ class KyrandiaGameHandlerService extends MudGameHandlerService implements Kyrand
   }
 
   /**
+   * Returns him or her from given player.
+   *
+   * @param \Drupal\node\NodeInterface $profile
+   *   The Kyrandia player profile.
+   *
+   * @return string
+   *   His or Her depending on the profile female field.
+   */
+  public function himHer(NodeInterface $profile) {
+    $hisHer = $profile->field_kyrandia_is_female->value ? 'her' : 'him';
+    return $hisHer;
+  }
+
+  /**
    * Returns he or she from given player.
    *
    * @param \Drupal\node\NodeInterface $profile

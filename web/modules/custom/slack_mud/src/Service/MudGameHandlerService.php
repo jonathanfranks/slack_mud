@@ -52,6 +52,22 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   /**
    * {@inheritdoc}
    */
+  public function allPlayersInGame(NodeInterface $game) {
+    $players = [];
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'player')
+      ->condition('field_game.target_id', $game->id())
+      ->condition('field_active', TRUE);
+    $playerNids = $query->execute();
+    if ($playerNids) {
+      $players = Node::loadMultiple($playerNids);
+    }
+    return $players;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function playerHasItem(NodeInterface $player, $targetItemName, $removeItem = FALSE) {
     foreach ($player->field_inventory as $delta => $item) {
       $itemName = strtolower(trim($item->entity->getTitle()));
@@ -111,6 +127,23 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getPlayerByName($playerName) {
+    $playerNode = NULL;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'player')
+      ->condition('field_active', TRUE)
+      ->condition('field_display_name', $playerName);
+    $ids = $query->execute();
+    if ($ids) {
+      $id = reset($ids);
+      $playerNode = Node::load($id);
+    }
+    return $playerNode;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function placeItemInLocation(NodeInterface $location, string $itemName) {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'item')
@@ -132,11 +165,9 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
    */
   public function locationHasPlayer($target, NodeInterface $location, $excludeActingPlayer, NodeInterface $actingPlayer = NULL) {
     if ($excludeActingPlayer) {
-      $slackUsername = $actingPlayer->field_slack_user_name->value;
       $actor = $actingPlayer;
     }
     else {
-      $slackUsername = NULL;
       $actor = NULL;
     }
     $otherPlayers = $this->otherPlayersInLocation($location, $actor);
@@ -149,6 +180,25 @@ class MudGameHandlerService implements MudGameHandlerServiceInterface {
       }
     }
     return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function gameHasPlayer($target, NodeInterface $game) {
+    $player = NULL;
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'player')
+      ->condition('field_game.target_id', $game->id())
+      ->condition('field_display_name', $target)
+      ->condition('field_active', TRUE);
+    $playerNids = $query->execute();
+    if ($playerNids) {
+      // Right now, we'll just get the first player who matches.
+      $playerNid = reset($playerNids);
+      $player = Node::load($playerNid);
+    }
+    return $player;
   }
 
   /**

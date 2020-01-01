@@ -2,14 +2,10 @@
 
 namespace Drupal\kyrandia\Plugin\MudCommand;
 
-use Drupal\kyrandia\Service\KyrandiaGameHandlerServiceInterface;
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\slack_mud\MudCommandPluginInterface;
 use Drupal\slack_mud\Plugin\MudCommand\MudCommandPluginBase;
-use Drupal\word_grammar\Service\WordGrammarInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Defines a base MudCommand plugin implementation.
@@ -80,9 +76,11 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
    *   Message going to the actor.
    * @param array $result
    *   The results array.
+   * @param array[] $arg
+   *   Message arguments.
    */
-  protected function prfmsg(NodeInterface $actingPlayer, $actorMessage, $arg, array &$result) {
-    $result[$actingPlayer->id()][] = sprintf($this->gameHandler->getMessage($actorMessage), $arg);
+  protected function prfmsg(NodeInterface $actingPlayer, $actorMessage, array &$result, ...$arg) {
+    $result[$actingPlayer->id()][] = vsprintf($this->gameHandler->getMessage($actorMessage), $arg);
   }
 
   /**
@@ -173,6 +171,44 @@ abstract class KyrandiaCommandPluginBase extends MudCommandPluginBase implements
     foreach ($loc->field_exits as $exit) {
       $nextLoc = $exit->entity;
       $this->gameHandler->sendMessageToOthersInLocation($actingPlayer, $nextLoc, $message, $results);
+    }
+  }
+
+  /**
+   * Send message to everyone in a specified location.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $location
+   *   The location to send the message to.
+   * @param string $message
+   *   The message to send.
+   * @param array $results
+   *   The result array.
+   */
+  protected function sndloc(NodeInterface $location, $message, array &$results) {
+    $otherPlayers = $this->gameHandler->otherPlayersInLocation($location);
+    foreach ($otherPlayers as $otherPlayer) {
+      $results[$otherPlayer->id()][] = $message;
+    }
+  }
+
+  /**
+   * Send message to everyone in the game.
+   *
+   * This method is ported by name from original source code.
+   *
+   * @param \Drupal\node\NodeInterface $game
+   *   The game.
+   * @param string $message
+   *   The message to send.
+   * @param array $results
+   *   The result array.
+   */
+  protected function sndgam(NodeInterface $game, $message, array &$results) {
+    $otherPlayers = $this->gameHandler->allPlayersInGame($game);
+    foreach ($otherPlayers as $otherPlayer) {
+      $results[$otherPlayer->id()][] = $message;
     }
   }
 
