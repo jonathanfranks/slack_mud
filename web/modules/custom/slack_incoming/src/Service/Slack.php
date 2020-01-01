@@ -11,13 +11,6 @@ use GuzzleHttp\ClientInterface;
  */
 class Slack implements SlackInterface {
 
-  // @TODO Replace this with config. This is only here to get functionality
-  // going.
-  protected $token = 'xoxb-464580013859-841154828981-RMT89pDPcAUUc7goV1k4l31X';
-
-  // @TODO Replace this with config.
-  protected $slackApiBaseUrl = 'https://slack.com/api/';
-
   /**
    * The config factory.
    *
@@ -71,8 +64,11 @@ class Slack implements SlackInterface {
    * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function slackApi($service, $method, array $arguments) {
-    $url = $this->slackApiBaseUrl . $service;
-    $arguments['token'] = $this->token;
+    $config = $this->config->get('slack_incoming.slackapplicationconfig');
+    $slackApiBaseUrl = $config->get('base_slack_api_url');
+    $url = $slackApiBaseUrl . $service;
+    $token = $config->get('bot_user_oauth_access_token');
+    $arguments['token'] = $token;
 
     $request = $this->httpClient->request($method, $url, [
       'form_params' => $arguments,
