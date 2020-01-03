@@ -5,7 +5,7 @@ services:
 
   slack_incoming.slack_service_subscriber:
     class: Drupal\slack_incoming\EventSubscriber\SlackEventSubscriber
-    arguments: []
+    arguments: ['@slack_incoming.slack_service']
     tags:
       - { name: event_subscriber }
 
