@@ -2,6 +2,7 @@
 
 namespace Drupal\slack_incoming\Controller;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\slack_incoming\Event\SlackEvent;
 use Drupal\slack_incoming\Service\SlackInterface;
@@ -15,12 +16,24 @@ use Symfony\Component\HttpFoundation\Request;
 class SlackActionEndpointController extends ControllerBase {
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $config;
+
+  /**
    * Slack service.
    *
    * @var \Drupal\slack_incoming\Service\SlackInterface
    */
   protected $slack;
 
+  /**
+   * Event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
   protected $dispatcher;
 
   /**
@@ -28,6 +41,7 @@ class SlackActionEndpointController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('config.factory'),
       $container->get('slack_incoming.slack_service'),
       $container->get('event_dispatcher')
     );
@@ -36,12 +50,15 @@ class SlackActionEndpointController extends ControllerBase {
   /**
    * SlackActionEndpointController constructor.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    * @param \Drupal\slack_incoming\Service\SlackInterface $slack
    *   Slack service.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher
    *   The event dispatcher.
    */
-  public function __construct(SlackInterface $slack, EventDispatcherInterface $dispatcher) {
+  public function __construct(ConfigFactoryInterface $configFactory, SlackInterface $slack, EventDispatcherInterface $dispatcher) {
+    $this->config = $configFactory;
     $this->slack = $slack;
     $this->dispatcher = $dispatcher;
   }
@@ -64,28 +81,6 @@ class SlackActionEndpointController extends ControllerBase {
       );
 
     $package = json_decode($rawContent, TRUE);
-
-    $signingSecret = 'c5150acb88aea3f60e09c0afc7e4a727';
-    if (empty($_SERVER['HTTP_X_SLACK_SIGNATURE']) || empty($_SERVER['HTTP_X_SLACK_REQUEST_TIMESTAMP'])) {
-      header('HTTP/1.1 400 Bad Request', TRUE, 400);
-      exit;
-    }
-    else {
-      $version = explode("=", $_SERVER['HTTP_X_SLACK_SIGNATURE']);
-      $timestamp = $_SERVER['HTTP_X_SLACK_REQUEST_TIMESTAMP'];
-      if (abs(time() - $timestamp) > 60 * 5) {
-        // Repeat request? More than 5 minutes old. Ignore it.
-        header('HTTP/1.1 400 Bad Request', TRUE, 400);
-        exit;
-      }
-      $sig_basestring = "{$version[0]}:$timestamp:$rawContent";
-      $hash_signature = hash_hmac('sha256', $sig_basestring, $signingSecret);
-      if (!hash_equals($_SERVER['HTTP_X_SLACK_SIGNATURE'], "v0=$hash_signature")) {
-        header('HTTP/1.1 400 Bad Request', TRUE, 400);
-        exit;
-      }
-    }
-
 
     /** @var \Drupal\slack_incoming\Event\SlackEvent $slackEvent */
     $slackEvent = new SlackEvent($package);

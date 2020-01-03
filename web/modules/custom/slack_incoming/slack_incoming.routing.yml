@@ -6,6 +6,7 @@ slack_incoming.event_endpoint:
   methods: [POST]
   requirements:
     _access: 'TRUE'
+    _slack_incoming_signing_secret: 'TRUE'
 
 slack_incoming.slack_application_config_form:
   path: '/admin/config/services/slack_incoming'

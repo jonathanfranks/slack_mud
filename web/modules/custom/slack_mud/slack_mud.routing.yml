@@ -5,7 +5,8 @@ slack_mud.games:
     _title: 'List current games'
   methods: [POST]
   requirements:
-    _access: 'TRUE'
+    _slack_incoming_signing_secret: 'TRUE'
+
 slack_mud.join_game:
   path: '/commands/join_game'
   defaults:
@@ -13,4 +14,5 @@ slack_mud.join_game:
     _title: 'Join a game'
   methods: [POST]
   requirements:
-    _access: 'TRUE'
+    _slack_incoming_signing_secret: 'TRUE'
+

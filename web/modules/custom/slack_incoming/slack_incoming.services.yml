@@ -8,3 +8,9 @@ services:
     arguments: []
     tags:
       - { name: event_subscriber }
+
+  slack_incoming.access_check.signing_secret:
+    class: \Drupal\slack_incoming\Authentication\Provider\SigningSecret
+    arguments: ['@config.factory']
+    tags:
+      - { name: access_check, applies_to: _slack_incoming_signing_secret, needs_incoming_request: TRUE }
