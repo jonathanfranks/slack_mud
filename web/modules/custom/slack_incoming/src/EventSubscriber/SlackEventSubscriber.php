@@ -4,7 +4,6 @@ namespace Drupal\slack_incoming\EventSubscriber;
 
 use Drupal\slack_incoming\Event\SlackEvent;
 use Drupal\slack_incoming\Service\SlackInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -46,6 +45,8 @@ class SlackEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\slack_incoming\Event\SlackEvent $event
    *   The Slack event.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function onSlackEvent(SlackEvent $event) {
     // The first event will be a url verification event where we have to send

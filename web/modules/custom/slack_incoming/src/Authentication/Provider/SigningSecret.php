@@ -35,15 +35,6 @@ class SigningSecret implements AccessCheckInterface {
    * {@inheritdoc}
    */
   public function applies(Route $route) {
-    //    // We need headers HTTP_X_SLACK_SIGNATURE and HTTP_X_SLACK_REQUEST_TIMESTAMP
-    //    // and a valid timestamp.
-    //    if (empty($_SERVER['HTTP_X_SLACK_SIGNATURE']) || empty($_SERVER['HTTP_X_SLACK_REQUEST_TIMESTAMP'])) {
-    //      return FALSE;
-    //    }
-    //    else {
-    //      return TRUE;
-    //    }
-
     $requirements = $route->getRequirements();
     $applicable_requirements = [
       '_slack_incoming_signing_secret',
@@ -55,6 +46,7 @@ class SigningSecret implements AccessCheckInterface {
       // safe side.
       return TRUE;
     }
+    return FALSE;
   }
 
   /**
@@ -77,9 +69,9 @@ class SigningSecret implements AccessCheckInterface {
       // Repeat request? More than 5 minutes old. Ignore it.
       return AccessResult::forbidden();
     }
-    $sig_basestring = "{$version[0]}:$timestamp:$rawContent";
-    $hash_signature = hash_hmac('sha256', $sig_basestring, $signingSecret);
-    if (!hash_equals($_SERVER['HTTP_X_SLACK_SIGNATURE'], "v0=$hash_signature")) {
+    $sigBaseString = "{$version[0]}:$timestamp:$rawContent";
+    $hashSignature = hash_hmac('sha256', $sigBaseString, $signingSecret);
+    if (!hash_equals($_SERVER['HTTP_X_SLACK_SIGNATURE'], "v0=$hashSignature")) {
       return AccessResult::forbidden();
     }
     return AccessResult::allowed();
