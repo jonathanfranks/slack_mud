@@ -12,7 +12,7 @@ use Drupal\slack_mud\MudCommandPluginInterface;
  *   id = "inventory",
  *   module = "slack_mud",
  *   synonyms = {
- *     "inv",
+ *     "inv"
  *   },
  * )
  *

@@ -10,9 +10,9 @@ use Drupal\slack_mud\MudCommandPluginInterface;
  *
  * @MudCommandPlugin(
  *   id = "move",
- *   module = "slack_mud"
+ *   module = "slack_mud",
  *   synonyms = {
- *     "up" = "up",
+ *     "up",
  *     "down",
  *     "north",
  *     "n",
@@ -29,7 +29,7 @@ use Drupal\slack_mud\MudCommandPluginInterface;
  *     "southwest",
  *     "sw",
  *     "northwest",
- *     "nw",
+ *     "nw"
  *   },
  * )
  *
