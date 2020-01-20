@@ -10,7 +10,10 @@ use Drupal\slack_mud\MudCommandPluginInterface;
  *
  * @MudCommandPlugin(
  *   id = "inventory",
- *   module = "slack_mud"
+ *   module = "slack_mud",
+ *   synonyms = {
+ *     "inv",
+ *   },
  * )
  *
  * @package Drupal\slack_mud\Plugin\MudCommand

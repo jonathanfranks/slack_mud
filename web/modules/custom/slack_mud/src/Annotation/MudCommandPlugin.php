@@ -31,4 +31,11 @@ class MudCommandPlugin extends Plugin {
    */
   public $name;
 
+  /**
+   * An array of synonyms that can also be used to call this command plugin.
+   *
+   * @var string[]
+   */
+  public $synonyms = [];
+
 }

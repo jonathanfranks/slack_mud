@@ -11,6 +11,26 @@ use Drupal\slack_mud\MudCommandPluginInterface;
  * @MudCommandPlugin(
  *   id = "move",
  *   module = "slack_mud"
+ *   synonyms = {
+ *     "up" = "up",
+ *     "down",
+ *     "north",
+ *     "n",
+ *     "south",
+ *     "s",
+ *     "east",
+ *     "e",
+ *     "west",
+ *     "w",
+ *     "northeast",
+ *     "ne",
+ *     "southeast",
+ *     "se",
+ *     "southwest",
+ *     "sw",
+ *     "northwest",
+ *     "nw",
+ *   },
  * )
  *
  * @package Drupal\slack_mud\Plugin\MudCommand

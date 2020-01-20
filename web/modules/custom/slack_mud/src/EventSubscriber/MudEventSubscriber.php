@@ -53,6 +53,9 @@ class MudEventSubscriber implements EventSubscriberInterface {
         $pluginManager = \Drupal::service('plugin.manager.mud_command');
         /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
         $plugin = NULL;
+
+        $x = $pluginManager->getDefinitions();
+
         // Game plugins take precedence, so check a game command first.
         if (!$plugin) {
           // There wasn't a plugin for this directly. Use the game plugin ID to
