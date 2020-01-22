@@ -75,6 +75,16 @@ class Slack implements SlackInterface {
     ]);
     $code = $request->getStatusCode();
     $response = $request->getBody()->getContents();
+
+    \Drupal::logger('slack_incoming')
+      ->debug('api call to %service:<br/>%call <br/><br/><br/> response: %content',
+        [
+          '%service' => $service,
+          '%call' => json_encode($arguments),
+          '%content' => $response,
+        ]
+      );
+
     return $response;
   }
 
