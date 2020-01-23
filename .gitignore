@@ -27,3 +27,5 @@
 /web/core/phpunit.xml
 /tests/behat.yml
 /tests/failures/
+
+.DS_Store
