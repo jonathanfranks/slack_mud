@@ -80,7 +80,17 @@ class SlackActionEndpointController extends ControllerBase {
         ]
       );
 
-    $package = json_decode($rawContent, TRUE);
+
+    $decodedContent = urldecode($rawContent);
+    parse_str($decodedContent, $incoming);
+    if (array_key_exists('payload', $incoming)) {
+      $package = json_decode($incoming['payload'], TRUE);
+    }
+    else {
+      //    $package = json_decode($rawContent, TRUE);
+      $package = json_decode(urldecode($rawContent), TRUE);
+    }
+
 
     /** @var \Drupal\slack_incoming\Event\SlackEvent $slackEvent */
     $slackEvent = new SlackEvent($package);

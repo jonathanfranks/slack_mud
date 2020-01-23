@@ -82,8 +82,18 @@ class SlackEventSubscriber implements EventSubscriberInterface {
   public function onSlackEvent(SlackEvent $event) {
     // Let's respond to a specific message command.
     $package = $event->getSlackPackage();
+
+    $messageText = NULL;
+    $actingPlayer = NULL;
+
     if (array_key_exists('type', $package)) {
       switch ($package['type']) {
+        case 'block_actions':
+          $messageText = $package["actions"][0]["value"];
+          $userSender = $package["user"]["id"];
+          $actingPlayer = $this->currentPlayer($userSender);
+          break;
+
         case 'event_callback':
           $eventCallback = $package['event'];
           if ($eventCallback['type'] == 'message') {
@@ -116,36 +126,45 @@ class SlackEventSubscriber implements EventSubscriberInterface {
               if (in_array($messageText, $this->directions)) {
                 $messageText = 'move ' . $messageText;
               }
-              else {
-                // Command handler.
-                $mudEvent = new CommandEvent($actingPlayer, $messageText);
-                $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
-                $response = $mudEvent->getResponse();
-                $playerNids = array_keys($response);
-                $playerNodes = Node::loadMultiple($playerNids);
-                $slackNames = [];
-                foreach ($playerNodes as $playerNode) {
-                  if ($slackName = $playerNode->field_slack_user_name->value) {
-                    $slackNames[$playerNode->id()] = $slackName;
-                  }
-                }
-                foreach ($response as $key => $items) {
-                  foreach ($items as $item) {
-                    $channel = $slackNames[$key];
-                    $this->slack->slackApi('chat.postMessage', 'POST', [
-                      'channel' => $channel,
-                      'text' => strip_tags($item),
-                      'as_user' => TRUE,
-                    ]);
-                  }
-                }
-              }
             }
-            $event->setResponse(new Response('', 200));
           }
           break;
       }
+
+      if ($messageText && $actingPlayer) {
+        // Command handler.
+        $mudEvent = new CommandEvent($actingPlayer, $messageText);
+        $mudEvent = $this->eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
+        $response = $mudEvent->getResponse();
+        $playerNids = array_keys($response);
+        $playerNodes = Node::loadMultiple($playerNids);
+        $slackNames = [];
+        foreach ($playerNodes as $playerNode) {
+          if ($slackName = $playerNode->field_slack_user_name->value) {
+            $slackNames[$playerNode->id()] = $slackName;
+          }
+        }
+        foreach ($response as $key => $items) {
+          foreach ($items as $item) {
+            $channel = $slackNames[$key];
+            // If the item is an array, this is an interactive message
+            // with blocks. If it's a string, then it's just text.
+            $this->slack->slackApi('chat.postMessage', 'POST', [
+              'channel' => $channel,
+              is_array($item) ? 'blocks' : 'text' => is_array($item) ? json_encode($item) : strip_tags($item),
+              'as_user' => TRUE,
+            ]);
+          }
+        }
+      }
+
+      $event->setResponse(new Response('', 200));
     }
+  }
+
+  function isJson($string) {
+    json_decode($string);
+    return (json_last_error() == JSON_ERROR_NONE);
   }
 
   /**
