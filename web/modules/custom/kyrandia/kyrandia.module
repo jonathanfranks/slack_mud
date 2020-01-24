@@ -182,3 +182,11 @@ function kyrandia_node_delete(EntityInterface $entity) {
     }
   }
 }
+
+/**
+ * Implements hook_cron().
+ */
+function kyrandia_cron() {
+  // @TODO Move this to a class with DI.
+  $game_handler = \Drupal::getContainer()->get('kyrandia.game_handler');
+}

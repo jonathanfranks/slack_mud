@@ -78,7 +78,6 @@ class SlackEventSubscriber implements EventSubscriberInterface {
                 'view' => $homeBlockContent,
               ]);
 
-
               break;
           }
           break;

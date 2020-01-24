@@ -91,7 +91,6 @@ class SlackActionEndpointController extends ControllerBase {
       $package = json_decode(urldecode($rawContent), TRUE);
     }
 
-
     /** @var \Drupal\slack_incoming\Event\SlackEvent $slackEvent */
     $slackEvent = new SlackEvent($package);
     $slackEvent = $this->dispatcher->dispatch(SlackEvent::SLACK_EVENT, $slackEvent);

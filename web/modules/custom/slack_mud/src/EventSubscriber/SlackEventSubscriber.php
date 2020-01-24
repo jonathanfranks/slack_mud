@@ -97,6 +97,10 @@ class SlackEventSubscriber implements EventSubscriberInterface {
         case 'event_callback':
           $eventCallback = $package['event'];
           if ($eventCallback['type'] == 'message') {
+            // Send a 200 right away so Slack doesn't try to send multiple messages.
+            $response = new Response('', 200);
+            $response->send();
+
             // Sender of the message isn't the bot user.
             // If we don't make this check it'll infinitely loop because when
             // the bot sends a DM, it triggers the event_callback.
@@ -157,14 +161,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
           }
         }
       }
-
-      $event->setResponse(new Response('', 200));
     }
-  }
-
-  function isJson($string) {
-    json_decode($string);
-    return (json_last_error() == JSON_ERROR_NONE);
   }
 
   /**
