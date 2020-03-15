@@ -69,7 +69,7 @@ class JoinGameFirstTime extends KyrandiaCommandPluginBase implements MudCommandP
 ]
 ';
 
-    // We'll return blcok text if we return an array. Since we wrote the JSON
+    // We'll return block text if we return an array. Since we wrote the JSON
     // as a string, we need to convert it.
     $results[$actingPlayer->id()][] = json_decode($message, TRUE);
   }
