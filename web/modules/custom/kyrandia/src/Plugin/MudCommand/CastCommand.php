@@ -869,6 +869,7 @@ class CastCommand extends KyrandiaCommandPluginBase implements MudCommandPluginI
               $this->gameHandler->damagePlayer($actingPlayer, $damage, $results);
             }
             break;
+
         }
       }
     }
