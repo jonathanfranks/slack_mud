@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+## Updates Drupal Core with Composer.
+##
+## Usage: fin update-core
+
+# Abort if anything fails
+set -e
+
+#-------------------------- Execution --------------------------------
+
+fin composer update drupal/core webflo/drupal-core-require-dev --with-dependencies
+
+#-------------------------- END: Execution --------------------------------
