@@ -54,15 +54,15 @@ Feature: Kyrandia commands not specific to locations
   Scenario: Look at held item
     Given player content:
       | title | field_game | field_location | field_inventory | field_active | field_display_name | field_slack_user_name |
-      | Joe   | kyrandia   | Location 0     | garnet,garnet   | 1            | Joe                | Joe                   |
+      | Joe   | kyrandia   | Location 0     | wand,wand   | 1            | Joe                | Joe                   |
       | Flo   | kyrandia   | Location 0     | ruby,diamond    | 1            | Flo                | Flo                   |
     And the "kyrandia_profile" "kyrandia_profile_Flo" content is deleted
     And kyrandia_profile content:
       | title                | field_player | field_kyrandia_is_female | field_kyrandia_level |
       | kyrandia_profile_Flo | Flo          | 1                        | 1                    |
-    When "Joe" performs "look garnet"
-    Then "Joe" should see "...Small and round, this dark red garnet is one of the more common gemstones of the land, yet nonetheless, has a certain charm of its own. Like all of the garnets which are normally found, there is a tiny black splotch in its center."
-    And "Flo" should see "***\nJoe is examining his garnet.\n"
+    When "Joe" performs "look wand"
+    Then "Joe" should see "...The wand is about two feet in length and about half an inch in diameter. It appears to be constructed from pure silver, although it is much lighter than you would expect. A silver tulip entwined within two hearts has been intricately carved across its length."
+    And "Flo" should see "***\nJoe is examining his wand.\n"
 
   @look @item
   Scenario: Look at item in location
