@@ -26,7 +26,14 @@ class SetGenderFemale extends KyrandiaCommandPluginBase implements MudCommandPlu
     $profile = $this->gameHandler->getKyrandiaProfile($actingPlayer);
     $profile->field_kyrandia_is_female = TRUE;
     $profile->save();
-    $results[$actingPlayer->id()][] = '';
+
+    $introResults = [];
+    /** @var \Drupal\slack_mud\MudCommandPluginManager $pluginManager */
+    $pluginManager = \Drupal::service('plugin.manager.mud_command');
+    /** @var \Drupal\slack_mud\MudCommandPluginInterface $plugin */
+    $plugin = $pluginManager->createInstance('kyrandia_joingamefirsttimeintrodisplay');
+    $plugin->perform('joingamefirsttimeintrodisplay', $actingPlayer, $introResults);
+    $results[$actingPlayer->id()] = $introResults[$actingPlayer->id()];
   }
 
 }
