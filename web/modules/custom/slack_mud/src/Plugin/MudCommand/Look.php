@@ -106,7 +106,9 @@ class Look extends MudCommandPluginBase implements MudCommandPluginInterface {
       }
     }
     // Didn't find anything.
-    $results[$actingPlayer->id()][] = t("There's nothing like that here.");
+    if (!array_key_exists($actingPlayer->id(), $results)) {
+      $results[$actingPlayer->id()][] = t("There's nothing like that here.");
+    }
   }
 
   /**

@@ -9,6 +9,7 @@ use Drupal\slack_incoming\Service\SlackInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class SlackActionEndpointController.
@@ -80,7 +81,16 @@ class SlackActionEndpointController extends ControllerBase {
         ]
       );
 
-    $package = json_decode($rawContent, TRUE);
+
+    $decodedContent = urldecode($rawContent);
+    parse_str($decodedContent, $incoming);
+    if (array_key_exists('payload', $incoming)) {
+      $package = json_decode($incoming['payload'], TRUE);
+    }
+    else {
+      //    $package = json_decode($rawContent, TRUE);
+      $package = json_decode(urldecode($rawContent), TRUE);
+    }
 
     /** @var \Drupal\slack_incoming\Event\SlackEvent $slackEvent */
     $slackEvent = new SlackEvent($package);
@@ -88,6 +98,7 @@ class SlackActionEndpointController extends ControllerBase {
     if ($response = $slackEvent->getResponse()) {
       return $response;
     }
+    return new Response('', 200);
   }
 
 }

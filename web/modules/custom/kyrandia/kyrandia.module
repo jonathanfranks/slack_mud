@@ -2,6 +2,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
+use Drupal\slack_mud\Event\CommandEvent;
 
 define('KYRANDIA_HP_PER_LEVEL', 4);
 define('KYRANDIA_SP_PER_LEVEL', 2);
@@ -13,15 +14,51 @@ function kyrandia_node_insert(EntityInterface $entity) {
   if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'player' && $entity->id()) {
     if ($entity->field_game->entity->getTitle() == 'Kyrandia') {
       // The user is playing Kyrandia, so set up a Kyrandia profile.
-      _kyrandia_create_new_profile($entity);
+      $playerProfile = _kyrandia_create_new_profile($entity);
+
+      $eventDispatcher = \Drupal::getContainer()->get('event_dispatcher');
+      $slack = \Drupal::getContainer()->get('slack_incoming.slack_service');
+
+      // This is the first time the user has joined the game. Display some
+      //stuff.
+      // Send that command as joingamefirsttime.
+      // @TODO Refactor this for re-use. It's just copied from the event.
+      $mudEvent = new CommandEvent($entity, 'joingamefirsttime');
+      $mudEvent = $eventDispatcher->dispatch(CommandEvent::COMMAND_EVENT, $mudEvent);
+      $response = $mudEvent->getResponse();
+      $playerNids = array_keys($response);
+      $playerNodes = Node::loadMultiple($playerNids);
+      $slackNames = [];
+      foreach ($playerNodes as $playerNode) {
+        if ($slackName = $playerNode->field_slack_user_name->value) {
+          $slackNames[$playerNode->id()] = $slackName;
+        }
+      }
+      foreach ($response as $key => $items) {
+        foreach ($items as $item) {
+          $channel = $slackNames[$key];
+          // If the item is an array, this is an interactive message
+          // with blocks. If it's a string, then it's just text.
+          $slack->slackApi('chat.postMessage', 'POST', [
+            'channel' => $channel,
+            is_array($item) ? 'blocks' : 'text' => is_array($item) ? json_encode($item) : strip_tags($item),
+            'as_user' => TRUE,
+          ]);
+        }
+      }
+
     }
   }
 }
 
 /**
+ * Creates the acting player's Kyrandia profile node.
+ *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *
- * @return array
+ * @return \Drupal\Core\Entity\EntityInterface
+ *   The new Kyrandia profile node.
+ *
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function _kyrandia_create_new_profile(EntityInterface $entity) {
@@ -77,7 +114,7 @@ function _kyrandia_create_new_profile(EntityInterface $entity) {
   ]);
 
   $kyrandia_profile->save();
-  return [$level_ids, $ids];
+  return $kyrandia_profile;
 }
 
 /**
@@ -144,4 +181,12 @@ function kyrandia_node_delete(EntityInterface $entity) {
       }
     }
   }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function kyrandia_cron() {
+  // @TODO Move this to a class with DI.
+  $game_handler = \Drupal::getContainer()->get('kyrandia.game_handler');
 }
