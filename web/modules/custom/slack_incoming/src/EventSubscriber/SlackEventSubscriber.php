@@ -52,6 +52,7 @@ class SlackEventSubscriber implements EventSubscriberInterface {
     // The first event will be a url verification event where we have to send
     // back the challenge token.
     $package = $event->getSlackPackage();
+    \Drupal::logger('slack_incoming')->debug(json_encode($package));
     if (array_key_exists('type', $package)) {
       switch ($package['type']) {
         case 'url_verification':
