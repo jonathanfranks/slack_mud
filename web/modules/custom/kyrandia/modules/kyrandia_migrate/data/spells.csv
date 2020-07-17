@@ -65,4 +65,4 @@ name,id,ref,bitdef,level,briefdesc
 "whopper",spl064,2,SBD064,12,fire protection III
 "whoub",spl065,3,SBD065,3,detect true idenity
 "zapher",spl066,1,SBD066,4,lightning bolt I
-"zelastone",spl067,1,SBD067,10 ariel servant
+"zelastone",spl067,1,SBD067,10, ariel servant
